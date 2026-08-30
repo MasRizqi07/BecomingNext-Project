@@ -1,314 +1,448 @@
-import { motion } from "motion/react";
-import { useBecomingStore } from "../store/useBecomingStore";
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
-import { Sparkles, AlertCircle, TrendingUp, Mail, Calendar, Target, ShieldCheck, Download, Share2, RefreshCcw } from "lucide-react";
+import {Calendar, Download, RefreshCcw, Share2, ShieldCheck, Target, Trash2} from 'lucide-react';
+import {motion} from 'motion/react';
+import {lazy, Suspense, useEffect, useState} from 'react';
 import ReactMarkdown from 'react-markdown';
-import { cn } from "../lib/utils";
+import {Link, useNavigate, useParams} from 'react-router-dom';
 
-export const Results = () => {
-  const { analysis, setStep, resetResponses } = useBecomingStore();
+import type {AnalysisResult} from '@shared/contracts';
+import {DEMO_ANALYSIS} from '@/data/demoAnalysis';
+import {formatServiceError} from '@/lib/errors';
+import {useBecomingStore} from '@/store/useBecomingStore';
 
-  if (!analysis) return null;
+const AppHeader = lazy(() =>
+  import('@/components/AppHeader').then((module) => ({default: module.AppHeader})),
+);
+const RadarVisualization = lazy(() =>
+  import('@/components/RadarVisualization').then((module) => ({
+    default: module.RadarVisualization,
+  })),
+);
+
+export function Results({demo = false}: {demo?: boolean}) {
+  const {analysisId} = useParams<{analysisId: string}>();
+  const navigate = useNavigate();
+  const {
+    analysis: storedAnalysis,
+    activeAnalysisId,
+    setAnalysis: storeAnalysis,
+    setActiveAnalysisId,
+    resetReflection,
+  } = useBecomingStore();
+  const [analysis, setAnalysis] = useState<AnalysisResult | null>(
+    demo ? DEMO_ANALYSIS : activeAnalysisId === analysisId ? storedAnalysis : null,
+  );
+  const [loading, setLoading] = useState(!analysis);
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (demo || analysis || !analysisId) return;
+    let active = true;
+    void import('@/services/analysisService')
+      .then(({getAnalysisRecord}) => getAnalysisRecord(analysisId))
+      .then((record) => {
+        if (!active) return;
+        if (record?.status === 'completed' && record.result) {
+          setAnalysis(record.result);
+          storeAnalysis(record.result);
+          setActiveAnalysisId(analysisId);
+        } else if (record?.status === 'pending') {
+          navigate(`/analysis/${analysisId}`, {replace: true});
+        } else {
+          setError('This analysis is unavailable or no longer exists.');
+        }
+      })
+      .catch((loadError) => {
+        if (active) setError(formatServiceError(loadError));
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [analysis, analysisId, demo, navigate, setActiveAnalysisId, storeAnalysis]);
+
+  if (loading) {
+    return (
+      <div
+        className="flex min-h-screen items-center justify-center text-sm text-white/45"
+        role="status"
+      >
+        Loading your analysis…
+      </div>
+    );
+  }
+
+  if (error || !analysis) {
+    return (
+      <div className="flex min-h-screen items-center justify-center px-5">
+        <div className="glass max-w-lg rounded-3xl p-9 text-center">
+          <h1 className="mb-4 font-display text-2xl font-semibold">Analysis unavailable</h1>
+          <p className="mb-7 text-sm leading-7 text-gray-400" role="alert">
+            {error}
+          </p>
+          <Link className="primary-button mx-auto" to="/history">
+            Return to history
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const currentAnalysis = analysis;
+
+  function downloadLetter() {
+    const content = `Becoming — ${currentAnalysis.identity.archetype}\n\n${currentAnalysis.futureLetter}\n\nGenerated reflection guidance; not professional advice.`;
+    const url = URL.createObjectURL(new Blob([content], {type: 'text/plain;charset=utf-8'}));
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = 'becoming-future-letter.txt';
+    anchor.click();
+    URL.revokeObjectURL(url);
+    setNotice('Future letter downloaded.');
+  }
+
+  async function shareSummary() {
+    const text = `${currentAnalysis.identity.archetype}: ${currentAnalysis.identity.description}`;
+    if (navigator.share) {
+      await navigator.share({title: 'My Becoming reflection', text});
+      setNotice('Share sheet opened.');
+      return;
+    }
+    await navigator.clipboard.writeText(text);
+    setNotice('Summary copied to your clipboard.');
+  }
+
+  async function removeAnalysis() {
+    if (demo || !analysisId) return;
+    if (!window.confirm('Delete this analysis and its private reflection permanently?')) return;
+    try {
+      const {deleteAnalysisRecord} = await import('@/services/analysisService');
+      await deleteAnalysisRecord(analysisId);
+      resetReflection();
+      navigate('/history', {replace: true});
+    } catch (deleteError) {
+      setNotice(formatServiceError(deleteError));
+    }
+  }
+
+  function startAgain() {
+    resetReflection();
+    navigate(demo ? '/' : '/reflect');
+  }
 
   return (
-    <div className="min-h-screen bg-[#020205] text-white py-16 px-4 md:px-12 max-w-7xl mx-auto space-y-24">
-      {/* Header */}
-      <section className="text-center space-y-8 pt-10">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="inline-flex items-center gap-3 px-4 py-1 glass rounded-full"
+    <div className="min-h-screen">
+      {demo ? (
+        <header className="mx-auto flex max-w-7xl items-center justify-between px-5 py-6 md:px-10">
+          <Link className="flex items-center gap-2" to="/">
+            <span className="h-2 w-2 rounded-full bg-cyan-400" />
+            <span className="font-display text-xs font-semibold uppercase tracking-[0.35em]">
+              Becoming.
+            </span>
+          </Link>
+          <Link className="primary-button" to="/">
+            Create my own
+          </Link>
+        </header>
+      ) : (
+        <Suspense fallback={<div className="h-21" />}>
+          <AppHeader backTo="/history" />
+        </Suspense>
+      )}
+
+      <div className="mx-auto max-w-7xl space-y-20 px-5 pb-24 pt-10 md:px-10">
+        <section className="text-center">
+          <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-cyan-400/15 bg-cyan-400/5 px-4 py-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
+            <span className="font-display text-[10px] uppercase tracking-[0.35em] text-cyan-300">
+              {demo ? 'Demonstration analysis' : 'Private analysis complete'}
+            </span>
+          </div>
+          <h1 className="mb-6 text-5xl font-extralight leading-none tracking-tighter md:text-7xl">
+            The evolution of
+            <br />
+            <span className="text-gradient-cyan font-serif italic">your becoming.</span>
+          </h1>
+          <p className="mx-auto max-w-2xl text-lg font-light italic leading-8 text-gray-400">
+            “{analysis.identity.description}”
+          </p>
+          <p className="mx-auto mt-6 max-w-xl text-xs leading-6 text-white/65">
+            This is generated reflection guidance, not a prediction, diagnosis, or scientific
+            assessment.
+          </p>
+        </section>
+
+        <section
+          className="glass grid gap-4 rounded-3xl p-6 sm:grid-cols-2 lg:grid-cols-4"
+          aria-label="Reflection summary"
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          <span className="text-xs font-display tracking-[0.4em] uppercase text-cyan-400/80">Trajectory Sync Successful</span>
-        </motion.div>
-        
-        <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl font-extralight tracking-tighter leading-none">
-            The evolution of <br/>
-            <span className="italic font-serif opacity-90 text-gradient-cyan">your becoming.</span>
-            </h1>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto font-light leading-relaxed italic">
-            "{analysis.identity.description}"
+          <Metric label="Potential score" value={`${analysis.identityCard.potentialScore}/100`} />
+          <Metric label="AI-era readiness" value={`${analysis.identityCard.aiReadiness}/100`} />
+          <Metric label="Growth potential" value={analysis.identityCard.growthPotential} compact />
+          <div className="rounded-2xl border border-white/5 p-5">
+            <p className="mb-4 text-[10px] uppercase tracking-widest text-white/65">
+              Primary archetype
             </p>
-        </div>
-      </section>
-
-      {/* Analytics Strip Dashboard */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-8 glass rounded-3xl relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-500/20 to-transparent" />
-          
-          <div className="p-4 space-y-4">
-              <p className="text-[10px] uppercase tracking-widest opacity-40 font-bold">Potential Score</p>
-              <div className="flex items-end gap-2">
-                <span className="text-4xl font-light">{analysis.identityCard.potentialScore}</span>
-                <span className="text-[10px] text-cyan-400 mb-2 font-bold tracking-widest">PATH S_RANK</span>
-              </div>
-          </div>
-
-          <div className="p-4 space-y-4 border-l border-white/5">
-              <p className="text-[10px] uppercase tracking-widest opacity-40 font-bold">AI Era Readiness</p>
-              <div className="flex items-end gap-2 text-purple-400">
-                <span className="text-4xl font-light text-white">{analysis.identityCard.aiReadiness}</span>
-                <span className="text-[10px] mb-2 font-bold tracking-widest text-purple-500">% OPTIMAL</span>
-              </div>
-          </div>
-
-          <div className="p-4 space-y-4 border-l border-white/5">
-            <p className="text-[10px] uppercase tracking-widest opacity-40 font-bold">Identity Status</p>
-            <div className="space-y-1">
-                <p className="text-xs font-medium text-cyan-200">"{analysis.identityCard.growthPotential}"</p>
-                <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                    <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: `${analysis.identityCard.potentialScore}%` }}
-                        className="h-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]"
-                    />
-                </div>
+            <div className="flex items-center gap-3 text-sm font-medium">
+              <ShieldCheck size={17} className="text-cyan-400" /> {analysis.identity.archetype}
             </div>
           </div>
+        </section>
 
-          <div className="p-4 space-y-4 border-l border-white/5 flex flex-col justify-between">
-              <p className="text-[10px] uppercase tracking-widest opacity-40 font-bold">Primary Archetype</p>
-              <div className="flex items-center gap-2">
-                  <ShieldCheck size={16} className="text-cyan-400" />
-                  <span className="text-sm font-display font-medium tracking-wide uppercase">{analysis.identity.archetype}</span>
+        <section className="grid gap-8 md:grid-cols-2" aria-label="Two possible paths">
+          <PathCard
+            eyebrow="The drift path"
+            title={analysis.futureA.title}
+            description={analysis.futureA.description}
+            highlightLabel="Possible regret"
+            highlight={analysis.futureA.keyRegret}
+            tone="red"
+          />
+          <PathCard
+            eyebrow="The becoming path"
+            title={analysis.futureB.title}
+            description={analysis.futureB.description}
+            highlightLabel="Possible growth"
+            highlight={analysis.futureB.keyGrowth}
+            tone="cyan"
+          />
+        </section>
+
+        <section className="grid gap-8 lg:grid-cols-12">
+          <div className="glass rounded-3xl p-6 md:p-10 lg:col-span-7">
+            <div className="mb-5">
+              <h2 className="font-display text-xl font-bold uppercase">
+                Reflective capability map
+              </h2>
+              <p className="mt-2 text-xs leading-6 text-gray-400">
+                Illustrative scores generated from your answers; they are not validated
+                measurements.
+              </p>
+            </div>
+            <Suspense
+              fallback={
+                <div className="flex h-90 items-center justify-center text-sm text-white/65">
+                  Loading visualization…
+                </div>
+              }
+            >
+              <RadarVisualization data={analysis.radarData} />
+            </Suspense>
+            <details className="rounded-xl border border-white/10 p-4 text-sm text-white/60">
+              <summary className="cursor-pointer font-medium text-white/75">
+                View chart as accessible data
+              </summary>
+              <table className="mt-4 w-full text-left">
+                <thead>
+                  <tr>
+                    <th className="py-2">Capability</th>
+                    <th>Drift</th>
+                    <th>Becoming</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {analysis.radarData.map((item) => (
+                    <tr key={item.subject} className="border-t border-white/5">
+                      <th className="py-2 font-normal">{item.subject}</th>
+                      <td>{item.A}</td>
+                      <td>{item.B}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </details>
+          </div>
+
+          <div className="glass rounded-3xl p-7 md:p-10 lg:col-span-5">
+            <h2 className="mb-8 flex items-center gap-3 font-display text-xl font-bold uppercase">
+              <Calendar size={19} className="text-cyan-400" /> Evolution roadmap
+            </h2>
+            <div className="space-y-8">
+              {analysis.timeline.map((item) => (
+                <article className="border-l border-cyan-400/20 pl-5" key={item.period}>
+                  <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-400">
+                    {item.period}
+                  </p>
+                  <p className="mb-2 text-xs leading-6 text-red-200/80">
+                    <strong>Drift:</strong> {item.stateA}
+                  </p>
+                  <p className="text-sm leading-7 text-gray-300">
+                    <strong>Intentional:</strong> {item.stateB}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="glass mx-auto max-w-4xl rounded-[2.5rem] p-8 md:p-16">
+          <div className="mb-10 text-center">
+            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.45em] text-cyan-400">
+              A letter from your potential self
+            </p>
+            <h2 className="text-3xl font-extralight md:text-5xl">A direction—not a prophecy.</h2>
+          </div>
+          <div className="prose prose-invert max-w-none text-base font-light leading-8 text-gray-300 md:text-lg">
+            <ReactMarkdown
+              components={{
+                a: ({href, children}) => (
+                  <a href={href} target="_blank" rel="noreferrer noopener">
+                    {children}
+                  </a>
+                ),
+              }}
+            >
+              {analysis.futureLetter}
+            </ReactMarkdown>
+          </div>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <button className="secondary-button" type="button" onClick={downloadLetter}>
+              <Download size={15} /> Download letter
+            </button>
+            <button className="secondary-button" type="button" onClick={() => void shareSummary()}>
+              <Share2 size={15} /> Share summary
+            </button>
+          </div>
+        </section>
+
+        <section>
+          <div className="mb-10 text-center">
+            <h2 className="font-display text-3xl font-bold uppercase tracking-tight">
+              Active protocols
+            </h2>
+            <p className="mt-3 text-sm text-gray-400">
+              Small actions you can review and adapt to your circumstances.
+            </p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-3">
+            <ActionCard
+              icon={<RefreshCcw size={18} />}
+              title="Daily habits"
+              items={analysis.plan.dailyHabits}
+            />
+            <ActionCard
+              icon={<Target size={18} />}
+              title="Learning roadmap"
+              items={analysis.plan.learningRoadmap}
+            />
+            <article className="glass rounded-3xl p-8">
+              <div className="mb-7 flex h-10 w-10 items-center justify-center rounded-xl border border-blue-400/25 text-blue-300">
+                <Calendar size={18} />
               </div>
+              <h3 className="mb-5 font-display text-sm font-bold uppercase tracking-widest text-white/60">
+                Start strategy
+              </h3>
+              <p className="text-sm font-light italic leading-7 text-gray-400">
+                “{analysis.plan.antiProcrastination}”
+              </p>
+            </article>
           </div>
-      </section>
+        </section>
 
-      {/* The Future Split */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-10 relative">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block z-20">
-          <div className="w-14 h-14 bg-[#020205] backdrop-blur-3xl border border-white/10 rounded-full flex items-center justify-center font-display font-bold text-[10px] text-white/30 tracking-[0.3em]">SPLIT</div>
-        </div>
-
-        {/* Future A */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          whileHover={{ 
-            scale: 0.98, 
-            boxShadow: "0 0 50px -10px rgba(239, 68, 68, 0.3)",
-            x: -5,
-            transition: { duration: 0.2 }
-          }}
-          viewport={{ once: true }}
-          className="glass p-10 rounded-3xl space-y-8 relative group hover:border-red-500/40 transition-colors duration-300"
-        >
-          <div className="space-y-4">
-            <span className="system-label bg-red-950 text-red-500 border border-red-500/30">The Drift Path</span>
-            <h3 className="text-3xl font-display font-bold text-white tracking-tight">{analysis.futureA.title}</h3>
+        <footer className="flex flex-col items-center gap-5 border-t border-white/5 pt-12 text-center">
+          {notice ? (
+            <p className="text-sm text-cyan-200" role="status">
+              {notice}
+            </p>
+          ) : null}
+          <div className="flex flex-wrap justify-center gap-3">
+            <button className="primary-button" type="button" onClick={startAgain}>
+              <RefreshCcw size={15} /> {demo ? 'Return home' : 'Reflect again'}
+            </button>
+            {!demo ? (
+              <Link className="secondary-button" to="/history">
+                View history
+              </Link>
+            ) : null}
+            {!demo ? (
+              <button
+                className="secondary-button text-red-300"
+                type="button"
+                onClick={() => void removeAnalysis()}
+              >
+                <Trash2 size={15} /> Delete
+              </button>
+            ) : null}
           </div>
-          <p className="text-gray-400 leading-relaxed font-light text-lg">
-            {analysis.futureA.description}
+          <p className="max-w-xl text-xs leading-6 text-white/65">
+            Keep what is useful, question what is not, and seek qualified support for decisions that
+            require professional care.
           </p>
-          <div className="pt-6 border-t border-white/5">
-            <p className="text-[10px] text-red-500 font-display uppercase tracking-[0.3em] font-bold mb-2">Deep Future Regret</p>
-            <p className="text-red-100/70 font-serif italic text-lg leading-relaxed">"{analysis.futureA.keyRegret}"</p>
-          </div>
-        </motion.div>
-
-        {/* Future B */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          whileHover={{ 
-            scale: 1.03, 
-            y: -10,
-            boxShadow: "0 0 60px -10px rgba(34, 211, 238, 0.5)",
-            transition: { duration: 0.3, ease: "easeOut" }
-          }}
-          viewport={{ once: true }}
-          className="glass p-10 rounded-3xl space-y-8 relative group hover:border-cyan-400/50 transition-colors duration-300 glow-cyan"
-        >
-          <div className="space-y-4">
-            <span className="system-label bg-cyan-950 text-cyan-400 border border-cyan-400/30">The Becoming Path</span>
-            <h3 className="text-3xl font-display font-bold text-white tracking-tight">{analysis.futureB.title}</h3>
-          </div>
-          <p className="text-white/80 leading-relaxed font-light text-lg">
-            {analysis.futureB.description}
-          </p>
-          <div className="pt-6 border-t border-white/5">
-            <p className="text-[10px] text-cyan-400 font-display uppercase tracking-[0.3em] font-bold mb-2">Future Climax Moment</p>
-            <p className="text-cyan-100 font-serif italic text-lg leading-relaxed">"{analysis.futureB.keyGrowth}"</p>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Technical Data Visualization */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Radar Map */}
-        <div className="lg:col-span-7 glass p-10 rounded-3xl space-y-10">
-          <div className="flex justify-between items-start">
-              <div className="space-y-2">
-                <h4 className="text-xl font-display font-bold tracking-tight uppercase">Cognitive Potential Mesh</h4>
-                <p className="text-xs text-gray-500 tracking-wider">Multidimensional analysis of capability shift over 5 years.</p>
-              </div>
-              <div className="flex flex-col gap-1 items-end">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-cyan-400" />
-                    <span className="text-[9px] uppercase tracking-widest text-cyan-400/60 font-bold">Protocol Becoming</span>
-                  </div>
-                  <div className="flex items-center gap-2 opacity-40">
-                    <div className="w-2 h-2 rounded-full bg-red-400" />
-                    <span className="text-[9px] uppercase tracking-widest font-bold">Standard Drift</span>
-                  </div>
-              </div>
-          </div>
-          
-          <div className="h-100 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={analysis.radarData}>
-                <PolarGrid stroke="#ffffff10" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: '#666', fontSize: 10, className: 'font-display uppercase tracking-widest font-bold' }} />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                <Radar
-                  name="Drifting"
-                  dataKey="A"
-                  stroke="#ef444450"
-                  fill="#ef4444"
-                  fillOpacity={0.1}
-                />
-                <Radar
-                  name="Becoming"
-                  dataKey="B"
-                  stroke="#22d3ee"
-                  strokeWidth={2}
-                  fill="#22d3ee"
-                  fillOpacity={0.2}
-                />
-              </RadarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        {/* Action Items List */}
-        <div className="lg:col-span-5 space-y-8">
-            <div className="glass p-10 rounded-3xl space-y-8 h-full bg-linear-to-br from-cyan-950/20 to-transparent">
-                 <h4 className="text-xl font-display font-bold flex items-center gap-2 uppercase tracking-tight">
-                    <Calendar size={18} className="text-cyan-400" /> Evolution Roadmap
-                 </h4>
-                 <div className="space-y-8">
-                    {analysis.timeline.map((item: any, idx: number) => (
-                        <div key={idx} className="flex gap-6 items-start relative group">
-                            {idx !== 2 && <div className="absolute left-2.75 top-6 -bottom-6 w-px bg-white/5" />}
-                            <div className="w-6 h-6 rounded-full border border-cyan-400/20 bg-[#020205] flex items-center justify-center z-10">
-                                <div className={cn("w-1.5 h-1.5 rounded-full", idx === 0 ? "bg-cyan-400 animate-pulse" : "bg-cyan-800")} />
-                            </div>
-                            <div className="space-y-2">
-                                <span className="text-[10px] font-display text-cyan-400/40 uppercase tracking-[0.3em] font-bold">{item.period} Marker</span>
-                                <p className="text-sm text-gray-300 leading-relaxed font-light group-hover:text-white transition-colors duration-500">
-                                    "{item.stateB}"
-                                </p>
-                            </div>
-                        </div>
-                    ))}
-                 </div>
-                 
-                 <div className="pt-10">
-                     <button className="w-full py-4 bg-white text-black font-display font-bold text-[10px] tracking-[0.2em] uppercase rounded-full hover:bg-cyan-400 transition-colors">
-                         Finalize Protocol
-                     </button>
-                 </div>
-            </div>
-        </div>
-      </section>
-
-      {/* Future Letter Section */}
-      <section className="max-w-4xl mx-auto glass p-10 md:p-20 rounded-[3rem] relative overflow-hidden text-center">
-        <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-500/30 to-transparent" />
-        <div className="absolute -top-20 -right-20 w-80 h-80 bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
-        
-        <div className="relative space-y-12 z-10">
-            <div className="space-y-4">
-                <span className="text-[10px] font-display uppercase tracking-[0.5em] text-cyan-400 font-bold">Transmission: Chronos_9.0</span>
-                <h3 className="text-4xl md:text-5xl font-extralight tracking-tighter">A Letter from<br/><span className="font-serif italic text-white/90">your potential self.</span></h3>
-            </div>
-            
-            <div className="prose prose-invert prose-cyan max-w-none text-left">
-                <div className="text-lg md:text-xl leading-loose text-gray-300 font-light font-sans whitespace-pre-wrap selection:bg-cyan-400 selection:text-black">
-                    <ReactMarkdown>{analysis.futureLetter}</ReactMarkdown>
-                </div>
-            </div>
-
-            <div className="flex flex-col items-center gap-6 pt-10">
-                 <button className="flex items-center gap-3 text-cyan-400 hover:text-white transition-all text-[11px] font-bold tracking-[0.3em] uppercase">
-                    <Download size={16} /> Archive this letter
-                 </button>
-            </div>
-        </div>
-      </section>
-
-      {/* Transformation Plan Cards */}
-      <section className="space-y-12">
-        <div className="text-center space-y-4">
-            <h3 className="text-3xl font-display font-bold uppercase tracking-tight">Active Protocols</h3>
-            <p className="text-gray-500 text-sm tracking-wider">Execute these directives immediately to secure Future B.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="glass p-10 rounded-3xl space-y-8 hover:bg-white/5 transition-all">
-                <div className="w-10 h-10 border border-cyan-400/30 rounded-xl flex items-center justify-center text-cyan-400">
-                    <RefreshCcw size={18} />
-                </div>
-                <h5 className="text-lg font-display font-bold uppercase tracking-widest text-white/50">Daily Habits</h5>
-                <ul className="space-y-4">
-                    {analysis.plan.dailyHabits.map((h: string, i: number) => (
-                        <li key={i} className="flex gap-4 items-start text-sm text-gray-400 group">
-                            <span className="text-cyan-400 font-bold opacity-30">0{i+1}</span>
-                            <span className="font-light group-hover:text-white transition-colors">{h}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-
-            <div className="glass p-10 rounded-3xl space-y-8 hover:bg-white/5 transition-all border-cyan-500/5">
-                <div className="w-10 h-10 border border-purple-400/30 rounded-xl flex items-center justify-center text-purple-400">
-                    <Target size={18} />
-                </div>
-                <h5 className="text-lg font-display font-bold uppercase tracking-widest text-white/50">System Mastery</h5>
-                <ul className="space-y-4">
-                    {analysis.plan.learningRoadmap.map((h: string, i: number) => (
-                        <li key={i} className="flex gap-4 items-start text-sm text-gray-400 group">
-                            <span className="text-purple-400 font-bold opacity-30">0{i+1}</span>
-                            <span className="font-light group-hover:text-white transition-colors">{h}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-
-            <div className="glass p-10 rounded-3xl space-y-8 hover:bg-white/5 transition-all">
-                <div className="w-10 h-10 border border-blue-400/30 rounded-xl flex items-center justify-center text-blue-400">
-                    <Mail size={18} />
-                </div>
-                <h5 className="text-lg font-display font-bold uppercase tracking-widest text-white/50">Core Strategy</h5>
-                <p className="text-sm text-gray-400 leading-relaxed font-light italic">
-                    "{analysis.plan.antiProcrastination}"
-                </p>
-            </div>
-        </div>
-      </section>
-
-      {/* Footer / Reset */}
-      <footer className="text-center pt-24 pb-12 flex flex-col items-center gap-10">
-         <div className="h-px w-48 bg-linear-to-r from-transparent via-white/20 to-transparent" />
-         <button 
-            onClick={() => {
-                resetResponses();
-                setStep('landing');
-            }}
-            className="px-10 py-5 glass border-white/10 rounded-full hover:bg-white hover:text-black transition-all flex items-center gap-4 text-[11px] font-bold tracking-[0.2em] uppercase"
-         >
-            <RefreshCcw size={14} />
-            Re-Evaluate Identity Trajectory
-         </button>
-         <div className="flex flex-col items-center gap-2 opacity-20">
-            <span className="text-[9px] font-bold tracking-[0.4em] uppercase">Becoming. Eternal Version</span>
-            <span className="text-[8px] font-display tracking-[0.2em] uppercase italic underline underline-offset-4">Chronos Protocol Active</span>
-         </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
-};
+}
+
+function Metric({
+  label,
+  value,
+  compact = false,
+}: {
+  label: string;
+  value: string;
+  compact?: boolean;
+}) {
+  return (
+    <div className="rounded-2xl border border-white/5 p-5">
+      <p className="mb-4 text-[10px] uppercase tracking-widest text-white/65">{label}</p>
+      <p className={compact ? 'text-sm leading-6 text-cyan-100' : 'text-3xl font-light'}>{value}</p>
+    </div>
+  );
+}
+
+function PathCard({
+  eyebrow,
+  title,
+  description,
+  highlightLabel,
+  highlight,
+  tone,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  highlightLabel: string;
+  highlight: string;
+  tone: 'red' | 'cyan';
+}) {
+  const toneClass =
+    tone === 'red' ? 'text-red-300 border-red-400/20' : 'text-cyan-300 border-cyan-400/20';
+  return (
+    <motion.article
+      className={`glass rounded-3xl border p-8 md:p-10 ${toneClass}`}
+      whileHover={{y: -4}}
+    >
+      <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em]">{eyebrow}</p>
+      <h2 className="mb-6 font-display text-3xl font-bold text-white">{title}</h2>
+      <p className="mb-8 text-base font-light leading-8 text-gray-300">{description}</p>
+      <div className="border-t border-white/5 pt-6">
+        <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em]">{highlightLabel}</p>
+        <p className="font-serif text-lg italic leading-7 text-white/75">“{highlight}”</p>
+      </div>
+    </motion.article>
+  );
+}
+
+function ActionCard({icon, title, items}: {icon: React.ReactNode; title: string; items: string[]}) {
+  return (
+    <article className="glass rounded-3xl p-8">
+      <div className="mb-7 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-400/25 text-cyan-300">
+        {icon}
+      </div>
+      <h3 className="mb-5 font-display text-sm font-bold uppercase tracking-widest text-white/60">
+        {title}
+      </h3>
+      <ol className="space-y-4">
+        {items.map((item, index) => (
+          <li className="flex gap-4 text-sm font-light leading-6 text-gray-400" key={item}>
+            <span className="text-cyan-300">0{index + 1}</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ol>
+    </article>
+  );
+}

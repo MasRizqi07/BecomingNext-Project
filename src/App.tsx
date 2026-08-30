@@ -1,135 +1,141 @@
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./lib/firebase";
-import { useBecomingStore } from "./store/useBecomingStore";
-import { Landing } from "./components/Landing";
-import { Intake } from "./components/Intake";
-import { Analysis } from "./components/Analysis";
-import { Results } from "./components/Results";
-import { ParticlesBG } from "./components/ParticlesBG";
-import { motion, AnimatePresence } from "motion/react";
+import {lazy, Suspense, useEffect} from 'react';
+import {AnimatePresence, motion, useReducedMotion} from 'motion/react';
+import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
+
+import {Landing} from '@/components/Landing';
+import {useBecomingStore} from '@/store/useBecomingStore';
+
+const Results = lazy(() =>
+  import('@/components/Results').then((module) => ({default: module.Results})),
+);
+const Intake = lazy(() =>
+  import('@/components/Intake').then((module) => ({default: module.Intake})),
+);
+const Analysis = lazy(() =>
+  import('@/components/Analysis').then((module) => ({default: module.Analysis})),
+);
+const History = lazy(() =>
+  import('@/components/History').then((module) => ({default: module.History})),
+);
+const Settings = lazy(() =>
+  import('@/components/Settings').then((module) => ({default: module.Settings})),
+);
+const ParticlesBG = lazy(() =>
+  import('@/components/ParticlesBG').then((module) => ({default: module.ParticlesBG})),
+);
+
+function PageLoading() {
+  return (
+    <div className="flex min-h-screen items-center justify-center px-6" role="status">
+      <div className="space-y-4 text-center">
+        <div className="mx-auto h-8 w-8 animate-spin rounded-full border border-cyan-400/20 border-t-cyan-400" />
+        <p className="text-xs uppercase tracking-[0.3em] text-white/50">Preparing your space</p>
+      </div>
+    </div>
+  );
+}
+
+function RequireAuth({children}: {children: React.ReactNode}) {
+  const {authReady, user} = useBecomingStore();
+
+  if (!authReady) return <PageLoading />;
+  if (!user) return <Navigate to="/" replace />;
+  return children;
+}
 
 export default function App() {
-  const { user, setUser, step } = useBecomingStore();
-  const [opening, setOpening] = useState(true);
+  const setAuth = useBecomingStore((state) => state.setAuth);
+  const location = useLocation();
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u);
-    });
-    
-    const openingTimer = setTimeout(() => {
-        setOpening(false);
-    }, 4500);
+    let cancelled = false;
+    let unsubscribe: (() => void) | undefined;
+
+    void import('@/lib/firebaseCore')
+      .then(({observeAuthState}) => {
+        if (!cancelled) unsubscribe = observeAuthState(setAuth);
+      })
+      .catch(() => {
+        if (!cancelled) setAuth(null);
+      });
 
     return () => {
-        unsub();
-        clearTimeout(openingTimer);
+      cancelled = true;
+      unsubscribe?.();
     };
-  }, []);
-
-  if (opening) {
-      return (
-          <div className="fixed inset-0 bg-black flex flex-col items-center justify-center p-6 text-center z-100">
-              <AnimatePresence>
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 1.5 }}
-                    className="space-y-4"
-                  >
-                        <motion.p
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5, duration: 2 }}
-                            className="text-xl md:text-3xl font-display font-light text-white/50 italic tracking-widest"
-                        >
-                            “Every decision shapes someone.”
-                        </motion.p>
-                        
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 2.5, duration: 2 }}
-                            className="text-3xl md:text-5xl font-display font-bold tracking-tight text-white"
-                        >
-                            Who are you becoming?
-                        </motion.p>
-                  </motion.div>
-              </AnimatePresence>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
-          </div>
-      );
-  }
+  }, [setAuth]);
 
   return (
-    <div className="min-h-screen bg-[#020205] text-white overflow-x-hidden p-0 m-0 relative">
-      {/* Atmospheric Background Glows */}
-      <div className="fixed -top-25 -left-25 w-125 h-125 bg-cyan-900/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="fixed -bottom-25 -right-25 w-150 h-150 bg-purple-900/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="fixed top-[20%] right-[10%] w-75 h-75 bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
-      
-      <ParticlesBG />
-      
-      <main className="relative z-10 min-h-screen flex flex-col">
-        <AnimatePresence mode="wait">
-          {step === 'landing' && (
-            <motion.div
-              key="landing"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Landing />
-            </motion.div>
-          )}
+    <div className="relative min-h-screen overflow-x-hidden bg-[#020205] text-white">
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
+      <div className="pointer-events-none fixed -left-24 -top-24 h-125 w-125 rounded-full bg-cyan-900/10 blur-[120px]" />
+      <div className="pointer-events-none fixed -bottom-24 -right-24 h-150 w-150 rounded-full bg-purple-900/10 blur-[140px]" />
+      <Suspense fallback={null}>
+        <ParticlesBG />
+      </Suspense>
 
-          {step === 'intake' && (
+      <main id="main-content" className="relative z-10 min-h-screen">
+        <Suspense fallback={<PageLoading />}>
+          <AnimatePresence mode="wait">
             <motion.div
-              key="intake"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, filter: "blur(10px)" }}
-              transition={{ duration: 0.8 }}
+              key={location.pathname}
+              initial={prefersReducedMotion ? false : {opacity: 0}}
+              animate={{opacity: 1}}
+              exit={{opacity: 0}}
+              transition={{duration: prefersReducedMotion ? 0 : 0.25}}
             >
-              <Intake />
+              <Routes location={location}>
+                <Route path="/" element={<Landing />} />
+                <Route path="/demo" element={<Results demo />} />
+                <Route
+                  path="/reflect"
+                  element={
+                    <RequireAuth>
+                      <Intake />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/analysis/:analysisId?"
+                  element={
+                    <RequireAuth>
+                      <Analysis />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/results/:analysisId"
+                  element={
+                    <RequireAuth>
+                      <Results />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/history"
+                  element={
+                    <RequireAuth>
+                      <History />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/settings"
+                  element={
+                    <RequireAuth>
+                      <Settings />
+                    </RequireAuth>
+                  }
+                />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
             </motion.div>
-          )}
-
-          {step === 'analysis' && (
-            <motion.div
-              key="analysis"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Analysis />
-            </motion.div>
-          )}
-
-          {step === 'results' && (
-            <motion.div
-              key="results"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-            >
-              <Results />
-            </motion.div>
-          )}
-        </AnimatePresence>
+          </AnimatePresence>
+        </Suspense>
       </main>
-
-      {/* Floating Audio Hint or Premium Accent */}
-      <div className="fixed bottom-6 right-6 z-50 group pointer-events-none sm:pointer-events-auto">
-          <div className="glass px-4 py-2 rounded-full text-[10px] uppercase font-display tracking-widest text-white/30 border border-white/5 flex items-center gap-2">
-            <div className="w-1 h-1 rounded-full bg-blue-500 animate-pulse" />
-            Premium AI Experience
-          </div>
-      </div>
     </div>
   );
 }

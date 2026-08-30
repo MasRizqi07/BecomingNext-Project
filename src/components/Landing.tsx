@@ -1,102 +1,129 @@
-import { motion } from "motion/react";
-import { useBecomingStore } from "../store/useBecomingStore";
-import { signInWithGoogle } from "../lib/firebase";
-import { Sparkles, ArrowRight } from "lucide-react";
+import {ArrowRight, Eye, LockKeyhole, Sparkles} from 'lucide-react';
+import {motion, useReducedMotion} from 'motion/react';
+import {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 
-export const Landing = () => {
-  const { setStep, setUser } = useBecomingStore();
+import {useBecomingStore} from '@/store/useBecomingStore';
 
-  const handleStart = async () => {
-    try {
-      const user = await signInWithGoogle();
-      setUser(user);
-      setStep('intake');
-    } catch (e) {
-      // If sign in fails, still allow experience for demo if requested, 
-      // but here we force sign in as per requirement "Authentication: Firebase Auth"
-      console.error(e);
+export function Landing() {
+  const {user, authReady, setAuth} = useBecomingStore();
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const prefersReducedMotion = useReducedMotion();
+
+  async function handleStart() {
+    if (user) {
+      navigate('/reflect');
+      return;
     }
-  };
+
+    setError(null);
+    setIsSigningIn(true);
+    try {
+      const {signInWithGoogle} = await import('@/lib/firebaseCore');
+      const signedInUser = await signInWithGoogle();
+      setAuth(signedInUser);
+      navigate('/reflect');
+    } catch {
+      setError('Sign-in was not completed. Check the popup and try again.');
+    } finally {
+      setIsSigningIn(false);
+    }
+  }
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
-      {/* Navigation */}
-      <nav className="absolute top-0 left-0 w-full flex justify-between items-center px-8 md:px-12 py-8 z-50">
-        <div className="flex items-center gap-2 group cursor-pointer">
-          <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#22d3ee]"></div>
-          <span className="text-xs tracking-[0.4em] font-semibold uppercase opacity-80 group-hover:opacity-100 transition-opacity">Becoming.</span>
-        </div>
-        <div className="hidden md:flex items-center gap-8">
-          <a href="#" className="nav-link">Philosophy</a>
-          <a href="#" className="nav-link">Projection</a>
-          <button 
-            onClick={handleStart}
-            className="px-5 py-2 border border-white/20 rounded-full text-[10px] tracking-[0.2em] font-medium uppercase opacity-50 hover:opacity-100 hover:bg-white hover:text-black transition-all"
-          >
-            Enter Experience
+    <div className="relative">
+      <nav className="absolute left-0 top-0 z-40 flex w-full items-center justify-between px-5 py-7 md:px-12">
+        <Link className="flex items-center gap-2" to="/" aria-label="Becoming home">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
+          <span className="font-display text-xs font-semibold uppercase tracking-[0.4em]">
+            Becoming.
+          </span>
+        </Link>
+        <div className="flex items-center gap-4 md:gap-8">
+          <a className="nav-link hidden sm:block" href="#philosophy">
+            Philosophy
+          </a>
+          {user ? (
+            <Link className="nav-link hidden sm:block" to="/history">
+              History
+            </Link>
+          ) : null}
+          <button className="secondary-button px-5 py-2" type="button" onClick={handleStart}>
+            {user ? 'Continue' : 'Sign in'}
           </button>
         </div>
       </nav>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="z-10 max-w-5xl"
-      >
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 2 }}
-          className="text-cyan-400 font-display tracking-[0.5em] uppercase text-[10px] mb-8 font-medium"
-        >
-          Future Projection Engine 1.0
-        </motion.p>
-        
-        <h1 className="text-6xl md:text-8xl font-extralight tracking-tighter leading-[0.9] mb-10">
-          The future version<br/>
-          <span className="italic font-serif opacity-90 text-white/80">of you is watching.</span>
-        </h1>
-        
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1.5 }}
-          className="text-gray-400 text-sm md:text-base max-w-md mx-auto mb-14 leading-relaxed font-light"
-        >
-          Every decision shapes someone. Becoming uses generative AI to simulate 
-          the life trajectory your current habits are creating.
-        </motion.p>
-
+      <section className="flex min-h-screen items-center justify-center px-5 pb-16 pt-28 text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          initial={prefersReducedMotion ? false : {opacity: 0, y: 18}}
+          animate={{opacity: 1, y: 0}}
+          transition={{duration: prefersReducedMotion ? 0 : 0.8}}
+          className="max-w-5xl"
         >
-          <button
-            onClick={handleStart}
-            className="group relative px-10 py-4 bg-white text-black font-display font-bold text-[11px] tracking-[0.2em] uppercase rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              Start Reflection <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-            </span>
-            <div className="absolute inset-0 bg-linear-to-r from-cyan-400 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </button>
-          
-          <button
-            onClick={() => setStep('intake')}
-            className="px-10 py-4 glass text-white/50 font-display font-medium text-[11px] tracking-[0.2em] uppercase rounded-full hover:text-white hover:bg-white/10 transition-all border border-white/10"
-          >
-            See Projection
-          </button>
+          <p className="mb-8 font-display text-[10px] font-medium uppercase tracking-[0.5em] text-cyan-400">
+            Private future reflection
+          </p>
+          <h1 className="mb-9 text-5xl font-extralight leading-[0.95] tracking-tighter sm:text-6xl md:text-8xl">
+            The future version
+            <br />
+            <span className="font-serif italic text-white/80">of you is listening.</span>
+          </h1>
+          <p className="mx-auto mb-12 max-w-xl text-sm font-light leading-7 text-gray-400 md:text-base">
+            Turn honest reflection into two plausible paths and a small, practical roadmap. The
+            result is guidance—not destiny, diagnosis, or a scientific score.
+          </p>
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <button
+              className="primary-button min-w-55"
+              type="button"
+              disabled={!authReady || isSigningIn}
+              onClick={handleStart}
+            >
+              <span>
+                {isSigningIn
+                  ? 'Opening secure sign-in…'
+                  : user
+                    ? 'Continue reflection'
+                    : 'Start securely'}
+              </span>
+              <ArrowRight size={15} />
+            </button>
+            <Link className="secondary-button min-w-55" to="/demo">
+              <Eye size={15} /> View a safe demo
+            </Link>
+          </div>
+          {error ? (
+            <p className="mx-auto mt-6 max-w-md text-sm text-red-300" role="alert">
+              {error}
+            </p>
+          ) : null}
+          <p className="mt-8 flex items-center justify-center gap-2 text-xs text-white/65">
+            <LockKeyhole size={13} /> Personalized analysis requires authentication and App Check.
+          </p>
         </motion.div>
-      </motion.div>
+      </section>
 
-      {/* Decorative vertical label */}
-      <div className="absolute bottom-[10%] left-[5%] text-[8px] tracking-[0.4em] uppercase opacity-20 hidden md:block vertical-text">
-        System.Reflect // Node_722
-      </div>
+      <section
+        id="philosophy"
+        className="mx-auto grid max-w-6xl gap-5 px-5 py-24 md:grid-cols-3 md:px-10"
+      >
+        {[
+          ['Reflect honestly', 'Eight focused prompts turn vague pressure into concrete patterns.'],
+          ['See two paths', 'Compare what may happen if patterns drift or become intentional.'],
+          ['Act in small steps', 'Leave with habits and learning actions sized for real life.'],
+        ].map(([title, copy], index) => (
+          <article className="glass rounded-3xl p-8" key={title}>
+            <span className="mb-6 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-cyan-400/20 text-cyan-400">
+              {index === 0 ? <Sparkles size={17} /> : `0${index + 1}`}
+            </span>
+            <h2 className="mb-3 font-display text-lg font-semibold">{title}</h2>
+            <p className="text-sm font-light leading-7 text-gray-400">{copy}</p>
+          </article>
+        ))}
+      </section>
     </div>
   );
-};
+}

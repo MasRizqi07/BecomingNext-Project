@@ -1,133 +1,157 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { useBecomingStore } from "../store/useBecomingStore";
-import { ArrowRight, Sparkles, Send } from "lucide-react";
-import { cn } from "../lib/utils";
+import {ArrowLeft, ArrowRight, LockKeyhole} from 'lucide-react';
+import {AnimatePresence, motion} from 'motion/react';
+import {useEffect, useRef, useState} from 'react';
+import type {FormEvent} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-const QUESTIONS = [
-  "What future are you most afraid of right now?",
-  "What is the one habit that is silently holding you back?",
-  "When do you feel most disconnected from the person you want to be?",
-  "If money and fear were gone, what kind of life would you choose today?",
-  "What are you avoiding because it feels too difficult to start?",
-  "What version of yourself are you actually trying to become?",
-  "Be honest: on a scale of 1-10, how disciplined have you been lately?",
-  "What dream are you afraid to commit to, even in your own head?"
-];
+import {reflectionResponsesSchema} from '@shared/contracts';
+import {AppHeader} from '@/components/AppHeader';
+import {REFLECTION_QUESTIONS} from '@/data/questions';
+import {useBecomingStore} from '@/store/useBecomingStore';
 
-export const Intake = () => {
-  const { setStep, setResponse, responses } = useBecomingStore();
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [input, setInput] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
-
-  const handleNext = () => {
-    if (!input.trim()) return;
-    
-    setResponse(QUESTIONS[currentIdx], input);
-    setInput("");
-    
-    if (currentIdx < QUESTIONS.length - 1) {
-      setCurrentIdx(currentIdx + 1);
-    } else {
-      setStep('analysis');
-    }
-  };
+export function Intake() {
+  const {
+    responses,
+    currentQuestionIndex,
+    setCurrentQuestionIndex,
+    setResponse,
+    setActiveAnalysisId,
+    setAnalysis,
+  } = useBecomingStore();
+  const safeQuestionIndex =
+    currentQuestionIndex >= 0 && currentQuestionIndex < REFLECTION_QUESTIONS.length
+      ? currentQuestionIndex
+      : 0;
+  const question = REFLECTION_QUESTIONS[safeQuestionIndex]!;
+  const [input, setInput] = useState(responses[question.id] ?? '');
+  const [error, setError] = useState<string | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setIsTyping(true);
-    const timer = setTimeout(() => setIsTyping(false), 1000);
-    return () => clearTimeout(timer);
-  }, [currentIdx]);
+    textareaRef.current?.focus();
+  }, [safeQuestionIndex]);
+
+  const currentQuestion = question;
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const answer = input.trim();
+    const minimumLength = currentQuestion.id === 'disciplineScore' ? 1 : 3;
+    if (answer.length < minimumLength) {
+      setError('Add a little more detail before continuing.');
+      return;
+    }
+
+    const nextResponses = {...responses, [currentQuestion.id]: answer};
+    setResponse(currentQuestion.id, answer);
+    if (safeQuestionIndex < REFLECTION_QUESTIONS.length - 1) {
+      const nextIndex = safeQuestionIndex + 1;
+      const nextQuestion = REFLECTION_QUESTIONS[nextIndex]!;
+      setInput(responses[nextQuestion.id] ?? '');
+      setError(null);
+      setCurrentQuestionIndex(nextIndex);
+      return;
+    }
+
+    if (!reflectionResponsesSchema.safeParse(nextResponses).success) {
+      setError('One or more reflections are incomplete. Review the earlier answers.');
+      return;
+    }
+    setActiveAnalysisId(null);
+    setAnalysis(null);
+    navigate('/analysis');
+  }
+
+  function goBack() {
+    if (safeQuestionIndex === 0) {
+      navigate('/');
+      return;
+    }
+    const previousIndex = safeQuestionIndex - 1;
+    const previousQuestion = REFLECTION_QUESTIONS[previousIndex]!;
+    setInput(responses[previousQuestion.id] ?? '');
+    setError(null);
+    setCurrentQuestionIndex(previousIndex);
+  }
+
+  const progress = ((safeQuestionIndex + 1) / REFLECTION_QUESTIONS.length) * 100;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-20 relative">
-      <div className="max-w-xl w-full z-10">
-        
+    <div className="min-h-screen">
+      <AppHeader backTo="/" />
+      <div className="mx-auto flex max-w-2xl flex-col px-5 pb-20 pt-12 md:pt-20">
+        <div className="mb-10 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/45">
+          <span>
+            Reflection {safeQuestionIndex + 1} / {REFLECTION_QUESTIONS.length}
+          </span>
+          <span>{Math.round(progress)}% complete</span>
+        </div>
+        <div className="mb-12 h-1 overflow-hidden rounded-full bg-white/5" aria-hidden="true">
+          <motion.div className="h-full bg-cyan-400" animate={{width: `${progress}%`}} />
+        </div>
+        <progress className="sr-only" value={progress} max="100">
+          {progress}%
+        </progress>
+
         <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIdx}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="glass rounded-3xl p-8 md:p-12 shadow-2xl relative"
+          <motion.form
+            key={question.id}
+            initial={{opacity: 0, y: 12}}
+            animate={{opacity: 1, y: 0}}
+            exit={{opacity: 0, y: -12}}
+            transition={{duration: 0.3}}
+            className="glass rounded-4xl p-7 shadow-2xl md:p-12"
+            onSubmit={submit}
           >
-            <div className="absolute -top-3 left-8">
-                <span className="system-label">Current Reflection</span>
+            <p className="mb-6 font-display text-[10px] uppercase tracking-[0.35em] text-cyan-400">
+              Current reflection
+            </p>
+            <label
+              className="mb-8 block text-2xl font-light leading-relaxed text-gray-100 md:text-3xl"
+              htmlFor="reflection-answer"
+            >
+              {question.prompt}
+            </label>
+            <p className="mb-4 text-sm leading-6 text-white/45" id="reflection-hint">
+              {question.hint}
+            </p>
+            <textarea
+              ref={textareaRef}
+              id="reflection-answer"
+              value={input}
+              rows={5}
+              maxLength={1200}
+              aria-describedby="reflection-hint reflection-count"
+              className="w-full resize-y rounded-2xl border border-white/10 bg-black/20 p-5 text-base leading-7 text-white outline-none transition focus:border-cyan-400/70 focus:ring-4 focus:ring-cyan-400/10"
+              placeholder="Write honestly. There is no perfect answer."
+              onChange={(event) => setInput(event.target.value)}
+            />
+            <div className="mt-3 flex items-center justify-between text-xs text-white/35">
+              <span className="flex items-center gap-2">
+                <LockKeyhole size={12} /> Private to your account
+              </span>
+              <span id="reflection-count">{input.length}/1200</span>
             </div>
-
-            <div className="space-y-10">
-                <div className="space-y-4">
-                    <p className="text-[10px] tracking-[0.4em] font-display uppercase opacity-40">
-                        Step {currentIdx + 1} of {QUESTIONS.length}
-                    </p>
-                    <h2 className="text-2xl md:text-3xl font-extralight leading-relaxed text-gray-100">
-                    {isTyping ? (
-                        <span className="flex gap-1">
-                            <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></span>
-                            <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse [animation-delay:0.2s]"></span>
-                            <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse [animation-delay:0.4s]"></span>
-                        </span>
-                    ) : (
-                        <>
-                        “{QUESTIONS[currentIdx].split('?')[0]} <span className="text-cyan-400 italic font-serif">?</span>”
-                        </>
-                    )}
-                    </h2>
-                </div>
-
-                <div className="relative">
-                <input
-                    autoFocus
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                        handleNext();
-                    }
-                    }}
-                    className="w-full bg-transparent border-b border-white/10 pb-4 text-xl font-light focus:outline-none focus:border-cyan-400 transition-colors placeholder:opacity-10 text-white"
-                    placeholder="Type your reflection here..."
-                />
-                <button
-                    onClick={handleNext}
-                    disabled={!input.trim()}
-                    className={cn(
-                    "absolute right-0 bottom-4 text-[10px] tracking-widest uppercase font-bold transition-all",
-                    input.trim() ? "text-cyan-400 opacity-100 hover:text-white" : "text-gray-700 opacity-0"
-                    )}
-                >
-                    Submit
-                </button>
-                </div>
+            {error ? (
+              <p className="mt-5 text-sm text-red-300" role="alert">
+                {error}
+              </p>
+            ) : null}
+            <div className="mt-10 flex items-center justify-between gap-4">
+              <button className="secondary-button" type="button" onClick={goBack}>
+                <ArrowLeft size={15} /> Back
+              </button>
+              <button className="primary-button" type="submit" disabled={!input.trim()}>
+                {safeQuestionIndex === REFLECTION_QUESTIONS.length - 1
+                  ? 'Create analysis'
+                  : 'Continue'}
+                <ArrowRight size={15} />
+              </button>
             </div>
-          </motion.div>
+          </motion.form>
         </AnimatePresence>
-
-        {/* Floating Hint */}
-        <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            className="mt-12 text-[10px] text-gray-500 font-display uppercase tracking-[0.4em] text-center"
-        >
-            Press Enter to continue your journey
-        </motion.p>
-      </div>
-
-      {/* Progress Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4">
-          {QUESTIONS.map((_, i) => (
-              <div 
-                key={i} 
-                className={cn(
-                    "h-px w-8 transition-all duration-500",
-                    i === currentIdx ? "bg-cyan-400 shadow-[0_0_8px_#22d3ee]" : "bg-white/10"
-                )}
-              />
-          ))}
       </div>
     </div>
   );
-};
+}
