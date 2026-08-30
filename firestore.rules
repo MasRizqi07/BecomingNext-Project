@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isDataOwner() {
+      return isSignedIn() && request.auth.uid == resource.data.userId;
+    }
+    
+    function incomingData() {
+      return request.resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Users
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) 
+        && incomingData().keys().hasAll(['uid', 'email', 'createdAt'])
+        && incomingData().uid == request.auth.uid;
+      allow update: if isOwner(userId)
+        && incomingData().uid == existing().uid;
+    }
+
+    // Reflections
+    match /reflections/{reflectionId} {
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() 
+        && incomingData().userId == request.auth.uid
+        && incomingData().keys().hasAll(['userId', 'responses', 'createdAt']);
+    }
+
+    // Analyses
+    match /analyses/{analysisId} {
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() 
+        && incomingData().userId == request.auth.uid
+        && incomingData().keys().hasAll(['userId', 'reflectionId', 'createdAt']);
+    }
+  }
+}
