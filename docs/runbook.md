@@ -17,7 +17,8 @@ The deploy identity needs only the roles required for Firebase Hosting, Firestor
 3. Register the web app with App Check using reCAPTCHA Enterprise.
 4. Set `GEMINI_API_KEY` with `firebase functions:secrets:set`.
 5. Configure billing budgets, Gemini API quota, Functions max-instance monitoring, and Firestore usage alerts.
-6. Run `npm run verify:full` on Node 24 and Java 21+.
+6. Run `npm run verify:full` on Node 24, Java 21+, and Google Chrome. This includes the
+   deterministic authenticated emulator lifecycle and does not call Gemini.
 7. Dispatch `.github/workflows/deploy.yml` to `staging`.
 8. Execute the staging checklist below. Then dispatch to `production` with reviewer approval.
 
@@ -31,7 +32,7 @@ The deploy identity needs only the roles required for Firebase Hosting, Firestor
 - A second test account cannot read another user's known analysis ID.
 - Download/share actions work; delete removes both analysis and reflection.
 - Account deletion removes Auth, profile, rate limit, reflections, and analyses.
-- App Check metrics show valid tokens. Enforce only after legitimate clients are confirmed.
+- App Check metrics show valid tokens; production callables reject missing or invalid tokens.
 - Logs do not contain reflection answers or API keys.
 
 ## Monitoring targets

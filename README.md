@@ -58,8 +58,13 @@ npm run dev
 npm run verify       # format, lint, types, unit, functions, build, production audit
 npm run test:rules   # Firestore rules melalui emulator
 npm run test:e2e     # desktop + mobile + axe accessibility
+npm run test:e2e:auth # Auth + Functions + Firestore + lifecycle data via emulator
 npm run verify:full  # seluruh gate di atas
 ```
+
+Gate autentikasi memakai provider analisis deterministik hanya selama Firebase Functions Emulator
+aktif. Runner menyimpan lalu memulihkan konfigurasi emulator lokal, sehingga tidak menimpa
+konfigurasi developer dan tidak pernah memanggil Gemini atau resource production.
 
 Bundle production diperiksa otomatis: entry maksimal 180 KiB gzip dan setiap lazy chunk maksimal 130 KiB gzip.
 
@@ -76,7 +81,8 @@ Bundle production diperiksa otomatis: entry maksimal 180 KiB gzip dan setiap laz
 
 5. Jika perlu, atur parameter `GEMINI_MODEL` dan `DAILY_ANALYSIS_LIMIT` pada environment Functions.
 6. Deploy rules, index, functions, dan hosting melalui workflow `Deploy` atau Firebase CLI.
-7. Aktifkan App Check enforcement hanya setelah metrik request valid pada staging sudah stabil.
+7. Verifikasi token App Check valid di staging sebelum mempromosikan release ke production;
+   callable production menolak request tanpa token valid.
 
 Detail deploy, smoke test, observability, backup, penghapusan data, dan rollback ada di [runbook](docs/runbook.md).
 
@@ -94,7 +100,8 @@ Detail deploy, smoke test, observability, backup, penghapusan data, dan rollback
 src/                 frontend, routes, UI, store, Firebase client
 shared/              kontrak request/response bersama
 functions/src/       callable API, idempotency, rate limit, AI adapter
-tests/e2e/            browser and accessibility checks
+tests/e2e/            public browser and accessibility checks
+tests/e2e-auth/       authenticated full-stack lifecycle checks
 tests/rules/          Firestore authorization tests
 docs/                 architecture, ADR, operational runbook
 .github/workflows/    continuous integration and controlled deployment

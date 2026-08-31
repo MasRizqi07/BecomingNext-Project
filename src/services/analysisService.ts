@@ -46,11 +46,19 @@ const deleteMyDataCallable = httpsCallable<Record<string, never>, {deleted: true
   {timeout: 120_000, limitedUseAppCheckTokens: true},
 );
 
+const inFlightAnalysisJobs = new Map<string, Promise<CreateAnalysisResponse>>();
+
 export async function createAnalysisJob(
   request: CreateAnalysisRequest,
 ): Promise<CreateAnalysisResponse> {
-  const response = await createAnalysisCallable(request);
-  return createAnalysisResponseSchema.parse(response.data);
+  const existingJob = inFlightAnalysisJobs.get(request.idempotencyKey);
+  if (existingJob) return existingJob;
+
+  const job = createAnalysisCallable(request)
+    .then((response) => createAnalysisResponseSchema.parse(response.data))
+    .finally(() => inFlightAnalysisJobs.delete(request.idempotencyKey));
+  inFlightAnalysisJobs.set(request.idempotencyKey, job);
+  return job;
 }
 
 function parseAnalysisRecord(id: string, value: Record<string, unknown>): AnalysisRecord {

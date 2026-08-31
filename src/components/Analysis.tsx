@@ -159,7 +159,7 @@ export function Analysis() {
                 />
               ))}
             </div>
-            <p className="max-w-md text-xs leading-6 text-white/35">
+            <p className="max-w-md text-xs leading-6 text-white/65">
               Your request is idempotent. Refreshing this page will not create a duplicate paid
               analysis.
             </p>

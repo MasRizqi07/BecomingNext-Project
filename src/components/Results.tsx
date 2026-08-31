@@ -66,7 +66,7 @@ export function Results({demo = false}: {demo?: boolean}) {
   if (loading) {
     return (
       <div
-        className="flex min-h-screen items-center justify-center text-sm text-white/45"
+        className="flex min-h-screen items-center justify-center text-sm text-white/65"
         role="status"
       >
         Loading your analysis…

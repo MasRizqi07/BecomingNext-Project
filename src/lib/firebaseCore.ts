@@ -30,17 +30,27 @@ const environmentConfig: FirebaseOptions = {
 const hasEnvironmentConfig = Object.values(environmentConfig).every(
   (value) => typeof value === 'string' && value.length > 0 && value !== 'replace-me',
 );
+export const useFirebaseEmulators = import.meta.env.VITE_USE_FIREBASE_EMULATORS === 'true';
 
-if (import.meta.env.PROD && !hasEnvironmentConfig) {
+if (import.meta.env.PROD && !hasEnvironmentConfig && !useFirebaseEmulators) {
   throw new Error('Production Firebase configuration is incomplete.');
 }
 
-const config: FirebaseOptions = hasEnvironmentConfig ? environmentConfig : fallbackConfig;
+const emulatorConfig: FirebaseOptions = {
+  ...fallbackConfig,
+  projectId: 'demo-becoming',
+  authDomain: 'demo-becoming.firebaseapp.com',
+};
+const config: FirebaseOptions = useFirebaseEmulators
+  ? emulatorConfig
+  : hasEnvironmentConfig
+    ? environmentConfig
+    : fallbackConfig;
 export const firebaseApp: FirebaseApp = getApps().length > 0 ? getApp() : initializeApp(config);
 export const auth = getAuth(firebaseApp);
-export const firestoreDatabaseId =
-  import.meta.env.VITE_FIRESTORE_DATABASE_ID || fallbackConfig.firestoreDatabaseId;
-export const useFirebaseEmulators = import.meta.env.VITE_USE_FIREBASE_EMULATORS === 'true';
+export const firestoreDatabaseId = useFirebaseEmulators
+  ? '(default)'
+  : import.meta.env.VITE_FIRESTORE_DATABASE_ID || fallbackConfig.firestoreDatabaseId;
 
 if (useFirebaseEmulators) {
   connectAuthEmulator(auth, 'http://127.0.0.1:9099', {disableWarnings: true});
@@ -55,7 +65,7 @@ if (!useFirebaseEmulators && appCheckSiteKey && appCheckSiteKey !== 'replace-me'
     provider: new ReCaptchaEnterpriseProvider(appCheckSiteKey),
     isTokenAutoRefreshEnabled: true,
   });
-} else if (import.meta.env.PROD) {
+} else if (import.meta.env.PROD && !useFirebaseEmulators) {
   throw new Error('Production App Check configuration is missing.');
 }
 

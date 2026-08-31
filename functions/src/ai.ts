@@ -5,6 +5,7 @@ import {
   type AnalysisResult,
   type ReflectionResponses,
 } from '../../shared/contracts.js';
+import {DEMO_ANALYSIS} from '../../shared/demoAnalysis.js';
 import {buildAnalysisPrompt, SYSTEM_INSTRUCTION} from './prompt.js';
 
 const ANALYSIS_JSON_SCHEMA = {
@@ -151,6 +152,14 @@ export function createGeminiGenerator(apiKey: string, model: string): AnalysisGe
       }
 
       return parsed.data;
+    },
+  };
+}
+
+export function createDeterministicGenerator(): AnalysisGenerator {
+  return {
+    async generate() {
+      return DEMO_ANALYSIS;
     },
   };
 }

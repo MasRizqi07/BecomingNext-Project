@@ -81,7 +81,7 @@ export function Intake() {
     <div className="min-h-screen">
       <AppHeader backTo="/" />
       <div className="mx-auto flex max-w-2xl flex-col px-5 pb-20 pt-12 md:pt-20">
-        <div className="mb-10 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/45">
+        <div className="mb-10 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/65">
           <span>
             Reflection {safeQuestionIndex + 1} / {REFLECTION_QUESTIONS.length}
           </span>
@@ -113,7 +113,7 @@ export function Intake() {
             >
               {question.prompt}
             </label>
-            <p className="mb-4 text-sm leading-6 text-white/45" id="reflection-hint">
+            <p className="mb-4 text-sm leading-6 text-white/65" id="reflection-hint">
               {question.hint}
             </p>
             <textarea
@@ -127,7 +127,7 @@ export function Intake() {
               placeholder="Write honestly. There is no perfect answer."
               onChange={(event) => setInput(event.target.value)}
             />
-            <div className="mt-3 flex items-center justify-between text-xs text-white/35">
+            <div className="mt-3 flex items-center justify-between text-xs text-white/65">
               <span className="flex items-center gap-2">
                 <LockKeyhole size={12} /> Private to your account
               </span>

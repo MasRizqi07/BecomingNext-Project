@@ -36,13 +36,22 @@ jobs:
 
   browser:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            functions/package-lock.json
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
       - run: npm ci
+      - run: npm --prefix functions ci
       - run: npx playwright install --with-deps chrome
       - run: npm run test:e2e
+      - run: npm run test:e2e:auth

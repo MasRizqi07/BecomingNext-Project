@@ -46,6 +46,9 @@ Authenticated user
 - Analysis list queries must include `userId == request.auth.uid` and `limit <= 50`.
 - Every direct client write is denied. Admin SDK writes bypass rules only inside trusted Functions.
 - App Check is enforced and replay protection is enabled for mutations.
+- The emulator-only runtime disables App Check verification because App Check has no local
+  emulator; Auth, authorization, validation, rules, and data lifecycle remain exercised. Production
+  fails closed with App Check enforcement and replay protection enabled.
 - Secrets are supplied to Functions through Secret Manager.
 - A strict Hosting CSP, HSTS, MIME sniffing protection, referrer policy, and permissions policy are configured.
 - Prompts explicitly treat user reflections as data, not instructions; input/output schemas cap their shape and size.
@@ -55,6 +58,8 @@ Authenticated user
 - Callable instances are capped at 20 with concurrency 20 to bound downstream cost.
 - The per-user UTC quota defaults to 10 analyses/day.
 - Idempotency and leases prevent accidental duplicate charge while allowing recovery after worker failure.
+- The browser coalesces concurrent calls for the same idempotency key, including React development
+  lifecycle replays; the server transaction remains the authoritative duplicate guard.
 - Firestore remains the workflow source of truth; the UI can resume pending/completed sessions after refresh.
 - Static assets use immutable hashed caching; the HTML shell remains revalidatable.
 

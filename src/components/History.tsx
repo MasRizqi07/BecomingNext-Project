@@ -97,7 +97,7 @@ export function History() {
         ) : null}
 
         {loading ? (
-          <div className="glass rounded-3xl p-10 text-center text-sm text-white/45" role="status">
+          <div className="glass rounded-3xl p-10 text-center text-sm text-white/65" role="status">
             Loading your private archive…
           </div>
         ) : records.length === 0 ? (
@@ -125,7 +125,7 @@ export function History() {
                   <h2 className="font-display text-lg font-semibold">
                     {record.result?.identity.archetype ?? 'Analysis in progress'}
                   </h2>
-                  <p className="mt-2 text-xs text-white/40">
+                  <p className="mt-2 text-xs text-white/65">
                     {record.createdAt?.toLocaleString() ?? 'Timestamp unavailable'}
                   </p>
                 </div>

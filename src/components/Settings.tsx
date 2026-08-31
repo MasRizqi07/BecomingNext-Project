@@ -104,7 +104,7 @@ export function Settings() {
           </button>
         </section>
 
-        <p className="text-xs leading-6 text-white/35">
+        <p className="text-xs leading-6 text-white/65">
           Becoming provides reflective prompts and generated guidance. It is not a medical,
           psychological, legal, or financial service. If you are in immediate danger, contact local
           emergency services or a trusted professional.

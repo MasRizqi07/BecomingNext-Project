@@ -16,7 +16,7 @@ import {
   type CreateAnalysisResponse,
   type ReflectionResponses,
 } from '../../shared/contracts.js';
-import {createGeminiGenerator} from './ai.js';
+import {createDeterministicGenerator, createGeminiGenerator} from './ai.js';
 import {PROMPT_VERSION} from './prompt.js';
 
 initializeApp();
@@ -24,10 +24,16 @@ initializeApp();
 const db = getFirestore();
 const geminiApiKey = defineSecret('GEMINI_API_KEY');
 const geminiModel = defineString('GEMINI_MODEL', {default: 'gemini-3.6-flash'});
+const analysisProvider = defineString('ANALYSIS_PROVIDER', {default: 'gemini'});
 const dailyAnalysisLimit = defineInt('DAILY_ANALYSIS_LIMIT', {default: 10});
 
 const REGION = 'asia-southeast1';
 const LEASE_DURATION_MS = 90_000;
+const IS_FUNCTIONS_EMULATOR = process.env.FUNCTIONS_EMULATOR === 'true';
+const callableSecurity = {
+  enforceAppCheck: !IS_FUNCTIONS_EMULATOR,
+  consumeAppCheckToken: !IS_FUNCTIONS_EMULATOR,
+} as const;
 
 interface AnalysisDocument {
   userId: string;
@@ -146,8 +152,7 @@ export const createAnalysis = onCall(
   {
     region: REGION,
     cors: true,
-    enforceAppCheck: true,
-    consumeAppCheckToken: true,
+    ...callableSecurity,
     secrets: [geminiApiKey],
     timeoutSeconds: 120,
     memory: '512MiB',
@@ -174,7 +179,11 @@ export const createAnalysis = onCall(
 
     const analysisRef = db.collection('analyses').doc(idempotencyKey);
     try {
-      const generator = createGeminiGenerator(geminiApiKey.value(), model);
+      const useDeterministicProvider =
+        IS_FUNCTIONS_EMULATOR && analysisProvider.value() === 'deterministic';
+      const generator = useDeterministicProvider
+        ? createDeterministicGenerator()
+        : createGeminiGenerator(geminiApiKey.value(), model);
       const analysis = await generator.generate(
         responses,
         getSafeDisplayName(request.auth.token as Record<string, unknown>),
@@ -237,7 +246,7 @@ export const createAnalysis = onCall(
 const deleteAnalysisRequestSchema = z.object({analysisId: z.string().uuid()}).strict();
 
 export const deleteAnalysis = onCall(
-  {region: REGION, cors: true, enforceAppCheck: true, consumeAppCheckToken: true},
+  {region: REGION, cors: true, ...callableSecurity},
   async (request): Promise<{deleted: true}> => {
     if (!request.auth) {
       throw new HttpsError('unauthenticated', 'Sign in before deleting an analysis.');
@@ -281,7 +290,7 @@ async function deleteCollectionForUser(collectionName: string, userId: string): 
 }
 
 export const deleteMyData = onCall(
-  {region: REGION, cors: true, enforceAppCheck: true, consumeAppCheckToken: true},
+  {region: REGION, cors: true, ...callableSecurity},
   async (request): Promise<{deleted: true}> => {
     if (!request.auth) {
       throw new HttpsError('unauthenticated', 'Sign in before deleting your data.');
