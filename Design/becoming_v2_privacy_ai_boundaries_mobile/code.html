@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Privacy and AI Boundaries - Becoming V2</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#131319",
+                      "on-primary": "#00363c",
+                      "surface-container-high": "#2a2930",
+                      "on-background": "#e4e1ea",
+                      "danger": "#FCA5A5",
+                      "outline": "#869395",
+                      "border-strong": "rgba(255, 255, 255, 0.24)",
+                      "surface-container-highest": "#35343b",
+                      "on-secondary-fixed": "#1e0e4e",
+                      "secondary-fixed": "#e7deff",
+                      "outline-variant": "#3c494b",
+                      "primary-fixed": "#91f1ff",
+                      "surface-bright": "#39383f",
+                      "tertiary-fixed-dim": "#edc150",
+                      "secondary-fixed-dim": "#ccbeff",
+                      "surface-container": "#1f1f25",
+                      "tertiary-container": "#ffd15e",
+                      "error-container": "#93000a",
+                      "inverse-surface": "#e4e1ea",
+                      "on-tertiary-fixed-variant": "#5a4300",
+                      "on-surface": "#e4e1ea",
+                      "inverse-primary": "#006973",
+                      "surface-1": "#090A0F",
+                      "on-primary-fixed-variant": "#004f57",
+                      "on-secondary": "#332664",
+                      "surface-dim": "#131319",
+                      "surface-tint": "#54d8e8",
+                      "text-secondary": "#CBD5E1",
+                      "surface-2": "rgba(255, 255, 255, 0.05)",
+                      "surface-container-lowest": "#0e0e14",
+                      "on-primary-fixed": "#001f23",
+                      "surface-variant": "#35343b",
+                      "accent-strong": "#22D3EE",
+                      "on-surface-variant": "#bcc9cb",
+                      "secondary": "#ccbeff",
+                      "text-tertiary": "#94A3B8",
+                      "on-tertiary-fixed": "#251a00",
+                      "warning": "#FCD34D",
+                      "tertiary-fixed": "#ffdf97",
+                      "on-tertiary-container": "#755900",
+                      "primary": "#d5f9ff",
+                      "on-secondary-fixed-variant": "#4a3d7c",
+                      "on-error": "#690005",
+                      "surface-container-low": "#1b1b21",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-container": "#006771",
+                      "border": "rgba(255, 255, 255, 0.12)",
+                      "tertiary": "#fff2db",
+                      "error": "#ffb4ab",
+                      "secondary-container": "#4a3d7c",
+                      "primary-fixed-dim": "#54d8e8",
+                      "inverse-on-surface": "#303037",
+                      "primary-container": "#67e8f9",
+                      "text-primary": "#F8FAFC",
+                      "surface-3": "rgba(255, 255, 255, 0.08)",
+                      "success": "#86EFAC",
+                      "background": "#131319",
+                      "on-tertiary": "#3e2e00",
+                      "on-secondary-container": "#baabf3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "reading-width": "720px",
+                      "margin-desktop": "64px",
+                      "gutter-mobile": "16px",
+                      "unit": "4px",
+                      "max-content-width": "1200px",
+                      "gutter-desktop": "32px",
+                      "margin-mobile": "20px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Space Grotesk"],
+                      "body": ["Inter"],
+                      "h3": ["Space Grotesk"],
+                      "h1": ["Space Grotesk"],
+                      "display-lg-mobile": ["Space Grotesk"],
+                      "display-xl-mobile": ["Space Grotesk"],
+                      "display-xl": ["Space Grotesk"],
+                      "body-lg": ["Inter"],
+                      "small": ["Inter"],
+                      "editorial-italic": ["Playfair Display"],
+                      "h1-mobile": ["Space Grotesk"],
+                      "label": ["Space Grotesk"],
+                      "h2": ["Space Grotesk"]
+              },
+              "fontSize": {
+                      "display-lg": ["64px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                      "body": ["16px", {"lineHeight": "1.65", "fontWeight": "400"}],
+                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                      "h1": ["52px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                      "display-lg-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                      "display-xl-mobile": ["56px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                      "display-xl": ["96px", {"lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                      "small": ["14px", {"lineHeight": "1.55", "fontWeight": "400"}],
+                      "editorial-italic": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "h1-mobile": ["40px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                      "label": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "h2": ["36px", {"lineHeight": "1.2", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Smooth scrolling for anchor links */
+        html { scroll-behavior: smooth; }
+        
+        /* Hide scrollbar for jump menu but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface-1 text-on-surface font-body antialiased min-h-screen flex flex-col">
+<!-- TopAppBar (Public Header) -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 z-50 bg-surface-2/80 backdrop-blur-xl border-b border-border">
+<div class="font-h2 text-h2 font-bold text-accent-strong tracking-tight">Becoming V2</div>
+<!-- Mobile Menu Trigger -->
+<button aria-label="Menu" class="md:hidden text-primary p-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<!-- Desktop Navigation (Hidden on Mobile) -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">How it works</a>
+<a class="font-label text-label text-primary border-b-2 border-accent-strong pb-1 hover:text-primary transition-colors duration-150 active:scale-95 transition-transform" href="#">Privacy</a>
+<a class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">Demo</a>
+<button class="font-label text-label bg-primary-container text-on-primary-container px-4 py-2 rounded-lg hover:bg-surface-3 transition-colors active:scale-95">Sign In</button>
+</nav>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col w-full max-w-max-content-width mx-auto pb-24">
+<!-- Hero Section -->
+<section class="px-margin-mobile pt-12 pb-8">
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-text-primary mb-4">Privacy & <br/>AI Boundaries</h1>
+<p class="font-body-lg text-body-lg text-text-secondary max-w-reading-width">
+                Your reflections are yours. We've built this sanctuary with absolute clarity on how your data is handled, stored, and protected from intrusive models.
+            </p>
+</section>
+<!-- Sticky Jump Menu (Mobile Replacement for TOC) -->
+<nav class="sticky top-[73px] z-40 bg-surface-1/95 backdrop-blur-md border-b border-border px-margin-mobile py-3 flex gap-4 overflow-x-auto no-scrollbar">
+<a class="whitespace-nowrap font-label text-label px-3 py-1.5 rounded-full bg-surface-2 text-on-surface hover:bg-surface-3 transition-colors border border-border" href="#ownership">Data Ownership</a>
+<a class="whitespace-nowrap font-label text-label px-3 py-1.5 rounded-full bg-surface-2 text-on-surface hover:bg-surface-3 transition-colors border border-border" href="#architecture">Storage Architecture</a>
+<a class="whitespace-nowrap font-label text-label px-3 py-1.5 rounded-full bg-surface-2 text-on-surface hover:bg-surface-3 transition-colors border border-border" href="#ai-pipeline">AI Processing</a>
+<a class="whitespace-nowrap font-label text-label px-3 py-1.5 rounded-full bg-surface-2 text-on-surface hover:bg-surface-3 transition-colors border border-border" href="#deletion">Deletion Policy</a>
+</nav>
+<!-- Content Container -->
+<article class="px-margin-mobile flex flex-col gap-16 pt-8">
+<!-- Data Ownership -->
+<section class="scroll-mt-32" id="ownership">
+<h2 class="font-h1-mobile text-h1-mobile text-primary mb-6">Data Ownership</h2>
+<div class="space-y-4 font-body text-body text-text-secondary">
+<p>
+                        The core philosophy of Becoming V2 is that you own your narrative. We act solely as custodians of your digital sanctuary.
+                    </p>
+<p>
+                        Your personal reflections, uploaded media, and historical timelines are explicitly your intellectual property. We do not claim ownership, nor do we license your data to third-party data brokers.
+                    </p>
+</div>
+</section>
+<!-- Storage Architecture -->
+<section class="scroll-mt-32" id="architecture">
+<h2 class="font-h1-mobile text-h1-mobile text-primary mb-6">Storage Architecture</h2>
+<div class="space-y-4 font-body text-body text-text-secondary mb-8">
+<p>
+                        We employ a robust, segmented architecture to ensure your data is isolated and secure at rest and in transit.
+                    </p>
+</div>
+<!-- Callout Box -->
+<div class="bg-surface-2 border border-border-strong rounded-xl p-5 flex flex-col gap-3">
+<div class="flex items-center gap-2 text-accent-strong">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<h3 class="font-h3 text-h3">Firestore & Callable Functions</h3>
+</div>
+<p class="font-small text-small text-on-surface-variant">
+                        All user data is stored within isolated Firestore environments. Data access is strictly mediated through authenticated Callable Functions, meaning direct client-to-database connections are prohibited by design.
+                    </p>
+</div>
+</section>
+<!-- AI Processing Pipeline -->
+<section class="scroll-mt-32" id="ai-pipeline">
+<h2 class="font-h1-mobile text-h1-mobile text-primary mb-6">AI Processing Pipeline</h2>
+<div class="space-y-4 font-body text-body text-text-secondary mb-8">
+<p>
+                        Artificial Intelligence is used exclusively as a tool for personal insight, not as a mechanism for harvesting behavioral data. Our pipeline is designed to be transient and secure.
+                    </p>
+</div>
+<!-- Callout Box -->
+<div class="bg-surface-container border border-border-strong rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden">
+<!-- Decorative subtle glow -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center gap-2 text-primary-container">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+<h3 class="font-h3 text-h3">Stateless Processing</h3>
+</div>
+<ul class="font-small text-small text-on-surface-variant space-y-2 list-disc list-inside">
+<li>We utilize the Gemini API in a strictly stateless configuration.</li>
+<li><strong>Zero Training Retention:</strong> Your prompt inputs and reflections are never used to train foundational models.</li>
+<li>Context windows are ephemeral and discarded immediately upon generation of your personal insights.</li>
+</ul>
+</div>
+</section>
+<!-- Deletion Policy -->
+<section class="scroll-mt-32" id="deletion">
+<h2 class="font-h1-mobile text-h1-mobile text-primary mb-6">Deletion Policy</h2>
+<div class="space-y-4 font-body text-body text-text-secondary mb-8">
+<p>
+                        The right to be forgotten is absolute. When you choose to leave, your digital footprint goes with you.
+                    </p>
+</div>
+<!-- Callout Box -->
+<div class="bg-error-container/20 border border-danger/30 rounded-xl p-5 flex flex-col gap-3">
+<div class="flex items-center gap-2 text-danger">
+<span class="material-symbols-outlined" data-icon="delete_forever">delete_forever</span>
+<h3 class="font-h3 text-h3">Full Cascade Deletion</h3>
+</div>
+<p class="font-small text-small text-on-surface-variant">
+                        Initiating account deletion triggers a guaranteed cascading protocol. This process scrubs your profile, relational data, and all stored reflections from active databases within 72 hours, with backup purges completing within 30 days. No ghost profiles remain.
+                    </p>
+</div>
+</section>
+</article>
+</main>
+</body></html>

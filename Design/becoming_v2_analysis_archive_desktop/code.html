@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Historical Analysis Archive - Becoming</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#ccbeff",
+                        "on-tertiary-fixed": "#251a00",
+                        "surface-variant": "#35343b",
+                        "surface-container-high": "#2a2930",
+                        "secondary-container": "#4a3d7c",
+                        "on-secondary-fixed-variant": "#4a3d7c",
+                        "on-tertiary": "#3e2e00",
+                        "on-primary-container": "#006771",
+                        "on-surface-variant": "#bcc9cb",
+                        "surface-2": "rgba(255, 255, 255, 0.05)",
+                        "tertiary-container": "#ffd15e",
+                        "surface-dim": "#131319",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1e0e4e",
+                        "on-tertiary-container": "#755900",
+                        "text-tertiary": "#94A3B8",
+                        "surface-1": "#090A0F",
+                        "accent-strong": "#22D3EE",
+                        "outline": "#869395",
+                        "on-error": "#690005",
+                        "primary-fixed": "#91f1ff",
+                        "secondary-fixed-dim": "#ccbeff",
+                        "background": "#131319",
+                        "error": "#ffb4ab",
+                        "surface-container": "#1f1f25",
+                        "on-surface": "#e4e1ea",
+                        "surface": "#131319",
+                        "on-primary": "#00363c",
+                        "border": "rgba(255, 255, 255, 0.12)",
+                        "on-primary-fixed": "#001f23",
+                        "error-container": "#93000a",
+                        "tertiary": "#fff2db",
+                        "secondary-fixed": "#e7deff",
+                        "warning": "#FCD34D",
+                        "outline-variant": "#3c494b",
+                        "border-strong": "rgba(255, 255, 255, 0.24)",
+                        "on-secondary-container": "#baabf3",
+                        "text-primary": "#F8FAFC",
+                        "primary": "#d5f9ff",
+                        "surface-tint": "#54d8e8",
+                        "danger": "#FCA5A5",
+                        "surface-container-low": "#1b1b21",
+                        "success": "#86EFAC",
+                        "surface-container-highest": "#35343b",
+                        "tertiary-fixed-dim": "#edc150",
+                        "tertiary-fixed": "#ffdf97",
+                        "inverse-surface": "#e4e1ea",
+                        "text-secondary": "#CBD5E1",
+                        "primary-container": "#67e8f9",
+                        "surface-bright": "#39383f",
+                        "inverse-on-surface": "#303037",
+                        "on-secondary": "#332664",
+                        "inverse-primary": "#006973",
+                        "primary-fixed-dim": "#54d8e8",
+                        "on-background": "#e4e1ea",
+                        "on-primary-fixed-variant": "#004f57",
+                        "surface-3": "rgba(255, 255, 255, 0.08)",
+                        "surface-container-lowest": "#0e0e14",
+                        "on-tertiary-fixed-variant": "#5a4300"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter-mobile": "16px",
+                        "margin-mobile": "20px",
+                        "max-content-width": "1200px",
+                        "unit": "4px",
+                        "margin-desktop": "64px",
+                        "reading-width": "720px",
+                        "gutter-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "h3": ["Space Grotesk"],
+                        "small": ["Inter"],
+                        "h1-mobile": ["Space Grotesk"],
+                        "display-xl-mobile": ["Space Grotesk"],
+                        "h2": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "display-lg-mobile": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "editorial-italic": ["Playfair Display"],
+                        "display-xl": ["Space Grotesk"],
+                        "label": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
+                        "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
+                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card:hover {
+            box-shadow: 0 0 0 1px rgba(103, 232, 249, 0.3);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Gradient border effect for premium cards */
+        .premium-border::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(45deg, rgba(204, 190, 255, 0.1), rgba(103, 232, 249, 0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .premium-border:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-text-primary font-body antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<nav class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 sticky top-0 z-50 bg-surface border-b border-border">
+<div class="flex items-center gap-8">
+<div class="font-h3 text-h3 font-bold text-accent-strong">Becoming V2</div>
+<div class="hidden md:flex items-center gap-6">
+<!-- Inactive Nav Link -->
+<a class="font-label text-label text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-1.5 transition-all" href="#">Dashboard</a>
+<a class="font-label text-label text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-1.5 transition-all" href="#">New Reflection</a>
+<!-- Active Nav Link -->
+<a class="font-label text-label text-primary font-bold bg-surface-2 rounded-lg px-3 py-1.5 scale-98 transition-all" href="#">History</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="notifications" class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-2">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="settings" class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-2">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A close up, moody, black and white portrait photo of an individual used as a user profile avatar in a digital interface, soft lighting, sharp focus, cinematic grading, minimal background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB95rx_lYNr9opNQXYVgD_P7yGbPFnFMrbrl-pznN9PYbuguYq9zjQY1okClTQspjCSwx2fsaWRUBMP0ZndTBlsK7jHEX6kV2Dtpt4jiByrfZ8AXlGHugj2qgjZLrLJrv07rBChZQ9MHvrX-138dRCLO5Dgpv7Xjrg-NIjE5XQmnX4zFq9JWAxLQqcDze-OWoSVLSmp13SBfarZSNOOnoxje1bH8jjJBemnBLw1oji6zeUYFHLRJVlbQw"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Layout -->
+<div class="flex flex-1 w-full max-w-max-content-width mx-auto">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col w-64 sticky top-24 gap-4 bg-surface-1 border border-border rounded-xl h-fit p-4 ml-margin-desktop my-12">
+<div class="mb-4 px-3">
+<h3 class="font-label text-label text-accent-strong tracking-widest uppercase">Navigation</h3>
+<p class="font-small text-small text-text-tertiary mt-1">Reflection Sections</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 font-label text-label text-on-surface-variant hover:bg-surface-2 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="fingerprint">fingerprint</span>
+                Identity
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 font-label text-label text-on-surface-variant hover:bg-surface-2 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="alt_route">alt_route</span>
+                Paths
+            </a>
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-3 py-2.5 font-label text-label bg-primary-container text-on-primary-container rounded-lg font-bold translate-x-1 duration-200 shadow-sm" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="timeline">timeline</span>
+                Timeline
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 font-label text-label text-on-surface-variant hover:bg-surface-2 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="mail">mail</span>
+                Letter
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 font-label text-label text-on-surface-variant hover:bg-surface-2 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="event_note">event_note</span>
+                Plan
+            </a>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 w-full px-margin-mobile md:px-gutter-desktop py-12 md:py-16">
+<!-- Page Header -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
+<div>
+<h1 class="font-h1-mobile md:font-h1 text-h1-mobile md:text-h1 text-text-primary tracking-tight">Your Reflection Archive</h1>
+<p class="font-body text-body text-text-secondary mt-2">A timeline of your evolving identity and intentional paths.</p>
+</div>
+<button class="bg-primary-container hover:bg-accent-strong text-on-primary-container font-label text-label px-6 py-3 rounded-lg flex items-center gap-2 transition-colors shadow-[0_0_15px_rgba(103,232,249,0.15)] hover:shadow-[0_0_20px_rgba(103,232,249,0.25)]">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                    New Reflection
+                </button>
+</header>
+<!-- Filter Chips -->
+<div class="flex gap-3 mb-10 overflow-x-auto pb-4 scrollbar-hide border-b border-border/50">
+<button class="whitespace-nowrap px-5 py-2 rounded-full font-label text-label bg-surface-3 border border-border-strong text-text-primary transition-colors flex items-center gap-2">
+                    All <span class="text-text-tertiary font-body text-small">5</span>
+</button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full font-label text-label bg-surface-2 hover:bg-surface-3 border border-border hover:border-border-strong text-on-surface-variant hover:text-text-primary transition-colors flex items-center gap-2">
+                    Completed <span class="text-text-tertiary font-body text-small">4</span>
+</button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full font-label text-label bg-surface-2 hover:bg-surface-3 border border-border hover:border-border-strong text-on-surface-variant hover:text-text-primary transition-colors flex items-center gap-2">
+                    In Progress <span class="text-text-tertiary font-body text-small">1</span>
+</button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full font-label text-label bg-surface-2 border border-border text-on-surface-variant opacity-50 cursor-not-allowed flex items-center gap-2">
+                    Needs Attention <span class="text-text-tertiary font-body text-small">0</span>
+</button>
+</div>
+<!-- Archive Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter-mobile md:gap-gutter-desktop">
+<!-- Card 1 (Completed) -->
+<article class="bg-surface-1 border border-border rounded-xl p-6 md:p-8 flex flex-col gap-6 relative group glass-card premium-border transition-all duration-300">
+<div class="flex justify-between items-start">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 border border-success/20">
+<div class="w-1.5 h-1.5 rounded-full bg-success"></div>
+<span class="font-small text-[11px] font-semibold tracking-wider text-success uppercase">Ready</span>
+</div>
+<button aria-label="Options" class="text-on-surface-variant hover:text-text-primary transition-colors p-1 -mr-2 -mt-2 rounded-md hover:bg-surface-2" onclick="openModal()">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div>
+<time class="font-small text-small text-text-tertiary mb-1 block">August 31, 2026</time>
+<h2 class="font-h3 text-[20px] leading-tight text-text-primary mb-2">The Divergent Architect</h2>
+<p class="font-body text-body text-text-secondary line-clamp-2">Exploring systemic design leadership while balancing deeply personal creative autonomy.</p>
+</div>
+<div class="mt-auto pt-6 border-t border-border/50">
+<a class="inline-flex items-center gap-2 font-label text-label text-accent-strong hover:text-primary transition-colors group-hover:translate-x-1 duration-200" href="#">
+                            Open Result
+                            <span class="material-symbols-outlined text-[16px] transform transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- Card 2 (Completed) -->
+<article class="bg-surface-1 border border-border rounded-xl p-6 md:p-8 flex flex-col gap-6 relative group glass-card premium-border transition-all duration-300">
+<div class="flex justify-between items-start">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 border border-success/20">
+<div class="w-1.5 h-1.5 rounded-full bg-success"></div>
+<span class="font-small text-[11px] font-semibold tracking-wider text-success uppercase">Ready</span>
+</div>
+<button aria-label="Options" class="text-on-surface-variant hover:text-text-primary transition-colors p-1 -mr-2 -mt-2 rounded-md hover:bg-surface-2" onclick="openModal()">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div>
+<time class="font-small text-small text-text-tertiary mb-1 block">March 15, 2026</time>
+<h2 class="font-h3 text-[20px] leading-tight text-text-primary mb-2">The Pragmatic Visionary</h2>
+<p class="font-body text-body text-text-secondary line-clamp-2">Realigning career trajectory towards sustainable technology sectors and mentorship.</p>
+</div>
+<div class="mt-auto pt-6 border-t border-border/50">
+<a class="inline-flex items-center gap-2 font-label text-label text-accent-strong hover:text-primary transition-colors group-hover:translate-x-1 duration-200" href="#">
+                            Open Result
+                            <span class="material-symbols-outlined text-[16px] transform transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- Card 3 (In Progress) -->
+<article class="bg-surface-1 border border-border rounded-xl p-6 md:p-8 flex flex-col gap-6 relative group glass-card premium-border transition-all duration-300">
+<div class="flex justify-between items-start">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-warning/10 border border-warning/20">
+<div class="w-1.5 h-1.5 rounded-full bg-warning animate-pulse"></div>
+<span class="font-small text-[11px] font-semibold tracking-wider text-warning uppercase">In Progress</span>
+</div>
+<button aria-label="Options" class="text-on-surface-variant hover:text-text-primary transition-colors p-1 -mr-2 -mt-2 rounded-md hover:bg-surface-2" onclick="openModal()">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div>
+<time class="font-small text-small text-text-tertiary mb-1 block">Started October 12, 2026</time>
+<h2 class="font-h3 text-[20px] leading-tight text-text-primary mb-2 italic opacity-80">Synthesizing Core Values...</h2>
+<p class="font-body text-body text-text-secondary line-clamp-2">Currently mapping intersection of personal ethics and professional ambition.</p>
+</div>
+<div class="mt-auto pt-6 border-t border-border/50">
+<a class="inline-flex items-center gap-2 font-label text-label text-text-primary hover:text-accent-strong transition-colors group-hover:translate-x-1 duration-200" href="#">
+                            Continue Session
+                            <span class="material-symbols-outlined text-[16px] transform transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</article>
+</div>
+<!-- Empty State (Hidden by default, shown here for structure reference if filters yield 0) -->
+<div class="hidden flex-col items-center justify-center py-24 text-center">
+<div class="w-16 h-16 rounded-full bg-surface-2 flex items-center justify-center mb-6 border border-border">
+<span class="material-symbols-outlined text-[32px] text-text-tertiary" data-icon="search_off">search_off</span>
+</div>
+<h3 class="font-h3 text-h3 text-text-primary mb-2">No reflections found</h3>
+<p class="font-body text-body text-text-secondary max-w-md mx-auto">There are no analyses matching the selected filter. Try adjusting your criteria or start a new reflection.</p>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 lg:hidden bg-surface-2/90 backdrop-blur-md border-t border-border-strong rounded-t-xl shadow-lg pb-[max(env(safe-area-inset-bottom),12px)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant gap-1 active:bg-surface-3 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="fingerprint">fingerprint</span>
+<span class="font-label text-[10px]">Identity</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant gap-1 active:bg-surface-3 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="alt_route">alt_route</span>
+<span class="font-label text-[10px]">Paths</span>
+</a>
+<a class="flex flex-col items-center justify-center text-accent-strong font-bold gap-1 scale-110 transition-transform p-2" href="#">
+<span class="material-symbols-outlined text-[24px] mb-0.5" data-icon="timeline" data-weight="fill">timeline</span>
+<span class="font-label text-[10px]">Timeline</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant gap-1 active:bg-surface-3 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="mail">mail</span>
+<span class="font-label text-[10px]">Letter</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant gap-1 active:bg-surface-3 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="event_note">event_note</span>
+<span class="font-label text-[10px]">Plan</span>
+</a>
+</nav>
+<!-- Delete Modal -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-[#020205]/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 px-4" id="delete-modal">
+<div class="bg-surface-container rounded-xl border border-border p-6 md:p-8 max-w-[440px] w-full shadow-2xl transform scale-95 transition-transform duration-300" id="delete-modal-content">
+<div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center mb-6 border border-error/20 text-error">
+<span class="material-symbols-outlined text-[24px]" data-icon="warning">warning</span>
+</div>
+<h2 class="font-h2 text-[28px] leading-tight text-text-primary mb-3">Delete Analysis?</h2>
+<p class="font-body text-body text-text-secondary mb-8">
+                Are you sure you want to delete this historical record? This action will permanently remove the analysis, associated paths, and check-ins. This cannot be undone.
+            </p>
+<div class="flex flex-col sm:flex-row gap-3 justify-end mt-4">
+<button class="px-5 py-2.5 rounded-lg font-label text-label text-text-primary bg-surface-2 hover:bg-surface-3 border border-border transition-colors w-full sm:w-auto" onclick="closeModal()">
+                    Cancel
+                </button>
+<button class="px-5 py-2.5 rounded-lg font-label text-label text-on-error bg-error hover:bg-error/90 transition-colors w-full sm:w-auto shadow-[0_0_15px_rgba(255,180,171,0.2)]" onclick="closeModal()">
+                    Yes, Delete Analysis
+                </button>
+</div>
+</div>
+</div>
+<script>
+        const modal = document.getElementById('delete-modal');
+        const modalContent = document.getElementById('delete-modal-content');
+
+        function openModal() {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body></html>

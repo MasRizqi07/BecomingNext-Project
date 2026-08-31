@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Check-in Success</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Playfair+Display:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#67e8f9",
+                      "surface-variant": "#35343b",
+                      "on-surface-variant": "#bcc9cb",
+                      "surface-tint": "#54d8e8",
+                      "accent-strong": "#22D3EE",
+                      "primary-fixed-dim": "#54d8e8",
+                      "background": "#131319",
+                      "on-primary": "#00363c",
+                      "surface-1": "#090A0F",
+                      "surface-bright": "#39383f",
+                      "on-primary-fixed": "#001f23",
+                      "secondary": "#ccbeff",
+                      "border": "rgba(255, 255, 255, 0.12)",
+                      "on-secondary-container": "#baabf3",
+                      "on-tertiary-fixed-variant": "#5a4300",
+                      "error-container": "#93000a",
+                      "error": "#ffb4ab",
+                      "inverse-on-surface": "#303037",
+                      "success": "#86EFAC",
+                      "text-tertiary": "#94A3B8",
+                      "on-background": "#e4e1ea",
+                      "on-primary-container": "#006771",
+                      "on-secondary-fixed": "#1e0e4e",
+                      "text-primary": "#F8FAFC",
+                      "on-tertiary-fixed": "#251a00",
+                      "tertiary-fixed-dim": "#edc150",
+                      "tertiary-fixed": "#ffdf97",
+                      "surface-dim": "#131319",
+                      "outline": "#869395",
+                      "inverse-primary": "#006973",
+                      "secondary-fixed-dim": "#ccbeff",
+                      "surface-container-high": "#2a2930",
+                      "border-strong": "rgba(255, 255, 255, 0.24)",
+                      "on-error": "#690005",
+                      "inverse-surface": "#e4e1ea",
+                      "danger": "#FCA5A5",
+                      "on-tertiary-container": "#755900",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-container": "#ffd15e",
+                      "on-secondary": "#332664",
+                      "primary-fixed": "#91f1ff",
+                      "surface-container-highest": "#35343b",
+                      "tertiary": "#fff2db",
+                      "on-surface": "#e4e1ea",
+                      "surface-2": "rgba(255, 255, 255, 0.05)",
+                      "text-secondary": "#CBD5E1",
+                      "outline-variant": "#3c494b",
+                      "warning": "#FCD34D",
+                      "surface-container": "#1f1f25",
+                      "surface-3": "rgba(255, 255, 255, 0.08)",
+                      "surface-container-lowest": "#0e0e14",
+                      "on-primary-fixed-variant": "#004f57",
+                      "primary": "#d5f9ff",
+                      "surface-container-low": "#1b1b21",
+                      "on-tertiary": "#3e2e00",
+                      "surface": "#131319",
+                      "on-secondary-fixed-variant": "#4a3d7c",
+                      "secondary-fixed": "#e7deff",
+                      "secondary-container": "#4a3d7c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "reading-width": "720px",
+                      "margin-mobile": "20px",
+                      "gutter-mobile": "16px",
+                      "unit": "4px",
+                      "gutter-desktop": "32px",
+                      "max-content-width": "1200px",
+                      "margin-desktop": "64px"
+              },
+              "fontFamily": {
+                      "h2": [
+                              "Space Grotesk"
+                      ],
+                      "label": [
+                              "Space Grotesk"
+                      ],
+                      "h1": [
+                              "Space Grotesk"
+                      ],
+                      "body": [
+                              "Inter"
+                      ],
+                      "h3": [
+                              "Space Grotesk"
+                      ],
+                      "h1-mobile": [
+                              "Space Grotesk"
+                      ],
+                      "small": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Space Grotesk"
+                      ],
+                      "display-xl": [
+                              "Space Grotesk"
+                      ],
+                      "editorial-italic": [
+                              "Playfair Display"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "display-xl-mobile": [
+                              "Space Grotesk"
+                      ],
+                      "display-lg": [
+                              "Space Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "h2": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h1": [
+                              "52px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.65",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "h3": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "h1-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "small": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.55",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-xl": [
+                              "96px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "editorial-italic": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.7",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-xl-mobile": [
+                              "56px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .orb {
+            position: absolute;
+            width: 40vw;
+            height: 40vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(103, 232, 249, 0.15) 0%, rgba(103, 232, 249, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 8s infinite alternate;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        .glass-card {
+            background: rgba(9, 10, 15, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        
+        .success-icon-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(134, 239, 172, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            border: 1px solid rgba(134, 239, 172, 0.2);
+            box-shadow: 0 0 20px rgba(134, 239, 172, 0.1);
+        }
+      </style>
+</head>
+<body class="bg-background text-text-primary min-h-screen flex items-center justify-center relative overflow-hidden font-body selection:bg-accent-strong selection:text-background">
+<!-- Ambient Glowing Orb Background -->
+<div aria-hidden="true" class="orb"></div>
+<!-- Main Content Container -->
+<main class="relative z-10 w-full max-w-lg px-margin-mobile md:px-0 flex flex-col items-center">
+<!-- Success Card -->
+<div class="glass-card w-full rounded-[24px] p-[24px] md:p-12 text-center shadow-2xl flex flex-col items-center animate-fade-in-up">
+<!-- Success Icon -->
+<div class="success-icon-container">
+<span class="material-symbols-outlined text-[40px] text-success" style="font-variation-settings: 'FILL' 1;">
+                    check_circle
+                </span>
+</div>
+<!-- Typography -->
+<h1 class="font-h2 text-h2 md:font-h1 md:text-h1 mb-4 text-text-primary">
+                Progress recorded.
+            </h1>
+<p class="font-body-lg text-body-lg text-text-secondary mb-10 max-w-[320px] mx-auto">
+                Your reflections have been added to your trajectory history.
+            </p>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row gap-4 w-full justify-center mt-2">
+<button class="bg-surface-2 border border-border hover:border-border-strong text-text-primary px-8 py-4 rounded-full font-label text-label transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
+                    Return to Dashboard
+                </button>
+<button class="bg-primary-container text-on-primary px-8 py-4 rounded-full font-label text-label hover:bg-surface-tint transition-all duration-200 shadow-[0_0_15px_rgba(103,232,249,0.3)] hover:shadow-[0_0_25px_rgba(103,232,249,0.5)] focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
+                    View Full Analysis
+                </button>
+</div>
+</div>
+</main>
+</body></html>

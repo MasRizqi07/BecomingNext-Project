@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Account Settings - Becoming</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#006973",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#004f57",
+                        "outline": "#869395",
+                        "on-secondary-fixed": "#1e0e4e",
+                        "primary-container": "#67e8f9",
+                        "inverse-surface": "#e4e1ea",
+                        "on-secondary": "#332664",
+                        "text-secondary": "#CBD5E1",
+                        "tertiary-fixed": "#ffdf97",
+                        "tertiary-container": "#ffd15e",
+                        "secondary": "#ccbeff",
+                        "secondary-fixed-dim": "#ccbeff",
+                        "on-tertiary-fixed": "#251a00",
+                        "text-primary": "#F8FAFC",
+                        "surface-bright": "#39383f",
+                        "secondary-container": "#4a3d7c",
+                        "primary": "#d5f9ff",
+                        "surface-container-lowest": "#0e0e14",
+                        "on-primary": "#00363c",
+                        "surface-1": "#090A0F",
+                        "on-tertiary": "#3e2e00",
+                        "warning": "#FCD34D",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#e7deff",
+                        "outline-variant": "#3c494b",
+                        "primary-fixed-dim": "#54d8e8",
+                        "tertiary": "#fff2db",
+                        "on-background": "#e4e1ea",
+                        "text-tertiary": "#94A3B8",
+                        "surface-3": "rgba(255, 255, 255, 0.08)",
+                        "surface-container-high": "#2a2930",
+                        "on-primary-fixed": "#001f23",
+                        "on-secondary-container": "#baabf3",
+                        "on-tertiary-fixed-variant": "#5a4300",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#4a3d7c",
+                        "on-tertiary-container": "#755900",
+                        "surface-dim": "#131319",
+                        "accent-strong": "#22D3EE",
+                        "danger": "#FCA5A5",
+                        "surface": "#131319",
+                        "surface-container-highest": "#35343b",
+                        "surface-container-low": "#1b1b21",
+                        "on-surface": "#e4e1ea",
+                        "background": "#131319",
+                        "primary-fixed": "#91f1ff",
+                        "success": "#86EFAC",
+                        "surface-2": "rgba(255, 255, 255, 0.05)",
+                        "inverse-on-surface": "#303037",
+                        "surface-tint": "#54d8e8",
+                        "on-surface-variant": "#bcc9cb",
+                        "tertiary-fixed-dim": "#edc150",
+                        "border-strong": "rgba(255, 255, 255, 0.24)",
+                        "on-primary-container": "#006771",
+                        "on-error": "#690005",
+                        "border": "rgba(255, 255, 255, 0.12)",
+                        "surface-container": "#1f1f25",
+                        "surface-variant": "#35343b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "max-content-width": "1200px",
+                        "reading-width": "720px",
+                        "gutter-desktop": "32px",
+                        "margin-desktop": "64px",
+                        "unit": "4px",
+                        "margin-mobile": "20px",
+                        "gutter-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Space Grotesk"],
+                        "small": ["Inter"],
+                        "display-xl": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-xl-mobile": ["Space Grotesk"],
+                        "label": ["Space Grotesk"],
+                        "editorial-italic": ["Playfair Display"],
+                        "h1-mobile": ["Space Grotesk"],
+                        "display-lg-mobile": ["Space Grotesk"],
+                        "h3": ["Space Grotesk"],
+                        "h2": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
+                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
+                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #020205; /* The Canvas */
+            color: #F8FAFC;
+        }
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .focus-ring:focus-within {
+            border-color: #67E8F9;
+            box-shadow: 0px 0px 8px rgba(103, 232, 249, 0.3);
+        }
+    </style>
+</head>
+<body class="font-body text-body antialiased min-h-screen flex flex-col items-center">
+<!-- Top Navigation (Shell suppressed as per intent logic - settings page implies temporary departure, but instructions imply "shell" in centering. We will render a minimal structural nav for context, though standard rules suggest suppression on "transactional" or task-focused sub-pages. Let's provide a "Back" nav.) -->
+<nav class="w-full max-w-max-content-width flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 sticky top-0 z-50 bg-[#020205]/80 backdrop-blur-xl">
+<a class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+<span class="font-label text-label">Back</span>
+</a>
+<div class="font-h3 text-h3 font-bold text-accent-strong">Becoming V2</div>
+<div class="w-8"></div> <!-- Spacer for balance -->
+</nav>
+<!-- Main Content Container -->
+<main class="w-full max-w-[760px] px-margin-mobile md:px-0 py-12 flex flex-col gap-16">
+<!-- Header -->
+<header class="flex flex-col gap-4">
+<h1 class="font-h1 text-h1-mobile md:text-h1 text-text-primary">Settings</h1>
+<p class="font-editorial-italic text-editorial-italic text-text-tertiary">Manage your presence and boundaries within the sanctuary.</p>
+</header>
+<!-- Section 1: Account Identity -->
+<section class="flex flex-col gap-6">
+<h2 class="font-h3 text-h3 text-text-primary border-b border-border pb-2">Account Identity</h2>
+<div class="glass-panel rounded-xl p-6 flex items-center gap-6">
+<div class="w-24 h-24 rounded-full overflow-hidden border-2 border-border-strong relative shrink-0">
+<img class="w-full h-full object-cover" data-alt="A cinematic, moody portrait photography shot of a serene individual, softly lit against a deep dark background, emphasizing quiet introspection and premium minimalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkYv8DU0PLsIzhIEGeV2iW38UNGHIwiwzoHEg0nEKEiQlHkKMtBjrfw8hn88sV2J3NumSkRmvIBMn9dRhR3wDF4cGJKcqKq21wy6ecUhJbRBl7GwUJpnuuaKVQJYdZuTaxS5iKOwA0tSOCuaTJa-xEpQLBdpIOhBtaCwfsbgffYFRW4dHIMoCjJffKT3W_EnvHUgXoRFyXsgGF9iNjWS2yuyjmSJaf5sDul1khul9rQm_fxuEugz_0tA"/>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-h2 text-h2 text-text-primary">Alex Rivera</h3>
+<p class="font-body text-body text-text-secondary">alex.rivera@gmail.com</p>
+<p class="font-small text-small text-text-tertiary mt-2">Member since August 2026</p>
+</div>
+<button class="ml-auto bg-surface-2 border border-border hover:border-border-strong text-text-primary font-label text-label py-2 px-4 rounded-lg transition-all duration-120">
+                    Edit Profile
+                </button>
+</div>
+</section>
+<!-- Section 2: Experience & Accessibility -->
+<section class="flex flex-col gap-6">
+<h2 class="font-h3 text-h3 text-text-primary border-b border-border pb-2">Experience &amp; Accessibility</h2>
+<div class="glass-panel rounded-xl p-6 flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<div class="flex flex-col gap-1">
+<span class="font-body-lg text-body-lg text-text-primary">Motion Preferences</span>
+<span class="font-small text-small text-text-tertiary">Adjust interface animations and ambient effects.</span>
+</div>
+<div class="flex bg-surface-1 rounded-lg p-1 border border-border">
+<button class="px-4 py-2 rounded-DEFAULT bg-surface-3 text-text-primary font-label text-label shadow-sm">System Default</button>
+<button class="px-4 py-2 rounded-DEFAULT text-text-secondary hover:text-text-primary font-label text-label transition-colors">Reduced</button>
+</div>
+</div>
+<div class="h-px w-full bg-border"></div>
+<div class="flex justify-between items-center">
+<div class="flex flex-col gap-1">
+<span class="font-body-lg text-body-lg text-text-primary">Language</span>
+<span class="font-small text-small text-text-tertiary">English is currently the active language.</span>
+</div>
+<button class="bg-surface-2 border border-border hover:border-border-strong text-text-primary font-label text-label py-2 px-4 rounded-lg transition-all duration-120">
+                        Change
+                    </button>
+</div>
+</div>
+</section>
+<!-- Section 3: Privacy & Data -->
+<section class="flex flex-col gap-6">
+<h2 class="font-h3 text-h3 text-text-primary border-b border-border pb-2">Privacy &amp; Data</h2>
+<div class="glass-panel rounded-xl flex flex-col overflow-hidden">
+<a class="flex justify-between items-center p-6 border-b border-border hover:bg-surface-3 transition-colors duration-150 group" href="#">
+<div class="flex flex-col gap-1">
+<span class="font-body-lg text-body-lg text-text-primary group-hover:text-primary-container transition-colors">Data Architecture</span>
+<span class="font-small text-small text-text-tertiary">Understand how your reflections are stored.</span>
+</div>
+<span class="material-symbols-outlined text-text-tertiary group-hover:text-primary-container transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<a class="flex justify-between items-center p-6 border-b border-border hover:bg-surface-3 transition-colors duration-150 group" href="#">
+<div class="flex flex-col gap-1">
+<span class="font-body-lg text-body-lg text-text-primary group-hover:text-primary-container transition-colors">AI Boundaries</span>
+<span class="font-small text-small text-text-tertiary">Configure the limits of AI synthesis and insight generation.</span>
+</div>
+<span class="material-symbols-outlined text-text-tertiary group-hover:text-primary-container transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<div class="p-6 flex justify-between items-center">
+<div class="flex flex-col gap-1">
+<span class="font-body-lg text-body-lg text-text-primary">Export Archive</span>
+<span class="font-small text-small text-text-tertiary">Download a local copy of all your journal entries.</span>
+</div>
+<button class="bg-surface-2 border border-border hover:border-border-strong text-text-primary font-label text-label py-2 px-4 rounded-lg flex items-center gap-2 transition-all duration-120">
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+                        Export All Data
+                    </button>
+</div>
+</div>
+</section>
+<!-- Section 4: Danger Zone -->
+<section class="flex flex-col gap-6 mb-24">
+<h2 class="font-h3 text-h3 text-error border-b border-error/30 pb-2">Danger Zone</h2>
+<div class="bg-surface-1 border border-error/30 rounded-xl p-6 flex flex-col gap-6 relative overflow-hidden">
+<div class="absolute inset-0 bg-error/5 pointer-events-none"></div>
+<div class="flex flex-col gap-2 relative z-10">
+<h3 class="font-h2 text-h2 text-error">Delete Account</h3>
+<p class="font-body text-body text-text-secondary">This action is irreversible. All paths, reflections, and insights will be permanently erased from the sanctuary.</p>
+</div>
+<div class="flex flex-col gap-4 relative z-10">
+<label class="font-label text-label text-text-tertiary uppercase tracking-wider">To confirm, type "DELETE" below</label>
+<div class="flex gap-4">
+<div class="flex-1 bg-surface-1 border border-border rounded-lg focus-ring transition-colors">
+<input class="w-full bg-transparent border-none text-text-primary font-body text-body p-3 focus:ring-0" id="deleteInput" placeholder="DELETE" type="text"/>
+</div>
+<button class="bg-surface-3 border border-error/20 text-text-tertiary font-label text-label py-3 px-6 rounded-lg cursor-not-allowed transition-all duration-200" disabled="" id="deleteBtn">
+                            Delete Account
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<script>
+        const deleteInput = document.getElementById('deleteInput');
+        const deleteBtn = document.getElementById('deleteBtn');
+
+        deleteInput.addEventListener('input', (e) => {
+            if (e.target.value === 'DELETE') {
+                deleteBtn.disabled = false;
+                deleteBtn.classList.remove('bg-surface-3', 'text-text-tertiary', 'border-error/20', 'cursor-not-allowed');
+                deleteBtn.classList.add('bg-error', 'text-on-error', 'border-error', 'hover:bg-danger', 'cursor-pointer', 'shadow-[0_0_12px_rgba(255,180,171,0.2)]');
+            } else {
+                deleteBtn.disabled = true;
+                deleteBtn.classList.add('bg-surface-3', 'text-text-tertiary', 'border-error/20', 'cursor-not-allowed');
+                deleteBtn.classList.remove('bg-error', 'text-on-error', 'border-error', 'hover:bg-danger', 'cursor-pointer', 'shadow-[0_0_12px_rgba(255,180,171,0.2)]');
+            }
+        });
+    </script>
+</body></html>

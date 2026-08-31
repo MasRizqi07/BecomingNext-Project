@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Result Detail - Becoming V2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#bcc9cb",
+                        "on-primary-fixed": "#001f23",
+                        "text-primary": "#F8FAFC",
+                        "text-secondary": "#CBD5E1",
+                        "outline": "#869395",
+                        "tertiary-fixed": "#ffdf97",
+                        "on-secondary-container": "#baabf3",
+                        "surface-variant": "#35343b",
+                        "error": "#ffb4ab",
+                        "primary": "#d5f9ff",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#2a2930",
+                        "on-tertiary-container": "#755900",
+                        "tertiary-fixed-dim": "#edc150",
+                        "secondary": "#ccbeff",
+                        "on-background": "#e4e1ea",
+                        "on-tertiary-fixed-variant": "#5a4300",
+                        "on-error": "#690005",
+                        "surface-dim": "#131319",
+                        "primary-fixed": "#91f1ff",
+                        "on-secondary": "#332664",
+                        "border-strong": "rgba(255, 255, 255, 0.24)",
+                        "surface-3": "rgba(255, 255, 255, 0.08)",
+                        "surface-container-lowest": "#0e0e14",
+                        "primary-fixed-dim": "#54d8e8",
+                        "tertiary-container": "#ffd15e",
+                        "surface-1": "#090A0F",
+                        "on-primary": "#00363c",
+                        "danger": "#FCA5A5",
+                        "on-tertiary": "#3e2e00",
+                        "on-primary-container": "#006771",
+                        "text-tertiary": "#94A3B8",
+                        "inverse-surface": "#e4e1ea",
+                        "warning": "#FCD34D",
+                        "tertiary": "#fff2db",
+                        "background": "#131319",
+                        "on-primary-fixed-variant": "#004f57",
+                        "surface-container-highest": "#35343b",
+                        "on-surface": "#e4e1ea",
+                        "border": "rgba(255, 255, 255, 0.12)",
+                        "surface-container": "#1f1f25",
+                        "secondary-container": "#4a3d7c",
+                        "on-secondary-fixed": "#1e0e4e",
+                        "on-error-container": "#ffdad6",
+                        "surface": "#131319",
+                        "surface-container-low": "#1b1b21",
+                        "accent-strong": "#22D3EE",
+                        "inverse-on-surface": "#303037",
+                        "inverse-primary": "#006973",
+                        "surface-bright": "#39383f",
+                        "secondary-fixed-dim": "#ccbeff",
+                        "surface-2": "rgba(255, 255, 255, 0.05)",
+                        "secondary-fixed": "#e7deff",
+                        "primary-container": "#67e8f9",
+                        "success": "#86EFAC",
+                        "outline-variant": "#3c494b",
+                        "surface-tint": "#54d8e8",
+                        "on-tertiary-fixed": "#251a00",
+                        "on-secondary-fixed-variant": "#4a3d7c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-desktop": "64px",
+                        "max-content-width": "1200px",
+                        "gutter-desktop": "32px",
+                        "reading-width": "720px",
+                        "margin-mobile": "20px",
+                        "gutter-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Space Grotesk", "sans-serif"],
+                        "display-lg": ["Space Grotesk", "sans-serif"],
+                        "h1-mobile": ["Space Grotesk", "sans-serif"],
+                        "h1": ["Space Grotesk", "sans-serif"],
+                        "display-lg-mobile": ["Space Grotesk", "sans-serif"],
+                        "editorial-italic": ["Playfair Display", "serif"],
+                        "small": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Space Grotesk", "sans-serif"],
+                        "display-xl-mobile": ["Space Grotesk", "sans-serif"],
+                        "h3": ["Space Grotesk", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "display-xl": ["Space Grotesk", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
+                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
+                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
+                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
+                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #020205; /* The Canvas */
+            color: #F8FAFC;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .path-cyan {
+            border: 1px solid rgba(103, 232, 249, 0.3);
+            background: linear-gradient(180deg, rgba(103,232,249,0.05) 0%, rgba(255,255,255,0.02) 100%);
+        }
+        .path-violet {
+            border: 1px solid rgba(196, 181, 253, 0.3);
+            background: linear-gradient(180deg, rgba(196,181,253,0.05) 0%, rgba(255,255,255,0.02) 100%);
+        }
+        .paper-texture {
+            background-color: #090A0F;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.05"/></svg>');
+        }
+    </style>
+</head>
+<body class="font-body text-body antialiased min-h-screen flex flex-col">
+<!-- TopAppBar (Becoming V2 Dashboard) -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 sticky top-0 z-50 bg-surface border-b border-border">
+<div class="flex items-center gap-4">
+<span class="font-h3 text-h3 font-bold text-accent-strong">Becoming V2</span>
+</div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-primary font-bold font-label text-label hover:bg-surface-3 rounded-lg px-3 py-2 transition-all scale-98" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-label text-label hover:bg-surface-3 rounded-lg px-3 py-2 transition-all" href="#">New Reflection</a>
+<a class="text-on-surface-variant font-label text-label hover:bg-surface-3 rounded-lg px-3 py-2 transition-all" href="#">History</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="p-2 text-primary hover:bg-surface-3 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications</span>
+</button>
+<button class="p-2 text-primary hover:bg-surface-3 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border ml-2">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A cinematic, low-key lighting portrait of a thoughtful individual in a minimalist, dimly lit futuristic environment. The mood is introspective and quiet. Focus on realistic skin textures and soft, cool-toned rim lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC88r6M5yWWD9i63S2M0s15XoWKI7GLkjZGP1N23hKEo4ygX7MPJjBQ0d2uz9OdSwxcm3OK7p8k7m_t2S-py8Ydx5U1H71NQB7TLwEgBMsju08f48wgzPIQEOx6rZ6uKdKV7rry7FIBE0rkBIKMSW3htfHHTm4FcY-qeG1w0eNyovjGPxpMOLDo82zFCx0uxYZNNd3qEDZdmr0FJpycvWx_11PUC66l__ByJ9z0EFtVs-fLtm4WWMXKKw"/>
+</div>
+</div>
+</header>
+<div class="flex-grow flex flex-col lg:flex-row w-full max-w-[max-content-width] mx-auto px-margin-mobile md:px-margin-desktop py-12 gap-gutter-desktop">
+<!-- Left Side Navigation -->
+<aside class="hidden lg:flex flex-col w-64 sticky top-24 gap-4 h-fit bg-surface-1 border border-border p-4 rounded-xl">
+<div class="mb-4 px-2">
+<h3 class="font-label text-label text-accent-strong uppercase tracking-wider">Navigation</h3>
+<p class="font-small text-small text-on-surface-variant mt-1">Reflection Sections</p>
+</div>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg font-bold px-3 py-3 font-label text-label translate-x-1 duration-200" href="#summary">
+<span class="material-symbols-outlined">fingerprint</span>
+<span>Identity</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-2 rounded-lg px-3 py-3 font-label text-label transition-colors" href="#paths">
+<span class="material-symbols-outlined">alt_route</span>
+<span>Paths</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-2 rounded-lg px-3 py-3 font-label text-label transition-colors" href="#timeline">
+<span class="material-symbols-outlined">timeline</span>
+<span>Timeline</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-2 rounded-lg px-3 py-3 font-label text-label transition-colors" href="#letter">
+<span class="material-symbols-outlined">mail</span>
+<span>Letter</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-2 rounded-lg px-3 py-3 font-label text-label transition-colors" href="#plan">
+<span class="material-symbols-outlined">event_note</span>
+<span>Plan</span>
+</a>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col gap-24 pb-32 max-w-[reading-width] lg:max-w-none mx-auto w-full">
+<!-- SECTION 1: HERO -->
+<section class="flex flex-col gap-8 pt-8" id="summary">
+<div class="flex flex-col gap-4">
+<span class="font-label text-label text-accent-strong uppercase tracking-wider">Your Archetype</span>
+<h1 class="font-display-xl-mobile md:font-display-xl text-display-xl-mobile md:text-display-xl text-text-primary">The Divergent Architect</h1>
+<p class="font-editorial-italic text-editorial-italic text-text-secondary max-w-[600px] mt-4 border-l-2 border-accent-strong pl-6 py-2">
+                        "You build foundations that others inhabit, but the blueprint of your own life remains unfinished."
+                    </p>
+</div>
+<div class="glass-panel p-8 rounded-xl mt-8 flex flex-col gap-6">
+<h3 class="font-h3 text-h3 text-text-primary">Key Takeaways</h3>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-4">
+<div class="w-6 h-6 rounded-full bg-surface-3 flex items-center justify-center shrink-0 mt-1">
+<div class="w-2 h-2 rounded-full bg-accent-strong"></div>
+</div>
+<p class="font-body text-body text-text-secondary">High potential for systemic change, currently bottlenecked by tactical execution.</p>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-6 h-6 rounded-full bg-surface-3 flex items-center justify-center shrink-0 mt-1">
+<div class="w-2 h-2 rounded-full bg-accent-strong"></div>
+</div>
+<p class="font-body text-body text-text-secondary">Prone to over-committing to structure while avoiding defining a true north vision.</p>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-6 h-6 rounded-full bg-surface-3 flex items-center justify-center shrink-0 mt-1">
+<div class="w-2 h-2 rounded-full bg-accent-strong"></div>
+</div>
+<p class="font-body text-body text-text-secondary">Immediate opportunity lies in delegating routine decisions to free up mental bandwidth.</p>
+</li>
+</ul>
+</div>
+</section>
+</main>
+</div>
+</body></html>

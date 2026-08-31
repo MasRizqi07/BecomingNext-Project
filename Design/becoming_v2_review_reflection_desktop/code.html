@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Review Your Reflection - Becoming V2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#ccbeff",
+                      "surface-bright": "#39383f",
+                      "on-tertiary-fixed": "#251a00",
+                      "inverse-surface": "#e4e1ea",
+                      "border-strong": "rgba(255, 255, 255, 0.24)",
+                      "surface-container-highest": "#35343b",
+                      "surface-container-low": "#1b1b21",
+                      "text-secondary": "#CBD5E1",
+                      "danger": "#FCA5A5",
+                      "error-container": "#93000a",
+                      "surface": "#131319",
+                      "surface-2": "rgba(255, 255, 255, 0.05)",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-container": "#ffd15e",
+                      "on-primary-container": "#006771",
+                      "border": "rgba(255, 255, 255, 0.12)",
+                      "surface-tint": "#54d8e8",
+                      "primary": "#d5f9ff",
+                      "surface-variant": "#35343b",
+                      "on-surface-variant": "#bcc9cb",
+                      "primary-container": "#67e8f9",
+                      "outline-variant": "#3c494b",
+                      "inverse-on-surface": "#303037",
+                      "on-secondary-fixed-variant": "#4a3d7c",
+                      "surface-container": "#1f1f25",
+                      "tertiary-fixed-dim": "#edc150",
+                      "text-primary": "#F8FAFC",
+                      "on-error": "#690005",
+                      "on-tertiary-container": "#755900",
+                      "surface-dim": "#131319",
+                      "warning": "#FCD34D",
+                      "error": "#ffb4ab",
+                      "outline": "#869395",
+                      "surface-container-lowest": "#0e0e14",
+                      "secondary": "#ccbeff",
+                      "inverse-primary": "#006973",
+                      "on-secondary-container": "#baabf3",
+                      "tertiary": "#fff2db",
+                      "on-primary": "#00363c",
+                      "primary-fixed-dim": "#54d8e8",
+                      "text-tertiary": "#94A3B8",
+                      "surface-3": "rgba(255, 255, 255, 0.08)",
+                      "on-tertiary-fixed-variant": "#5a4300",
+                      "background": "#131319",
+                      "on-primary-fixed": "#001f23",
+                      "on-background": "#e4e1ea",
+                      "success": "#86EFAC",
+                      "on-tertiary": "#3e2e00",
+                      "secondary-fixed": "#e7deff",
+                      "accent-strong": "#22D3EE",
+                      "on-secondary-fixed": "#1e0e4e",
+                      "tertiary-fixed": "#ffdf97",
+                      "on-primary-fixed-variant": "#004f57",
+                      "surface-1": "#090A0F",
+                      "secondary-container": "#4a3d7c",
+                      "on-secondary": "#332664",
+                      "surface-container-high": "#2a2930",
+                      "on-surface": "#e4e1ea",
+                      "primary-fixed": "#91f1ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-desktop": "64px",
+                      "reading-width": "720px",
+                      "gutter-desktop": "32px",
+                      "margin-mobile": "20px",
+                      "max-content-width": "1200px",
+                      "gutter-mobile": "16px"
+              },
+              "fontFamily": {
+                      "small": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "display-xl-mobile": [
+                              "Space Grotesk"
+                      ],
+                      "h3": [
+                              "Space Grotesk"
+                      ],
+                      "editorial-italic": [
+                              "Playfair Display"
+                      ],
+                      "label": [
+                              "Space Grotesk"
+                      ],
+                      "body": [
+                              "Inter"
+                      ],
+                      "display-xl": [
+                              "Space Grotesk"
+                      ],
+                      "display-lg-mobile": [
+                              "Space Grotesk"
+                      ],
+                      "display-lg": [
+                              "Space Grotesk"
+                      ],
+                      "h1": [
+                              "Space Grotesk"
+                      ],
+                      "h1-mobile": [
+                              "Space Grotesk"
+                      ],
+                      "h2": [
+                              "Space Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "small": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.55",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.7",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-xl-mobile": [
+                              "56px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "h3": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "editorial-italic": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.65",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-xl": [
+                              "96px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h1": [
+                              "52px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h1-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h2": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { background-color: #020205; }
+        .glass-panel { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    </style>
+</head>
+<body class="text-text-primary antialiased min-h-screen flex flex-col">
+<!-- Top Navigation Anchor (Task-Focused - Suppression Logic dictates hiding full shell, keeping minimal back nav if needed, but context is review. Adding minimal header based on Shared Components TopAppBar style for "New Reflection") -->
+<header class="bg-surface dark:bg-surface border-b border-border flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 sticky top-0 z-50">
+<div class="font-h3 text-h3 font-bold text-accent-strong">Becoming V2</div>
+<div class="flex items-center gap-6 hidden md:flex">
+<a class="text-on-surface-variant font-label text-label hover:bg-surface-3 rounded-lg px-3 py-2 transition-all duration-150" href="#">Dashboard</a>
+<a class="text-primary font-bold font-label text-label scale-98 transition-all px-3 py-2" href="#">New Reflection</a>
+<a class="text-on-surface-variant font-label text-label hover:bg-surface-3 rounded-lg px-3 py-2 transition-all duration-150" href="#">History</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer transition-colors" data-icon="settings">settings</span>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-border object-cover" data-alt="A minimalist user profile avatar in a digital sanctuary aesthetic. The avatar is a subtle geometric abstraction or a soft, moody silhouette against a deep black background, embodying quiet authority and privacy. Cyan accents subtly illuminate the edge. 50-100 words minimum to ensure extreme detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN_5vJrqjcdaEnzIC2Ojw9Na-xUV9kB6hMeuCet6SFneijhZVU-mf9rSUq_VHBU-dmdDWs76zF2chgYxCHSHnAHB88SY8btcwG3oD2NU7je6IF-nnYlQylT9pXcAw2Y218qdPBKhvHSmvAeTd4fTQuVSyy-F6h2ixOi_HmURZd_C93YpYm5vuAWY6sbMQd-EzqP7O5j1b2kh5ETm7_EJc8Ur6QsIt1hGfg7lilvkQdTnFCjwwd8rRVlQ"/>
+</div>
+</header>
+<main class="flex-grow flex flex-col items-center pt-24 pb-32 px-gutter-mobile md:px-0">
+<!-- Centered Container -->
+<div class="w-full max-w-[760px] flex flex-col gap-12">
+<!-- Header Section -->
+<section class="text-center md:text-left flex flex-col gap-4">
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-text-primary">Review Your Reflection</h1>
+<p class="font-body text-body text-text-secondary">Take a breath. Review your answers before generating your trajectory analysis.</p>
+</section>
+<!-- Cards Stack -->
+<section class="flex flex-col gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-1 rounded-2xl border border-border/50 p-6 flex flex-col gap-4 relative group hover:border-border transition-colors duration-200">
+<div class="flex justify-between items-start">
+<span class="font-label text-label text-text-tertiary uppercase tracking-wider">Question 1: What drives you?</span>
+<button class="text-text-tertiary hover:text-primary transition-colors flex items-center gap-1 font-small text-small border border-transparent hover:border-border-strong rounded px-2 py-1 absolute top-4 right-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span> Edit
+                        </button>
+</div>
+<p class="font-body text-body text-text-primary pr-12">
+                        I feel most driven when I am untangling complex systems. There is a specific satisfaction in finding the underlying pattern that makes everything click into place. It's less about the final product and more about the structural integrity of the solution.
+                    </p>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-1 rounded-2xl border border-border/50 p-6 flex flex-col gap-4 relative group hover:border-border transition-colors duration-200">
+<div class="flex justify-between items-start">
+<span class="font-label text-label text-text-tertiary uppercase tracking-wider">Question 2: Core Values</span>
+<button class="text-text-tertiary hover:text-primary transition-colors flex items-center gap-1 font-small text-small border border-transparent hover:border-border-strong rounded px-2 py-1 absolute top-4 right-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span> Edit
+                        </button>
+</div>
+<p class="font-body text-body text-text-primary pr-12">
+                        Autonomy, depth, and quiet competence. I value spaces where I can focus deeply without performative interruptions.
+                    </p>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-1 rounded-2xl border border-border/50 p-6 flex flex-col gap-4 relative group hover:border-border transition-colors duration-200">
+<div class="flex justify-between items-start">
+<span class="font-label text-label text-text-tertiary uppercase tracking-wider">Question 3: Recent Challenges</span>
+<button class="text-text-tertiary hover:text-primary transition-colors flex items-center gap-1 font-small text-small border border-transparent hover:border-border-strong rounded px-2 py-1 absolute top-4 right-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span> Edit
+                        </button>
+</div>
+<p class="font-body text-body text-text-primary pr-12">
+                        Navigating the transition from individual contributor to a leadership role while maintaining my connection to the actual craft. I struggle with delegating tasks that I enjoy doing myself.
+                    </p>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-1 rounded-2xl border border-border/50 p-6 flex flex-col gap-4 relative group hover:border-border transition-colors duration-200">
+<div class="flex justify-between items-start">
+<span class="font-label text-label text-text-tertiary uppercase tracking-wider">Question 4: Ideal Future State</span>
+<button class="text-text-tertiary hover:text-primary transition-colors flex items-center gap-1 font-small text-small border border-transparent hover:border-border-strong rounded px-2 py-1 absolute top-4 right-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span> Edit
+                        </button>
+</div>
+<p class="font-body text-body text-text-primary pr-12">
+                        Leading a small, highly specialized team working on fundamental architectural problems. A setup where we have the breathing room to do things right, rather than just fast.
+                    </p>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-1 rounded-2xl border border-border/50 p-6 flex flex-col gap-4 relative group hover:border-border transition-colors duration-200">
+<div class="flex justify-between items-start">
+<span class="font-label text-label text-text-tertiary uppercase tracking-wider">Question 5: Defining Moments</span>
+<button class="text-text-tertiary hover:text-primary transition-colors flex items-center gap-1 font-small text-small border border-transparent hover:border-border-strong rounded px-2 py-1 absolute top-4 right-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span> Edit
+                        </button>
+</div>
+<p class="font-body text-body text-text-primary pr-12">
+                        The failure of the V1 launch taught me that technical perfection means nothing if it doesn't align with human behavior. That pivot was painful but necessary.
+                    </p>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-1 rounded-2xl border border-border/50 p-6 flex flex-col gap-4 relative group hover:border-border transition-colors duration-200">
+<div class="flex justify-between items-start">
+<span class="font-label text-label text-text-tertiary uppercase tracking-wider">Question 6: Personal Boundaries</span>
+<button class="text-text-tertiary hover:text-primary transition-colors flex items-center gap-1 font-small text-small border border-transparent hover:border-border-strong rounded px-2 py-1 absolute top-4 right-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span> Edit
+                        </button>
+</div>
+<p class="font-body text-body text-text-primary pr-12">
+                        I am strictly guarding my deep-work hours in the morning. I've realized that reactive tasks before noon completely derail my strategic thinking for the day.
+                    </p>
+</div>
+<!-- Card 7 -->
+<div class="bg-surface-1 rounded-2xl border border-border/50 p-6 flex flex-col gap-4 relative group hover:border-border transition-colors duration-200">
+<div class="flex justify-between items-start">
+<span class="font-label text-label text-text-tertiary uppercase tracking-wider">Question 7: Unexplored Interests</span>
+<button class="text-text-tertiary hover:text-primary transition-colors flex items-center gap-1 font-small text-small border border-transparent hover:border-border-strong rounded px-2 py-1 absolute top-4 right-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span> Edit
+                        </button>
+</div>
+<p class="font-body text-body text-text-primary pr-12">
+                        I keep circling around the idea of learning functional programming deeply, like Haskell or Clojure. It feels like a different way of thinking that I haven't fully accessed yet.
+                    </p>
+</div>
+<!-- Card 8 -->
+<div class="bg-surface-1 rounded-2xl border border-border/50 p-6 flex flex-col gap-4 relative group hover:border-border transition-colors duration-200">
+<div class="flex justify-between items-start">
+<span class="font-label text-label text-text-tertiary uppercase tracking-wider">Question 8: The Question You Avoid</span>
+<button class="text-text-tertiary hover:text-primary transition-colors flex items-center gap-1 font-small text-small border border-transparent hover:border-border-strong rounded px-2 py-1 absolute top-4 right-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span> Edit
+                        </button>
+</div>
+<p class="font-body text-body text-text-primary pr-12">
+                        "Am I optimizing for comfort or for growth?" I suspect I've been choosing comfort lately under the guise of 'stability'.
+                    </p>
+</div>
+</section>
+<!-- Trust & Boundary Box -->
+<section class="bg-surface-2 glass-panel border border-primary-container/30 rounded-xl p-5 flex items-start gap-4 mt-8">
+<span class="material-symbols-outlined text-primary-container shrink-0 mt-0.5" data-icon="shield_lock">shield_lock</span>
+<p class="font-small text-small text-text-secondary leading-relaxed">
+                    By continuing, your answers will be structured into a dual-path analysis. No data is shared publicly. This is your sanctuary.
+                </p>
+</section>
+<!-- Action Footer -->
+<footer class="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 mt-12 pt-8 border-t border-border/50">
+<button class="w-full sm:w-auto px-6 py-3 bg-surface-2 border border-border text-text-primary font-body text-body rounded-lg hover:bg-surface-3 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-background">
+                    Back to Questions
+                </button>
+<button class="w-full sm:w-auto px-8 py-3 bg-primary-container text-on-primary-container font-body text-body font-medium rounded-lg hover:bg-primary-container/90 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-background shadow-[0_0_15px_rgba(103,232,249,0.15)] flex items-center justify-center gap-2">
+                    Create My Trajectory Analysis
+                    <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</footer>
+</div>
+</main>
+</body></html>

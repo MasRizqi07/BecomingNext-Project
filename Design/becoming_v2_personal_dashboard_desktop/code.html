@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Becoming V2 - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline": "#869395",
+                      "primary-container": "#67e8f9",
+                      "on-tertiary": "#3e2e00",
+                      "surface-container-high": "#2a2930",
+                      "surface-2": "rgba(255, 255, 255, 0.05)",
+                      "text-tertiary": "#94A3B8",
+                      "on-primary": "#00363c",
+                      "on-tertiary-fixed": "#251a00",
+                      "primary": "#d5f9ff",
+                      "text-primary": "#F8FAFC",
+                      "surface-dim": "#131319",
+                      "accent-strong": "#22D3EE",
+                      "on-tertiary-container": "#755900",
+                      "text-secondary": "#CBD5E1",
+                      "inverse-primary": "#006973",
+                      "success": "#86EFAC",
+                      "surface-bright": "#39383f",
+                      "surface-container-lowest": "#0e0e14",
+                      "border-strong": "rgba(255, 255, 255, 0.24)",
+                      "surface-3": "rgba(255, 255, 255, 0.08)",
+                      "tertiary-container": "#ffd15e",
+                      "tertiary-fixed-dim": "#edc150",
+                      "surface-container-low": "#1b1b21",
+                      "inverse-on-surface": "#303037",
+                      "on-error": "#690005",
+                      "outline-variant": "#3c494b",
+                      "on-surface-variant": "#bcc9cb",
+                      "tertiary": "#fff2db",
+                      "inverse-surface": "#e4e1ea",
+                      "border": "rgba(255, 255, 255, 0.12)",
+                      "primary-fixed": "#91f1ff",
+                      "on-secondary": "#332664",
+                      "surface-container": "#1f1f25",
+                      "primary-fixed-dim": "#54d8e8",
+                      "background": "#131319",
+                      "on-secondary-fixed-variant": "#4a3d7c",
+                      "on-secondary-fixed": "#1e0e4e",
+                      "secondary-container": "#4a3d7c",
+                      "tertiary-fixed": "#ffdf97",
+                      "on-background": "#e4e1ea",
+                      "danger": "#FCA5A5",
+                      "on-secondary-container": "#baabf3",
+                      "secondary-fixed": "#e7deff",
+                      "on-surface": "#e4e1ea",
+                      "surface-1": "#090A0F",
+                      "on-primary-fixed": "#001f23",
+                      "surface-container-highest": "#35343b",
+                      "error-container": "#93000a",
+                      "warning": "#FCD34D",
+                      "on-primary-container": "#006771",
+                      "secondary": "#ccbeff",
+                      "on-primary-fixed-variant": "#004f57",
+                      "error": "#ffb4ab",
+                      "on-tertiary-fixed-variant": "#5a4300",
+                      "surface": "#131319",
+                      "surface-variant": "#35343b",
+                      "surface-tint": "#54d8e8",
+                      "secondary-fixed-dim": "#ccbeff",
+                      "on-error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-mobile": "20px",
+                      "reading-width": "720px",
+                      "margin-desktop": "64px",
+                      "gutter-desktop": "32px",
+                      "gutter-mobile": "16px",
+                      "max-content-width": "1200px"
+              },
+              "fontFamily": {
+                      "h1": ["Space Grotesk"],
+                      "body-lg": ["Inter"],
+                      "display-xl-mobile": ["Space Grotesk"],
+                      "h3": ["Space Grotesk"],
+                      "display-lg-mobile": ["Space Grotesk"],
+                      "body": ["Inter"],
+                      "display-xl": ["Space Grotesk"],
+                      "editorial-italic": ["Playfair Display"],
+                      "h2": ["Space Grotesk"],
+                      "display-lg": ["Space Grotesk"],
+                      "label": ["Space Grotesk"],
+                      "h1-mobile": ["Space Grotesk"],
+                      "small": ["Inter"]
+              },
+              "fontSize": {
+                      "h1": ["52px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                      "display-xl-mobile": ["56px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                      "display-lg-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                      "body": ["16px", {"lineHeight": "1.65", "fontWeight": "400"}],
+                      "display-xl": ["96px", {"lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "editorial-italic": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "h2": ["36px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                      "display-lg": ["64px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                      "label": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "h1-mobile": ["40px", {"lineHeight": "1.1", "fontWeight": "600"}],
+                      "small": ["14px", {"lineHeight": "1.55", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+            background-color: #020205; /* The Canvas */
+            color: theme('colors.text-primary');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .identity-gradient-border {
+            position: relative;
+            background: theme('colors.surface-1');
+            border-radius: 24px;
+        }
+        
+        .identity-gradient-border::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(103, 232, 249, 0.5));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopAppBar (JSON) -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 sticky top-0 z-50 bg-surface border-b border-border">
+<div class="flex items-center gap-8">
+<h1 class="font-h3 text-h3 font-bold text-accent-strong">Becoming V2</h1>
+<nav class="hidden md:flex gap-6">
+<a class="font-label text-label text-primary font-bold active-nav-link relative" href="#">
+                    Dashboard
+                    <span class="absolute -bottom-2 left-0 w-full h-[2px] bg-accent-strong rounded-full"></span>
+</a>
+<a class="font-label text-label text-on-surface-variant hover:text-primary hover:bg-surface-3 rounded-lg px-2 py-1 transition-all" href="#">New Reflection</a>
+<a class="font-label text-label text-on-surface-variant hover:text-primary hover:bg-surface-3 rounded-lg px-2 py-1 transition-all" href="#">History</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-2 rounded-full hover:bg-surface-3">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-2 rounded-full hover:bg-surface-3">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A cinematic, high-contrast digital painting of a mysterious, futuristic astronaut helmet glowing with soft cyan and violet inner light, set against a deep, dark minimalist void. The style is hyper-detailed and sleek, evoking a sense of calm, introspective exploration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5fUyQDn2n3ijSrfunLopINNUlUdF1kSFZdbafBjp3Kr1Nva_86Cc-sY5xYat0AOmkpKBDuQsio2A0xGQX1ltpe8SuaxM8S3aj41pmvHiCvbiK6SO3nq0JSM-0R6FJJEGDoXIIGBMYA6beKIC234aFn4sico1sahq49YuolyE8hg7zwvsjbujm3DXoPc4ESbXyttNcFrjI2xzxOl6JWBKWJRtg_BSwHAtcyi9TgnD1E_btBpX96EkZgg"/>
+</div>
+</div>
+</header>
+<main class="flex-grow flex flex-col items-center w-full pb-24">
+<!-- Main Content Canvas -->
+<div class="w-full max-w-[max-content-width] px-margin-mobile md:px-margin-desktop mt-12 md:mt-16 flex flex-col gap-12">
+<!-- Greeting Bar -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 w-full">
+<div>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-text-primary tracking-tight">Welcome back, Alex</h2>
+<p class="font-body-lg text-body-lg text-text-secondary mt-2">Ready to continue your journey?</p>
+</div>
+<button class="bg-primary-container text-on-primary font-label text-label px-6 py-3 rounded-full hover:bg-accent-strong transition-colors duration-150 flex items-center gap-2 font-bold shadow-[0_0_15px_rgba(103,232,249,0.2)] hover:shadow-[0_0_20px_rgba(103,232,249,0.4)]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    New Reflection
+                </button>
+</section>
+<!-- 2-Column Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-mobile md:gap-gutter-desktop mt-8">
+<!-- Left: Latest Analysis (Surface-1) -->
+<div class="lg:col-span-7 identity-gradient-border p-8 flex flex-col gap-6">
+<div class="flex justify-between items-start">
+<div>
+<span class="font-label text-label text-accent-strong uppercase tracking-widest block mb-2">Current Archetype</span>
+<h3 class="font-h2 text-h2 text-text-primary">The Emergent Strategist</h3>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-2 flex items-center justify-center border border-border">
+<span class="material-symbols-outlined text-accent-strong">psychology</span>
+</div>
+</div>
+<p class="font-body text-body text-text-secondary pr-4">
+                        Your recent reflections indicate a shift towards structured long-term planning, moving away from spontaneous ideation. You are currently synthesizing past failures into actionable frameworks.
+                    </p>
+<div class="flex flex-col gap-3 mt-2">
+<div class="flex justify-between items-center">
+<span class="font-small text-small text-text-tertiary">Path Alignment</span>
+<span class="font-small text-small text-success">85% Aligned</span>
+</div>
+<div class="w-full bg-surface-2 h-2 rounded-full overflow-hidden">
+<div class="bg-success h-full rounded-full w-[85%]"></div>
+</div>
+</div>
+<div class="flex gap-4 mt-6 pt-4 border-t border-border">
+<button class="font-label text-label text-text-primary bg-surface-2 border border-border hover:border-border-strong px-6 py-3 rounded-lg transition-all flex items-center gap-2">
+                            Open Full Analysis
+                        </button>
+<button class="font-label text-label text-accent-strong hover:text-primary transition-colors flex items-center gap-2 py-3 px-2">
+                            View Trajectory <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Right: Active Plan (Surface-2 Glass) -->
+<div class="lg:col-span-5 bg-surface-2 backdrop-blur-xl border border-border rounded-xl p-8 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-warning">hotel_class</span>
+<span class="font-label text-label text-text-tertiary uppercase tracking-widest">Today's Micro-Habit</span>
+</div>
+<h4 class="font-h3 text-h3 text-text-primary mb-4 leading-snug">
+                            Write 15 minutes without editing
+                        </h4>
+<p class="font-body text-body text-text-secondary">
+                            Focus on capturing raw thoughts. The goal is flow, not perfection. This directly supports your 'Strategist' archetype development.
+                        </p>
+</div>
+<button class="w-full mt-8 bg-transparent border border-border-strong text-text-primary font-label text-label px-6 py-4 rounded-lg hover:bg-surface-3 transition-colors duration-150 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">check_circle</span>
+                        Quick Check-in
+                    </button>
+</div>
+</section>
+<!-- Recent Reflections -->
+<section class="mt-16 w-full">
+<div class="flex justify-between items-end mb-8 border-b border-border pb-4">
+<h3 class="font-h2 text-h2 text-text-primary">Recent Reflections</h3>
+<a class="font-label text-label text-text-tertiary hover:text-accent-strong transition-colors" href="#">View all history</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-1 border border-border rounded-lg p-6 hover:border-border-strong transition-colors cursor-pointer group flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<span class="font-small text-small text-text-tertiary">Oct 24, 2023</span>
+<span class="bg-success/10 text-success border border-success/20 font-label text-[10px] px-2 py-1 rounded-full uppercase">Ready</span>
+</div>
+<h4 class="font-h3 text-h3 text-text-primary group-hover:text-accent-strong transition-colors">The Resistance Check</h4>
+<p class="font-small text-small text-text-secondary line-clamp-2">Exploring why I procrastinated on the Q3 planning document despite knowing its importance.</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-1 border border-border rounded-lg p-6 hover:border-border-strong transition-colors cursor-pointer group flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<span class="font-small text-small text-text-tertiary">Oct 21, 2023</span>
+<span class="bg-success/10 text-success border border-success/20 font-label text-[10px] px-2 py-1 rounded-full uppercase">Ready</span>
+</div>
+<h4 class="font-h3 text-h3 text-text-primary group-hover:text-accent-strong transition-colors">Values Realignment</h4>
+<p class="font-small text-small text-text-secondary line-clamp-2">Noticed a drift between my stated values and how I spent my weekend.</p>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-1 border border-border rounded-lg p-6 hover:border-border-strong transition-colors cursor-pointer group flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<span class="font-small text-small text-text-tertiary">Today</span>
+<span class="bg-warning/10 text-warning border border-warning/20 font-label text-[10px] px-2 py-1 rounded-full uppercase">In Progress</span>
+</div>
+<h4 class="font-h3 text-h3 text-text-primary group-hover:text-accent-strong transition-colors">Morning Synthesis</h4>
+<p class="font-small text-small text-text-secondary line-clamp-2 italic opacity-50">Drafting...</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (JSON) - Hidden on desktop -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 lg:hidden bg-surface-2/90 backdrop-blur-md border-t border-border-strong shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="fingerprint">fingerprint</span>
+<span class="font-label-mobile text-[10px]">Identity</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="alt_route">alt_route</span>
+<span class="font-label-mobile text-[10px]">Paths</span>
+</a>
+<a class="flex flex-col items-center justify-center text-accent-strong font-bold active:bg-surface-3 p-2 rounded-lg scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="timeline">timeline</span>
+<span class="font-label-mobile text-[10px]">Timeline</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="mail">mail</span>
+<span class="font-label-mobile text-[10px]">Letter</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="event_note">event_note</span>
+<span class="font-label-mobile text-[10px]">Plan</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Becoming V2 - Mobile Shell</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#5a4300",
+                      "success": "#86EFAC",
+                      "secondary-fixed-dim": "#ccbeff",
+                      "on-surface": "#e4e1ea",
+                      "surface-container": "#1f1f25",
+                      "primary": "#d5f9ff",
+                      "on-surface-variant": "#bcc9cb",
+                      "tertiary-fixed": "#ffdf97",
+                      "accent-strong": "#22D3EE",
+                      "border": "rgba(255, 255, 255, 0.12)",
+                      "surface": "#131319",
+                      "text-tertiary": "#94A3B8",
+                      "on-primary-fixed-variant": "#004f57",
+                      "inverse-primary": "#006973",
+                      "secondary-fixed": "#e7deff",
+                      "text-primary": "#F8FAFC",
+                      "surface-container-high": "#2a2930",
+                      "background": "#131319",
+                      "tertiary-fixed-dim": "#edc150",
+                      "on-secondary-fixed-variant": "#4a3d7c",
+                      "inverse-on-surface": "#303037",
+                      "surface-container-highest": "#35343b",
+                      "on-primary-fixed": "#001f23",
+                      "text-secondary": "#CBD5E1",
+                      "on-background": "#e4e1ea",
+                      "on-secondary-container": "#baabf3",
+                      "surface-container-low": "#1b1b21",
+                      "on-tertiary-fixed": "#251a00",
+                      "primary-fixed-dim": "#54d8e8",
+                      "primary-fixed": "#91f1ff",
+                      "outline": "#869395",
+                      "on-error-container": "#ffdad6",
+                      "error-container": "#93000a",
+                      "surface-bright": "#39383f",
+                      "on-primary-container": "#006771",
+                      "error": "#ffb4ab",
+                      "warning": "#FCD34D",
+                      "tertiary": "#fff2db",
+                      "on-primary": "#00363c",
+                      "inverse-surface": "#e4e1ea",
+                      "surface-dim": "#131319",
+                      "surface-tint": "#54d8e8",
+                      "secondary": "#ccbeff",
+                      "danger": "#FCA5A5",
+                      "surface-variant": "#35343b",
+                      "surface-1": "#090A0F",
+                      "primary-container": "#67e8f9",
+                      "surface-2": "rgba(255, 255, 255, 0.05)",
+                      "surface-container-lowest": "#0e0e14",
+                      "on-error": "#690005",
+                      "surface-3": "rgba(255, 255, 255, 0.08)",
+                      "on-tertiary-container": "#755900",
+                      "on-tertiary": "#3e2e00",
+                      "secondary-container": "#4a3d7c",
+                      "border-strong": "rgba(255, 255, 255, 0.24)",
+                      "on-secondary": "#332664",
+                      "tertiary-container": "#ffd15e",
+                      "outline-variant": "#3c494b",
+                      "on-secondary-fixed": "#1e0e4e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "max-content-width": "1200px",
+                      "margin-mobile": "20px",
+                      "margin-desktop": "64px",
+                      "gutter-mobile": "16px",
+                      "gutter-desktop": "32px",
+                      "unit": "4px",
+                      "reading-width": "720px"
+              },
+              "fontFamily": {
+                      "h1": [
+                              "Space Grotesk"
+                      ],
+                      "display-xl": [
+                              "Space Grotesk"
+                      ],
+                      "small": [
+                              "Inter"
+                      ],
+                      "display-xl-mobile": [
+                              "Space Grotesk"
+                      ],
+                      "editorial-italic": [
+                              "Playfair Display"
+                      ],
+                      "display-lg-mobile": [
+                              "Space Grotesk"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Space Grotesk"
+                      ],
+                      "h1-mobile": [
+                              "Space Grotesk"
+                      ],
+                      "label": [
+                              "Space Grotesk"
+                      ],
+                      "body": [
+                              "Inter"
+                      ],
+                      "h3": [
+                              "Space Grotesk"
+                      ],
+                      "h2": [
+                              "Space Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "h1": [
+                              "52px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-xl": [
+                              "96px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "small": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.55",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-xl-mobile": [
+                              "56px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "editorial-italic": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.7",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h1-mobile": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.65",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "h3": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "h2": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #020205; /* The Canvas */
+            color: #F8FAFC;
+        }
+        
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Hide scrollbar for clean mobile look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+</head>
+<body class="font-body text-body bg-background text-text-primary antialiased min-h-screen flex flex-col relative">
+<!-- 1. PUBLIC MOBILE HEADER & DRAWER -->
+<!-- TopAppBar JSON translation for Public Mobile -->
+<header class="flex justify-between items-center w-full px-margin-mobile py-4 sticky top-0 z-50 bg-surface-2/80 backdrop-blur-xl border-b border-border md:hidden">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-strong text-2xl" data-icon="lens" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lens</span>
+<span class="font-h2 text-h2 font-bold text-accent-strong tracking-tight">Becoming V2</span>
+</div>
+<!-- Hamburger Menu Trigger -->
+<button aria-label="Open menu" class="text-text-primary p-2 focus:outline-none focus:ring-2 focus:ring-accent-strong rounded-lg" id="mobile-menu-trigger">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</header>
+<!-- Full-screen Drawer Overlay -->
+<div class="fixed inset-0 z-[60] bg-surface/95 glass-panel flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out md:hidden" id="mobile-drawer">
+<div class="flex justify-between items-center px-margin-mobile py-4 border-b border-border">
+<span class="font-h2 text-h2 font-bold text-accent-strong tracking-tight">Menu</span>
+<button aria-label="Close menu" class="text-text-primary p-2 focus:outline-none focus:ring-2 focus:ring-accent-strong rounded-lg" id="mobile-menu-close">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<nav class="flex flex-col flex-grow px-margin-mobile py-8 gap-6">
+<a class="font-h3 text-h3 text-on-surface-variant hover:text-primary transition-colors duration-150 py-2 border-b border-border/50" href="#">How it works</a>
+<a class="font-h3 text-h3 text-on-surface-variant hover:text-primary transition-colors duration-150 py-2 border-b border-border/50" href="#">Privacy</a>
+<a class="font-h3 text-h3 text-on-surface-variant hover:text-primary transition-colors duration-150 py-2 border-b border-border/50" href="#">Demo</a>
+<div class="mt-auto pb-8">
+<button class="w-full bg-primary-container text-on-primary-container font-label text-label py-4 rounded-lg flex items-center justify-center gap-2 hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined" data-icon="login">login</span>
+                    Sign In
+                </button>
+</div>
+</nav>
+</div>
+<!-- Main Content Canvas (Placeholder to demonstrate layout) -->
+<main class="flex-grow flex flex-col items-center justify-center p-margin-mobile pb-24 md:pb-margin-desktop text-center">
+<div class="max-w-reading-width">
+<h1 class="font-h1-mobile text-h1-mobile mb-4 text-text-primary">Cinematic Clarity</h1>
+<p class="font-body-lg text-body-lg text-text-secondary mb-8">A sanctuary for introspection and intentional growth. This is the mobile shell representation.</p>
+<div class="w-32 h-32 mx-auto rounded-full border border-border-strong flex items-center justify-center relative overflow-hidden mb-8">
+<!-- Simple CSS Orb for demonstration -->
+<div class="absolute inset-0 bg-primary-container/20 rounded-full blur-xl animate-pulse"></div>
+<span class="material-symbols-outlined text-4xl text-accent-strong relative z-10" data-icon="psychology">psychology</span>
+</div>
+</div>
+</main>
+<!-- 2. AUTHENTICATED MOBILE NAVIGATION -->
+<!-- BottomNavBar JSON translation (Simulating 'Dashboard' as active for demonstration) -->
+<!-- Note: In a real app, logic would toggle between the Public Header and Authenticated BottomNav based on state -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface-2/90 backdrop-blur-md border-t border-border-strong shadow-lg lg:hidden rounded-t-xl">
+<!-- Dashboard (Active) -->
+<a class="flex flex-col items-center justify-center text-accent-strong font-bold active:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label text-[10px] mt-1">Dashboard</span>
+</a>
+<!-- New Reflection (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 rounded-lg p-2 active:scale-110 transition-transform" href="#">
+<div class="w-10 h-10 rounded-full bg-surface-3 border border-border flex items-center justify-center -mt-6 shadow-lg bg-surface">
+<span class="material-symbols-outlined text-accent-strong" data-icon="add">add</span>
+</div>
+<span class="font-label text-[10px] mt-1">New Reflection</span>
+</a>
+<!-- History (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 rounded-lg p-1 active:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label text-[10px] mt-1">History</span>
+</a>
+</nav>
+<!-- 3. MOBILE FOOTER -->
+<!-- Stacked layout for mobile, maintaining non-medical disclaimer visibility -->
+<footer class="w-full bg-surface-1 border-t border-border pt-12 pb-24 px-margin-mobile mt-auto relative z-40 lg:hidden">
+<div class="flex flex-col gap-8">
+<!-- Brand & Disclaimer -->
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-accent-strong" data-icon="lens" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lens</span>
+<span class="font-h3 text-h3 font-bold text-text-primary">Becoming V2</span>
+</div>
+<p class="font-small text-small text-text-tertiary border border-border p-3 rounded-lg bg-surface-2/50">
+<strong>Disclaimer:</strong> Becoming is a tool for self-reflection and personal growth. It is not a substitute for professional medical advice, diagnosis, or treatment.
+                </p>
+</div>
+<!-- Links Stacked -->
+<div class="grid grid-cols-2 gap-8">
+<div class="flex flex-col gap-3">
+<h4 class="font-label text-label text-text-secondary uppercase">Product</h4>
+<a class="font-body text-body text-text-tertiary hover:text-text-primary transition-colors" href="#">Features</a>
+<a class="font-body text-body text-text-tertiary hover:text-text-primary transition-colors" href="#">Pricing</a>
+<a class="font-body text-body text-text-tertiary hover:text-text-primary transition-colors" href="#">Security</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label text-label text-text-secondary uppercase">Company</h4>
+<a class="font-body text-body text-text-tertiary hover:text-text-primary transition-colors" href="#">About Us</a>
+<a class="font-body text-body text-text-tertiary hover:text-text-primary transition-colors" href="#">Contact</a>
+<a class="font-body text-body text-text-tertiary hover:text-text-primary transition-colors" href="#">Blog</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label text-label text-text-secondary uppercase">Legal</h4>
+<a class="font-body text-body text-text-tertiary hover:text-text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body text-body text-text-tertiary hover:text-text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+<div class="pt-8 border-t border-border text-center">
+<p class="font-small text-small text-text-tertiary">© 2024 Becoming. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<!-- Interactive Script for Drawer -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuTrigger = document.getElementById('mobile-menu-trigger');
+            const menuClose = document.getElementById('mobile-menu-close');
+            const drawer = document.getElementById('mobile-drawer');
+
+            if(menuTrigger && menuClose && drawer) {
+                menuTrigger.addEventListener('click', () => {
+                    drawer.classList.remove('translate-x-full');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when open
+                });
+
+                menuClose.addEventListener('click', () => {
+                    drawer.classList.add('translate-x-full');
+                    document.body.style.overflow = ''; // Restore scrolling
+                });
+            }
+        });
+    </script>
+</body></html>
