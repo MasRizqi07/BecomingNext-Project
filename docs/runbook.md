@@ -27,6 +27,7 @@ The deploy identity needs only the roles required for Firebase Hosting, Firestor
 - Landing and demo render at desktop and mobile widths with no console errors.
 - Sign-in succeeds on the deployed domain.
 - A complete eight-question submission creates exactly one analysis when the request is retried.
+- A real Gemini 3.7 Flash response passes the stored schema; record observed latency and token usage.
 - Pending analysis survives refresh and reaches either completed or a recoverable error.
 - History returns only the current user's records.
 - A second test account cannot read another user's known analysis ID.

@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "engines": {
-    "node": ">=22 <25",
+    "node": "24.x",
     "npm": ">=10"
   },
   "scripts": {
@@ -22,6 +22,7 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:functions": "npm --prefix functions test",
+    "test:transactions": "firebase emulators:exec --only firestore --project demo-becoming \"npm --prefix functions run test:transactions:unit\"",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:rules": "firebase emulators:exec --only firestore --project demo-becoming \"npm run test:rules:unit\"",
@@ -31,7 +32,7 @@
     "test:e2e:auth:run": "cross-env VITE_USE_FIREBASE_EMULATORS=true playwright test --config playwright.auth.config.ts",
     "audit": "npm audit --omit=dev --audit-level=high && npm --prefix functions audit --omit=dev --audit-level=high",
     "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run test:functions && npm run build && npm run audit",
-    "verify:full": "npm run verify && npm run test:rules && npm run test:e2e && npm run test:e2e:auth"
+    "verify:full": "npm run verify && npm run test:transactions && npm run test:rules && npm run test:e2e && npm run test:e2e:auth"
   },
   "dependencies": {
     "@tsparticles/react": "^3.0.0",

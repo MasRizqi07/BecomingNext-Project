@@ -50,6 +50,8 @@ Authenticated user
   emulator; Auth, authorization, validation, rules, and data lifecycle remain exercised. Production
   fails closed with App Check enforcement and replay protection enabled.
 - Secrets are supplied to Functions through Secret Manager.
+- Gemini requests use the Interactions API with `store: false`, structured JSON output, and an
+  independent Zod validation boundary.
 - A strict Hosting CSP, HSTS, MIME sniffing protection, referrer policy, and permissions policy are configured.
 - Prompts explicitly treat user reflections as data, not instructions; input/output schemas cap their shape and size.
 
@@ -58,6 +60,10 @@ Authenticated user
 - Callable instances are capped at 20 with concurrency 20 to bound downstream cost.
 - The per-user UTC quota defaults to 10 analyses/day.
 - Idempotency and leases prevent accidental duplicate charge while allowing recovery after worker failure.
+- The 150-second reservation lease exceeds the callable's 120-second timeout, preventing a retry
+  from reclaiming work while the original invocation can still complete.
+- Firestore Emulator integration tests cover concurrent duplicate reservation, quota exhaustion,
+  expired-lease recovery, payload/key mismatch, and completed-record replay.
 - The browser coalesces concurrent calls for the same idempotency key, including React development
   lifecycle replays; the server transaction remains the authoritative duplicate guard.
 - Firestore remains the workflow source of truth; the UI can resume pending/completed sessions after refresh.

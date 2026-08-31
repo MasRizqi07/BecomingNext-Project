@@ -10,7 +10,7 @@ const emulatorFiles = [
   {
     path: path.join(functionsDirectory, '.env.local'),
     contents:
-      'GEMINI_MODEL=gemini-3.6-flash\nANALYSIS_PROVIDER=deterministic\nDAILY_ANALYSIS_LIMIT=10\n',
+      'GEMINI_MODEL=gemini-3.7-flash\nANALYSIS_PROVIDER=deterministic\nDAILY_ANALYSIS_LIMIT=10\n',
   },
   {
     path: path.join(functionsDirectory, '.secret.local'),

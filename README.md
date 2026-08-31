@@ -6,7 +6,10 @@ Becoming adalah aplikasi refleksi pribadi yang mengubah delapan jawaban pengguna
 
 Fondasi aplikasi sudah production-oriented: React/Vite frontend, Firebase Authentication, Firestore, App Check, callable Cloud Functions, server-side Gemini, validasi kontrak Zod, security rules, idempotency, rate limit, automated tests, bundle budget, serta workflow CI/deployment.
 
-Deployment publik tetap memerlukan Firebase project milik operator, kredensial Google Cloud, App Check key, dan secret Gemini yang valid. Tidak ada secret AI di browser.
+Gate repository sudah terverifikasi secara lokal. Staging dan production belum terverifikasi dan
+belum disetujui untuk promosi; lihat [release evidence](docs/release-readiness.md). Deployment publik
+tetap memerlukan Firebase project milik operator, kredensial Google Cloud, App Check key, dan secret
+Gemini yang valid. Tidak ada secret AI di browser.
 
 ## Arsitektur singkat
 
@@ -56,6 +59,7 @@ npm run dev
 
 ```bash
 npm run verify       # format, lint, types, unit, functions, build, production audit
+npm run test:transactions # Firestore transaction concurrency/idempotency melalui emulator
 npm run test:rules   # Firestore rules melalui emulator
 npm run test:e2e     # desktop + mobile + axe accessibility
 npm run test:e2e:auth # Auth + Functions + Firestore + lifecycle data via emulator
@@ -85,6 +89,10 @@ Bundle production diperiksa otomatis: entry maksimal 180 KiB gzip dan setiap laz
    callable production menolak request tanpa token valid.
 
 Detail deploy, smoke test, observability, backup, penghapusan data, dan rollback ada di [runbook](docs/runbook.md).
+
+Default AI runtime adalah Gemini 3.7 Flash melalui Interactions API dalam mode stateless
+(`store: false`). Keputusan, rollback lever, dan konsekuensi privasinya dicatat di
+[ADR 0002](docs/adr/0002-gemini-model-and-interface.md).
 
 ## Data dan privasi
 

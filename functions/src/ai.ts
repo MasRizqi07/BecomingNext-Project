@@ -123,25 +123,26 @@ export function createGeminiGenerator(apiKey: string, model: string): AnalysisGe
 
   return {
     async generate(responses, displayName) {
-      const response = await client.models.generateContent({
+      const interaction = await client.interactions.create({
         model,
-        contents: buildAnalysisPrompt(responses, displayName),
-        config: {
-          systemInstruction: SYSTEM_INSTRUCTION,
-          responseMimeType: 'application/json',
-          responseJsonSchema: ANALYSIS_JSON_SCHEMA,
-          temperature: 0.7,
-          maxOutputTokens: 5_000,
+        input: buildAnalysisPrompt(responses, displayName),
+        system_instruction: SYSTEM_INSTRUCTION,
+        store: false,
+        generation_config: {
+          max_output_tokens: 5_000,
         },
+        response_format: [
+          {type: 'text', mime_type: 'application/json', schema: ANALYSIS_JSON_SCHEMA},
+        ],
       });
 
-      if (!response.text) {
+      if (!interaction.output_text) {
         throw new Error('Gemini returned an empty response.');
       }
 
       let candidate: unknown;
       try {
-        candidate = JSON.parse(response.text);
+        candidate = JSON.parse(interaction.output_text);
       } catch {
         throw new Error('Gemini returned malformed JSON.');
       }
