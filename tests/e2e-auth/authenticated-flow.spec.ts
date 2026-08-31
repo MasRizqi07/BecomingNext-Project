@@ -34,15 +34,22 @@ test('authenticated reflection can be created, resumed, deleted, and erased', as
   await page.emulateMedia({reducedMotion: 'reduce'});
   await page.goto('/');
 
+  await page.getByRole('button', {name: /start reflection/i}).click();
+  await expect(page.getByRole('dialog', {name: /your reflection is private/i})).toBeVisible();
+  await expectNoWcagViolations(page);
   const popupPromise = page.waitForEvent('popup');
-  await page.getByRole('button', {name: /start securely/i}).click();
+  await page.getByRole('button', {name: /continue with google/i}).click();
   const popup = await popupPromise;
   await openEmulatorAccountForm(popup);
   await popup.locator('#email-input').fill('builder@example.test');
   await popup.locator('#display-name-input').fill('Builder Test');
   await popup.locator('#sign-in').click();
 
-  await expect(page).toHaveURL(/\/reflect$/);
+  await expect(page).toHaveURL(/\/dashboard$/);
+  await expect(page.getByRole('heading', {name: /welcome back/i})).toBeVisible();
+  await expectNoWcagViolations(page);
+  await page.getByRole('button', {name: /begin first reflection|new reflection/i}).click();
+  await page.getByRole('button', {name: /begin reflection/i}).click();
   await expect(page.getByRole('textbox', {name: /future are you most afraid/i})).toBeVisible();
   await expectNoWcagViolations(page);
 
@@ -52,27 +59,47 @@ test('authenticated reflection can be created, resumed, deleted, and erased', as
     const answer = ANSWERS[index]!;
     await textbox.fill(answer);
     await page
-      .getByRole('button', {name: index === ANSWERS.length - 1 ? /create analysis/i : /continue/i})
+      .getByRole('button', {name: index === ANSWERS.length - 1 ? /review answers/i : /continue/i})
       .click();
   }
+
+  await expect(page.getByRole('heading', {name: /review your reflection/i})).toBeVisible();
+  await expectNoWcagViolations(page);
+  await page.getByRole('button', {name: /create trajectory analysis/i}).click();
 
   await expect(page).toHaveURL(/\/results\/[0-9a-f-]{36}$/, {timeout: 60_000});
   await expect(page.getByText('The Quiet Builder', {exact: true})).toBeVisible();
   await expectNoWcagViolations(page);
 
-  await page.getByRole('link', {name: /analysis history/i}).click();
+  await page.getByRole('link', {name: /open habit check-in/i}).click();
+  await expect(page.getByRole('heading', {name: /daily habit check-in/i})).toBeVisible();
+  await page.getByRole('button', {name: 'Completed'}).first().click();
+  await page.getByRole('button', {name: /complete check-in/i}).click();
+  await expect(page.getByRole('heading', {name: /progress recorded/i})).toBeVisible();
+  await expect(page.getByText(/saved securely/i)).toBeVisible();
+  await expectNoWcagViolations(page);
+
+  await page.getByRole('link', {name: /view full trajectory/i}).click();
+
+  await page.getByRole('link', {name: /archive history/i}).click();
   await expect(page.getByRole('heading', {name: /reflection history/i})).toBeVisible();
   await expect(page.getByText('The Quiet Builder', {exact: true})).toBeVisible();
 
-  page.once('dialog', (dialog) => dialog.accept());
-  await page.getByRole('button', {name: /delete analysis/i}).click();
-  await expect(page.getByRole('heading', {name: /no archived analysis yet/i})).toBeVisible();
+  await page.getByRole('button', {name: /delete reflection/i}).click();
+  const deleteAnalysisDialog = page.getByRole('alertdialog', {name: /delete this analysis/i});
+  await expect(deleteAnalysisDialog).toBeVisible();
+  await expect(deleteAnalysisDialog.getByText(/other reflections remain untouched/i)).toBeVisible();
+  await expectNoWcagViolations(page);
+  await deleteAnalysisDialog.getByRole('button', {name: /^delete analysis$/i}).click();
+  await expect(page.getByRole('heading', {name: /no archived reflections/i})).toBeVisible();
 
   await page.getByRole('link', {name: /account settings/i}).click();
-  await expect(page.getByRole('heading', {name: /privacy and settings/i})).toBeVisible();
+  await expect(page.getByRole('heading', {name: /settings & privacy/i})).toBeVisible();
   await expectNoWcagViolations(page);
+  await page.getByRole('button', {name: /delete account permanently/i}).click();
+  await expect(page.getByRole('alertdialog', {name: /permanently delete account/i})).toBeVisible();
   await page.getByLabel(/type delete to confirm/i).fill('DELETE');
-  await page.getByRole('button', {name: /delete permanently/i}).click();
+  await page.getByRole('button', {name: /delete forever/i}).click();
 
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('heading', {name: /future version/i})).toBeVisible();

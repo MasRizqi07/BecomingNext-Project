@@ -128,8 +128,9 @@ export function Settings() {
           </div>
 
           <p className="text-xs leading-relaxed text-slate-300">
-            Becoming stores your reflection answers strictly in your owner-isolated Cloud Firestore
-            database. Raw answers are never shared publicly or used to train public models.
+            Becoming stores reflection answers in owner-isolated Cloud Firestore records with direct
+            client writes disabled. Raw answers are not placed in public pages or used to train an
+            application-owned model.
           </p>
 
           <div className="pt-2">
@@ -161,7 +162,7 @@ export function Settings() {
         </section>
 
         {/* Legal / Non-Medical Disclaimer */}
-        <p className="text-xs leading-relaxed text-slate-500">
+        <p className="text-xs leading-relaxed text-slate-400 light:text-slate-600">
           Becoming provides editorial prompts and illustrative AI trajectory guidance. It is not a
           clinical mental health, medical, psychological, legal, or financial service. If you are in
           crisis, please seek professional support.

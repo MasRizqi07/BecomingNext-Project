@@ -90,7 +90,7 @@ export default function App() {
         <ParticlesBG />
       </Suspense>
 
-      <main id="main-content" className="relative z-10 min-h-screen flex flex-col">
+      <div id="main-content" className="relative z-10 min-h-screen flex flex-col" tabIndex={-1}>
         <Suspense fallback={<PageLoading />}>
           <AnimatePresence mode="wait">
             <motion.div
@@ -180,7 +180,7 @@ export default function App() {
             </motion.div>
           </AnimatePresence>
         </Suspense>
-      </main>
+      </div>
     </div>
   );
 }

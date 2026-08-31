@@ -21,7 +21,7 @@ import {AppHeader} from '@/components/AppHeader';
 import {Footer} from '@/components/layout/Footer';
 import {MobileBottomNav} from '@/components/layout/MobileBottomNav';
 import {PublicHeader} from '@/components/layout/PublicHeader';
-import {DeleteAccountModal} from '@/components/modals/DeleteAccountModal';
+import {DeleteAnalysisDialog} from '@/components/modals/DeleteAnalysisDialog';
 import {ShareSummaryModal} from '@/components/modals/ShareSummaryModal';
 import {SignInModal} from '@/components/modals/SignInModal';
 import {Badge} from '@/components/primitives/Badge';
@@ -143,7 +143,7 @@ export function Results({demo = false}: {demo?: boolean}) {
 
   if (error || !analysis) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#020205] px-5 text-[#F8FAFC]">
+      <main className="flex min-h-screen items-center justify-center bg-[#020205] px-5 text-[#F8FAFC]">
         <div className="glass-panel-strong max-w-lg rounded-3xl p-10 text-center">
           <h1 className="font-display text-2xl font-bold text-white">Analysis Unavailable</h1>
           <p className="mt-3 text-sm leading-relaxed text-slate-400" role="alert">
@@ -155,7 +155,7 @@ export function Results({demo = false}: {demo?: boolean}) {
             </Link>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 
@@ -184,7 +184,7 @@ export function Results({demo = false}: {demo?: boolean}) {
         </div>
       ) : null}
 
-      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 md:px-12 md:py-16 flex-1 w-full">
+      <main className="mx-auto max-w-7xl px-5 py-10 sm:px-8 md:px-12 md:py-16 flex-1 w-full">
         <div className="grid gap-12 lg:grid-cols-12">
           {/* Sticky Table of Contents Navigation Rail (Desktop) */}
           <aside className="hidden lg:col-span-3 lg:block">
@@ -381,7 +381,7 @@ export function Results({demo = false}: {demo?: boolean}) {
 
                 <Suspense
                   fallback={
-                    <div className="flex h-72 items-center justify-center text-sm text-slate-500">
+                    <div className="flex h-72 items-center justify-center text-sm text-slate-400 light:text-slate-600">
                       Loading radar chart…
                     </div>
                   }
@@ -605,7 +605,7 @@ export function Results({demo = false}: {demo?: boolean}) {
             </footer>
           </div>
         </div>
-      </div>
+      </main>
 
       <MobileBottomNav activeSection={activeSection} onSelectSection={scrollToSection} />
 
@@ -620,7 +620,7 @@ export function Results({demo = false}: {demo?: boolean}) {
         }
       />
 
-      <DeleteAccountModal
+      <DeleteAnalysisDialog
         isOpen={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
         onConfirm={handleDeleteAnalysis}

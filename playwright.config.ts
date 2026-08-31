@@ -8,13 +8,34 @@ export default defineConfig({
   reporter: [['list'], ['html', {open: 'never'}]],
   use: {
     baseURL: 'http://127.0.0.1:4173',
-    channel: 'chrome',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
   projects: [
-    {name: 'desktop', use: {viewport: {width: 1440, height: 1000}}},
-    {name: 'mobile', use: {viewport: {width: 390, height: 844}, isMobile: true}},
+    {
+      name: 'chromium-desktop',
+      use: {browserName: 'chromium', viewport: {width: 1440, height: 1000}},
+    },
+    {
+      name: 'chromium-mobile',
+      use: {browserName: 'chromium', viewport: {width: 390, height: 844}, hasTouch: true},
+    },
+    {
+      name: 'firefox-desktop',
+      use: {browserName: 'firefox', viewport: {width: 1440, height: 1000}},
+    },
+    {
+      name: 'firefox-mobile',
+      use: {browserName: 'firefox', viewport: {width: 390, height: 844}, hasTouch: true},
+    },
+    {
+      name: 'webkit-desktop',
+      use: {browserName: 'webkit', viewport: {width: 1440, height: 1000}},
+    },
+    {
+      name: 'webkit-mobile',
+      use: {browserName: 'webkit', viewport: {width: 390, height: 844}, hasTouch: true},
+    },
   ],
   webServer: {
     command: 'npm run build:web && npm run preview',

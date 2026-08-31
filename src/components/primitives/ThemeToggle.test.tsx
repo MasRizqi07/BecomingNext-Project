@@ -31,4 +31,3 @@ describe('ThemeToggle Component', () => {
     expect(useThemeStore.getState().theme).toBe('light');
   });
 });
-

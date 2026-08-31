@@ -10,21 +10,40 @@ interface UnsavedChangesDialogProps {
 
 export function UnsavedChangesDialog({isOpen, onClose, onConfirmLeave}: UnsavedChangesDialogProps) {
   return (
-    <Dialog isOpen={isOpen} onClose={onClose} maxWidthClass="max-w-[420px]" role="alertdialog">
+    <Dialog
+      isOpen={isOpen}
+      onClose={onClose}
+      maxWidthClass="max-w-[420px]"
+      role="alertdialog"
+      labelledBy="unsaved-changes-dialog-title"
+      describedBy="unsaved-changes-dialog-description"
+      initialFocusSelector="[data-dialog-initial]"
+    >
       <div className="flex flex-col items-center text-center">
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-amber-400/30 bg-amber-400/10 text-amber-300">
           <Edit3 size={22} />
         </div>
 
-        <h3 className="font-display text-xl font-bold tracking-tight text-white">
+        <h2
+          id="unsaved-changes-dialog-title"
+          className="font-display text-xl font-bold tracking-tight text-white"
+        >
           Unsaved Changes
-        </h3>
-        <p className="mt-2 text-sm leading-relaxed text-slate-300">
+        </h2>
+        <p
+          id="unsaved-changes-dialog-description"
+          className="mt-2 text-sm leading-relaxed text-slate-300"
+        >
           You have reflection answers that haven't been submitted into an analysis yet.
         </p>
 
         <div className="mt-8 flex w-full flex-col gap-2.5">
-          <button type="button" onClick={onClose} className="primary-button w-full">
+          <button
+            type="button"
+            onClick={onClose}
+            className="primary-button w-full"
+            data-dialog-initial
+          >
             Keep Reflecting
           </button>
           <button

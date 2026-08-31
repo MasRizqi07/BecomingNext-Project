@@ -152,7 +152,7 @@ export function Intake() {
                 <Shield className="mb-3 text-violet-400" size={20} />
                 <h3 className="font-display text-sm font-bold text-white">Private Sanctuary</h3>
                 <p className="mt-1 text-xs leading-relaxed text-slate-400">
-                  Owner-only encrypted storage.
+                  Owner-only cloud storage with direct client writes disabled.
                 </p>
               </div>
             </div>
@@ -273,7 +273,7 @@ export function Intake() {
                 onChange={(e) => setInput(e.target.value)}
               />
 
-              <div className="mt-2.5 flex items-center justify-between text-xs text-slate-500">
+              <div className="mt-2.5 flex items-center justify-between text-xs text-slate-400">
                 <span className="flex items-center gap-1.5">
                   <LockKeyhole size={12} className="text-cyan-400/70" /> Private to your account
                 </span>

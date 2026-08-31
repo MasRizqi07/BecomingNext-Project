@@ -109,8 +109,8 @@ export function ReviewReflection() {
         <div className="glass-panel rounded-2xl border border-cyan-400/25 p-5 flex items-start gap-3 text-xs text-slate-300 leading-relaxed">
           <ShieldCheck className="text-cyan-400 shrink-0 mt-0.5" size={18} />
           <p>
-            By proceeding, your reflections are sent to our isolated, encrypted backend service to
-            synthesize your dual-path analysis. No data is published or shared.
+            By proceeding, your reflections travel over HTTPS to the server-side analysis service.
+            They are not published; review the privacy boundary for provider processing details.
           </p>
         </div>
 

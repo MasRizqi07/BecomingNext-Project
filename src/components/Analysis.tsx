@@ -133,7 +133,7 @@ export function Analysis() {
 
             <h1 className="font-display text-2xl font-bold text-white">Synthesis Paused</h1>
             <p className="mt-3 text-sm leading-relaxed text-slate-300">{error}</p>
-            <p className="mt-2 text-xs text-slate-500">
+            <p className="mt-2 text-xs text-slate-400 light:text-slate-600">
               Your reflection answers remain safely stored in your session.
             </p>
 
@@ -190,7 +190,7 @@ export function Analysis() {
               ))}
             </div>
 
-            <p className="text-xs leading-relaxed text-slate-500 max-w-sm mx-auto">
+            <p className="text-xs leading-relaxed text-slate-400 light:text-slate-600 max-w-sm mx-auto">
               Your request is idempotent. You can safely keep this tab open or navigate away; your
               analysis will be waiting in your history.
             </p>

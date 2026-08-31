@@ -43,12 +43,21 @@ export function ShareSummaryModal({isOpen, onClose, analysis, onCopied}: ShareSu
   }
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose} maxWidthClass="max-w-[540px]">
+    <Dialog
+      isOpen={isOpen}
+      onClose={onClose}
+      maxWidthClass="max-w-[540px]"
+      labelledBy="share-summary-dialog-title"
+      describedBy="share-summary-dialog-description"
+    >
       <div>
-        <h3 className="font-display text-xl font-bold text-white sm:text-2xl">
+        <h2
+          id="share-summary-dialog-title"
+          className="font-display text-xl font-bold text-white sm:text-2xl"
+        >
           Share Reflection Summary
-        </h3>
-        <p className="mt-1.5 text-xs text-slate-400">
+        </h2>
+        <p id="share-summary-dialog-description" className="mt-1.5 text-xs text-slate-400">
           Share your high-level archetype guidance without exposing private answers.
         </p>
 
@@ -105,7 +114,7 @@ export function ShareSummaryModal({isOpen, onClose, analysis, onCopied}: ShareSu
         </div>
 
         {/* Privacy Note */}
-        <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-[11px] text-slate-500">
+        <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-[11px] text-slate-400 light:text-slate-600">
           <ShieldCheck size={13} className="text-cyan-400/80" />
           <span>Only the public summary is shared. Your 8 reflections remain private.</span>
         </p>

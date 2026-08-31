@@ -31,6 +31,12 @@ service cloud.firestore {
       allow create, update, delete: if false;
     }
 
+    match /checkIns/{checkInId} {
+      allow get: if ownsResource();
+      allow list: if ownsResource() && hasSafeListLimit();
+      allow create, update, delete: if false;
+    }
+
     match /rateLimits/{userId} {
       allow read, write: if false;
     }

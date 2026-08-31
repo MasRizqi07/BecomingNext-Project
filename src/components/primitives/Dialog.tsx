@@ -1,7 +1,43 @@
 import {X} from 'lucide-react';
 import {AnimatePresence, motion, useReducedMotion} from 'motion/react';
-import {useEffect, useRef} from 'react';
+import {useEffect, useId, useRef} from 'react';
+import {createPortal} from 'react-dom';
 import type {ReactNode} from 'react';
+
+let openDialogCount = 0;
+let applicationRootSnapshot: {
+  element: HTMLElement;
+  inert: boolean;
+  ariaHidden: string | null;
+} | null = null;
+
+function isolateApplicationRoot() {
+  const applicationRoot = document.getElementById('main-content');
+  if (!applicationRoot) return;
+
+  if (openDialogCount === 0) {
+    applicationRootSnapshot = {
+      element: applicationRoot,
+      inert: applicationRoot.inert,
+      ariaHidden: applicationRoot.getAttribute('aria-hidden'),
+    };
+  }
+
+  openDialogCount += 1;
+  applicationRoot.inert = true;
+  applicationRoot.setAttribute('aria-hidden', 'true');
+}
+
+function restoreApplicationRoot() {
+  openDialogCount = Math.max(0, openDialogCount - 1);
+  if (openDialogCount > 0 || !applicationRootSnapshot) return;
+
+  const {element, inert, ariaHidden} = applicationRootSnapshot;
+  element.inert = inert;
+  if (ariaHidden === null) element.removeAttribute('aria-hidden');
+  else element.setAttribute('aria-hidden', ariaHidden);
+  applicationRootSnapshot = null;
+}
 
 interface DialogProps {
   isOpen: boolean;
@@ -12,6 +48,9 @@ interface DialogProps {
   maxWidthClass?: string;
   showCloseButton?: boolean;
   role?: 'dialog' | 'alertdialog';
+  initialFocusSelector?: string;
+  labelledBy?: string;
+  describedBy?: string;
 }
 
 export function Dialog({
@@ -23,9 +62,14 @@ export function Dialog({
   maxWidthClass = 'max-w-md',
   showCloseButton = true,
   role = 'dialog',
+  initialFocusSelector,
+  labelledBy,
+  describedBy,
 }: DialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const titleId = useId();
+  const descriptionId = useId();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -33,31 +77,56 @@ export function Dialog({
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         onClose();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) {
+        event.preventDefault();
+        dialogRef.current?.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
       }
     }
 
     const previousActiveElement = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    isolateApplicationRoot();
     document.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
 
-    // Focus first focusable element inside modal
-    setTimeout(() => {
+    const focusTimer = window.setTimeout(() => {
+      const requestedTarget = initialFocusSelector
+        ? dialogRef.current?.querySelector<HTMLElement>(initialFocusSelector)
+        : null;
       const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])',
       );
-      if (focusable && focusable.length > 0) {
-        focusable[0]?.focus();
-      }
+      (requestedTarget ?? focusable?.[0] ?? dialogRef.current)?.focus();
     }, 50);
 
     return () => {
+      window.clearTimeout(focusTimer);
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousOverflow;
+      restoreApplicationRoot();
       previousActiveElement?.focus?.();
     };
-  }, [isOpen, onClose]);
+  }, [initialFocusSelector, isOpen, onClose]);
 
-  return (
+  const dialog = (
     <AnimatePresence>
       {isOpen ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" role="none">
@@ -76,9 +145,10 @@ export function Dialog({
           <motion.div
             ref={dialogRef}
             role={role}
+            tabIndex={-1}
             aria-modal="true"
-            aria-labelledby={title ? 'dialog-title' : undefined}
-            aria-describedby={description ? 'dialog-description' : undefined}
+            aria-labelledby={title ? titleId : labelledBy}
+            aria-describedby={description ? descriptionId : describedBy}
             initial={prefersReducedMotion ? false : {opacity: 0, scale: 0.95, y: 10}}
             animate={{opacity: 1, scale: 1, y: 0}}
             exit={{opacity: 0, scale: 0.95, y: 10}}
@@ -99,7 +169,7 @@ export function Dialog({
 
             {title ? (
               <h2
-                id="dialog-title"
+                id={titleId}
                 className="font-display text-xl font-bold tracking-tight text-white sm:text-2xl"
               >
                 {title}
@@ -107,7 +177,7 @@ export function Dialog({
             ) : null}
 
             {description ? (
-              <div id="dialog-description" className="mt-2 text-sm leading-relaxed text-slate-300">
+              <div id={descriptionId} className="mt-2 text-sm leading-relaxed text-slate-300">
                 {description}
               </div>
             ) : null}
@@ -118,4 +188,6 @@ export function Dialog({
       ) : null}
     </AnimatePresence>
   );
+
+  return createPortal(dialog, document.body);
 }

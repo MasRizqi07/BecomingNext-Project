@@ -11,6 +11,7 @@ import {
   type ReflectionResponses,
 } from '../../shared/contracts.js';
 import {PROMPT_VERSION} from './prompt.js';
+import {getAccountDeletionTombstoneRef, isDeletionRequested} from './accountDeletion.js';
 
 // Keep the lease longer than the 120-second callable timeout so a slow invocation cannot be
 // reclaimed while it can still complete and charge the AI provider.
@@ -59,14 +60,29 @@ export async function reserveAnalysis({
   const analysisRef = database.collection('analyses').doc(analysisId);
   const reflectionRef = database.collection('reflections').doc(analysisId);
   const rateLimitRef = database.collection('rateLimits').doc(userId);
+  const userRef = database.collection('users').doc(userId);
+  const deletionTombstoneRef = getAccountDeletionTombstoneRef(database, userId);
   const requestHash = hashRequest(responses);
   const leaseExpiresAt = Timestamp.fromMillis(now.toMillis() + leaseDurationMs);
   const dayKey = new Date(now.toMillis()).toISOString().slice(0, 10);
 
   return database.runTransaction(async (transaction) => {
-    const existingSnapshot = await transaction.get(analysisRef);
+    const [userSnapshot, deletionTombstoneSnapshot, existingSnapshot] = await Promise.all([
+      transaction.get(userRef),
+      transaction.get(deletionTombstoneRef),
+      transaction.get(analysisRef),
+    ]);
+    if (
+      deletionTombstoneSnapshot.exists ||
+      isDeletionRequested(userSnapshot.get('deletionRequestedAt'))
+    ) {
+      throw new HttpsError('failed-precondition', 'Account deletion is in progress.');
+    }
     if (existingSnapshot.exists) {
       const existing = existingSnapshot.data() as AnalysisDocument;
+      if (isDeletionRequested(existingSnapshot.get('deletionRequestedAt'))) {
+        throw new HttpsError('failed-precondition', 'This analysis is being deleted.');
+      }
       if (existing.userId !== userId || existing.requestHash !== requestHash) {
         throw new HttpsError(
           'failed-precondition',

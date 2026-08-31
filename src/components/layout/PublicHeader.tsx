@@ -1,6 +1,6 @@
 import {Menu, X, Sparkles, ArrowRight} from 'lucide-react';
 import {AnimatePresence} from 'motion/react';
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 
 import {useBecomingStore} from '@/store/useBecomingStore';
@@ -15,6 +15,44 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useBecomingStore((state) => state.user);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const menuButton = menuButtonRef.current;
+    document.body.style.overflow = 'hidden';
+    drawerRef.current?.querySelector<HTMLElement>('[data-drawer-initial]')?.focus();
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setMobileMenuOpen(false);
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const focusable = drawerRef.current?.querySelectorAll<HTMLElement>(
+        'button:not(:disabled), [href], [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      menuButton?.focus();
+    };
+  }, [mobileMenuOpen]);
 
   function handleActionClick() {
     if (user) {
@@ -51,6 +89,7 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
                 <Link
                   key={item.href}
                   to={item.href}
+                  aria-current={isActive ? 'page' : undefined}
                   className={`nav-link ${isActive ? 'active text-cyan-300' : ''}`}
                 >
                   {item.label}
@@ -82,10 +121,12 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
             <ThemeToggle />
             <button
               type="button"
+              ref={menuButtonRef}
               onClick={() => setMobileMenuOpen(true)}
               className="icon-button h-10 w-10"
               aria-label="Open navigation menu"
               aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation-drawer"
             >
               <Menu size={18} />
             </button>
@@ -96,7 +137,18 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
       {/* Mobile Drawer Sheet */}
       <AnimatePresence>
         {mobileMenuOpen ? (
-          <div className="fixed inset-0 z-50 flex flex-col justify-between bg-[#090A0F] dark:bg-[#090A0F] light:bg-[#FFFFFF] p-6 md:hidden">
+          <div
+            id="mobile-navigation-drawer"
+            ref={drawerRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="mobile-navigation-title"
+            tabIndex={-1}
+            className="fixed inset-0 z-50 flex flex-col justify-between bg-[#090A0F] dark:bg-[#090A0F] light:bg-[#FFFFFF] p-6 md:hidden"
+          >
+            <h2 id="mobile-navigation-title" className="sr-only">
+              Navigation menu
+            </h2>
             <div className="flex items-center justify-between border-b border-white/10 dark:border-white/10 light:border-black/10 pb-5">
               <Link
                 to="/"
@@ -113,17 +165,19 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 className="icon-button h-10 w-10"
                 aria-label="Close menu"
+                data-drawer-initial
               >
                 <X size={18} />
               </button>
             </div>
 
-            <nav className="flex flex-col gap-6 py-8">
+            <nav className="flex flex-col gap-6 py-8" aria-label="Mobile navigation">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
                   onClick={() => setMobileMenuOpen(false)}
+                  aria-current={location.pathname === item.href ? 'page' : undefined}
                   className={`font-display text-2xl font-light tracking-tight transition ${
                     location.pathname === item.href ? 'text-cyan-300' : 'text-slate-200'
                   }`}

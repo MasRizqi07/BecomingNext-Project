@@ -199,8 +199,8 @@ export function Landing() {
               Privacy by Design
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-300 dark:text-slate-300 light:text-slate-700">
-              No ads. No public profiling. No selling of reflections. Your data is encrypted and
-              permanently deletable at any time with a single click.
+              No ads, public profiling, or selling of reflections. Personalized requests travel over
+              HTTPS, records are owner-isolated, and you can permanently delete them.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link to="/privacy" className="secondary-button text-xs">

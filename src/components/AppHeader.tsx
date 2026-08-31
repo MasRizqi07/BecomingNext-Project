@@ -53,6 +53,7 @@ export function AppHeader({backTo}: {backTo?: string}) {
               <Link
                 key={item.href}
                 to={item.href}
+                aria-current={isActive ? 'page' : undefined}
                 className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 font-display text-xs font-semibold tracking-wider transition ${
                   isActive
                     ? 'bg-white/10 text-cyan-300 dark:bg-white/10 dark:text-cyan-300 light:bg-black/5 light:text-cyan-800 shadow-xs'
@@ -101,7 +102,11 @@ export function AppHeader({backTo}: {backTo?: string}) {
               className="h-8 w-8 rounded-full border border-white/15 object-cover"
             />
           ) : (
-            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 font-display text-xs font-bold text-cyan-300">
+            <div
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 font-display text-xs font-bold text-cyan-300"
+              role="img"
+              aria-label="User avatar"
+            >
               {user?.displayName ? user.displayName.charAt(0).toUpperCase() : 'U'}
             </div>
           )}

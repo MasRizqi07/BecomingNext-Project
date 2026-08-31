@@ -15,10 +15,13 @@ import {
   analysisResultSchema,
   analysisStatusSchema,
   createAnalysisResponseSchema,
+  upsertCheckInResponseSchema,
   type AnalysisResult,
   type AnalysisStatus,
   type CreateAnalysisRequest,
   type CreateAnalysisResponse,
+  type UpsertCheckInRequest,
+  type UpsertCheckInResponse,
 } from '@shared/contracts';
 import {db, functions} from '@/lib/firebaseData';
 
@@ -44,6 +47,11 @@ const deleteMyDataCallable = httpsCallable<Record<string, never>, {deleted: true
   functions,
   'deleteMyData',
   {timeout: 120_000, limitedUseAppCheckTokens: true},
+);
+const upsertCheckInCallable = httpsCallable<UpsertCheckInRequest, UpsertCheckInResponse>(
+  functions,
+  'upsertCheckIn',
+  {timeout: 30_000, limitedUseAppCheckTokens: true},
 );
 
 const inFlightAnalysisJobs = new Map<string, Promise<CreateAnalysisResponse>>();
@@ -96,6 +104,11 @@ export async function getAnalysisHistory(userId: string): Promise<AnalysisRecord
 
 export async function deleteAnalysisRecord(analysisId: string): Promise<void> {
   await deleteAnalysisCallable({analysisId});
+}
+
+export async function saveCheckIn(request: UpsertCheckInRequest): Promise<UpsertCheckInResponse> {
+  const response = await upsertCheckInCallable(request);
+  return upsertCheckInResponseSchema.parse(response.data);
 }
 
 export async function deleteCurrentUserData(): Promise<void> {

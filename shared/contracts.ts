@@ -115,9 +115,50 @@ export const createAnalysisResponseSchema = z
   })
   .strict();
 
+export const habitStatuses = ['not_started', 'in_progress', 'done'] as const;
+
+export const checkInHabitStateSchema = z
+  .object({
+    habitIndex: z.number().int().min(0).max(4),
+    status: z.enum(habitStatuses),
+  })
+  .strict();
+
+export const upsertCheckInRequestSchema = z
+  .object({
+    analysisId: z.string().uuid(),
+    habitStates: z
+      .array(checkInHabitStateSchema)
+      .min(2)
+      .max(5)
+      .superRefine((states, context) => {
+        const indices = states.map(({habitIndex}) => habitIndex);
+        if (new Set(indices).size !== indices.length) {
+          context.addIssue({
+            code: 'custom',
+            message: 'Habit indices must be unique.',
+          });
+        }
+      }),
+    mood: z.number().int().min(1).max(5),
+    note: z.string().trim().max(1000).optional(),
+  })
+  .strict();
+
+export const upsertCheckInResponseSchema = z
+  .object({
+    checkInId: z.string().regex(/^[a-f0-9]{64}$/),
+    savedAt: z.string().datetime(),
+  })
+  .strict();
+
 export type ReflectionResponses = z.infer<typeof reflectionResponsesSchema>;
 export type ReflectionQuestionId = (typeof QUESTION_IDS)[number];
 export type AnalysisResult = z.infer<typeof analysisResultSchema>;
 export type AnalysisStatus = z.infer<typeof analysisStatusSchema>;
 export type CreateAnalysisRequest = z.infer<typeof createAnalysisRequestSchema>;
 export type CreateAnalysisResponse = z.infer<typeof createAnalysisResponseSchema>;
+export type HabitStatus = (typeof habitStatuses)[number];
+export type CheckInHabitState = z.infer<typeof checkInHabitStateSchema>;
+export type UpsertCheckInRequest = z.infer<typeof upsertCheckInRequestSchema>;
+export type UpsertCheckInResponse = z.infer<typeof upsertCheckInResponseSchema>;

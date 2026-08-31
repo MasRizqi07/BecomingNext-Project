@@ -97,8 +97,8 @@ export function PrivacyBoundaries() {
                     session tokens).
                   </p>
                   <p>
-                    <strong>Integrity:</strong> Firebase App Check verifying client origin and
-                    preventing automated abuse.
+                    <strong>Integrity:</strong> Firebase App Check supplies an application-integrity
+                    signal and helps reject unauthorized scripted requests.
                   </p>
                   <p>
                     <strong>Database:</strong> Cloud Firestore with owner-enforced security rules.
@@ -125,8 +125,10 @@ export function PrivacyBoundaries() {
                   medical advice, or psychiatric assessment.
                 </p>
                 <p className="text-sm leading-relaxed text-slate-300">
-                  Reflection answers are sent to Google Gemini via encrypted, stateless serverless
-                  requests. Gemini does not retain your user data for public model training.
+                  Reflection answers are sent to Google Gemini over HTTPS through a server-side
+                  request configured with <code>store: false</code>. Becoming does not train an
+                  application model on your answers. Provider processing terms and retention for the
+                  production Google account are documented separately before launch.
                 </p>
               </section>
 

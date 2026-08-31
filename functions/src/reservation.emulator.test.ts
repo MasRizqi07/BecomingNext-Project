@@ -4,6 +4,7 @@ import {afterAll, beforeAll, describe, expect, it} from 'vitest';
 
 import type {ReflectionResponses} from '../../shared/contracts.js';
 import {DEMO_ANALYSIS} from '../../shared/demoAnalysis.js';
+import {getAccountDeletionTombstoneRef} from './accountDeletion.js';
 import {reserveAnalysis} from './reservation.js';
 
 const MODEL = 'gemini-test';
@@ -146,5 +147,17 @@ describe('reserveAnalysis transaction', () => {
     });
     expect((await database.collection('analyses').doc(analysisId).get()).get('attempts')).toBe(1);
     expect((await database.collection('rateLimits').doc(userId).get()).get('count')).toBe(1);
+  });
+
+  it('blocks stale authenticated requests after account deletion starts', async () => {
+    const analysisId = '06000000-0000-4000-8000-000000000006';
+    const userId = 'deleted-user';
+    await getAccountDeletionTombstoneRef(database, userId).set({expiresAt: NOW});
+
+    await expect(reserve(analysisId, userId)).rejects.toMatchObject({
+      code: 'failed-precondition',
+    });
+    expect((await database.collection('analyses').doc(analysisId).get()).exists).toBe(false);
+    expect((await database.collection('reflections').doc(analysisId).get()).exists).toBe(false);
   });
 });

@@ -69,7 +69,9 @@ export const useThemeStore = create<ThemeState>()(
     }),
     {
       name: 'becoming-theme-v1',
-      storage: createJSONStorage(() => (typeof localStorage !== 'undefined' ? localStorage : sessionStorage)),
+      storage: createJSONStorage(() =>
+        typeof localStorage !== 'undefined' ? localStorage : sessionStorage,
+      ),
       partialize: (state) => ({
         theme: state.theme,
       }),

@@ -3,12 +3,11 @@ import {motion} from 'motion/react';
 import {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 
-import type {AnalysisResult} from '@shared/contracts';
+import type {AnalysisResult, HabitStatus} from '@shared/contracts';
 import {AppHeader} from '@/components/AppHeader';
-import {getAnalysisRecord} from '@/services/analysisService';
+import {formatServiceError} from '@/lib/errors';
+import {getAnalysisRecord, saveCheckIn} from '@/services/analysisService';
 import {useBecomingStore} from '@/store/useBecomingStore';
-
-type HabitStatus = 'not_started' | 'in_progress' | 'completed';
 
 export function HabitCheckIn() {
   const {analysisId} = useParams<{analysisId: string}>();
@@ -24,6 +23,10 @@ export function HabitCheckIn() {
   const [mood, setMood] = useState<number>(3);
   const [note, setNote] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [savedAt, setSavedAt] = useState<Date | null>(null);
 
   useEffect(() => {
     if (analysis || !analysisId) return;
@@ -35,6 +38,9 @@ export function HabitCheckIn() {
         if (rec?.result) {
           setAnalysis(rec.result);
         }
+      })
+      .catch((error: unknown) => {
+        if (active) setLoadError(formatServiceError(error));
       })
       .finally(() => {
         if (active) setLoading(false);
@@ -49,9 +55,30 @@ export function HabitCheckIn() {
     setHabitStates((prev) => ({...prev, [index]: status}));
   }
 
-  function handleSubmitCheckIn(e: React.FormEvent) {
+  async function handleSubmitCheckIn(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
+    if (!analysisId || !analysis || submitting) return;
+
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const trimmedNote = note.trim();
+      const response = await saveCheckIn({
+        analysisId,
+        habitStates: analysis.plan.dailyHabits.map((_, habitIndex) => ({
+          habitIndex,
+          status: habitStates[habitIndex] ?? 'not_started',
+        })),
+        mood,
+        ...(trimmedNote ? {note: trimmedNote} : {}),
+      });
+      setSavedAt(new Date(response.savedAt));
+      setSubmitted(true);
+    } catch (error: unknown) {
+      setSubmitError(formatServiceError(error));
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (loading) {
@@ -73,7 +100,7 @@ export function HabitCheckIn() {
           <div className="glass-panel-strong max-w-md rounded-3xl p-8">
             <h2 className="font-display text-xl font-bold text-white">No Active Analysis</h2>
             <p className="mt-2 text-xs leading-relaxed text-slate-400">
-              Please complete a reflection to begin your habit check-ins.
+              {loadError ?? 'Please complete a reflection to begin your habit check-ins.'}
             </p>
             <div className="mt-6">
               <Link to="/reflect" className="primary-button">
@@ -87,7 +114,7 @@ export function HabitCheckIn() {
   }
 
   const habits = analysis.plan.dailyHabits;
-  const completedCount = Object.values(habitStates).filter((s) => s === 'completed').length;
+  const completedCount = Object.values(habitStates).filter((status) => status === 'done').length;
 
   // Success Screen View
   if (submitted) {
@@ -117,6 +144,9 @@ export function HabitCheckIn() {
                 {completedCount} of {habits.length}
               </strong>{' '}
               micro-habits as completed today.
+            </p>
+            <p className="mt-2 text-xs text-slate-400 light:text-slate-600">
+              Saved securely{savedAt ? ` at ${savedAt.toLocaleTimeString()}` : ''}.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
@@ -187,18 +217,22 @@ export function HabitCheckIn() {
                     </div>
 
                     {/* 3-State Segmented Control */}
-                    <div className="inline-flex rounded-xl border border-white/10 bg-black/40 p-1">
+                    <div
+                      className="inline-flex rounded-xl border border-white/10 bg-black/40 p-1"
+                      role="group"
+                      aria-label={`Status for habit ${index + 1}`}
+                    >
                       {(
                         [
                           {id: 'not_started', label: 'Not Started'},
                           {id: 'in_progress', label: 'In Progress'},
-                          {id: 'completed', label: 'Completed'},
+                          {id: 'done', label: 'Completed'},
                         ] as const
                       ).map((opt) => {
                         const isSelected = currentStatus === opt.id;
                         let activeStyles = 'bg-white/10 text-white';
                         if (isSelected) {
-                          if (opt.id === 'completed') {
+                          if (opt.id === 'done') {
                             activeStyles =
                               'bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 shadow-xs font-bold';
                           } else if (opt.id === 'in_progress') {
@@ -214,8 +248,11 @@ export function HabitCheckIn() {
                             key={opt.id}
                             type="button"
                             onClick={() => handleSetHabitStatus(index, opt.id)}
+                            aria-pressed={isSelected}
                             className={`rounded-lg px-3 py-1.5 font-display text-xs transition-all ${
-                              isSelected ? activeStyles : 'text-slate-500 hover:text-slate-300'
+                              isSelected
+                                ? activeStyles
+                                : 'text-slate-400 hover:text-slate-300 light:text-slate-600 light:hover:text-slate-800'
                             }`}
                           >
                             {opt.label}
@@ -235,7 +272,11 @@ export function HabitCheckIn() {
               State of Mind (1 = Distracted, 5 = Grounded)
             </h2>
 
-            <div className="grid grid-cols-5 gap-2 sm:gap-3">
+            <div
+              className="grid grid-cols-5 gap-2 sm:gap-3"
+              role="group"
+              aria-label="State of mind rating"
+            >
               {[
                 {val: 1, label: 'Distracted'},
                 {val: 2, label: 'Resistant'},
@@ -250,6 +291,7 @@ export function HabitCheckIn() {
                     key={m.val}
                     type="button"
                     onClick={() => setMood(m.val)}
+                    aria-pressed={isSelected}
                     className={`flex flex-col items-center justify-center rounded-2xl border p-3.5 sm:p-4 transition-all ${
                       isSelected
                         ? 'border-cyan-400/50 bg-cyan-400/10 text-cyan-300 shadow-[0_0_15px_rgba(103,232,249,0.15)] scale-105'
@@ -283,13 +325,22 @@ export function HabitCheckIn() {
               placeholder="What friction did you notice? What helped you stay intentional?"
               className="w-full resize-y rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-white placeholder-white/25 outline-none focus:border-cyan-400/80 focus:ring-4 focus:ring-cyan-400/10"
             />
-            <div className="flex justify-between text-xs text-slate-500">
+            <div className="flex justify-between text-xs text-slate-400 light:text-slate-600">
               <span className="flex items-center gap-1.5">
                 <Lock size={12} className="text-cyan-400/70" /> Private check-in log
               </span>
               <span>{note.length}/1000</span>
             </div>
           </section>
+
+          {submitError ? (
+            <p
+              className="rounded-xl border border-red-400/20 bg-red-950/20 p-3 text-sm text-red-200"
+              role="alert"
+            >
+              {submitError}
+            </p>
+          ) : null}
 
           {/* Action Footer */}
           <div className="flex items-center justify-between gap-4 border-t border-white/10 pt-8">
@@ -301,8 +352,9 @@ export function HabitCheckIn() {
               <ArrowLeft size={14} /> Back to Dashboard
             </button>
 
-            <button type="submit" className="primary-button px-8">
-              <CheckCircle2 size={15} /> Complete Check-in
+            <button type="submit" className="primary-button px-8" disabled={submitting}>
+              <CheckCircle2 size={15} />
+              {submitting ? 'Saving Check-in…' : 'Complete Check-in'}
             </button>
           </div>
         </form>

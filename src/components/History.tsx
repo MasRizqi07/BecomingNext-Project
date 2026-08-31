@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
 import {AppHeader} from '@/components/AppHeader';
-import {DeleteAccountModal} from '@/components/modals/DeleteAccountModal';
+import {DeleteAnalysisDialog} from '@/components/modals/DeleteAnalysisDialog';
 import {Badge} from '@/components/primitives/Badge';
 import {Toast, type ToastItem} from '@/components/primitives/Toast';
 import {formatServiceError} from '@/lib/errors';
@@ -128,6 +128,7 @@ export function History() {
                 key={chip.id}
                 type="button"
                 onClick={() => setFilter(chip.id)}
+                aria-pressed={isSelected}
                 className={`rounded-full px-4 py-2 font-display text-xs font-semibold tracking-wider transition-all ${
                   isSelected
                     ? 'bg-cyan-300 text-black shadow-xs font-bold'
@@ -207,7 +208,7 @@ export function History() {
                             ? 'In Progress'
                             : 'Needs Attention'}
                       </Badge>
-                      <span className="flex items-center gap-1 text-xs text-slate-500">
+                      <span className="flex items-center gap-1 text-xs text-slate-400 light:text-slate-600">
                         <Clock size={12} /> {dateString}
                       </span>
                     </div>
@@ -250,7 +251,7 @@ export function History() {
         )}
       </main>
 
-      <DeleteAccountModal
+      <DeleteAnalysisDialog
         isOpen={Boolean(recordToDelete)}
         onClose={() => setRecordToDelete(null)}
         onConfirm={handleConfirmDelete}

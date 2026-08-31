@@ -49,3 +49,37 @@ test('demo result is complete and all public actions are reachable', async ({pag
   const accessibility = await new AxeBuilder({page}).withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(accessibility.violations).toEqual([]);
 });
+
+test('public information and recovery routes remain accessible', async ({page}) => {
+  const routes = [
+    {path: '/how-it-works', heading: /eight prompts.*two paths/i},
+    {path: '/privacy', heading: /privacy & ai boundaries/i},
+    {path: '/a-route-that-does-not-exist', heading: /404/i},
+  ];
+
+  for (const route of routes) {
+    await page.goto(route.path);
+    await expect(page.getByRole('heading', {level: 1, name: route.heading})).toBeVisible();
+    const accessibility = await new AxeBuilder({page})
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze();
+    expect(accessibility.violations, route.path).toEqual([]);
+  }
+});
+
+test('sign-in dialog is named, keyboard-contained, and restores focus', async ({page}) => {
+  await page.goto('/');
+  const trigger = page.getByRole('button', {name: /start reflection/i});
+  await trigger.click();
+
+  const dialog = page.getByRole('dialog', {name: /your reflection is private/i});
+  await expect(dialog).toBeVisible();
+  const accessibility = await new AxeBuilder({page})
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .analyze();
+  expect(accessibility.violations).toEqual([]);
+
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+  await expect(trigger).toBeFocused();
+});

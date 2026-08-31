@@ -319,7 +319,7 @@ export function Dashboard() {
                     >
                       <div>
                         <div className="flex items-center justify-between mb-3">
-                          <span className="flex items-center gap-1.5 text-xs text-slate-500">
+                          <span className="flex items-center gap-1.5 text-xs text-slate-400 light:text-slate-600">
                             <Clock size={12} /> {dateString}
                           </span>
                           <Badge

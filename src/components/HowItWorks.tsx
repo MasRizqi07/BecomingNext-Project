@@ -31,7 +31,7 @@ export function HowItWorks() {
     },
     {
       q: 'Is my reflection data used to train public AI models?',
-      a: 'No. Your answers are processed in isolated backend environments strictly to generate your analysis. Data is never shared publicly or used for model training.',
+      a: 'Becoming does not train its own model on your answers. Gemini requests use stateless processing (store: false); the production privacy notice must also document the processing terms of the configured Google account.',
     },
     {
       q: 'Is this a psychological assessment or personality test?',
@@ -237,7 +237,9 @@ export function HowItWorks() {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="mt-0.5 font-bold text-red-400">✕</span>
-                    <span>Does not train public LLMs on your private reflection answers</span>
+                    <span>
+                      Uses stateless Gemini requests and does not train an application model
+                    </span>
                   </li>
                 </ul>
               </div>

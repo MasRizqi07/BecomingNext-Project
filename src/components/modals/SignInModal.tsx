@@ -34,19 +34,28 @@ export function SignInModal({isOpen, onClose, onSuccessRedirect = '/dashboard'}:
   }
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose} maxWidthClass="max-w-[440px]">
+    <Dialog
+      isOpen={isOpen}
+      onClose={onClose}
+      maxWidthClass="max-w-[440px]"
+      labelledBy="sign-in-dialog-title"
+      describedBy="sign-in-dialog-description"
+    >
       <div className="flex flex-col items-center text-center">
         {/* Glow Icon */}
         <div className="glow-effect mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 text-cyan-300">
           <Sparkles size={28} />
         </div>
 
-        <h3 className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+        <h2
+          id="sign-in-dialog-title"
+          className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl"
+        >
           Your reflection is private
-        </h3>
-        <p className="mt-3 text-sm leading-relaxed text-slate-300">
-          Sign in to securely store your personal reflections and trajectory insights. Your data
-          remains exclusively yours.
+        </h2>
+        <p id="sign-in-dialog-description" className="mt-3 text-sm leading-relaxed text-slate-300">
+          Sign in to store personal reflections in records that only your authenticated account can
+          read through the application.
         </p>
 
         {error ? (
@@ -95,7 +104,7 @@ export function SignInModal({isOpen, onClose, onSuccessRedirect = '/dashboard'}:
         {/* Trust Footnote */}
         <div className="mt-6 flex items-center gap-1.5 text-xs text-slate-400">
           <Lock size={13} className="text-cyan-400/70" />
-          <span>Encrypted with App Check • No marketing spam</span>
+          <span>Protected by Auth and App Check • No marketing email</span>
         </div>
       </div>
     </Dialog>

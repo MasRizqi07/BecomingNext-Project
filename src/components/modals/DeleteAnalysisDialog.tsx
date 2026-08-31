@@ -3,35 +3,31 @@ import {useState} from 'react';
 
 import {Dialog} from '@/components/primitives/Dialog';
 
-interface DeleteAccountModalProps {
+interface DeleteAnalysisDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => Promise<void>;
 }
 
-export function DeleteAccountModal({isOpen, onClose, onConfirm}: DeleteAccountModalProps) {
-  const [confirmationText, setConfirmationText] = useState('');
+export function DeleteAnalysisDialog({isOpen, onClose, onConfirm}: DeleteAnalysisDialogProps) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const canDelete = confirmationText === 'DELETE';
-
   function handleClose() {
     if (isDeleting) return;
-    setConfirmationText('');
     setError(null);
     onClose();
   }
 
   async function handleDelete() {
-    if (!canDelete || isDeleting) return;
+    if (isDeleting) return;
     setIsDeleting(true);
     setError(null);
     try {
       await onConfirm();
       handleClose();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Deletion failed. Try again.');
+    } catch (deleteError: unknown) {
+      setError(deleteError instanceof Error ? deleteError.message : 'Deletion failed. Try again.');
       setIsDeleting(false);
     }
   }
@@ -42,8 +38,8 @@ export function DeleteAccountModal({isOpen, onClose, onConfirm}: DeleteAccountMo
       onClose={handleClose}
       maxWidthClass="max-w-[460px]"
       role="alertdialog"
-      labelledBy="delete-account-dialog-title"
-      describedBy="delete-account-dialog-description"
+      labelledBy="delete-analysis-dialog-title"
+      describedBy="delete-analysis-dialog-description"
       initialFocusSelector="[data-dialog-initial]"
     >
       <div className="flex flex-col items-center text-center">
@@ -52,40 +48,22 @@ export function DeleteAccountModal({isOpen, onClose, onConfirm}: DeleteAccountMo
         </div>
 
         <h2
-          id="delete-account-dialog-title"
+          id="delete-analysis-dialog-title"
           className="font-display text-xl font-bold tracking-tight text-white sm:text-2xl"
         >
-          Permanently Delete Account?
+          Delete This Analysis?
         </h2>
         <p
-          id="delete-account-dialog-description"
+          id="delete-analysis-dialog-description"
           className="mt-3 text-sm leading-relaxed text-slate-300"
         >
-          This action <strong className="text-red-300">cannot be undone</strong>. All your
-          reflections, generated analyses, habit check-ins, and user profile data will be
-          permanently wiped.
+          This permanently removes this reflection, generated analysis, and its related check-ins.
+          Your account and other reflections remain untouched.
         </p>
-
-        <div className="mt-6 w-full text-left">
-          <label
-            htmlFor="delete-confirm-input"
-            className="block text-xs font-semibold uppercase tracking-wider text-slate-400"
-          >
-            Type <span className="font-mono text-red-300">DELETE</span> to confirm
-          </label>
-          <input
-            id="delete-confirm-input"
-            type="text"
-            value={confirmationText}
-            onChange={(e) => setConfirmationText(e.target.value)}
-            placeholder="DELETE"
-            className="mt-2 w-full rounded-xl border border-white/15 bg-black/40 px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-red-400 focus:ring-2 focus:ring-red-400/20"
-          />
-        </div>
 
         {error ? (
           <p
-            className="mt-3 w-full rounded-lg border border-red-400/20 bg-red-950/20 p-2 text-xs text-red-300"
+            className="mt-4 w-full rounded-lg border border-red-400/20 bg-red-950/20 p-2 text-xs text-red-300"
             role="alert"
           >
             {error}
@@ -100,16 +78,16 @@ export function DeleteAccountModal({isOpen, onClose, onConfirm}: DeleteAccountMo
             disabled={isDeleting}
             data-dialog-initial
           >
-            Cancel
+            Keep Analysis
           </button>
           <button
             type="button"
             onClick={() => void handleDelete()}
-            disabled={!canDelete || isDeleting}
+            disabled={isDeleting}
             className="danger-button flex-1"
           >
             <Trash2 size={15} />
-            <span>{isDeleting ? 'Deleting data…' : 'Delete Forever'}</span>
+            <span>{isDeleting ? 'Deleting…' : 'Delete Analysis'}</span>
           </button>
         </div>
       </div>

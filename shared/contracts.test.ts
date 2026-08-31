@@ -5,6 +5,7 @@ import {
   analysisResultSchema,
   createAnalysisRequestSchema,
   reflectionResponsesSchema,
+  upsertCheckInRequestSchema,
 } from './contracts';
 
 const validResponses = {
@@ -40,5 +41,29 @@ describe('full-stack contracts', () => {
 
   it('validates the safe demo against the production result contract', () => {
     expect(analysisResultSchema.safeParse(DEMO_ANALYSIS).success).toBe(true);
+  });
+
+  it('requires bounded, unique habit states for check-ins', () => {
+    const valid = {
+      analysisId: '34dee39a-b961-4b07-a928-e00e35155745',
+      habitStates: [
+        {habitIndex: 0, status: 'done'},
+        {habitIndex: 1, status: 'in_progress'},
+      ],
+      mood: 4,
+      note: 'A short private note.',
+    };
+
+    expect(upsertCheckInRequestSchema.safeParse(valid).success).toBe(true);
+    expect(
+      upsertCheckInRequestSchema.safeParse({
+        ...valid,
+        habitStates: [
+          {habitIndex: 0, status: 'done'},
+          {habitIndex: 0, status: 'not_started'},
+        ],
+      }).success,
+    ).toBe(false);
+    expect(upsertCheckInRequestSchema.safeParse({...valid, mood: 6}).success).toBe(false);
   });
 });
