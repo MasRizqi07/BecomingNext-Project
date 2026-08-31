@@ -1,223 +1,277 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Share Summary Modal</title>
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Tailwind Config injected -->
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "text-secondary": "#CBD5E1",
-                        "inverse-surface": "#e4e1ea",
-                        "primary": "#d5f9ff",
-                        "on-tertiary-fixed": "#251a00",
-                        "outline-variant": "#3c494b",
-                        "on-tertiary-container": "#755900",
-                        "surface-container-low": "#1b1b21",
-                        "surface": "#131319",
-                        "on-secondary-container": "#baabf3",
-                        "surface-bright": "#39383f",
-                        "on-error-container": "#ffdad6",
-                        "danger": "#FCA5A5",
-                        "on-secondary": "#332664",
-                        "text-primary": "#F8FAFC",
-                        "on-error": "#690005",
-                        "on-tertiary-fixed-variant": "#5a4300",
-                        "surface-container": "#1f1f25",
-                        "tertiary-container": "#ffd15e",
-                        "surface-tint": "#54d8e8",
-                        "error": "#ffb4ab",
-                        "primary-fixed-dim": "#54d8e8",
-                        "tertiary-fixed-dim": "#edc150",
-                        "secondary-fixed": "#e7deff",
-                        "secondary-container": "#4a3d7c",
-                        "on-primary-container": "#006771",
-                        "border-strong": "rgba(255, 255, 255, 0.24)",
-                        "border": "rgba(255, 255, 255, 0.12)",
-                        "on-primary": "#00363c",
-                        "success": "#86EFAC",
-                        "on-surface": "#e4e1ea",
-                        "surface-3": "rgba(255, 255, 255, 0.08)",
-                        "on-secondary-fixed": "#1e0e4e",
-                        "on-surface-variant": "#bcc9cb",
-                        "on-tertiary": "#3e2e00",
-                        "outline": "#869395",
-                        "on-primary-fixed": "#001f23",
-                        "surface-container-highest": "#35343b",
-                        "on-primary-fixed-variant": "#004f57",
-                        "surface-dim": "#131319",
-                        "warning": "#FCD34D",
-                        "secondary-fixed-dim": "#ccbeff",
-                        "primary-container": "#67e8f9",
-                        "on-secondary-fixed-variant": "#4a3d7c",
-                        "secondary": "#ccbeff",
-                        "background": "#131319",
-                        "inverse-on-surface": "#303037",
-                        "surface-1": "#090A0F",
-                        "primary-fixed": "#91f1ff",
-                        "error-container": "#93000a",
-                        "tertiary": "#fff2db",
-                        "on-background": "#e4e1ea",
-                        "tertiary-fixed": "#ffdf97",
-                        "surface-container-high": "#2a2930",
-                        "surface-variant": "#35343b",
-                        "surface-container-lowest": "#0e0e14",
-                        "surface-2": "rgba(255, 255, 255, 0.05)",
-                        "inverse-primary": "#006973",
-                        "accent-strong": "#22D3EE",
-                        "text-tertiary": "#94A3B8"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "unit": "4px",
-                        "gutter-mobile": "16px",
-                        "margin-desktop": "64px",
-                        "max-content-width": "1200px",
-                        "margin-mobile": "20px",
-                        "reading-width": "720px",
-                        "gutter-desktop": "32px"
-                    },
-                    "fontFamily": {
-                        "h1-mobile": ["Space Grotesk"],
-                        "label": ["Space Grotesk"],
-                        "display-xl": ["Space Grotesk"],
-                        "small": ["Inter"],
-                        "display-lg": ["Space Grotesk"],
-                        "display-lg-mobile": ["Space Grotesk"],
-                        "body-lg": ["Inter"],
-                        "editorial-italic": ["Playfair Display"],
-                        "body": ["Inter"],
-                        "h1": ["Space Grotesk"],
-                        "display-xl-mobile": ["Space Grotesk"],
-                        "h2": ["Space Grotesk"],
-                        "h3": ["Space Grotesk"]
-                    },
-                    "fontSize": {
-                        "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
-                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
-                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
-                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
-                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
-                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }]
-                    }
-                }
-            }
-        }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Share Summary Modal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Config injected -->
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'text-secondary': '#CBD5E1',
+              'inverse-surface': '#e4e1ea',
+              primary: '#d5f9ff',
+              'on-tertiary-fixed': '#251a00',
+              'outline-variant': '#3c494b',
+              'on-tertiary-container': '#755900',
+              'surface-container-low': '#1b1b21',
+              surface: '#131319',
+              'on-secondary-container': '#baabf3',
+              'surface-bright': '#39383f',
+              'on-error-container': '#ffdad6',
+              danger: '#FCA5A5',
+              'on-secondary': '#332664',
+              'text-primary': '#F8FAFC',
+              'on-error': '#690005',
+              'on-tertiary-fixed-variant': '#5a4300',
+              'surface-container': '#1f1f25',
+              'tertiary-container': '#ffd15e',
+              'surface-tint': '#54d8e8',
+              error: '#ffb4ab',
+              'primary-fixed-dim': '#54d8e8',
+              'tertiary-fixed-dim': '#edc150',
+              'secondary-fixed': '#e7deff',
+              'secondary-container': '#4a3d7c',
+              'on-primary-container': '#006771',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'on-primary': '#00363c',
+              success: '#86EFAC',
+              'on-surface': '#e4e1ea',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'on-secondary-fixed': '#1e0e4e',
+              'on-surface-variant': '#bcc9cb',
+              'on-tertiary': '#3e2e00',
+              outline: '#869395',
+              'on-primary-fixed': '#001f23',
+              'surface-container-highest': '#35343b',
+              'on-primary-fixed-variant': '#004f57',
+              'surface-dim': '#131319',
+              warning: '#FCD34D',
+              'secondary-fixed-dim': '#ccbeff',
+              'primary-container': '#67e8f9',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              secondary: '#ccbeff',
+              background: '#131319',
+              'inverse-on-surface': '#303037',
+              'surface-1': '#090A0F',
+              'primary-fixed': '#91f1ff',
+              'error-container': '#93000a',
+              tertiary: '#fff2db',
+              'on-background': '#e4e1ea',
+              'tertiary-fixed': '#ffdf97',
+              'surface-container-high': '#2a2930',
+              'surface-variant': '#35343b',
+              'surface-container-lowest': '#0e0e14',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'inverse-primary': '#006973',
+              'accent-strong': '#22D3EE',
+              'text-tertiary': '#94A3B8',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              unit: '4px',
+              'gutter-mobile': '16px',
+              'margin-desktop': '64px',
+              'max-content-width': '1200px',
+              'margin-mobile': '20px',
+              'reading-width': '720px',
+              'gutter-desktop': '32px',
+            },
+            fontFamily: {
+              'h1-mobile': ['Space Grotesk'],
+              label: ['Space Grotesk'],
+              'display-xl': ['Space Grotesk'],
+              small: ['Inter'],
+              'display-lg': ['Space Grotesk'],
+              'display-lg-mobile': ['Space Grotesk'],
+              'body-lg': ['Inter'],
+              'editorial-italic': ['Playfair Display'],
+              body: ['Inter'],
+              h1: ['Space Grotesk'],
+              'display-xl-mobile': ['Space Grotesk'],
+              h2: ['Space Grotesk'],
+              h3: ['Space Grotesk'],
+            },
+            fontSize: {
+              'h1-mobile': ['40px', {lineHeight: '1.1', fontWeight: '600'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-lg-mobile': ['48px', {lineHeight: '1.1', fontWeight: '600'}],
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-xl-mobile': ['56px', {lineHeight: '1.0', fontWeight: '700'}],
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        
-        /* Subtle particles for preview card */
-        .particle {
-            position: absolute;
-            background: rgba(103, 232, 249, 0.4);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: float 10s infinite linear;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) translateX(20px) scale(0.5); opacity: 0; }
-        }
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
 
-        .line-accent {
-            position: absolute;
-            background: linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.3), transparent);
-            height: 1px;
-            width: 100%;
-            pointer-events: none;
+      /* Subtle particles for preview card */
+      .particle {
+        position: absolute;
+        background: rgba(103, 232, 249, 0.4);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: float 10s infinite linear;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) translateX(0) scale(1);
+          opacity: 0;
         }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) translateX(20px) scale(0.5);
+          opacity: 0;
+        }
+      }
+
+      .line-accent {
+        position: absolute;
+        background: linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.3), transparent);
+        height: 1px;
+        width: 100%;
+        pointer-events: none;
+      }
     </style>
-</head>
-<body class="bg-background text-text-primary antialiased min-h-screen font-body flex items-center justify-center p-4">
-<!-- Modal Overlay -->
-<div aria-hidden="true" class="fixed inset-0 bg-background/80 backdrop-blur-md z-40"></div>
-<!-- Modal Container -->
-<div class="relative z-50 bg-surface-1 w-full max-w-[560px] rounded-[16px] border border-border shadow-2xl flex flex-col overflow-hidden">
-<!-- Header -->
-<div class="flex items-center justify-between p-6 pb-4 border-b border-border/50">
-<h2 class="font-h3 text-h3 text-text-primary">Share Reflection Summary</h2>
-<button aria-label="Close modal" class="text-text-secondary hover:text-text-primary transition-colors flex items-center justify-center rounded-full hover:bg-surface-2 p-1">
-<span class="material-symbols-outlined">close</span>
-</button>
-</div>
-<!-- Body -->
-<div class="p-6 pt-5 flex flex-col gap-6">
-<!-- Preview Card (16:9) -->
-<div class="relative aspect-video rounded-xl border border-border overflow-hidden bg-gradient-to-br from-[#020205] to-[#090A0F] p-6 flex flex-col justify-between shadow-inner">
-<!-- Accents -->
-<div class="line-accent top-1/4 left-0 -rotate-12 w-[150%] opacity-50"></div>
-<div class="line-accent bottom-1/3 left-0 rotate-6 w-[120%] opacity-30"></div>
-<!-- Particles -->
-<div class="particle w-1 h-1 top-[20%] left-[10%]" style="animation-delay: 0s;"></div>
-<div class="particle w-2 h-2 top-[60%] left-[80%]" style="animation-delay: 2s; animation-duration: 15s;"></div>
-<div class="particle w-1.5 h-1.5 top-[80%] left-[30%]" style="animation-delay: 5s;"></div>
-<!-- Top Section -->
-<div class="flex justify-between items-start relative z-10">
-<div class="font-label text-label text-text-tertiary uppercase tracking-[0.2em]">BECOMING.</div>
-<div class="bg-primary-container text-surface-container-lowest px-3 py-1 rounded-full font-label text-label inline-flex items-center shadow-[0_0_15px_rgba(103,232,249,0.2)]">
-                        The Divergent Architect
-                    </div>
-</div>
-<!-- Middle Section: Quote -->
-<div class="relative z-10 max-w-sm pl-2 border-l-2 border-accent-strong/30">
-<p class="font-editorial-italic text-editorial-italic text-text-primary leading-relaxed">
-                        "Your path reveals a compelling intersection of analytical rigor and untethered creativity. You are actively building structures for ideas that have yet to be named."
-                    </p>
-</div>
-<!-- Footer Section -->
-<div class="relative z-10 flex justify-end">
-<div class="font-small text-[10px] text-text-tertiary uppercase tracking-widest opacity-60">
-                        Generated with Becoming • Reflective Estimate
-                    </div>
-</div>
-</div>
-<!-- Controls -->
-<div class="flex flex-col gap-4">
-<div class="flex flex-col sm:flex-row gap-3">
-<button class="flex-1 bg-primary-container text-surface-container-lowest py-3.5 px-4 rounded-lg font-label text-label flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-surface-1">
-<span class="material-symbols-outlined" style="font-size: 18px;">content_copy</span>
-                        Copy Summary Text
-                    </button>
-<button class="flex-1 bg-surface-2 border border-transparent hover:border-border text-text-primary py-3.5 px-4 rounded-lg font-label text-label flex items-center justify-center gap-2 transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-border focus:ring-offset-2 focus:ring-offset-surface-1">
-<span class="material-symbols-outlined" style="font-size: 18px;">share</span>
-                        Share via...
-                    </button>
-</div>
-<p class="font-small text-small text-text-tertiary text-center px-4">
-                    Only your high-level archetype is shared. Your specific responses remain strictly private.
-                </p>
-</div>
-</div>
-</div>
-</body></html>
+  </head>
+  <body
+    class="bg-background text-text-primary antialiased min-h-screen font-body flex items-center justify-center p-4"
+  >
+    <!-- Modal Overlay -->
+    <div aria-hidden="true" class="fixed inset-0 bg-background/80 backdrop-blur-md z-40"></div>
+    <!-- Modal Container -->
+    <div
+      class="relative z-50 bg-surface-1 w-full max-w-[560px] rounded-[16px] border border-border shadow-2xl flex flex-col overflow-hidden"
+    >
+      <!-- Header -->
+      <div class="flex items-center justify-between p-6 pb-4 border-b border-border/50">
+        <h2 class="font-h3 text-h3 text-text-primary">Share Reflection Summary</h2>
+        <button
+          aria-label="Close modal"
+          class="text-text-secondary hover:text-text-primary transition-colors flex items-center justify-center rounded-full hover:bg-surface-2 p-1"
+        >
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <!-- Body -->
+      <div class="p-6 pt-5 flex flex-col gap-6">
+        <!-- Preview Card (16:9) -->
+        <div
+          class="relative aspect-video rounded-xl border border-border overflow-hidden bg-gradient-to-br from-[#020205] to-[#090A0F] p-6 flex flex-col justify-between shadow-inner"
+        >
+          <!-- Accents -->
+          <div class="line-accent top-1/4 left-0 -rotate-12 w-[150%] opacity-50"></div>
+          <div class="line-accent bottom-1/3 left-0 rotate-6 w-[120%] opacity-30"></div>
+          <!-- Particles -->
+          <div class="particle w-1 h-1 top-[20%] left-[10%]" style="animation-delay: 0s"></div>
+          <div
+            class="particle w-2 h-2 top-[60%] left-[80%]"
+            style="animation-delay: 2s; animation-duration: 15s"
+          ></div>
+          <div class="particle w-1.5 h-1.5 top-[80%] left-[30%]" style="animation-delay: 5s"></div>
+          <!-- Top Section -->
+          <div class="flex justify-between items-start relative z-10">
+            <div class="font-label text-label text-text-tertiary uppercase tracking-[0.2em]">
+              BECOMING.
+            </div>
+            <div
+              class="bg-primary-container text-surface-container-lowest px-3 py-1 rounded-full font-label text-label inline-flex items-center shadow-[0_0_15px_rgba(103,232,249,0.2)]"
+            >
+              The Divergent Architect
+            </div>
+          </div>
+          <!-- Middle Section: Quote -->
+          <div class="relative z-10 max-w-sm pl-2 border-l-2 border-accent-strong/30">
+            <p
+              class="font-editorial-italic text-editorial-italic text-text-primary leading-relaxed"
+            >
+              "Your path reveals a compelling intersection of analytical rigor and untethered
+              creativity. You are actively building structures for ideas that have yet to be named."
+            </p>
+          </div>
+          <!-- Footer Section -->
+          <div class="relative z-10 flex justify-end">
+            <div
+              class="font-small text-[10px] text-text-tertiary uppercase tracking-widest opacity-60"
+            >
+              Generated with Becoming • Reflective Estimate
+            </div>
+          </div>
+        </div>
+        <!-- Controls -->
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button
+              class="flex-1 bg-primary-container text-surface-container-lowest py-3.5 px-4 rounded-lg font-label text-label flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-surface-1"
+            >
+              <span class="material-symbols-outlined" style="font-size: 18px">content_copy</span>
+              Copy Summary Text
+            </button>
+            <button
+              class="flex-1 bg-surface-2 border border-transparent hover:border-border text-text-primary py-3.5 px-4 rounded-lg font-label text-label flex items-center justify-center gap-2 transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-border focus:ring-offset-2 focus:ring-offset-surface-1"
+            >
+              <span class="material-symbols-outlined" style="font-size: 18px">share</span>
+              Share via...
+            </button>
+          </div>
+          <p class="font-small text-small text-text-tertiary text-center px-4">
+            Only your high-level archetype is shared. Your specific responses remain strictly
+            private.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

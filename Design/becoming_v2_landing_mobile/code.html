@@ -1,371 +1,448 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Becoming V2</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "primary-fixed-dim": "#54d8e8",
-                      "surface-container-low": "#1b1b21",
-                      "text-tertiary": "#94A3B8",
-                      "surface-2": "rgba(255, 255, 255, 0.05)",
-                      "tertiary-fixed": "#ffdf97",
-                      "surface-container-highest": "#35343b",
-                      "outline-variant": "#3c494b",
-                      "surface-variant": "#35343b",
-                      "tertiary-container": "#ffd15e",
-                      "on-error-container": "#ffdad6",
-                      "on-primary-fixed": "#001f23",
-                      "on-surface": "#e4e1ea",
-                      "tertiary": "#fff2db",
-                      "error": "#ffb4ab",
-                      "on-secondary-fixed-variant": "#4a3d7c",
-                      "surface-container-lowest": "#0e0e14",
-                      "on-primary-fixed-variant": "#004f57",
-                      "on-surface-variant": "#bcc9cb",
-                      "warning": "#FCD34D",
-                      "secondary-fixed-dim": "#ccbeff",
-                      "text-primary": "#F8FAFC",
-                      "border": "rgba(255, 255, 255, 0.12)",
-                      "accent-strong": "#22D3EE",
-                      "on-background": "#e4e1ea",
-                      "success": "#86EFAC",
-                      "inverse-primary": "#006973",
-                      "secondary-fixed": "#e7deff",
-                      "surface-dim": "#131319",
-                      "inverse-on-surface": "#303037",
-                      "surface-3": "rgba(255, 255, 255, 0.08)",
-                      "border-strong": "rgba(255, 255, 255, 0.24)",
-                      "primary-fixed": "#91f1ff",
-                      "on-secondary-container": "#baabf3",
-                      "inverse-surface": "#e4e1ea",
-                      "on-primary": "#00363c",
-                      "surface-container": "#1f1f25",
-                      "background": "#131319",
-                      "outline": "#869395",
-                      "surface-tint": "#54d8e8",
-                      "primary": "#d5f9ff",
-                      "on-primary-container": "#006771",
-                      "surface": "#131319",
-                      "secondary": "#ccbeff",
-                      "text-secondary": "#CBD5E1",
-                      "tertiary-fixed-dim": "#edc150",
-                      "on-tertiary-fixed-variant": "#5a4300",
-                      "danger": "#FCA5A5",
-                      "surface-1": "#090A0F",
-                      "error-container": "#93000a",
-                      "on-secondary": "#332664",
-                      "surface-container-high": "#2a2930",
-                      "on-tertiary-container": "#755900",
-                      "on-tertiary-fixed": "#251a00",
-                      "secondary-container": "#4a3d7c",
-                      "on-secondary-fixed": "#1e0e4e",
-                      "on-error": "#690005",
-                      "on-tertiary": "#3e2e00",
-                      "primary-container": "#67e8f9",
-                      "surface-bright": "#39383f"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "gutter-desktop": "32px",
-                      "gutter-mobile": "16px",
-                      "unit": "4px",
-                      "margin-mobile": "20px",
-                      "reading-width": "720px",
-                      "max-content-width": "1200px",
-                      "margin-desktop": "64px"
-              },
-              "fontFamily": {
-                      "h2": [
-                              "Space Grotesk"
-                      ],
-                      "h3": [
-                              "Space Grotesk"
-                      ],
-                      "display-xl": [
-                              "Space Grotesk"
-                      ],
-                      "display-xl-mobile": [
-                              "Space Grotesk"
-                      ],
-                      "label": [
-                              "Space Grotesk"
-                      ],
-                      "small": [
-                              "Inter"
-                      ],
-                      "display-lg-mobile": [
-                              "Space Grotesk"
-                      ],
-                      "display-lg": [
-                              "Space Grotesk"
-                      ],
-                      "h1": [
-                              "Space Grotesk"
-                      ],
-                      "editorial-italic": [
-                              "Playfair Display"
-                      ],
-                      "h1-mobile": [
-                              "Space Grotesk"
-                      ],
-                      "body": [
-                              "Inter"
-                      ],
-                      "body-lg": [
-                              "Inter"
-                      ]
-              },
-              "fontSize": {
-                      "h2": [
-                              "36px",
-                              {
-                                      "lineHeight": "1.2",
-                                      "fontWeight": "500"
-                              }
-                      ],
-                      "h3": [
-                              "24px",
-                              {
-                                      "lineHeight": "1.3",
-                                      "fontWeight": "500"
-                              }
-                      ],
-                      "display-xl": [
-                              "96px",
-                              {
-                                      "lineHeight": "1.0",
-                                      "letterSpacing": "-0.02em",
-                                      "fontWeight": "700"
-                              }
-                      ],
-                      "display-xl-mobile": [
-                              "56px",
-                              {
-                                      "lineHeight": "1.0",
-                                      "fontWeight": "700"
-                              }
-                      ],
-                      "label": [
-                              "12px",
-                              {
-                                      "lineHeight": "1.4",
-                                      "letterSpacing": "0.05em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "small": [
-                              "14px",
-                              {
-                                      "lineHeight": "1.55",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "display-lg-mobile": [
-                              "48px",
-                              {
-                                      "lineHeight": "1.1",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "display-lg": [
-                              "64px",
-                              {
-                                      "lineHeight": "1.1",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "h1": [
-                              "52px",
-                              {
-                                      "lineHeight": "1.1",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "editorial-italic": [
-                              "18px",
-                              {
-                                      "lineHeight": "1.6",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "h1-mobile": [
-                              "40px",
-                              {
-                                      "lineHeight": "1.1",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "body": [
-                              "16px",
-                              {
-                                      "lineHeight": "1.65",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "body-lg": [
-                              "18px",
-                              {
-                                      "lineHeight": "1.7",
-                                      "fontWeight": "400"
-                              }
-                      ]
-              }
-      },
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Becoming V2</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'primary-fixed-dim': '#54d8e8',
+              'surface-container-low': '#1b1b21',
+              'text-tertiary': '#94A3B8',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'tertiary-fixed': '#ffdf97',
+              'surface-container-highest': '#35343b',
+              'outline-variant': '#3c494b',
+              'surface-variant': '#35343b',
+              'tertiary-container': '#ffd15e',
+              'on-error-container': '#ffdad6',
+              'on-primary-fixed': '#001f23',
+              'on-surface': '#e4e1ea',
+              tertiary: '#fff2db',
+              error: '#ffb4ab',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              'surface-container-lowest': '#0e0e14',
+              'on-primary-fixed-variant': '#004f57',
+              'on-surface-variant': '#bcc9cb',
+              warning: '#FCD34D',
+              'secondary-fixed-dim': '#ccbeff',
+              'text-primary': '#F8FAFC',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'accent-strong': '#22D3EE',
+              'on-background': '#e4e1ea',
+              success: '#86EFAC',
+              'inverse-primary': '#006973',
+              'secondary-fixed': '#e7deff',
+              'surface-dim': '#131319',
+              'inverse-on-surface': '#303037',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'primary-fixed': '#91f1ff',
+              'on-secondary-container': '#baabf3',
+              'inverse-surface': '#e4e1ea',
+              'on-primary': '#00363c',
+              'surface-container': '#1f1f25',
+              background: '#131319',
+              outline: '#869395',
+              'surface-tint': '#54d8e8',
+              primary: '#d5f9ff',
+              'on-primary-container': '#006771',
+              surface: '#131319',
+              secondary: '#ccbeff',
+              'text-secondary': '#CBD5E1',
+              'tertiary-fixed-dim': '#edc150',
+              'on-tertiary-fixed-variant': '#5a4300',
+              danger: '#FCA5A5',
+              'surface-1': '#090A0F',
+              'error-container': '#93000a',
+              'on-secondary': '#332664',
+              'surface-container-high': '#2a2930',
+              'on-tertiary-container': '#755900',
+              'on-tertiary-fixed': '#251a00',
+              'secondary-container': '#4a3d7c',
+              'on-secondary-fixed': '#1e0e4e',
+              'on-error': '#690005',
+              'on-tertiary': '#3e2e00',
+              'primary-container': '#67e8f9',
+              'surface-bright': '#39383f',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              'gutter-desktop': '32px',
+              'gutter-mobile': '16px',
+              unit: '4px',
+              'margin-mobile': '20px',
+              'reading-width': '720px',
+              'max-content-width': '1200px',
+              'margin-desktop': '64px',
+            },
+            fontFamily: {
+              h2: ['Space Grotesk'],
+              h3: ['Space Grotesk'],
+              'display-xl': ['Space Grotesk'],
+              'display-xl-mobile': ['Space Grotesk'],
+              label: ['Space Grotesk'],
+              small: ['Inter'],
+              'display-lg-mobile': ['Space Grotesk'],
+              'display-lg': ['Space Grotesk'],
+              h1: ['Space Grotesk'],
+              'editorial-italic': ['Playfair Display'],
+              'h1-mobile': ['Space Grotesk'],
+              body: ['Inter'],
+              'body-lg': ['Inter'],
+            },
+            fontSize: {
+              h2: [
+                '36px',
+                {
+                  lineHeight: '1.2',
+                  fontWeight: '500',
+                },
+              ],
+              h3: [
+                '24px',
+                {
+                  lineHeight: '1.3',
+                  fontWeight: '500',
+                },
+              ],
+              'display-xl': [
+                '96px',
+                {
+                  lineHeight: '1.0',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700',
+                },
+              ],
+              'display-xl-mobile': [
+                '56px',
+                {
+                  lineHeight: '1.0',
+                  fontWeight: '700',
+                },
+              ],
+              label: [
+                '12px',
+                {
+                  lineHeight: '1.4',
+                  letterSpacing: '0.05em',
+                  fontWeight: '600',
+                },
+              ],
+              small: [
+                '14px',
+                {
+                  lineHeight: '1.55',
+                  fontWeight: '400',
+                },
+              ],
+              'display-lg-mobile': [
+                '48px',
+                {
+                  lineHeight: '1.1',
+                  fontWeight: '600',
+                },
+              ],
+              'display-lg': [
+                '64px',
+                {
+                  lineHeight: '1.1',
+                  fontWeight: '600',
+                },
+              ],
+              h1: [
+                '52px',
+                {
+                  lineHeight: '1.1',
+                  fontWeight: '600',
+                },
+              ],
+              'editorial-italic': [
+                '18px',
+                {
+                  lineHeight: '1.6',
+                  fontWeight: '400',
+                },
+              ],
+              'h1-mobile': [
+                '40px',
+                {
+                  lineHeight: '1.1',
+                  fontWeight: '600',
+                },
+              ],
+              body: [
+                '16px',
+                {
+                  lineHeight: '1.65',
+                  fontWeight: '400',
+                },
+              ],
+              'body-lg': [
+                '18px',
+                {
+                  lineHeight: '1.7',
+                  fontWeight: '400',
+                },
+              ],
+            },
           },
+        },
+      };
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400&amp;family=Playfair+Display:ital@1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .orb-animation {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(103, 232, 249, 0.4),
+          rgba(103, 232, 249, 0.1) 60%,
+          transparent 70%
+        );
+        animation: pulse-orb 4s infinite alternate ease-in-out;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      @keyframes pulse-orb {
+        0% {
+          transform: translate(-50%, -50%) scale(0.9);
+          opacity: 0.6;
         }
-      </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400&amp;family=Playfair+Display:ital@1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        100% {
+          transform: translate(-50%, -50%) scale(1.1);
+          opacity: 1;
         }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
         .orb-animation {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(103, 232, 249, 0.4), rgba(103, 232, 249, 0.1) 60%, transparent 70%);
-            animation: pulse-orb 4s infinite alternate ease-in-out;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            pointer-events: none;
+          animation: none;
         }
-
-        @keyframes pulse-orb {
-            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
-            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .orb-animation {
-                animation: none;
-            }
-        }
+      }
     </style>
-</head>
-<body class="bg-background text-text-primary min-h-screen flex flex-col font-body antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
-<!-- Top Navigation Shell -->
-<header class="flex justify-between items-center w-full px-margin-mobile py-4 sticky top-0 z-50 bg-surface-2/80 backdrop-blur-xl border-b border-border">
-<div class="font-h2 text-h2 font-bold text-accent-strong tracking-tight">Becoming V2</div>
-<!-- Mobile Nav Menu Trigger (Hidden logic handled by JS later if needed, simple for now) -->
-<button class="md:hidden text-primary p-2">
-<span class="material-symbols-outlined text-[24px]">menu</span>
-</button>
-<!-- Desktop Nav -->
-<nav class="hidden md:flex gap-6 items-center">
-<a class="text-on-surface-variant hover:text-primary transition-colors duration-150 font-label text-label" href="#">How it works</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors duration-150 font-label text-label" href="#">Privacy</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors duration-150 font-label text-label" href="#">Demo</a>
-<button class="bg-primary-container text-on-primary-container font-label text-label px-4 py-2 rounded-lg hover:bg-surface-3 transition-colors h-[48px] flex items-center justify-center font-bold">Sign In</button>
-</nav>
-</header>
-<!-- Main Content Canvas -->
-<main class="flex-grow flex flex-col relative">
-<!-- Hero Section -->
-<section class="flex flex-col items-center justify-center min-h-[80vh] px-margin-mobile py-24 text-center relative z-10">
-<div class="orb-animation"></div>
-<div class="relative z-10 flex flex-col items-center max-w-[800px] mx-auto">
-<h1 class="font-display-xl-mobile text-display-xl-mobile md:font-display-xl md:text-display-xl mb-6 tracking-tight text-text-primary">
-                    Reflect. <span class="text-accent-strong">Synthesize.</span> Grow.
-                </h1>
-<p class="font-body-lg text-body-lg text-text-secondary mb-10 max-w-[500px]">
-                    A cinematic space for intentional introspection. Let AI help you connect the dots of your identity in complete privacy.
+  </head>
+  <body
+    class="bg-background text-text-primary min-h-screen flex flex-col font-body antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container"
+  >
+    <!-- Top Navigation Shell -->
+    <header
+      class="flex justify-between items-center w-full px-margin-mobile py-4 sticky top-0 z-50 bg-surface-2/80 backdrop-blur-xl border-b border-border"
+    >
+      <div class="font-h2 text-h2 font-bold text-accent-strong tracking-tight">Becoming V2</div>
+      <!-- Mobile Nav Menu Trigger (Hidden logic handled by JS later if needed, simple for now) -->
+      <button class="md:hidden text-primary p-2">
+        <span class="material-symbols-outlined text-[24px]">menu</span>
+      </button>
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex gap-6 items-center">
+        <a
+          class="text-on-surface-variant hover:text-primary transition-colors duration-150 font-label text-label"
+          href="#"
+          >How it works</a
+        >
+        <a
+          class="text-on-surface-variant hover:text-primary transition-colors duration-150 font-label text-label"
+          href="#"
+          >Privacy</a
+        >
+        <a
+          class="text-on-surface-variant hover:text-primary transition-colors duration-150 font-label text-label"
+          href="#"
+          >Demo</a
+        >
+        <button
+          class="bg-primary-container text-on-primary-container font-label text-label px-4 py-2 rounded-lg hover:bg-surface-3 transition-colors h-[48px] flex items-center justify-center font-bold"
+        >
+          Sign In
+        </button>
+      </nav>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="flex-grow flex flex-col relative">
+      <!-- Hero Section -->
+      <section
+        class="flex flex-col items-center justify-center min-h-[80vh] px-margin-mobile py-24 text-center relative z-10"
+      >
+        <div class="orb-animation"></div>
+        <div class="relative z-10 flex flex-col items-center max-w-[800px] mx-auto">
+          <h1
+            class="font-display-xl-mobile text-display-xl-mobile md:font-display-xl md:text-display-xl mb-6 tracking-tight text-text-primary"
+          >
+            Reflect. <span class="text-accent-strong">Synthesize.</span> Grow.
+          </h1>
+          <p class="font-body-lg text-body-lg text-text-secondary mb-10 max-w-[500px]">
+            A cinematic space for intentional introspection. Let AI help you connect the dots of
+            your identity in complete privacy.
+          </p>
+          <div class="flex flex-col w-full gap-4 max-w-[400px]">
+            <button
+              class="w-full bg-primary-container text-on-primary-container font-label text-label h-[48px] rounded-lg font-bold hover:brightness-110 transition-all focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+            >
+              Start Your Journey
+            </button>
+            <button
+              class="w-full bg-surface-2 border border-border text-text-primary font-label text-label h-[48px] rounded-lg hover:border-border-strong hover:bg-surface-3 transition-all focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+            >
+              View Demo
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- Outcome Preview (Glassmorphism Cards) -->
+      <section
+        class="px-margin-mobile py-24 relative z-10 bg-surface-1/50 border-t border-border mt-12"
+      >
+        <div class="max-w-max-content-width mx-auto">
+          <div class="text-center mb-16">
+            <h2 class="font-h1-mobile text-h1-mobile md:font-h1 md:text-h1 mb-4 text-text-primary">
+              The Synthesis
+            </h2>
+            <p class="font-body text-body text-text-secondary">
+              See how scattered thoughts become clear narratives.
+            </p>
+          </div>
+          <div class="flex flex-col gap-6 w-full">
+            <!-- Identity Card -->
+            <div
+              class="bg-surface-2 backdrop-blur-md border border-[rgba(138,43,226,0.3)] rounded-xl p-6 relative overflow-hidden group hover:border-[rgba(103,232,249,0.5)] transition-all duration-300"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-secondary/10 to-primary/10 opacity-50"
+              ></div>
+              <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-4 text-accent-strong">
+                  <span class="material-symbols-outlined">fingerprint</span>
+                  <span class="font-label text-label tracking-widest uppercase"
+                    >Identity Insight</span
+                  >
+                </div>
+                <h3 class="font-h3 text-h3 mb-3 text-text-primary">The Architect of Change</h3>
+                <p class="font-body text-body text-text-secondary">
+                  Your recent reflections reveal a deep need to structure chaos. You thrive when
+                  building systems from ambiguity.
                 </p>
-<div class="flex flex-col w-full gap-4 max-w-[400px]">
-<button class="w-full bg-primary-container text-on-primary-container font-label text-label h-[48px] rounded-lg font-bold hover:brightness-110 transition-all focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-                        Start Your Journey
-                    </button>
-<button class="w-full bg-surface-2 border border-border text-text-primary font-label text-label h-[48px] rounded-lg hover:border-border-strong hover:bg-surface-3 transition-all focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-                        View Demo
-                    </button>
-</div>
-</div>
-</section>
-<!-- Outcome Preview (Glassmorphism Cards) -->
-<section class="px-margin-mobile py-24 relative z-10 bg-surface-1/50 border-t border-border mt-12">
-<div class="max-w-max-content-width mx-auto">
-<div class="text-center mb-16">
-<h2 class="font-h1-mobile text-h1-mobile md:font-h1 md:text-h1 mb-4 text-text-primary">The Synthesis</h2>
-<p class="font-body text-body text-text-secondary">See how scattered thoughts become clear narratives.</p>
-</div>
-<div class="flex flex-col gap-6 w-full">
-<!-- Identity Card -->
-<div class="bg-surface-2 backdrop-blur-md border border-[rgba(138,43,226,0.3)] rounded-xl p-6 relative overflow-hidden group hover:border-[rgba(103,232,249,0.5)] transition-all duration-300">
-<div class="absolute inset-0 bg-gradient-to-br from-secondary/10 to-primary/10 opacity-50"></div>
-<div class="relative z-10">
-<div class="flex items-center gap-3 mb-4 text-accent-strong">
-<span class="material-symbols-outlined">fingerprint</span>
-<span class="font-label text-label tracking-widest uppercase">Identity Insight</span>
-</div>
-<h3 class="font-h3 text-h3 mb-3 text-text-primary">The Architect of Change</h3>
-<p class="font-body text-body text-text-secondary">Your recent reflections reveal a deep need to structure chaos. You thrive when building systems from ambiguity.</p>
-</div>
-</div>
-<!-- Path Card -->
-<div class="bg-surface-2 backdrop-blur-md border border-border rounded-xl p-6 relative overflow-hidden group hover:border-border-strong transition-all duration-300">
-<div class="relative z-10">
-<div class="flex items-center gap-3 mb-4 text-text-tertiary group-hover:text-primary transition-colors">
-<span class="material-symbols-outlined">alt_route</span>
-<span class="font-label text-label tracking-widest uppercase">Emerging Path</span>
-</div>
-<h3 class="font-h3 text-h3 mb-3 text-text-primary">Creative Leadership</h3>
-<p class="font-body text-body text-text-secondary">A recurring theme in your notes is a desire to mentor. Consider stepping into roles that guide rather than execute.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Final CTA -->
-<section class="px-margin-mobile py-32 text-center relative z-10 bg-surface-1">
-<div class="max-w-[600px] mx-auto flex flex-col items-center">
-<h2 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg mb-6 text-text-primary">Ready to begin?</h2>
-<p class="font-body-lg text-body-lg text-text-secondary mb-10">Your sanctuary awaits. Start mapping your mind today.</p>
-<div class="flex flex-col w-full gap-4 max-w-[400px]">
-<button class="w-full bg-primary-container text-on-primary-container font-label text-label h-[48px] rounded-lg font-bold hover:brightness-110 transition-all">
-                        Create Sanctuary
-                    </button>
-</div>
-</div>
-</section>
-</main>
-<!-- Bottom Navigation Shell (Mobile Only) -->
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 md:hidden bg-surface-2/90 backdrop-blur-md border-t border-border-strong shadow-lg rounded-t-xl">
-<a class="flex flex-col items-center justify-center text-accent-strong font-bold active:bg-surface-3 active:scale-110 transition-transform p-2 rounded-lg" href="#">
-<span class="material-symbols-outlined text-[24px]">fingerprint</span>
-<span class="font-label-mobile text-label-mobile mt-1">Identity</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg" href="#">
-<span class="material-symbols-outlined text-[24px]">alt_route</span>
-<span class="font-label-mobile text-label-mobile mt-1">Paths</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg" href="#">
-<span class="material-symbols-outlined text-[24px]">timeline</span>
-<span class="font-label-mobile text-label-mobile mt-1">Timeline</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg" href="#">
-<span class="material-symbols-outlined text-[24px]">mail</span>
-<span class="font-label-mobile text-label-mobile mt-1">Letter</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg" href="#">
-<span class="material-symbols-outlined text-[24px]">event_note</span>
-<span class="font-label-mobile text-label-mobile mt-1">Plan</span>
-</a>
-</nav>
-<div class="h-[80px] md:hidden"></div> <!-- Spacer for mobile nav -->
-</body></html>
+              </div>
+            </div>
+            <!-- Path Card -->
+            <div
+              class="bg-surface-2 backdrop-blur-md border border-border rounded-xl p-6 relative overflow-hidden group hover:border-border-strong transition-all duration-300"
+            >
+              <div class="relative z-10">
+                <div
+                  class="flex items-center gap-3 mb-4 text-text-tertiary group-hover:text-primary transition-colors"
+                >
+                  <span class="material-symbols-outlined">alt_route</span>
+                  <span class="font-label text-label tracking-widest uppercase">Emerging Path</span>
+                </div>
+                <h3 class="font-h3 text-h3 mb-3 text-text-primary">Creative Leadership</h3>
+                <p class="font-body text-body text-text-secondary">
+                  A recurring theme in your notes is a desire to mentor. Consider stepping into
+                  roles that guide rather than execute.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Final CTA -->
+      <section class="px-margin-mobile py-32 text-center relative z-10 bg-surface-1">
+        <div class="max-w-[600px] mx-auto flex flex-col items-center">
+          <h2
+            class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg mb-6 text-text-primary"
+          >
+            Ready to begin?
+          </h2>
+          <p class="font-body-lg text-body-lg text-text-secondary mb-10">
+            Your sanctuary awaits. Start mapping your mind today.
+          </p>
+          <div class="flex flex-col w-full gap-4 max-w-[400px]">
+            <button
+              class="w-full bg-primary-container text-on-primary-container font-label text-label h-[48px] rounded-lg font-bold hover:brightness-110 transition-all"
+            >
+              Create Sanctuary
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Bottom Navigation Shell (Mobile Only) -->
+    <nav
+      class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 md:hidden bg-surface-2/90 backdrop-blur-md border-t border-border-strong shadow-lg rounded-t-xl"
+    >
+      <a
+        class="flex flex-col items-center justify-center text-accent-strong font-bold active:bg-surface-3 active:scale-110 transition-transform p-2 rounded-lg"
+        href="#"
+      >
+        <span class="material-symbols-outlined text-[24px]">fingerprint</span>
+        <span class="font-label-mobile text-label-mobile mt-1">Identity</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg"
+        href="#"
+      >
+        <span class="material-symbols-outlined text-[24px]">alt_route</span>
+        <span class="font-label-mobile text-label-mobile mt-1">Paths</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg"
+        href="#"
+      >
+        <span class="material-symbols-outlined text-[24px]">timeline</span>
+        <span class="font-label-mobile text-label-mobile mt-1">Timeline</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg"
+        href="#"
+      >
+        <span class="material-symbols-outlined text-[24px]">mail</span>
+        <span class="font-label-mobile text-label-mobile mt-1">Letter</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg"
+        href="#"
+      >
+        <span class="material-symbols-outlined text-[24px]">event_note</span>
+        <span class="font-label-mobile text-label-mobile mt-1">Plan</span>
+      </a>
+    </nav>
+    <div class="h-[80px] md:hidden"></div>
+    <!-- Spacer for mobile nav -->
+  </body>
+</html>

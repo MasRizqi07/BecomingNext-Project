@@ -147,27 +147,33 @@ spacing:
 
 ## Brand & Style
 
-The design system embodies **Cinematic Clarity**—a philosophy of introspection, privacy, and intentional growth. It is designed to feel like a "digital sanctuary," shifting away from the high-energy, addictive patterns of traditional social apps toward a calm, editorial experience. 
+The design system embodies **Cinematic Clarity**—a philosophy of introspection, privacy, and intentional growth. It is designed to feel like a "digital sanctuary," shifting away from the high-energy, addictive patterns of traditional social apps toward a calm, editorial experience.
 
 ### Design Movement: Minimalist Glassmorphism
+
 The aesthetic combines the structural discipline of **Minimalism** with the depth of **Glassmorphism**.
+
 - **Minimalism:** Use of heavy whitespace (editorial breathing room) and a strict 4px grid ensures that content is never overwhelmed by the interface.
 - **Glassmorphism:** Surfaces use frosted glass effects (`backdrop-filter: blur`) to create a sense of physical layering without using heavy shadows, maintaining a lightweight and modern feel.
 
 ### Emotional Response
+
 The UI should evoke a sense of **quiet authority** and **safety**. By using a deep, dark canvas and vibrant, purposeful accents, the design signals that the user’s reflections are held in a private, premium space. Motion is sparse and functional, reinforcing the "Calm, not addictive" brand pillar.
 
 ## Colors
 
-The color palette is rooted in a deep-space "Canvas" that provides the foundation for "Cinematic" depth. 
+The color palette is rooted in a deep-space "Canvas" that provides the foundation for "Cinematic" depth.
 
 ### Functional Color Strategy
+
 - **Primary (Cyan - #67E8F9):** Represents "Drifting Paths" or signals. It is used for primary actions, progress indicators, and AI signals.
 - **Secondary (Violet - #C4B5FD):** Represents "Intentional Paths." This color is used for specific growth insights and high-value reflection milestones.
 - **Neutral (#020205):** The base canvas. All surfaces stack on this deep black to ensure maximum contrast and focus.
 
 ### Transparency & Hierarchy
-Surfaces are built using incremental opacities of white over the canvas. 
+
+Surfaces are built using incremental opacities of white over the canvas.
+
 - **Surface-1** is the only solid container, used for base-level content cards.
 - **Surface-2 and Surface-3** utilize backdrop blurs to create elevation.
 - **Accessibility:** Text colors are strictly mapped to ensure a minimum contrast ratio of 4.5:1 for normal text and 3:1 for large text. Status colors (Danger, Warning, Success) must always be accompanied by labels or icons to satisfy WCAG 2.2 AA requirements.
@@ -181,6 +187,7 @@ This system utilizes a tri-font strategy to balance technical precision with edi
 - **Playfair Display (Editorial Accents):** Used sparingly in italics for pull quotes, "future letters," or reflective prompts to introduce a human, literary quality.
 
 ### Scaling & Readability
+
 Large display types use fluid scaling (CSS `clamp`). Long-form reflection results are confined to a "Reading Width" of 680px to 760px to prevent eye fatigue on wide screens.
 
 ## Layout & Spacing
@@ -188,11 +195,13 @@ Large display types use fluid scaling (CSS `clamp`). Long-form reflection result
 The layout is built on a **4px base grid**, favoring generous "editorial" whitespace to promote focus.
 
 ### Grid Model
+
 - **Mobile (Up to 767px):** 4-column fluid grid. Content uses a 16px gutter and 20px side margins.
 - **Tablet (768px - 1023px):** 8-column grid with 24px gutters.
 - **Desktop (1024px+):** 12-column fixed grid. The central container is capped at 1200px, but reading-intensive sections (like AI insights) are narrowed to 720px for optimal line length.
 
 ### Spacing Philosophy
+
 Spacing should be used to group related items and separate distinct "chapters" of the user journey. Section headers should have significant top-margin (96px+) to signal a transition in the narrative flow.
 
 ## Elevation & Depth
@@ -200,6 +209,7 @@ Spacing should be used to group related items and separate distinct "chapters" o
 Depth is achieved through **Tonal Layering** and **Glassmorphism** rather than traditional drop shadows.
 
 ### Layering Rules
+
 1. **The Canvas (#020205):** The lowest level, always dark.
 2. **Surface-1 (Solid):** Used for primary content containers.
 3. **Surface-2/3 (Glass):** Used for interactive layers, navigation bars, and modals.
@@ -207,10 +217,12 @@ Depth is achieved through **Tonal Layering** and **Glassmorphism** rather than t
    - **Stacking:** Maximum of two translucent surfaces may be stacked to prevent loss of legibility.
 
 ### Borders
-Borders function as "Light Wraps." 
+
+Borders function as "Light Wraps."
+
 - Default borders (`rgba(255,255,255,0.12)`) define shape.
-- Stronger borders (`rgba(255,255,255,0.24)`) are used to highlight active or focused elements. 
-Shadows are reserved exclusively for floating elements like Modals or Mobile Jump Menus to provide clear separation from the background.
+- Stronger borders (`rgba(255,255,255,0.24)`) are used to highlight active or focused elements.
+  Shadows are reserved exclusively for floating elements like Modals or Mobile Jump Menus to provide clear separation from the background.
 
 ## Shapes
 
@@ -224,18 +236,23 @@ The system uses a **Rounded** shape language to soften the futuristic "Cinematic
 ## Components
 
 ### Buttons
+
 - **Primary:** Solid Cyan (#67E8F9) with black text. High emphasis.
 - **Secondary:** Surface-2 background with a 1px border.
 - **Ghost:** No background, border-strong on hover.
 - **States:** Hover transitions should be fast (120ms). Focus states use a 2px Cyan outline with a 2px offset for WCAG compliance.
 
 ### Inputs & Fields
+
 Inputs use Surface-1 with a default border. Upon focus, the border transitions to Cyan with a subtle outer glow (0px 0px 8px rgba(103, 232, 249, 0.3)). Labels are always visible using the "Label" typography style.
 
 ### Cards & Identity Summary
-Cards are the primary storytelling vehicle. 
+
+Cards are the primary storytelling vehicle.
+
 - **The Identity Card:** Uses a specific violet-to-cyan gradient border to represent the synthesis of the user's paths.
 - **Interactive Cards:** Must use a 44px minimum touch target for all embedded actions.
 
 ### AI Processing (The "Orb")
+
 Instead of standard loaders, use a CSS-based "Orb" or particle system for AI states. These should be `aria-hidden` and respect `prefers-reduced-motion` by switching to a static soft glow.

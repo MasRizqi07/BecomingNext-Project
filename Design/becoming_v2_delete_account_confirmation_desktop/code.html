@@ -1,226 +1,305 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Delete Account - Becoming V2</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "surface-1": "#090A0F",
-                        "on-secondary-container": "#baabf3",
-                        "on-error-container": "#ffdad6",
-                        "text-secondary": "#CBD5E1",
-                        "surface-tint": "#54d8e8",
-                        "on-primary-fixed": "#001f23",
-                        "surface-container": "#1f1f25",
-                        "on-secondary-fixed-variant": "#4a3d7c",
-                        "tertiary-fixed": "#ffdf97",
-                        "on-tertiary": "#3e2e00",
-                        "surface": "#131319",
-                        "outline": "#869395",
-                        "tertiary-container": "#ffd15e",
-                        "surface-container-low": "#1b1b21",
-                        "danger": "#FCA5A5",
-                        "on-primary-container": "#006771",
-                        "on-tertiary-fixed-variant": "#5a4300",
-                        "text-tertiary": "#94A3B8",
-                        "surface-3": "rgba(255, 255, 255, 0.08)",
-                        "border": "rgba(255, 255, 255, 0.12)",
-                        "primary-fixed": "#91f1ff",
-                        "border-strong": "rgba(255, 255, 255, 0.24)",
-                        "on-primary-fixed-variant": "#004f57",
-                        "secondary": "#ccbeff",
-                        "primary": "#d5f9ff",
-                        "inverse-primary": "#006973",
-                        "secondary-container": "#4a3d7c",
-                        "surface-bright": "#39383f",
-                        "on-tertiary-fixed": "#251a00",
-                        "inverse-on-surface": "#303037",
-                        "on-background": "#e4e1ea",
-                        "on-error": "#690005",
-                        "error-container": "#93000a",
-                        "surface-container-lowest": "#0e0e14",
-                        "surface-container-highest": "#35343b",
-                        "outline-variant": "#3c494b",
-                        "tertiary": "#fff2db",
-                        "surface-variant": "#35343b",
-                        "on-tertiary-container": "#755900",
-                        "surface-2": "rgba(255, 255, 255, 0.05)",
-                        "background": "#131319",
-                        "accent-strong": "#22D3EE",
-                        "secondary-fixed-dim": "#ccbeff",
-                        "on-primary": "#00363c",
-                        "warning": "#FCD34D",
-                        "on-surface-variant": "#bcc9cb",
-                        "secondary-fixed": "#e7deff",
-                        "inverse-surface": "#e4e1ea",
-                        "primary-fixed-dim": "#54d8e8",
-                        "error": "#ffb4ab",
-                        "surface-container-high": "#2a2930",
-                        "on-secondary-fixed": "#1e0e4e",
-                        "primary-container": "#67e8f9",
-                        "surface-dim": "#131319",
-                        "on-surface": "#e4e1ea",
-                        "text-primary": "#F8FAFC",
-                        "on-secondary": "#332664",
-                        "tertiary-fixed-dim": "#edc150",
-                        "success": "#86EFAC"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "gutter-desktop": "32px",
-                        "reading-width": "720px",
-                        "gutter-mobile": "16px",
-                        "max-content-width": "1200px",
-                        "margin-desktop": "64px",
-                        "unit": "4px",
-                        "margin-mobile": "20px"
-                    },
-                    "fontFamily": {
-                        "editorial-italic": ["Playfair Display"],
-                        "display-lg-mobile": ["Space Grotesk"],
-                        "display-xl": ["Space Grotesk"],
-                        "body": ["Inter"],
-                        "h1": ["Space Grotesk"],
-                        "label": ["Space Grotesk"],
-                        "body-lg": ["Inter"],
-                        "small": ["Inter"],
-                        "h2": ["Space Grotesk"],
-                        "display-xl-mobile": ["Space Grotesk"],
-                        "display-lg": ["Space Grotesk"],
-                        "h1-mobile": ["Space Grotesk"],
-                        "h3": ["Space Grotesk"]
-                    },
-                    "fontSize": {
-                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
-                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
-                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
-                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
-                        "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
-                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }]
-                    }
-                }
-            }
-        }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Delete Account - Becoming V2</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'surface-1': '#090A0F',
+              'on-secondary-container': '#baabf3',
+              'on-error-container': '#ffdad6',
+              'text-secondary': '#CBD5E1',
+              'surface-tint': '#54d8e8',
+              'on-primary-fixed': '#001f23',
+              'surface-container': '#1f1f25',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              'tertiary-fixed': '#ffdf97',
+              'on-tertiary': '#3e2e00',
+              surface: '#131319',
+              outline: '#869395',
+              'tertiary-container': '#ffd15e',
+              'surface-container-low': '#1b1b21',
+              danger: '#FCA5A5',
+              'on-primary-container': '#006771',
+              'on-tertiary-fixed-variant': '#5a4300',
+              'text-tertiary': '#94A3B8',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'primary-fixed': '#91f1ff',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'on-primary-fixed-variant': '#004f57',
+              secondary: '#ccbeff',
+              primary: '#d5f9ff',
+              'inverse-primary': '#006973',
+              'secondary-container': '#4a3d7c',
+              'surface-bright': '#39383f',
+              'on-tertiary-fixed': '#251a00',
+              'inverse-on-surface': '#303037',
+              'on-background': '#e4e1ea',
+              'on-error': '#690005',
+              'error-container': '#93000a',
+              'surface-container-lowest': '#0e0e14',
+              'surface-container-highest': '#35343b',
+              'outline-variant': '#3c494b',
+              tertiary: '#fff2db',
+              'surface-variant': '#35343b',
+              'on-tertiary-container': '#755900',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              background: '#131319',
+              'accent-strong': '#22D3EE',
+              'secondary-fixed-dim': '#ccbeff',
+              'on-primary': '#00363c',
+              warning: '#FCD34D',
+              'on-surface-variant': '#bcc9cb',
+              'secondary-fixed': '#e7deff',
+              'inverse-surface': '#e4e1ea',
+              'primary-fixed-dim': '#54d8e8',
+              error: '#ffb4ab',
+              'surface-container-high': '#2a2930',
+              'on-secondary-fixed': '#1e0e4e',
+              'primary-container': '#67e8f9',
+              'surface-dim': '#131319',
+              'on-surface': '#e4e1ea',
+              'text-primary': '#F8FAFC',
+              'on-secondary': '#332664',
+              'tertiary-fixed-dim': '#edc150',
+              success: '#86EFAC',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              'gutter-desktop': '32px',
+              'reading-width': '720px',
+              'gutter-mobile': '16px',
+              'max-content-width': '1200px',
+              'margin-desktop': '64px',
+              unit: '4px',
+              'margin-mobile': '20px',
+            },
+            fontFamily: {
+              'editorial-italic': ['Playfair Display'],
+              'display-lg-mobile': ['Space Grotesk'],
+              'display-xl': ['Space Grotesk'],
+              body: ['Inter'],
+              h1: ['Space Grotesk'],
+              label: ['Space Grotesk'],
+              'body-lg': ['Inter'],
+              small: ['Inter'],
+              h2: ['Space Grotesk'],
+              'display-xl-mobile': ['Space Grotesk'],
+              'display-lg': ['Space Grotesk'],
+              'h1-mobile': ['Space Grotesk'],
+              h3: ['Space Grotesk'],
+            },
+            fontSize: {
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              'display-lg-mobile': ['48px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+              'display-xl-mobile': ['56px', {lineHeight: '1.0', fontWeight: '700'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+              'h1-mobile': ['40px', {lineHeight: '1.1', fontWeight: '600'}],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        .danger-card-bg { background-color: rgba(252, 165, 165, 0.08); }
-        .danger-border { border-color: #FCA5A5; }
-        .danger-text { color: #FCA5A5; }
-        .bg-danger-solid { background-color: #FCA5A5; }
-        
-        .modal-enter { animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes modalIn {
-            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+    <style>
+      .danger-card-bg {
+        background-color: rgba(252, 165, 165, 0.08);
+      }
+      .danger-border {
+        border-color: #fca5a5;
+      }
+      .danger-text {
+        color: #fca5a5;
+      }
+      .bg-danger-solid {
+        background-color: #fca5a5;
+      }
+
+      .modal-enter {
+        animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes modalIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.95) translateY(10px);
         }
+        100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
     </style>
-</head>
-<body class="bg-surface-1 text-text-primary antialiased min-h-screen relative font-body selection:bg-accent-strong selection:text-surface-1">
-<!-- Background Context (Settings Page Simulator, heavily darkened) -->
-<div aria-hidden="true" class="absolute inset-0 bg-surface-1/90 flex flex-col items-center pt-24 px-4 opacity-30 pointer-events-none">
-<div class="w-full max-w-3xl space-y-8">
-<h1 class="font-h1 text-h1 text-text-primary opacity-50">Settings</h1>
-<div class="space-y-4">
-<div class="h-16 w-full bg-surface-2 rounded-lg border border-border"></div>
-<div class="h-32 w-full bg-surface-2 rounded-lg border border-border"></div>
-<div class="h-16 w-full bg-surface-2 rounded-lg border border-border"></div>
-</div>
-</div>
-</div>
-<!-- Modal Overlay -->
-<div aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-1/80 backdrop-blur-sm" role="dialog">
-<!-- Modal Container -->
-<div class="modal-enter w-full max-w-md bg-surface-1 border danger-border rounded-xl shadow-2xl overflow-hidden flex flex-col">
-<!-- Header -->
-<div class="p-6 pb-4 border-b border-border/50">
-<div class="flex items-start gap-3">
-<span aria-hidden="true" class="material-symbols-outlined danger-text text-3xl" data-weight="fill" style="font-variation-settings: 'FILL' 1;">warning</span>
-<h2 class="font-h3 text-h3 text-text-primary" id="modal-title">Permanently Delete Account &amp; Data?</h2>
-</div>
-</div>
-<!-- Content -->
-<div class="p-6 space-y-6">
-<!-- Danger Card -->
-<div class="danger-card-bg border border-danger/30 rounded-lg p-4 space-y-3">
-<p class="font-body text-body text-text-primary">
-                        This action is immediate and irreversible. The following data will be permanently wiped:
-                    </p>
-<ul class="space-y-2 list-none">
-<li class="flex items-start gap-2">
-<span aria-hidden="true" class="material-symbols-outlined text-danger text-sm mt-1">close</span>
-<span class="font-small text-small text-text-secondary">All reflection inputs</span>
-</li>
-<li class="flex items-start gap-2">
-<span aria-hidden="true" class="material-symbols-outlined text-danger text-sm mt-1">close</span>
-<span class="font-small text-small text-text-secondary">AI trajectory analyses</span>
-</li>
-<li class="flex items-start gap-2">
-<span aria-hidden="true" class="material-symbols-outlined text-danger text-sm mt-1">close</span>
-<span class="font-small text-small text-text-secondary">Check-in history</span>
-</li>
-<li class="flex items-start gap-2">
-<span aria-hidden="true" class="material-symbols-outlined text-danger text-sm mt-1">close</span>
-<span class="font-small text-small text-text-secondary">Google auth link</span>
-</li>
-</ul>
-</div>
-<!-- Confirmation Requirement -->
-<div class="space-y-2">
-<label class="block font-label text-label text-text-secondary uppercase tracking-widest" for="delete-confirmation">
-                        To confirm, type <span class="danger-text font-bold">DELETE</span> below:
-                    </label>
-<input autocomplete="off" class="w-full bg-surface-2 border border-border-strong rounded-lg px-4 py-3 font-body text-body text-text-primary focus:outline-none focus:border-danger focus:ring-1 focus:ring-danger transition-colors placeholder:text-surface-bright" id="delete-confirmation" placeholder="DELETE" spellcheck="false" type="text"/>
-</div>
-</div>
-<!-- Actions -->
-<div class="p-6 pt-4 bg-surface-2/30 border-t border-border/50 flex flex-col-reverse sm:flex-row gap-3 justify-end items-center">
-<button class="w-full sm:w-auto px-6 py-3 font-label text-label text-text-primary bg-transparent border border-border rounded-lg hover:border-border-strong transition-colors duration-150 flex items-center justify-center min-h-[44px]">
-                    Cancel, keep my data
-                </button>
-<button class="w-full sm:w-auto px-6 py-3 font-label text-label text-on-error bg-danger-solid opacity-50 cursor-not-allowed rounded-lg flex items-center justify-center min-h-[44px] transition-all duration-150" disabled="" id="purge-btn">
-                    Permanently Purge All Data
-                </button>
-</div>
-</div>
-</div>
-<script>
-        // Simple logic to simulate requirement satisfaction
-        const input = document.getElementById('delete-confirmation');
-        const btn = document.getElementById('purge-btn');
+  </head>
+  <body
+    class="bg-surface-1 text-text-primary antialiased min-h-screen relative font-body selection:bg-accent-strong selection:text-surface-1"
+  >
+    <!-- Background Context (Settings Page Simulator, heavily darkened) -->
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 bg-surface-1/90 flex flex-col items-center pt-24 px-4 opacity-30 pointer-events-none"
+    >
+      <div class="w-full max-w-3xl space-y-8">
+        <h1 class="font-h1 text-h1 text-text-primary opacity-50">Settings</h1>
+        <div class="space-y-4">
+          <div class="h-16 w-full bg-surface-2 rounded-lg border border-border"></div>
+          <div class="h-32 w-full bg-surface-2 rounded-lg border border-border"></div>
+          <div class="h-16 w-full bg-surface-2 rounded-lg border border-border"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Overlay -->
+    <div
+      aria-labelledby="modal-title"
+      aria-modal="true"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-1/80 backdrop-blur-sm"
+      role="dialog"
+    >
+      <!-- Modal Container -->
+      <div
+        class="modal-enter w-full max-w-md bg-surface-1 border danger-border rounded-xl shadow-2xl overflow-hidden flex flex-col"
+      >
+        <!-- Header -->
+        <div class="p-6 pb-4 border-b border-border/50">
+          <div class="flex items-start gap-3">
+            <span
+              aria-hidden="true"
+              class="material-symbols-outlined danger-text text-3xl"
+              data-weight="fill"
+              style="font-variation-settings: 'FILL' 1"
+              >warning</span
+            >
+            <h2 class="font-h3 text-h3 text-text-primary" id="modal-title">
+              Permanently Delete Account &amp; Data?
+            </h2>
+          </div>
+        </div>
+        <!-- Content -->
+        <div class="p-6 space-y-6">
+          <!-- Danger Card -->
+          <div class="danger-card-bg border border-danger/30 rounded-lg p-4 space-y-3">
+            <p class="font-body text-body text-text-primary">
+              This action is immediate and irreversible. The following data will be permanently
+              wiped:
+            </p>
+            <ul class="space-y-2 list-none">
+              <li class="flex items-start gap-2">
+                <span aria-hidden="true" class="material-symbols-outlined text-danger text-sm mt-1"
+                  >close</span
+                >
+                <span class="font-small text-small text-text-secondary">All reflection inputs</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span aria-hidden="true" class="material-symbols-outlined text-danger text-sm mt-1"
+                  >close</span
+                >
+                <span class="font-small text-small text-text-secondary"
+                  >AI trajectory analyses</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <span aria-hidden="true" class="material-symbols-outlined text-danger text-sm mt-1"
+                  >close</span
+                >
+                <span class="font-small text-small text-text-secondary">Check-in history</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span aria-hidden="true" class="material-symbols-outlined text-danger text-sm mt-1"
+                  >close</span
+                >
+                <span class="font-small text-small text-text-secondary">Google auth link</span>
+              </li>
+            </ul>
+          </div>
+          <!-- Confirmation Requirement -->
+          <div class="space-y-2">
+            <label
+              class="block font-label text-label text-text-secondary uppercase tracking-widest"
+              for="delete-confirmation"
+            >
+              To confirm, type <span class="danger-text font-bold">DELETE</span> below:
+            </label>
+            <input
+              autocomplete="off"
+              class="w-full bg-surface-2 border border-border-strong rounded-lg px-4 py-3 font-body text-body text-text-primary focus:outline-none focus:border-danger focus:ring-1 focus:ring-danger transition-colors placeholder:text-surface-bright"
+              id="delete-confirmation"
+              placeholder="DELETE"
+              spellcheck="false"
+              type="text"
+            />
+          </div>
+        </div>
+        <!-- Actions -->
+        <div
+          class="p-6 pt-4 bg-surface-2/30 border-t border-border/50 flex flex-col-reverse sm:flex-row gap-3 justify-end items-center"
+        >
+          <button
+            class="w-full sm:w-auto px-6 py-3 font-label text-label text-text-primary bg-transparent border border-border rounded-lg hover:border-border-strong transition-colors duration-150 flex items-center justify-center min-h-[44px]"
+          >
+            Cancel, keep my data
+          </button>
+          <button
+            class="w-full sm:w-auto px-6 py-3 font-label text-label text-on-error bg-danger-solid opacity-50 cursor-not-allowed rounded-lg flex items-center justify-center min-h-[44px] transition-all duration-150"
+            disabled=""
+            id="purge-btn"
+          >
+            Permanently Purge All Data
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Simple logic to simulate requirement satisfaction
+      const input = document.getElementById('delete-confirmation');
+      const btn = document.getElementById('purge-btn');
 
-        input.addEventListener('input', (e) => {
-            if(e.target.value === 'DELETE') {
-                btn.removeAttribute('disabled');
-                btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                btn.classList.add('hover:bg-red-400', 'shadow-[0_0_15px_rgba(252,165,165,0.4)]');
-            } else {
-                btn.setAttribute('disabled', 'true');
-                btn.classList.add('opacity-50', 'cursor-not-allowed');
-                btn.classList.remove('hover:bg-red-400', 'shadow-[0_0_15px_rgba(252,165,165,0.4)]');
-            }
-        });
+      input.addEventListener('input', (e) => {
+        if (e.target.value === 'DELETE') {
+          btn.removeAttribute('disabled');
+          btn.classList.remove('opacity-50', 'cursor-not-allowed');
+          btn.classList.add('hover:bg-red-400', 'shadow-[0_0_15px_rgba(252,165,165,0.4)]');
+        } else {
+          btn.setAttribute('disabled', 'true');
+          btn.classList.add('opacity-50', 'cursor-not-allowed');
+          btn.classList.remove('hover:bg-red-400', 'shadow-[0_0_15px_rgba(252,165,165,0.4)]');
+        }
+      });
     </script>
-</body></html>
+  </body>
+</html>

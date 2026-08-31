@@ -1,292 +1,415 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Becoming V2 | Intentional Growth</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary-fixed-dim": "#54d8e8",
-                        "surface-container-low": "#1b1b21",
-                        "text-tertiary": "#94A3B8",
-                        "surface-2": "rgba(255, 255, 255, 0.05)",
-                        "tertiary-fixed": "#ffdf97",
-                        "surface-container-highest": "#35343b",
-                        "outline-variant": "#3c494b",
-                        "surface-variant": "#35343b",
-                        "tertiary-container": "#ffd15e",
-                        "on-error-container": "#ffdad6",
-                        "on-primary-fixed": "#001f23",
-                        "on-surface": "#e4e1ea",
-                        "tertiary": "#fff2db",
-                        "error": "#ffb4ab",
-                        "on-secondary-fixed-variant": "#4a3d7c",
-                        "surface-container-lowest": "#0e0e14",
-                        "on-primary-fixed-variant": "#004f57",
-                        "on-surface-variant": "#bcc9cb",
-                        "warning": "#FCD34D",
-                        "secondary-fixed-dim": "#ccbeff",
-                        "text-primary": "#F8FAFC",
-                        "border": "rgba(255, 255, 255, 0.12)",
-                        "accent-strong": "#22D3EE",
-                        "on-background": "#e4e1ea",
-                        "success": "#86EFAC",
-                        "inverse-primary": "#006973",
-                        "secondary-fixed": "#e7deff",
-                        "surface-dim": "#131319",
-                        "inverse-on-surface": "#303037",
-                        "surface-3": "rgba(255, 255, 255, 0.08)",
-                        "border-strong": "rgba(255, 255, 255, 0.24)",
-                        "primary-fixed": "#91f1ff",
-                        "on-secondary-container": "#baabf3",
-                        "inverse-surface": "#e4e1ea",
-                        "on-primary": "#00363c",
-                        "surface-container": "#1f1f25",
-                        "background": "#131319",
-                        "outline": "#869395",
-                        "surface-tint": "#54d8e8",
-                        "primary": "#d5f9ff",
-                        "on-primary-container": "#006771",
-                        "surface": "#131319",
-                        "secondary": "#ccbeff",
-                        "text-secondary": "#CBD5E1",
-                        "tertiary-fixed-dim": "#edc150",
-                        "on-tertiary-fixed-variant": "#5a4300",
-                        "danger": "#FCA5A5",
-                        "surface-1": "#090A0F",
-                        "error-container": "#93000a",
-                        "on-secondary": "#332664",
-                        "surface-container-high": "#2a2930",
-                        "on-tertiary-container": "#755900",
-                        "on-tertiary-fixed": "#251a00",
-                        "secondary-container": "#4a3d7c",
-                        "on-secondary-fixed": "#1e0e4e",
-                        "on-error": "#690005",
-                        "on-tertiary": "#3e2e00",
-                        "primary-container": "#67e8f9",
-                        "surface-bright": "#39383f"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    spacing: {
-                        "gutter-desktop": "32px",
-                        "gutter-mobile": "16px",
-                        "unit": "4px",
-                        "margin-mobile": "20px",
-                        "reading-width": "720px",
-                        "max-content-width": "1200px",
-                        "margin-desktop": "64px"
-                    },
-                    fontFamily: {
-                        "h2": ["Space Grotesk"],
-                        "h3": ["Space Grotesk"],
-                        "display-xl": ["Space Grotesk"],
-                        "display-xl-mobile": ["Space Grotesk"],
-                        "label": ["Space Grotesk"],
-                        "small": ["Inter"],
-                        "display-lg-mobile": ["Space Grotesk"],
-                        "display-lg": ["Space Grotesk"],
-                        "h1": ["Space Grotesk"],
-                        "editorial-italic": ["Playfair Display"],
-                        "h1-mobile": ["Space Grotesk"],
-                        "body": ["Inter"],
-                        "body-lg": ["Inter"]
-                    },
-                    fontSize: {
-                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
-                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
-                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
-                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
-                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
-                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }]
-                    },
-                    animation: {
-                        'slow-pulse': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                }
-            }
-        }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Becoming V2 | Intentional Growth</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'primary-fixed-dim': '#54d8e8',
+              'surface-container-low': '#1b1b21',
+              'text-tertiary': '#94A3B8',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'tertiary-fixed': '#ffdf97',
+              'surface-container-highest': '#35343b',
+              'outline-variant': '#3c494b',
+              'surface-variant': '#35343b',
+              'tertiary-container': '#ffd15e',
+              'on-error-container': '#ffdad6',
+              'on-primary-fixed': '#001f23',
+              'on-surface': '#e4e1ea',
+              tertiary: '#fff2db',
+              error: '#ffb4ab',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              'surface-container-lowest': '#0e0e14',
+              'on-primary-fixed-variant': '#004f57',
+              'on-surface-variant': '#bcc9cb',
+              warning: '#FCD34D',
+              'secondary-fixed-dim': '#ccbeff',
+              'text-primary': '#F8FAFC',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'accent-strong': '#22D3EE',
+              'on-background': '#e4e1ea',
+              success: '#86EFAC',
+              'inverse-primary': '#006973',
+              'secondary-fixed': '#e7deff',
+              'surface-dim': '#131319',
+              'inverse-on-surface': '#303037',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'primary-fixed': '#91f1ff',
+              'on-secondary-container': '#baabf3',
+              'inverse-surface': '#e4e1ea',
+              'on-primary': '#00363c',
+              'surface-container': '#1f1f25',
+              background: '#131319',
+              outline: '#869395',
+              'surface-tint': '#54d8e8',
+              primary: '#d5f9ff',
+              'on-primary-container': '#006771',
+              surface: '#131319',
+              secondary: '#ccbeff',
+              'text-secondary': '#CBD5E1',
+              'tertiary-fixed-dim': '#edc150',
+              'on-tertiary-fixed-variant': '#5a4300',
+              danger: '#FCA5A5',
+              'surface-1': '#090A0F',
+              'error-container': '#93000a',
+              'on-secondary': '#332664',
+              'surface-container-high': '#2a2930',
+              'on-tertiary-container': '#755900',
+              'on-tertiary-fixed': '#251a00',
+              'secondary-container': '#4a3d7c',
+              'on-secondary-fixed': '#1e0e4e',
+              'on-error': '#690005',
+              'on-tertiary': '#3e2e00',
+              'primary-container': '#67e8f9',
+              'surface-bright': '#39383f',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              'gutter-desktop': '32px',
+              'gutter-mobile': '16px',
+              unit: '4px',
+              'margin-mobile': '20px',
+              'reading-width': '720px',
+              'max-content-width': '1200px',
+              'margin-desktop': '64px',
+            },
+            fontFamily: {
+              h2: ['Space Grotesk'],
+              h3: ['Space Grotesk'],
+              'display-xl': ['Space Grotesk'],
+              'display-xl-mobile': ['Space Grotesk'],
+              label: ['Space Grotesk'],
+              small: ['Inter'],
+              'display-lg-mobile': ['Space Grotesk'],
+              'display-lg': ['Space Grotesk'],
+              h1: ['Space Grotesk'],
+              'editorial-italic': ['Playfair Display'],
+              'h1-mobile': ['Space Grotesk'],
+              body: ['Inter'],
+              'body-lg': ['Inter'],
+            },
+            fontSize: {
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+              'display-xl-mobile': ['56px', {lineHeight: '1.0', fontWeight: '700'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+              'display-lg-mobile': ['48px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              'h1-mobile': ['40px', {lineHeight: '1.1', fontWeight: '600'}],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+            },
+            animation: {
+              'slow-pulse': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+          },
+        },
+      };
     </script>
-<style>
-        body {
-            background-color: #020205; /* The Canvas */
-            color: #F8FAFC;
-        }
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-        .gradient-text {
-            background: linear-gradient(to right, #F8FAFC, #94A3B8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .ambient-glow {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 400px;
-            background: radial-gradient(circle, rgba(103, 232, 249, 0.1) 0%, rgba(2, 2, 5, 0) 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-        /* Custom scrollbar for webkit */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #020205; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3c494b; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #54d8e8; 
-        }
+    <style>
+      body {
+        background-color: #020205; /* The Canvas */
+        color: #f8fafc;
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .gradient-text {
+        background: linear-gradient(to right, #f8fafc, #94a3b8);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .ambient-glow {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        height: 400px;
+        background: radial-gradient(circle, rgba(103, 232, 249, 0.1) 0%, rgba(2, 2, 5, 0) 70%);
+        pointer-events: none;
+        z-index: 0;
+      }
+      /* Custom scrollbar for webkit */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #020205;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #3c494b;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #54d8e8;
+      }
     </style>
-</head>
-<body class="font-body text-body antialiased relative min-h-screen flex flex-col">
-<div class="ambient-glow"></div>
-<!-- TopAppBar (Public Header) -->
-<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 z-50 bg-surface-2/80 backdrop-blur-xl border-b border-border flat no shadows">
-<div class="font-h2 text-h2 font-bold text-accent-strong tracking-tight">Becoming V2</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">How it works</a>
-<a class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">Privacy</a>
-<a class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">Demo</a>
-</nav>
-<button class="bg-primary-container text-on-primary-container font-label text-label px-6 py-2 rounded-lg hover:bg-surface-3 transition-colors duration-150 active:scale-95">Sign In</button>
-</header>
-<!-- Main Content -->
-<main class="flex-grow flex flex-col items-center w-full px-margin-mobile md:px-margin-desktop relative z-10 pt-24 pb-32 space-y-32">
-<!-- Hero Section -->
-<section class="flex flex-col items-center text-center max-w-max-content-width w-full space-y-8 mt-12">
-<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary-container bg-surface-2/30 backdrop-blur-sm">
-<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
-<span class="font-label text-label text-primary-container tracking-wider">INTROSPECTIVE AI • VERSION 2.0</span>
-</div>
-<h1 class="font-display-xl-mobile md:font-display-xl text-display-xl-mobile md:text-display-xl text-text-primary max-w-[900px] leading-tight">
-                Two paths ahead. <br/>
-<span class="font-editorial-italic text-editorial-italic text-text-secondary italic font-light">One conscious choice.</span>
-</h1>
-<p class="font-body-lg text-body-lg text-text-secondary max-w-reading-width mx-auto">
-                Transform eight deep reflective answers into an honest assessment of who you are becoming, where drifting leads, and the intentional path waiting for you.
+  </head>
+  <body class="font-body text-body antialiased relative min-h-screen flex flex-col">
+    <div class="ambient-glow"></div>
+    <!-- TopAppBar (Public Header) -->
+    <header
+      class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 z-50 bg-surface-2/80 backdrop-blur-xl border-b border-border flat no shadows"
+    >
+      <div class="font-h2 text-h2 font-bold text-accent-strong tracking-tight">Becoming V2</div>
+      <nav class="hidden md:flex items-center gap-8">
+        <a
+          class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150"
+          href="#"
+          >How it works</a
+        >
+        <a
+          class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150"
+          href="#"
+          >Privacy</a
+        >
+        <a
+          class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150"
+          href="#"
+          >Demo</a
+        >
+      </nav>
+      <button
+        class="bg-primary-container text-on-primary-container font-label text-label px-6 py-2 rounded-lg hover:bg-surface-3 transition-colors duration-150 active:scale-95"
+      >
+        Sign In
+      </button>
+    </header>
+    <!-- Main Content -->
+    <main
+      class="flex-grow flex flex-col items-center w-full px-margin-mobile md:px-margin-desktop relative z-10 pt-24 pb-32 space-y-32"
+    >
+      <!-- Hero Section -->
+      <section
+        class="flex flex-col items-center text-center max-w-max-content-width w-full space-y-8 mt-12"
+      >
+        <div
+          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary-container bg-surface-2/30 backdrop-blur-sm"
+        >
+          <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+          <span class="font-label text-label text-primary-container tracking-wider"
+            >INTROSPECTIVE AI • VERSION 2.0</span
+          >
+        </div>
+        <h1
+          class="font-display-xl-mobile md:font-display-xl text-display-xl-mobile md:text-display-xl text-text-primary max-w-[900px] leading-tight"
+        >
+          Two paths ahead. <br />
+          <span
+            class="font-editorial-italic text-editorial-italic text-text-secondary italic font-light"
+            >One conscious choice.</span
+          >
+        </h1>
+        <p class="font-body-lg text-body-lg text-text-secondary max-w-reading-width mx-auto">
+          Transform eight deep reflective answers into an honest assessment of who you are becoming,
+          where drifting leads, and the intentional path waiting for you.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+          <button
+            class="w-full sm:w-auto px-8 py-4 bg-primary-container text-on-primary-container font-label text-label rounded-lg hover:bg-primary transition-all duration-200 hover:shadow-[0_0_15px_rgba(103,232,249,0.4)]"
+          >
+            Begin Reflection
+          </button>
+          <button
+            class="w-full sm:w-auto px-8 py-4 glass-panel text-text-primary font-label text-label rounded-lg hover:border-border-strong transition-all duration-200 flex items-center justify-center gap-2 group"
+          >
+            <span
+              class="material-symbols-outlined text-[18px] group-hover:text-primary-container transition-colors"
+              >play_circle</span
+            >
+            Explore Safe Demo
+          </button>
+        </div>
+        <div
+          class="flex items-center gap-2 text-text-tertiary font-small text-small mt-8 opacity-80"
+        >
+          <span class="material-symbols-outlined text-[16px]">shield_person</span>
+          <span>Owner-only data • Zero public feed • Non-diagnostic</span>
+        </div>
+      </section>
+      <!-- Outcome Preview (Bento Grid) -->
+      <section class="w-full max-w-max-content-width space-y-12">
+        <div class="flex flex-col items-center text-center space-y-4">
+          <span class="font-label text-label text-text-tertiary tracking-widest uppercase"
+            >Demonstration Preview</span
+          >
+          <h2 class="font-h3 text-h3 text-text-primary">Clarity from Complexity</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]">
+          <!-- Card 1: Identity Archetype -->
+          <div
+            class="glass-panel rounded-xl p-8 flex flex-col justify-between group hover:border-border-strong transition-all"
+          >
+            <div>
+              <div class="w-12 h-12 rounded-lg bg-surface-2 flex items-center justify-center mb-6">
+                <span class="material-symbols-outlined text-primary-container text-2xl"
+                  >fingerprint</span
+                >
+              </div>
+              <h3 class="font-h3 text-h3 text-text-primary mb-2">The Ambivalent Builder</h3>
+              <p class="font-small text-small text-text-secondary">
+                Your current archetype reflects strong capability paired with a hesitation to fully
+                commit to a long-term vision.
+              </p>
+            </div>
+            <div
+              class="mt-8 pt-4 border-t border-border flex justify-between items-center text-text-tertiary font-small text-small"
+            >
+              <span>Identity Synthesis</span>
+              <span
+                class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </div>
+          </div>
+          <!-- Card 2: Two Paths Split -->
+          <div
+            class="glass-panel rounded-xl p-0 overflow-hidden md:col-span-2 relative flex flex-col md:flex-row group border hover:border-border-strong transition-all"
+            style="
+              border-image: linear-gradient(
+                  to right,
+                  rgba(103, 232, 249, 0.3),
+                  rgba(204, 190, 255, 0.3)
+                )
+                1;
+            "
+          >
+            <div
+              class="flex-1 p-8 bg-surface-1/50 border-b md:border-b-0 md:border-r border-border relative overflow-hidden"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-surface-1 to-transparent z-0"
+              ></div>
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="font-label text-label text-text-tertiary uppercase tracking-wider block mb-4"
+                    >Path A: Drifting</span
+                  >
+                  <h3 class="font-h3 text-h3 text-text-secondary opacity-70 mb-4">
+                    The Competent Plateau
+                  </h3>
+                  <p class="font-small text-small text-text-tertiary">
+                    Continuing current patterns leads to comfort but mild persistent dissatisfaction
+                    with unused potential.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex-1 p-8 bg-gradient-to-br from-primary-container/10 to-transparent relative"
+            >
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="font-label text-label text-primary-container uppercase tracking-wider block mb-4 flex items-center gap-2"
+                  >
+                    <span class="material-symbols-outlined text-[16px]">alt_route</span> Path B:
+                    Intentional
+                  </span>
+                  <h3 class="font-h3 text-h3 text-text-primary mb-4">The Focused Creator</h3>
+                  <p class="font-small text-small text-text-secondary">
+                    Embracing difficult trade-offs unlocks deep engagement and alignment with your
+                    core values.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Card 3: Micro-Action -->
+          <div
+            class="glass-panel rounded-xl p-8 flex flex-col justify-center items-center text-center group hover:border-border-strong transition-all md:col-start-2"
+          >
+            <div
+              class="w-16 h-16 rounded-full bg-surface-3 flex items-center justify-center mb-6 relative"
+            >
+              <div
+                class="absolute inset-0 rounded-full border border-primary-container/30 animate-slow-pulse"
+              ></div>
+              <span class="material-symbols-outlined text-primary-container text-3xl"
+                >task_alt</span
+              >
+            </div>
+            <h3 class="font-label text-label text-text-secondary uppercase tracking-widest mb-2">
+              Today's Micro-Action
+            </h3>
+            <p class="font-body text-body text-text-primary mb-6">
+              Schedule 15 minutes of device-free time before your next major decision.
             </p>
-<div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-<button class="w-full sm:w-auto px-8 py-4 bg-primary-container text-on-primary-container font-label text-label rounded-lg hover:bg-primary transition-all duration-200 hover:shadow-[0_0_15px_rgba(103,232,249,0.4)]">
-                    Begin Reflection
-                </button>
-<button class="w-full sm:w-auto px-8 py-4 glass-panel text-text-primary font-label text-label rounded-lg hover:border-border-strong transition-all duration-200 flex items-center justify-center gap-2 group">
-<span class="material-symbols-outlined text-[18px] group-hover:text-primary-container transition-colors">play_circle</span>
-                    Explore Safe Demo
-                </button>
-</div>
-<div class="flex items-center gap-2 text-text-tertiary font-small text-small mt-8 opacity-80">
-<span class="material-symbols-outlined text-[16px]">shield_person</span>
-<span>Owner-only data • Zero public feed • Non-diagnostic</span>
-</div>
-</section>
-<!-- Outcome Preview (Bento Grid) -->
-<section class="w-full max-w-max-content-width space-y-12">
-<div class="flex flex-col items-center text-center space-y-4">
-<span class="font-label text-label text-text-tertiary tracking-widest uppercase">Demonstration Preview</span>
-<h2 class="font-h3 text-h3 text-text-primary">Clarity from Complexity</h2>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]">
-<!-- Card 1: Identity Archetype -->
-<div class="glass-panel rounded-xl p-8 flex flex-col justify-between group hover:border-border-strong transition-all">
-<div>
-<div class="w-12 h-12 rounded-lg bg-surface-2 flex items-center justify-center mb-6">
-<span class="material-symbols-outlined text-primary-container text-2xl">fingerprint</span>
-</div>
-<h3 class="font-h3 text-h3 text-text-primary mb-2">The Ambivalent Builder</h3>
-<p class="font-small text-small text-text-secondary">Your current archetype reflects strong capability paired with a hesitation to fully commit to a long-term vision.</p>
-</div>
-<div class="mt-8 pt-4 border-t border-border flex justify-between items-center text-text-tertiary font-small text-small">
-<span>Identity Synthesis</span>
-<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-</div>
-</div>
-<!-- Card 2: Two Paths Split -->
-<div class="glass-panel rounded-xl p-0 overflow-hidden md:col-span-2 relative flex flex-col md:flex-row group border hover:border-border-strong transition-all" style="border-image: linear-gradient(to right, rgba(103, 232, 249, 0.3), rgba(204, 190, 255, 0.3)) 1;">
-<div class="flex-1 p-8 bg-surface-1/50 border-b md:border-b-0 md:border-r border-border relative overflow-hidden">
-<div class="absolute inset-0 bg-gradient-to-br from-surface-1 to-transparent z-0"></div>
-<div class="relative z-10 h-full flex flex-col justify-between">
-<div>
-<span class="font-label text-label text-text-tertiary uppercase tracking-wider block mb-4">Path A: Drifting</span>
-<h3 class="font-h3 text-h3 text-text-secondary opacity-70 mb-4">The Competent Plateau</h3>
-<p class="font-small text-small text-text-tertiary">Continuing current patterns leads to comfort but mild persistent dissatisfaction with unused potential.</p>
-</div>
-</div>
-</div>
-<div class="flex-1 p-8 bg-gradient-to-br from-primary-container/10 to-transparent relative">
-<div class="relative z-10 h-full flex flex-col justify-between">
-<div>
-<span class="font-label text-label text-primary-container uppercase tracking-wider block mb-4 flex items-center gap-2">
-<span class="material-symbols-outlined text-[16px]">alt_route</span> Path B: Intentional
-                                </span>
-<h3 class="font-h3 text-h3 text-text-primary mb-4">The Focused Creator</h3>
-<p class="font-small text-small text-text-secondary">Embracing difficult trade-offs unlocks deep engagement and alignment with your core values.</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Card 3: Micro-Action -->
-<div class="glass-panel rounded-xl p-8 flex flex-col justify-center items-center text-center group hover:border-border-strong transition-all md:col-start-2">
-<div class="w-16 h-16 rounded-full bg-surface-3 flex items-center justify-center mb-6 relative">
-<div class="absolute inset-0 rounded-full border border-primary-container/30 animate-slow-pulse"></div>
-<span class="material-symbols-outlined text-primary-container text-3xl">task_alt</span>
-</div>
-<h3 class="font-label text-label text-text-secondary uppercase tracking-widest mb-2">Today's Micro-Action</h3>
-<p class="font-body text-body text-text-primary mb-6">Schedule 15 minutes of device-free time before your next major decision.</p>
-</div>
-</div>
-</section>
-<!-- Final CTA -->
-<section class="w-full max-w-reading-width text-center space-y-12 py-24 border-t border-border mt-32 relative">
-<div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[1px] bg-gradient-to-r from-transparent via-primary-container to-transparent opacity-50"></div>
-<h2 class="font-editorial-italic text-[32px] md:text-[48px] text-text-primary italic leading-relaxed">
-                Pause. <br/>
-<span class="font-h2 not-italic">Clarify where you are headed.</span>
-</h2>
-<button class="px-10 py-5 bg-primary-container text-on-primary-container font-label text-label rounded-lg hover:bg-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(103,232,249,0.3)] hover:-translate-y-1">
-                Start My Reflection
-            </button>
-</section>
-</main>
-<!-- Global Public Footer -->
-<footer class="w-full border-t border-border bg-surface-1 py-12 px-margin-mobile md:px-margin-desktop mt-auto z-10 relative">
-<div class="max-w-max-content-width mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-<div class="font-h3 text-h3 font-bold text-text-secondary opacity-50">Becoming V2</div>
-<div class="flex gap-6 text-text-tertiary font-small text-small">
-<a class="hover:text-primary-container transition-colors" href="#">Privacy</a>
-<a class="hover:text-primary-container transition-colors" href="#">Terms</a>
-<a class="hover:text-primary-container transition-colors" href="#">Contact</a>
-</div>
-</div>
-</footer>
-</body></html>
+          </div>
+        </div>
+      </section>
+      <!-- Final CTA -->
+      <section
+        class="w-full max-w-reading-width text-center space-y-12 py-24 border-t border-border mt-32 relative"
+      >
+        <div
+          class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[1px] bg-gradient-to-r from-transparent via-primary-container to-transparent opacity-50"
+        ></div>
+        <h2
+          class="font-editorial-italic text-[32px] md:text-[48px] text-text-primary italic leading-relaxed"
+        >
+          Pause. <br />
+          <span class="font-h2 not-italic">Clarify where you are headed.</span>
+        </h2>
+        <button
+          class="px-10 py-5 bg-primary-container text-on-primary-container font-label text-label rounded-lg hover:bg-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(103,232,249,0.3)] hover:-translate-y-1"
+        >
+          Start My Reflection
+        </button>
+      </section>
+    </main>
+    <!-- Global Public Footer -->
+    <footer
+      class="w-full border-t border-border bg-surface-1 py-12 px-margin-mobile md:px-margin-desktop mt-auto z-10 relative"
+    >
+      <div
+        class="max-w-max-content-width mx-auto flex flex-col md:flex-row justify-between items-center gap-6"
+      >
+        <div class="font-h3 text-h3 font-bold text-text-secondary opacity-50">Becoming V2</div>
+        <div class="flex gap-6 text-text-tertiary font-small text-small">
+          <a class="hover:text-primary-container transition-colors" href="#">Privacy</a>
+          <a class="hover:text-primary-container transition-colors" href="#">Terms</a>
+          <a class="hover:text-primary-container transition-colors" href="#">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

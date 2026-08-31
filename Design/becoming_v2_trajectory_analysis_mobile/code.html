@@ -1,306 +1,438 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Result Detail - Becoming V2</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@1,400&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Result Detail - Becoming V2</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@1,400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
       tailwind.config = {
-        darkMode: "class",
+        darkMode: 'class',
         theme: {
           extend: {
-            "colors": {
-                    "on-surface-variant": "#bcc9cb",
-                    "on-primary-fixed": "#001f23",
-                    "text-primary": "#F8FAFC",
-                    "text-secondary": "#CBD5E1",
-                    "outline": "#869395",
-                    "tertiary-fixed": "#ffdf97",
-                    "on-secondary-container": "#baabf3",
-                    "surface-variant": "#35343b",
-                    "error": "#ffb4ab",
-                    "primary": "#d5f9ff",
-                    "error-container": "#93000a",
-                    "surface-container-high": "#2a2930",
-                    "on-tertiary-container": "#755900",
-                    "tertiary-fixed-dim": "#edc150",
-                    "secondary": "#ccbeff",
-                    "on-background": "#e4e1ea",
-                    "on-tertiary-fixed-variant": "#5a4300",
-                    "on-error": "#690005",
-                    "surface-dim": "#131319",
-                    "primary-fixed": "#91f1ff",
-                    "on-secondary": "#332664",
-                    "border-strong": "rgba(255, 255, 255, 0.24)",
-                    "surface-3": "rgba(255, 255, 255, 0.08)",
-                    "surface-container-lowest": "#0e0e14",
-                    "primary-fixed-dim": "#54d8e8",
-                    "tertiary-container": "#ffd15e",
-                    "surface-1": "#090A0F",
-                    "on-primary": "#00363c",
-                    "danger": "#FCA5A5",
-                    "on-tertiary": "#3e2e00",
-                    "on-primary-container": "#006771",
-                    "text-tertiary": "#94A3B8",
-                    "inverse-surface": "#e4e1ea",
-                    "warning": "#FCD34D",
-                    "tertiary": "#fff2db",
-                    "background": "#131319",
-                    "on-primary-fixed-variant": "#004f57",
-                    "surface-container-highest": "#35343b",
-                    "on-surface": "#e4e1ea",
-                    "border": "rgba(255, 255, 255, 0.12)",
-                    "surface-container": "#1f1f25",
-                    "secondary-container": "#4a3d7c",
-                    "on-secondary-fixed": "#1e0e4e",
-                    "on-error-container": "#ffdad6",
-                    "surface": "#131319",
-                    "surface-container-low": "#1b1b21",
-                    "accent-strong": "#22D3EE",
-                    "inverse-on-surface": "#303037",
-                    "inverse-primary": "#006973",
-                    "surface-bright": "#39383f",
-                    "secondary-fixed-dim": "#ccbeff",
-                    "surface-2": "rgba(255, 255, 255, 0.05)",
-                    "secondary-fixed": "#e7deff",
-                    "primary-container": "#67e8f9",
-                    "success": "#86EFAC",
-                    "outline-variant": "#3c494b",
-                    "surface-tint": "#54d8e8",
-                    "on-tertiary-fixed": "#251a00",
-                    "on-secondary-fixed-variant": "#4a3d7c"
+            colors: {
+              'on-surface-variant': '#bcc9cb',
+              'on-primary-fixed': '#001f23',
+              'text-primary': '#F8FAFC',
+              'text-secondary': '#CBD5E1',
+              outline: '#869395',
+              'tertiary-fixed': '#ffdf97',
+              'on-secondary-container': '#baabf3',
+              'surface-variant': '#35343b',
+              error: '#ffb4ab',
+              primary: '#d5f9ff',
+              'error-container': '#93000a',
+              'surface-container-high': '#2a2930',
+              'on-tertiary-container': '#755900',
+              'tertiary-fixed-dim': '#edc150',
+              secondary: '#ccbeff',
+              'on-background': '#e4e1ea',
+              'on-tertiary-fixed-variant': '#5a4300',
+              'on-error': '#690005',
+              'surface-dim': '#131319',
+              'primary-fixed': '#91f1ff',
+              'on-secondary': '#332664',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'surface-container-lowest': '#0e0e14',
+              'primary-fixed-dim': '#54d8e8',
+              'tertiary-container': '#ffd15e',
+              'surface-1': '#090A0F',
+              'on-primary': '#00363c',
+              danger: '#FCA5A5',
+              'on-tertiary': '#3e2e00',
+              'on-primary-container': '#006771',
+              'text-tertiary': '#94A3B8',
+              'inverse-surface': '#e4e1ea',
+              warning: '#FCD34D',
+              tertiary: '#fff2db',
+              background: '#131319',
+              'on-primary-fixed-variant': '#004f57',
+              'surface-container-highest': '#35343b',
+              'on-surface': '#e4e1ea',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'surface-container': '#1f1f25',
+              'secondary-container': '#4a3d7c',
+              'on-secondary-fixed': '#1e0e4e',
+              'on-error-container': '#ffdad6',
+              surface: '#131319',
+              'surface-container-low': '#1b1b21',
+              'accent-strong': '#22D3EE',
+              'inverse-on-surface': '#303037',
+              'inverse-primary': '#006973',
+              'surface-bright': '#39383f',
+              'secondary-fixed-dim': '#ccbeff',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'secondary-fixed': '#e7deff',
+              'primary-container': '#67e8f9',
+              success: '#86EFAC',
+              'outline-variant': '#3c494b',
+              'surface-tint': '#54d8e8',
+              'on-tertiary-fixed': '#251a00',
+              'on-secondary-fixed-variant': '#4a3d7c',
             },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
             },
-            "spacing": {
-                    "unit": "4px",
-                    "margin-desktop": "64px",
-                    "max-content-width": "1200px",
-                    "gutter-desktop": "32px",
-                    "reading-width": "720px",
-                    "margin-mobile": "20px",
-                    "gutter-mobile": "16px"
+            spacing: {
+              unit: '4px',
+              'margin-desktop': '64px',
+              'max-content-width': '1200px',
+              'gutter-desktop': '32px',
+              'reading-width': '720px',
+              'margin-mobile': '20px',
+              'gutter-mobile': '16px',
             },
-            "fontFamily": {
-                    "h2": ["Space Grotesk", "sans-serif"],
-                    "display-lg": ["Space Grotesk", "sans-serif"],
-                    "h1-mobile": ["Space Grotesk", "sans-serif"],
-                    "h1": ["Space Grotesk", "sans-serif"],
-                    "display-lg-mobile": ["Space Grotesk", "sans-serif"],
-                    "editorial-italic": ["Playfair Display", "serif"],
-                    "small": ["Inter", "sans-serif"],
-                    "body": ["Inter", "sans-serif"],
-                    "label": ["Space Grotesk", "sans-serif"],
-                    "display-xl-mobile": ["Space Grotesk", "sans-serif"],
-                    "h3": ["Space Grotesk", "sans-serif"],
-                    "body-lg": ["Inter", "sans-serif"],
-                    "display-xl": ["Space Grotesk", "sans-serif"]
+            fontFamily: {
+              h2: ['Space Grotesk', 'sans-serif'],
+              'display-lg': ['Space Grotesk', 'sans-serif'],
+              'h1-mobile': ['Space Grotesk', 'sans-serif'],
+              h1: ['Space Grotesk', 'sans-serif'],
+              'display-lg-mobile': ['Space Grotesk', 'sans-serif'],
+              'editorial-italic': ['Playfair Display', 'serif'],
+              small: ['Inter', 'sans-serif'],
+              body: ['Inter', 'sans-serif'],
+              label: ['Space Grotesk', 'sans-serif'],
+              'display-xl-mobile': ['Space Grotesk', 'sans-serif'],
+              h3: ['Space Grotesk', 'sans-serif'],
+              'body-lg': ['Inter', 'sans-serif'],
+              'display-xl': ['Space Grotesk', 'sans-serif'],
             },
-            "fontSize": {
-                    "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
-                    "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                    "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                    "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                    "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                    "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                    "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
-                    "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
-                    "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                    "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
-                    "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
-                    "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
-                    "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }]
-            }
-          }
-        }
-      }
+            fontSize: {
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+              'h1-mobile': ['40px', {lineHeight: '1.1', fontWeight: '600'}],
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-lg-mobile': ['48px', {lineHeight: '1.1', fontWeight: '600'}],
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+              'display-xl-mobile': ['56px', {lineHeight: '1.0', fontWeight: '700'}],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
-        }
-        .bg-noise {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-        }
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 300,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .bg-noise {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+      }
     </style>
-</head>
-<body class="bg-surface text-text-primary font-body antialiased selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden pb-40">
-<!-- Top Navigation (Detail Focused, suppresses standard shell) -->
-<header class="sticky top-0 z-40 bg-surface/80 backdrop-blur-xl flex items-center px-margin-mobile h-14 border-b border-border">
-<button class="w-11 h-11 flex items-center justify-center -ml-2 text-text-secondary hover:text-text-primary transition-colors">
-<span class="material-symbols-outlined">arrow_back</span>
-</button>
-<div class="flex-1 text-center pr-9">
-<span class="font-label text-label text-text-secondary uppercase tracking-widest">Synthesis Result</span>
-</div>
-</header>
-<main class="w-full max-w-[767px] mx-auto bg-noise">
-<!-- Archetype Hero Section -->
-<section class="px-margin-mobile pt-16 pb-12 relative" id="section-hero">
-<div class="absolute inset-0 bg-gradient-to-b from-primary-container/5 to-transparent pointer-events-none"></div>
-<div class="relative z-10 flex flex-col items-start gap-4">
-<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-2 border border-border">
-<span class="material-symbols-outlined text-accent-strong" style="font-variation-settings: 'FILL' 1;">architecture</span>
-<span class="font-label text-label text-text-primary">Archetype Discovered</span>
-</div>
-<h1 class="font-display-lg-mobile text-display-lg-mobile text-text-primary leading-tight">The Divergent<br/>Architect</h1>
-<p class="font-body text-body text-text-secondary mt-2 max-w-[280px]">
-                    You build structures to support exploration. Your focus is on establishing a resilient foundation that allows for safe wandering and rapid iteration.
-                </p>
-</div>
-</section>
-<!-- Two Paths Section (Cyan/Violet) -->
-<section class="px-margin-mobile py-8 flex flex-col gap-6" id="section-paths">
-<h2 class="font-h3 text-h3 text-text-primary">Duality of Trajectory</h2>
-<div class="flex flex-col gap-4">
-<!-- Drifting Path (Cyan) -->
-<div class="bg-surface-1 border border-primary-container rounded-xl p-5 relative overflow-hidden group">
-<div class="absolute top-0 right-0 p-4 opacity-10 text-primary-container pointer-events-none">
-<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">water_drop</span>
-</div>
-<div class="flex items-center gap-3 mb-3">
-<span class="material-symbols-outlined text-primary-container">timeline</span>
-<h3 class="font-label text-label text-primary-container uppercase tracking-wider">The Drifting Path</h3>
-</div>
-<p class="font-small text-small text-text-secondary mb-4">
-                        If current automated habits continue, you risk over-architecting systems without fully inhabiting them.
-                    </p>
-<div class="flex flex-wrap gap-2">
-<span class="px-2 py-1 rounded bg-surface-2 text-text-tertiary font-label text-[10px] border border-border">Passive Intake</span>
-<span class="px-2 py-1 rounded bg-surface-2 text-text-tertiary font-label text-[10px] border border-border">Delayed Execution</span>
-</div>
-</div>
-<!-- Intentional Path (Violet) -->
-<div class="bg-surface-1 border border-secondary rounded-xl p-5 relative overflow-hidden">
-<div class="absolute top-0 right-0 p-4 opacity-10 text-secondary pointer-events-none">
-<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">my_location</span>
-</div>
-<div class="flex items-center gap-3 mb-3">
-<span class="material-symbols-outlined text-secondary">explore</span>
-<h3 class="font-label text-label text-secondary uppercase tracking-wider">The Intentional Path</h3>
-</div>
-<p class="font-small text-small text-text-secondary mb-4">
-                        By applying constraints, your structural mindset transforms chaotic input into distinct, actionable creative outputs.
-                    </p>
-<div class="flex flex-wrap gap-2">
-<span class="px-2 py-1 rounded bg-secondary/10 text-secondary font-label text-[10px] border border-secondary/20">Active Synthesis</span>
-<span class="px-2 py-1 rounded bg-secondary/10 text-secondary font-label text-[10px] border border-secondary/20">Rapid Prototyping</span>
-</div>
-</div>
-</div>
-</section>
-<!-- Radar Chart Section -->
-<section class="px-margin-mobile py-10" id="section-radar">
-<div class="flex items-center justify-between mb-6">
-<h2 class="font-h3 text-h3 text-text-primary">Cognitive Map</h2>
-</div>
-<div class="w-full aspect-square rounded-2xl bg-surface-1 border border-border overflow-hidden relative flex items-center justify-center p-4">
-<div class="absolute top-4 left-4 z-10 bg-surface-2/80 backdrop-blur-sm px-2 py-1 rounded border border-border flex items-center gap-2">
-<div class="w-2 h-2 rounded-full bg-primary-container"></div>
-<span class="font-label text-[10px] text-text-primary">Reflective Estimate</span>
-</div>
-<div class="absolute top-12 left-4 z-10 bg-surface-2/80 backdrop-blur-sm px-2 py-1 rounded border border-border flex items-center gap-2">
-<div class="w-2 h-2 rounded-full bg-secondary"></div>
-<span class="font-label text-[10px] text-text-primary">Calibrated Reality</span>
-</div>
-<!-- Radar Chart Image Placeholder -->
-<div class="w-full h-full bg-contain bg-center bg-no-repeat opacity-80" data-alt="A sophisticated, minimalist UI data visualization radar chart on a deep dark background. The chart uses glowing thin lines in bright cyan and vibrant violet to plot data points across six axes. The style is modern glassmorphism, clean, and highly legible, evoking a sense of advanced analytics and personal reflection." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDaSCKHN3nJdcZ8dUBbDx0X0wB-XPWHtgA73dF0Sj_HUdIDwkJCPZEhiikAttc5-rw3Gxz1oVbja_jGaDH4QMg-s6watUSAcYt0n-gl1aU2KX6v24ILOrp1shdQemIodg7YNUU0yCZF2Z2xzkmO-Me-8RkpWtFNGfmyTsevqftno8JVDv8gn8eK9p8PMKnnrI3Q7lHn6uAaOai3WEa0O1llRgRffixVo6Y_uDdzAXu2uyUMEXuBW9Ap_g')"></div>
-</div>
-</section>
-<!-- Timeline Section -->
-<section class="px-margin-mobile py-10" id="section-timeline">
-<h2 class="font-h3 text-h3 text-text-primary mb-8">Convergence Timeline</h2>
-<div class="relative border-l border-border ml-[11px] pl-8 space-y-10">
-<!-- Timeline Node 1 -->
-<div class="relative">
-<div class="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-surface border-2 border-primary-container flex items-center justify-center">
-<div class="w-2 h-2 rounded-full bg-primary-container"></div>
-</div>
-<div class="flex flex-col gap-1">
-<span class="font-label text-label text-primary-container">Month 1: Foundation</span>
-<h3 class="font-body-lg text-body-lg text-text-primary font-medium">Establish the Grid</h3>
-<p class="font-small text-small text-text-secondary mt-1">Audit current intake sources and forcefully restrict non-essential data streams to create mental whitespace.</p>
-</div>
-</div>
-<!-- Timeline Node 2 -->
-<div class="relative">
-<div class="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-surface border-2 border-secondary flex items-center justify-center">
-<div class="w-2 h-2 rounded-full bg-secondary"></div>
-</div>
-<div class="flex flex-col gap-1">
-<span class="font-label text-label text-secondary">Month 3: Divergence</span>
-<h3 class="font-body-lg text-body-lg text-text-primary font-medium">Controlled Wandering</h3>
-<p class="font-small text-small text-text-secondary mt-1">Implement strict time-boxing for unstructured exploration, ensuring it feeds back into the main architectural framework.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Future Letter Section -->
-<section class="px-margin-mobile py-12" id="section-letter">
-<h2 class="font-h3 text-h3 text-text-primary mb-6">A Letter to the Architect</h2>
-<div class="bg-surface-1 border border-border rounded-2xl p-6 md:p-8 relative">
-<span class="material-symbols-outlined absolute top-6 right-6 text-border-strong text-4xl">format_quote</span>
-<div class="font-editorial-italic text-editorial-italic text-text-secondary space-y-4">
-<p>The beauty of your structure is not in its rigidity, but in what it manages to hold.</p>
-<p>When you feel the urge to over-plan, remember that the blueprints are only there to serve the lived experience inside the building. Allow some rooms to remain undefined.</p>
-<p class="text-text-primary">Trust the framework you've built.</p>
-</div>
-</div>
-</section>
-<!-- Action Plan Section -->
-<section class="px-margin-mobile pt-8 pb-12" id="section-plan">
-<div class="flex items-center justify-between mb-6">
-<h2 class="font-h3 text-h3 text-text-primary">Immediate Protocols</h2>
-<span class="font-label text-[10px] text-text-tertiary uppercase">0/3 Completed</span>
-</div>
-<div class="flex flex-col gap-3">
-<!-- Checklist Item 1 -->
-<label class="flex items-start gap-4 p-4 bg-surface-2 border border-surface-3 rounded-xl min-h-[44px] cursor-pointer touch-manipulation hover:bg-surface-3 transition-colors">
-<div class="mt-0.5 relative flex items-center justify-center w-5 h-5">
-<input class="appearance-none w-5 h-5 border-2 border-outline rounded bg-transparent checked:bg-primary-container checked:border-primary-container transition-all peer" type="checkbox"/>
-<span class="material-symbols-outlined absolute text-on-primary-container text-sm opacity-0 peer-checked:opacity-100 pointer-events-none" style="font-variation-settings: 'wght' 700;">check</span>
-</div>
-<div class="flex flex-col flex-1">
-<span class="font-body text-body text-text-primary peer-checked:text-text-secondary peer-checked:line-through transition-all">Define a single "no-input" zone in your daily schedule.</span>
-</div>
-</label>
-<!-- Checklist Item 2 -->
-<label class="flex items-start gap-4 p-4 bg-surface-2 border border-surface-3 rounded-xl min-h-[44px] cursor-pointer touch-manipulation hover:bg-surface-3 transition-colors">
-<div class="mt-0.5 relative flex items-center justify-center w-5 h-5">
-<input class="appearance-none w-5 h-5 border-2 border-outline rounded bg-transparent checked:bg-primary-container checked:border-primary-container transition-all peer" type="checkbox"/>
-<span class="material-symbols-outlined absolute text-on-primary-container text-sm opacity-0 peer-checked:opacity-100 pointer-events-none" style="font-variation-settings: 'wght' 700;">check</span>
-</div>
-<div class="flex flex-col flex-1">
-<span class="font-body text-body text-text-primary peer-checked:text-text-secondary peer-checked:line-through transition-all">Write down three hard constraints for your current active project.</span>
-</div>
-</label>
-</div>
-</section>
-</main>
-<!-- Sticky Bottom Action Bar -->
-<div class="fixed bottom-0 left-0 w-full z-50 px-margin-mobile pb-6 pt-4 bg-gradient-to-t from-surface via-surface-1/95 to-transparent backdrop-blur-xl">
-<div class="flex flex-col gap-3 max-w-[767px] mx-auto">
-<!-- Jump to Section Disclosure -->
-<button class="w-full min-h-[44px] flex items-center justify-between px-4 bg-surface-2 border border-border rounded-xl text-text-secondary hover:text-text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-sm">toc</span>
-<span class="font-label text-label">Jump to Section</span>
-</div>
-<span class="material-symbols-outlined text-sm">expand_less</span>
-</button>
-<!-- Primary Action -->
-<button class="w-full min-h-[48px] flex items-center justify-center gap-2 bg-primary-container text-on-primary-container font-label text-label rounded-xl hover:bg-primary-fixed-dim transition-colors shadow-[0_0_20px_rgba(103,232,249,0.15)] focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">task_alt</span>
-                Commit to Intentional Path
-            </button>
-</div>
-</div>
-</body></html>
+  </head>
+  <body
+    class="bg-surface text-text-primary font-body antialiased selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden pb-40"
+  >
+    <!-- Top Navigation (Detail Focused, suppresses standard shell) -->
+    <header
+      class="sticky top-0 z-40 bg-surface/80 backdrop-blur-xl flex items-center px-margin-mobile h-14 border-b border-border"
+    >
+      <button
+        class="w-11 h-11 flex items-center justify-center -ml-2 text-text-secondary hover:text-text-primary transition-colors"
+      >
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+      <div class="flex-1 text-center pr-9">
+        <span class="font-label text-label text-text-secondary uppercase tracking-widest"
+          >Synthesis Result</span
+        >
+      </div>
+    </header>
+    <main class="w-full max-w-[767px] mx-auto bg-noise">
+      <!-- Archetype Hero Section -->
+      <section class="px-margin-mobile pt-16 pb-12 relative" id="section-hero">
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-primary-container/5 to-transparent pointer-events-none"
+        ></div>
+        <div class="relative z-10 flex flex-col items-start gap-4">
+          <div
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-2 border border-border"
+          >
+            <span
+              class="material-symbols-outlined text-accent-strong"
+              style="font-variation-settings: 'FILL' 1"
+              >architecture</span
+            >
+            <span class="font-label text-label text-text-primary">Archetype Discovered</span>
+          </div>
+          <h1 class="font-display-lg-mobile text-display-lg-mobile text-text-primary leading-tight">
+            The Divergent<br />Architect
+          </h1>
+          <p class="font-body text-body text-text-secondary mt-2 max-w-[280px]">
+            You build structures to support exploration. Your focus is on establishing a resilient
+            foundation that allows for safe wandering and rapid iteration.
+          </p>
+        </div>
+      </section>
+      <!-- Two Paths Section (Cyan/Violet) -->
+      <section class="px-margin-mobile py-8 flex flex-col gap-6" id="section-paths">
+        <h2 class="font-h3 text-h3 text-text-primary">Duality of Trajectory</h2>
+        <div class="flex flex-col gap-4">
+          <!-- Drifting Path (Cyan) -->
+          <div
+            class="bg-surface-1 border border-primary-container rounded-xl p-5 relative overflow-hidden group"
+          >
+            <div
+              class="absolute top-0 right-0 p-4 opacity-10 text-primary-container pointer-events-none"
+            >
+              <span
+                class="material-symbols-outlined text-6xl"
+                style="font-variation-settings: 'FILL' 1"
+                >water_drop</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="material-symbols-outlined text-primary-container">timeline</span>
+              <h3 class="font-label text-label text-primary-container uppercase tracking-wider">
+                The Drifting Path
+              </h3>
+            </div>
+            <p class="font-small text-small text-text-secondary mb-4">
+              If current automated habits continue, you risk over-architecting systems without fully
+              inhabiting them.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-2 py-1 rounded bg-surface-2 text-text-tertiary font-label text-[10px] border border-border"
+                >Passive Intake</span
+              >
+              <span
+                class="px-2 py-1 rounded bg-surface-2 text-text-tertiary font-label text-[10px] border border-border"
+                >Delayed Execution</span
+              >
+            </div>
+          </div>
+          <!-- Intentional Path (Violet) -->
+          <div class="bg-surface-1 border border-secondary rounded-xl p-5 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10 text-secondary pointer-events-none">
+              <span
+                class="material-symbols-outlined text-6xl"
+                style="font-variation-settings: 'FILL' 1"
+                >my_location</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="material-symbols-outlined text-secondary">explore</span>
+              <h3 class="font-label text-label text-secondary uppercase tracking-wider">
+                The Intentional Path
+              </h3>
+            </div>
+            <p class="font-small text-small text-text-secondary mb-4">
+              By applying constraints, your structural mindset transforms chaotic input into
+              distinct, actionable creative outputs.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-2 py-1 rounded bg-secondary/10 text-secondary font-label text-[10px] border border-secondary/20"
+                >Active Synthesis</span
+              >
+              <span
+                class="px-2 py-1 rounded bg-secondary/10 text-secondary font-label text-[10px] border border-secondary/20"
+                >Rapid Prototyping</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Radar Chart Section -->
+      <section class="px-margin-mobile py-10" id="section-radar">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-h3 text-h3 text-text-primary">Cognitive Map</h2>
+        </div>
+        <div
+          class="w-full aspect-square rounded-2xl bg-surface-1 border border-border overflow-hidden relative flex items-center justify-center p-4"
+        >
+          <div
+            class="absolute top-4 left-4 z-10 bg-surface-2/80 backdrop-blur-sm px-2 py-1 rounded border border-border flex items-center gap-2"
+          >
+            <div class="w-2 h-2 rounded-full bg-primary-container"></div>
+            <span class="font-label text-[10px] text-text-primary">Reflective Estimate</span>
+          </div>
+          <div
+            class="absolute top-12 left-4 z-10 bg-surface-2/80 backdrop-blur-sm px-2 py-1 rounded border border-border flex items-center gap-2"
+          >
+            <div class="w-2 h-2 rounded-full bg-secondary"></div>
+            <span class="font-label text-[10px] text-text-primary">Calibrated Reality</span>
+          </div>
+          <!-- Radar Chart Image Placeholder -->
+          <div
+            class="w-full h-full bg-contain bg-center bg-no-repeat opacity-80"
+            data-alt="A sophisticated, minimalist UI data visualization radar chart on a deep dark background. The chart uses glowing thin lines in bright cyan and vibrant violet to plot data points across six axes. The style is modern glassmorphism, clean, and highly legible, evoking a sense of advanced analytics and personal reflection."
+            style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDaSCKHN3nJdcZ8dUBbDx0X0wB-XPWHtgA73dF0Sj_HUdIDwkJCPZEhiikAttc5-rw3Gxz1oVbja_jGaDH4QMg-s6watUSAcYt0n-gl1aU2KX6v24ILOrp1shdQemIodg7YNUU0yCZF2Z2xzkmO-Me-8RkpWtFNGfmyTsevqftno8JVDv8gn8eK9p8PMKnnrI3Q7lHn6uAaOai3WEa0O1llRgRffixVo6Y_uDdzAXu2uyUMEXuBW9Ap_g');
+            "
+          ></div>
+        </div>
+      </section>
+      <!-- Timeline Section -->
+      <section class="px-margin-mobile py-10" id="section-timeline">
+        <h2 class="font-h3 text-h3 text-text-primary mb-8">Convergence Timeline</h2>
+        <div class="relative border-l border-border ml-[11px] pl-8 space-y-10">
+          <!-- Timeline Node 1 -->
+          <div class="relative">
+            <div
+              class="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-surface border-2 border-primary-container flex items-center justify-center"
+            >
+              <div class="w-2 h-2 rounded-full bg-primary-container"></div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <span class="font-label text-label text-primary-container">Month 1: Foundation</span>
+              <h3 class="font-body-lg text-body-lg text-text-primary font-medium">
+                Establish the Grid
+              </h3>
+              <p class="font-small text-small text-text-secondary mt-1">
+                Audit current intake sources and forcefully restrict non-essential data streams to
+                create mental whitespace.
+              </p>
+            </div>
+          </div>
+          <!-- Timeline Node 2 -->
+          <div class="relative">
+            <div
+              class="absolute -left-[42px] top-0 w-6 h-6 rounded-full bg-surface border-2 border-secondary flex items-center justify-center"
+            >
+              <div class="w-2 h-2 rounded-full bg-secondary"></div>
+            </div>
+            <div class="flex flex-col gap-1">
+              <span class="font-label text-label text-secondary">Month 3: Divergence</span>
+              <h3 class="font-body-lg text-body-lg text-text-primary font-medium">
+                Controlled Wandering
+              </h3>
+              <p class="font-small text-small text-text-secondary mt-1">
+                Implement strict time-boxing for unstructured exploration, ensuring it feeds back
+                into the main architectural framework.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Future Letter Section -->
+      <section class="px-margin-mobile py-12" id="section-letter">
+        <h2 class="font-h3 text-h3 text-text-primary mb-6">A Letter to the Architect</h2>
+        <div class="bg-surface-1 border border-border rounded-2xl p-6 md:p-8 relative">
+          <span class="material-symbols-outlined absolute top-6 right-6 text-border-strong text-4xl"
+            >format_quote</span
+          >
+          <div class="font-editorial-italic text-editorial-italic text-text-secondary space-y-4">
+            <p>
+              The beauty of your structure is not in its rigidity, but in what it manages to hold.
+            </p>
+            <p>
+              When you feel the urge to over-plan, remember that the blueprints are only there to
+              serve the lived experience inside the building. Allow some rooms to remain undefined.
+            </p>
+            <p class="text-text-primary">Trust the framework you've built.</p>
+          </div>
+        </div>
+      </section>
+      <!-- Action Plan Section -->
+      <section class="px-margin-mobile pt-8 pb-12" id="section-plan">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-h3 text-h3 text-text-primary">Immediate Protocols</h2>
+          <span class="font-label text-[10px] text-text-tertiary uppercase">0/3 Completed</span>
+        </div>
+        <div class="flex flex-col gap-3">
+          <!-- Checklist Item 1 -->
+          <label
+            class="flex items-start gap-4 p-4 bg-surface-2 border border-surface-3 rounded-xl min-h-[44px] cursor-pointer touch-manipulation hover:bg-surface-3 transition-colors"
+          >
+            <div class="mt-0.5 relative flex items-center justify-center w-5 h-5">
+              <input
+                class="appearance-none w-5 h-5 border-2 border-outline rounded bg-transparent checked:bg-primary-container checked:border-primary-container transition-all peer"
+                type="checkbox"
+              />
+              <span
+                class="material-symbols-outlined absolute text-on-primary-container text-sm opacity-0 peer-checked:opacity-100 pointer-events-none"
+                style="font-variation-settings: 'wght' 700"
+                >check</span
+              >
+            </div>
+            <div class="flex flex-col flex-1">
+              <span
+                class="font-body text-body text-text-primary peer-checked:text-text-secondary peer-checked:line-through transition-all"
+                >Define a single "no-input" zone in your daily schedule.</span
+              >
+            </div>
+          </label>
+          <!-- Checklist Item 2 -->
+          <label
+            class="flex items-start gap-4 p-4 bg-surface-2 border border-surface-3 rounded-xl min-h-[44px] cursor-pointer touch-manipulation hover:bg-surface-3 transition-colors"
+          >
+            <div class="mt-0.5 relative flex items-center justify-center w-5 h-5">
+              <input
+                class="appearance-none w-5 h-5 border-2 border-outline rounded bg-transparent checked:bg-primary-container checked:border-primary-container transition-all peer"
+                type="checkbox"
+              />
+              <span
+                class="material-symbols-outlined absolute text-on-primary-container text-sm opacity-0 peer-checked:opacity-100 pointer-events-none"
+                style="font-variation-settings: 'wght' 700"
+                >check</span
+              >
+            </div>
+            <div class="flex flex-col flex-1">
+              <span
+                class="font-body text-body text-text-primary peer-checked:text-text-secondary peer-checked:line-through transition-all"
+                >Write down three hard constraints for your current active project.</span
+              >
+            </div>
+          </label>
+        </div>
+      </section>
+    </main>
+    <!-- Sticky Bottom Action Bar -->
+    <div
+      class="fixed bottom-0 left-0 w-full z-50 px-margin-mobile pb-6 pt-4 bg-gradient-to-t from-surface via-surface-1/95 to-transparent backdrop-blur-xl"
+    >
+      <div class="flex flex-col gap-3 max-w-[767px] mx-auto">
+        <!-- Jump to Section Disclosure -->
+        <button
+          class="w-full min-h-[44px] flex items-center justify-between px-4 bg-surface-2 border border-border rounded-xl text-text-secondary hover:text-text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface"
+        >
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">toc</span>
+            <span class="font-label text-label">Jump to Section</span>
+          </div>
+          <span class="material-symbols-outlined text-sm">expand_less</span>
+        </button>
+        <!-- Primary Action -->
+        <button
+          class="w-full min-h-[48px] flex items-center justify-center gap-2 bg-primary-container text-on-primary-container font-label text-label rounded-xl hover:bg-primary-fixed-dim transition-colors shadow-[0_0_20px_rgba(103,232,249,0.15)] focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface"
+        >
+          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1"
+            >task_alt</span
+          >
+          Commit to Intentional Path
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

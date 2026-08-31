@@ -15,6 +15,26 @@ test('landing page communicates the product and exposes a safe demo', async ({pa
   expect(accessibility.violations).toEqual([]);
 });
 
+test('theme toggle switches between dark and light modes seamlessly', async ({page}) => {
+  await page.goto('/');
+
+  // Find theme toggle button (first instance in header)
+  const themeToggle = page.getByRole('button', {name: /switch to (light|dark) mode/i}).first();
+  await expect(themeToggle).toBeVisible();
+
+  // Toggle to light mode
+  await themeToggle.click();
+  await expect(page.locator('html')).toHaveClass(/light/);
+
+  // Check light mode accessibility
+  const lightA11y = await new AxeBuilder({page}).withTags(['wcag2a', 'wcag2aa']).analyze();
+  expect(lightA11y.violations).toEqual([]);
+
+  // Toggle back to dark mode
+  await themeToggle.click();
+  await expect(page.locator('html')).toHaveClass(/dark/);
+});
+
 test('demo result is complete and all public actions are reachable', async ({page}) => {
   await page.goto('/demo');
 

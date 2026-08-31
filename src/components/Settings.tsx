@@ -1,9 +1,19 @@
-import {LogOut, ShieldCheck, Trash2} from 'lucide-react';
+import {
+  AlertTriangle,
+  Eye,
+  LogOut,
+  Shield,
+  ShieldCheck,
+  Trash2,
+  User as UserIcon,
+} from 'lucide-react';
 import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 import {AppHeader} from '@/components/AppHeader';
-import {signOut} from '@/lib/firebaseCore';
+import {DeleteAccountModal} from '@/components/modals/DeleteAccountModal';
+import {ThemeToggle} from '@/components/primitives/ThemeToggle';
+import {Toast, type ToastItem} from '@/components/primitives/Toast';
 import {formatServiceError} from '@/lib/errors';
 import {deleteCurrentUserData} from '@/services/analysisService';
 import {useBecomingStore} from '@/store/useBecomingStore';
@@ -11,105 +21,160 @@ import {useBecomingStore} from '@/store/useBecomingStore';
 export function Settings() {
   const user = useBecomingStore((state) => state.user);
   const resetReflection = useBecomingStore((state) => state.resetReflection);
-  const [confirmation, setConfirmation] = useState('');
-  const [deleting, setDeleting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [toast, setToast] = useState<ToastItem | null>(null);
   const navigate = useNavigate();
 
   async function handleSignOut() {
     resetReflection();
+    const {signOut} = await import('@/lib/firebaseCore');
     await signOut();
     navigate('/');
   }
 
-  async function handleDelete() {
-    if (confirmation !== 'DELETE') return;
-    setDeleting(true);
-    setError(null);
+  async function handleConfirmDeleteAccount() {
     try {
       await deleteCurrentUserData();
       resetReflection();
       navigate('/');
-    } catch (deleteError) {
-      setError(formatServiceError(deleteError));
-      setDeleting(false);
+    } catch (err) {
+      setToast({id: 'del-acc-err', message: formatServiceError(err), type: 'error'});
+      throw err;
     }
   }
 
   return (
-    <div className="min-h-screen">
-      <AppHeader backTo="/history" />
-      <div className="mx-auto max-w-3xl space-y-8 px-5 pb-24 pt-10 md:px-10">
-        <div>
-          <p className="mb-3 font-display text-[10px] uppercase tracking-[0.4em] text-cyan-400">
-            Account controls
+    <div className="min-h-screen flex flex-col transition-colors">
+      <AppHeader backTo="/dashboard" />
+
+      <main className="flex-1 w-full max-w-3xl mx-auto px-5 py-10 sm:px-8 md:py-16 flex flex-col gap-10">
+        {/* Header */}
+        <div className="space-y-2 border-b border-white/8 pb-8">
+          <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-cyan-400">
+            Account & Security
+          </span>
+          <h1 className="font-display text-3xl font-light tracking-tight sm:text-5xl text-white">
+            Settings & Privacy
+          </h1>
+          <p className="text-sm font-light text-slate-400">
+            Manage your presence, preferences, and data ownership within the sanctuary.
           </p>
-          <h1 className="text-4xl font-light tracking-tight md:text-5xl">Privacy and settings</h1>
         </div>
 
-        <section className="glass rounded-3xl p-7 md:p-9" aria-labelledby="account-heading">
-          <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 text-cyan-400">
-            <ShieldCheck size={20} />
+        {/* Section 1: Account Identity */}
+        <section className="glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
+          <div className="flex items-center gap-3">
+            <UserIcon className="text-cyan-400" size={20} />
+            <h2 className="font-display text-lg font-bold text-white">Account Identity</h2>
           </div>
-          <h2 id="account-heading" className="mb-2 font-display text-xl font-semibold">
-            Signed-in account
-          </h2>
-          <p className="mb-7 text-sm text-gray-400">
-            {user?.email ?? user?.displayName ?? 'Authenticated user'}
-          </p>
-          <button className="secondary-button" type="button" onClick={() => void handleSignOut()}>
-            <LogOut size={15} /> Sign out
-          </button>
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-t border-white/5 pt-5">
+            <div className="flex items-center gap-4">
+              {user?.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="Avatar"
+                  className="h-14 w-14 rounded-full border border-white/20 object-cover"
+                />
+              ) : (
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 font-display text-lg font-bold text-cyan-300">
+                  {user?.displayName ? user.displayName.charAt(0).toUpperCase() : 'U'}
+                </div>
+              )}
+
+              <div>
+                <h3 className="font-display text-base font-bold text-white">
+                  {user?.displayName ?? 'Anonymous Reflector'}
+                </h3>
+                <p className="text-xs text-slate-400">{user?.email ?? 'Google Authenticated'}</p>
+                <span className="mt-1 inline-flex items-center gap-1 text-[11px] text-emerald-400">
+                  <ShieldCheck size={12} /> Active Session Verified
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => void handleSignOut()}
+              className="secondary-button text-xs"
+            >
+              <LogOut size={14} /> Sign Out
+            </button>
+          </div>
         </section>
 
-        <section
-          className="rounded-3xl border border-red-400/15 bg-red-950/10 p-7 md:p-9"
-          aria-labelledby="delete-heading"
-        >
-          <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-red-400/20 text-red-300">
-            <Trash2 size={20} />
+        {/* Section 2: Appearance & Theme Mode */}
+        <section className="glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
+          <div className="flex items-center justify-between">
+            <div className="space-y-1">
+              <h2 className="font-display text-lg font-bold text-white">Appearance & Theme</h2>
+              <p className="text-xs text-slate-400">
+                Customize your visual atmosphere. Choose between Cinematic Dark, Pristine Light, or
+                auto-match System.
+              </p>
+            </div>
           </div>
-          <h2 id="delete-heading" className="mb-3 font-display text-xl font-semibold">
-            Delete account and private data
-          </h2>
-          <p className="mb-6 text-sm leading-7 text-gray-400">
-            This permanently deletes your reflections, analyses, rate-limit record, profile, and
-            Firebase Authentication account. This action cannot be undone.
+
+          <div className="border-t border-white/5 pt-5">
+            <ThemeToggle variant="segmented" />
+          </div>
+        </section>
+
+        {/* Section 3: Privacy Shortcuts & Boundaries */}
+        <section className="glass-panel rounded-3xl p-6 sm:p-8 space-y-4">
+          <div className="flex items-center gap-3">
+            <Shield className="text-violet-400" size={20} />
+            <h2 className="font-display text-lg font-bold text-white">Data Boundaries</h2>
+          </div>
+
+          <p className="text-xs leading-relaxed text-slate-300">
+            Becoming stores your reflection answers strictly in your owner-isolated Cloud Firestore
+            database. Raw answers are never shared publicly or used to train public models.
           </p>
-          <label
-            className="mb-2 block text-xs uppercase tracking-widest text-white/50"
-            htmlFor="delete-confirmation"
-          >
-            Type DELETE to confirm
-          </label>
-          <input
-            id="delete-confirmation"
-            className="mb-5 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-red-300"
-            value={confirmation}
-            autoComplete="off"
-            onChange={(event) => setConfirmation(event.target.value)}
-          />
-          {error ? (
-            <p className="mb-5 text-sm text-red-300" role="alert">
-              {error}
-            </p>
-          ) : null}
+
+          <div className="pt-2">
+            <Link to="/privacy" className="secondary-button text-xs">
+              <Eye size={14} /> View Full Privacy & AI Boundaries
+            </Link>
+          </div>
+        </section>
+
+        {/* Section 3: Danger Zone */}
+        <section className="rounded-3xl border border-red-400/25 bg-red-950/15 p-6 sm:p-8 space-y-5">
+          <div className="flex items-center gap-3">
+            <AlertTriangle className="text-red-400" size={20} />
+            <h2 className="font-display text-lg font-bold text-red-200">Danger Zone</h2>
+          </div>
+
+          <p className="text-xs leading-relaxed text-slate-300">
+            Permanently delete your account and all associated reflections, trajectory analysis
+            records, habit check-ins, and user profile data. This cannot be undone.
+          </p>
+
           <button
-            className="inline-flex items-center gap-2 rounded-full bg-red-300 px-6 py-3 font-display text-xs font-bold uppercase tracking-widest text-red-950 disabled:cursor-not-allowed disabled:opacity-40"
             type="button"
-            disabled={confirmation !== 'DELETE' || deleting}
-            onClick={() => void handleDelete()}
+            onClick={() => setDeleteModalOpen(true)}
+            className="danger-button text-xs"
           >
-            <Trash2 size={15} /> {deleting ? 'Deleting…' : 'Delete permanently'}
+            <Trash2 size={14} /> Delete Account Permanently
           </button>
         </section>
 
-        <p className="text-xs leading-6 text-white/65">
-          Becoming provides reflective prompts and generated guidance. It is not a medical,
-          psychological, legal, or financial service. If you are in immediate danger, contact local
-          emergency services or a trusted professional.
+        {/* Legal / Non-Medical Disclaimer */}
+        <p className="text-xs leading-relaxed text-slate-500">
+          Becoming provides editorial prompts and illustrative AI trajectory guidance. It is not a
+          clinical mental health, medical, psychological, legal, or financial service. If you are in
+          crisis, please seek professional support.
         </p>
-      </div>
+      </main>
+
+      <DeleteAccountModal
+        isOpen={deleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+        onConfirm={handleConfirmDeleteAccount}
+      />
+
+      <Toast toast={toast} onDismiss={() => setToast(null)} />
     </div>
   );
 }

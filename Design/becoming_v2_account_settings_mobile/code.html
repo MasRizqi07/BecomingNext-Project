@@ -1,416 +1,519 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Account Settings - Becoming V2</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Account Settings - Becoming V2</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
       tailwind.config = {
-        darkMode: "class",
+        darkMode: 'class',
         theme: {
           extend: {
-            "colors": {
-                    "inverse-primary": "#006973",
-                    "error": "#ffb4ab",
-                    "on-primary-fixed-variant": "#004f57",
-                    "outline": "#869395",
-                    "on-secondary-fixed": "#1e0e4e",
-                    "primary-container": "#67e8f9",
-                    "inverse-surface": "#e4e1ea",
-                    "on-secondary": "#332664",
-                    "text-secondary": "#CBD5E1",
-                    "tertiary-fixed": "#ffdf97",
-                    "tertiary-container": "#ffd15e",
-                    "secondary": "#ccbeff",
-                    "secondary-fixed-dim": "#ccbeff",
-                    "on-tertiary-fixed": "#251a00",
-                    "text-primary": "#F8FAFC",
-                    "surface-bright": "#39383f",
-                    "secondary-container": "#4a3d7c",
-                    "primary": "#d5f9ff",
-                    "surface-container-lowest": "#0e0e14",
-                    "on-primary": "#00363c",
-                    "surface-1": "#090A0F",
-                    "on-tertiary": "#3e2e00",
-                    "warning": "#FCD34D",
-                    "on-error-container": "#ffdad6",
-                    "secondary-fixed": "#e7deff",
-                    "outline-variant": "#3c494b",
-                    "primary-fixed-dim": "#54d8e8",
-                    "tertiary": "#fff2db",
-                    "on-background": "#e4e1ea",
-                    "text-tertiary": "#94A3B8",
-                    "surface-3": "rgba(255, 255, 255, 0.08)",
-                    "surface-container-high": "#2a2930",
-                    "on-primary-fixed": "#001f23",
-                    "on-secondary-container": "#baabf3",
-                    "on-tertiary-fixed-variant": "#5a4300",
-                    "error-container": "#93000a",
-                    "on-secondary-fixed-variant": "#4a3d7c",
-                    "on-tertiary-container": "#755900",
-                    "surface-dim": "#131319",
-                    "accent-strong": "#22D3EE",
-                    "danger": "#FCA5A5",
-                    "surface": "#131319",
-                    "surface-container-highest": "#35343b",
-                    "surface-container-low": "#1b1b21",
-                    "on-surface": "#e4e1ea",
-                    "background": "#131319",
-                    "primary-fixed": "#91f1ff",
-                    "success": "#86EFAC",
-                    "surface-2": "rgba(255, 255, 255, 0.05)",
-                    "inverse-on-surface": "#303037",
-                    "surface-tint": "#54d8e8",
-                    "on-surface-variant": "#bcc9cb",
-                    "tertiary-fixed-dim": "#edc150",
-                    "border-strong": "rgba(255, 255, 255, 0.24)",
-                    "on-primary-container": "#006771",
-                    "on-error": "#690005",
-                    "border": "rgba(255, 255, 255, 0.12)",
-                    "surface-container": "#1f1f25",
-                    "surface-variant": "#35343b"
+            colors: {
+              'inverse-primary': '#006973',
+              error: '#ffb4ab',
+              'on-primary-fixed-variant': '#004f57',
+              outline: '#869395',
+              'on-secondary-fixed': '#1e0e4e',
+              'primary-container': '#67e8f9',
+              'inverse-surface': '#e4e1ea',
+              'on-secondary': '#332664',
+              'text-secondary': '#CBD5E1',
+              'tertiary-fixed': '#ffdf97',
+              'tertiary-container': '#ffd15e',
+              secondary: '#ccbeff',
+              'secondary-fixed-dim': '#ccbeff',
+              'on-tertiary-fixed': '#251a00',
+              'text-primary': '#F8FAFC',
+              'surface-bright': '#39383f',
+              'secondary-container': '#4a3d7c',
+              primary: '#d5f9ff',
+              'surface-container-lowest': '#0e0e14',
+              'on-primary': '#00363c',
+              'surface-1': '#090A0F',
+              'on-tertiary': '#3e2e00',
+              warning: '#FCD34D',
+              'on-error-container': '#ffdad6',
+              'secondary-fixed': '#e7deff',
+              'outline-variant': '#3c494b',
+              'primary-fixed-dim': '#54d8e8',
+              tertiary: '#fff2db',
+              'on-background': '#e4e1ea',
+              'text-tertiary': '#94A3B8',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'surface-container-high': '#2a2930',
+              'on-primary-fixed': '#001f23',
+              'on-secondary-container': '#baabf3',
+              'on-tertiary-fixed-variant': '#5a4300',
+              'error-container': '#93000a',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              'on-tertiary-container': '#755900',
+              'surface-dim': '#131319',
+              'accent-strong': '#22D3EE',
+              danger: '#FCA5A5',
+              surface: '#131319',
+              'surface-container-highest': '#35343b',
+              'surface-container-low': '#1b1b21',
+              'on-surface': '#e4e1ea',
+              background: '#131319',
+              'primary-fixed': '#91f1ff',
+              success: '#86EFAC',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'inverse-on-surface': '#303037',
+              'surface-tint': '#54d8e8',
+              'on-surface-variant': '#bcc9cb',
+              'tertiary-fixed-dim': '#edc150',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'on-primary-container': '#006771',
+              'on-error': '#690005',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'surface-container': '#1f1f25',
+              'surface-variant': '#35343b',
             },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
             },
-            "spacing": {
-                    "max-content-width": "1200px",
-                    "reading-width": "720px",
-                    "gutter-desktop": "32px",
-                    "margin-desktop": "64px",
-                    "unit": "4px",
-                    "margin-mobile": "20px",
-                    "gutter-mobile": "16px"
+            spacing: {
+              'max-content-width': '1200px',
+              'reading-width': '720px',
+              'gutter-desktop': '32px',
+              'margin-desktop': '64px',
+              unit: '4px',
+              'margin-mobile': '20px',
+              'gutter-mobile': '16px',
             },
-            "fontFamily": {
-                    "h1": [
-                            "Space Grotesk"
-                    ],
-                    "small": [
-                            "Inter"
-                    ],
-                    "display-xl": [
-                            "Space Grotesk"
-                    ],
-                    "body": [
-                            "Inter"
-                    ],
-                    "body-lg": [
-                            "Inter"
-                    ],
-                    "display-xl-mobile": [
-                            "Space Grotesk"
-                    ],
-                    "label": [
-                            "Space Grotesk"
-                    ],
-                    "editorial-italic": [
-                            "Playfair Display"
-                    ],
-                    "h1-mobile": [
-                            "Space Grotesk"
-                    ],
-                    "display-lg-mobile": [
-                            "Space Grotesk"
-                    ],
-                    "h3": [
-                            "Space Grotesk"
-                    ],
-                    "h2": [
-                            "Space Grotesk"
-                    ],
-                    "display-lg": [
-                            "Space Grotesk"
-                    ]
+            fontFamily: {
+              h1: ['Space Grotesk'],
+              small: ['Inter'],
+              'display-xl': ['Space Grotesk'],
+              body: ['Inter'],
+              'body-lg': ['Inter'],
+              'display-xl-mobile': ['Space Grotesk'],
+              label: ['Space Grotesk'],
+              'editorial-italic': ['Playfair Display'],
+              'h1-mobile': ['Space Grotesk'],
+              'display-lg-mobile': ['Space Grotesk'],
+              h3: ['Space Grotesk'],
+              h2: ['Space Grotesk'],
+              'display-lg': ['Space Grotesk'],
             },
-            "fontSize": {
-                    "h1": [
-                            "52px",
-                            {
-                                    "lineHeight": "1.1",
-                                    "fontWeight": "600"
-                            }
-                    ],
-                    "small": [
-                            "14px",
-                            {
-                                    "lineHeight": "1.55",
-                                    "fontWeight": "400"
-                            }
-                    ],
-                    "display-xl": [
-                            "96px",
-                            {
-                                    "lineHeight": "1.0",
-                                    "letterSpacing": "-0.02em",
-                                    "fontWeight": "700"
-                            }
-                    ],
-                    "body": [
-                            "16px",
-                            {
-                                    "lineHeight": "1.65",
-                                    "fontWeight": "400"
-                            }
-                    ],
-                    "body-lg": [
-                            "18px",
-                            {
-                                    "lineHeight": "1.7",
-                                    "fontWeight": "400"
-                            }
-                    ],
-                    "display-xl-mobile": [
-                            "56px",
-                            {
-                                    "lineHeight": "1.0",
-                                    "fontWeight": "700"
-                            }
-                    ],
-                    "label": [
-                            "12px",
-                            {
-                                    "lineHeight": "1.4",
-                                    "letterSpacing": "0.05em",
-                                    "fontWeight": "600"
-                            }
-                    ],
-                    "editorial-italic": [
-                            "18px",
-                            {
-                                    "lineHeight": "1.6",
-                                    "fontWeight": "400"
-                            }
-                    ],
-                    "h1-mobile": [
-                            "40px",
-                            {
-                                    "lineHeight": "1.1",
-                                    "fontWeight": "600"
-                            }
-                    ],
-                    "display-lg-mobile": [
-                            "48px",
-                            {
-                                    "lineHeight": "1.1",
-                                    "fontWeight": "600"
-                            }
-                    ],
-                    "h3": [
-                            "24px",
-                            {
-                                    "lineHeight": "1.3",
-                                    "fontWeight": "500"
-                            }
-                    ],
-                    "h2": [
-                            "36px",
-                            {
-                                    "lineHeight": "1.2",
-                                    "fontWeight": "500"
-                            }
-                    ],
-                    "display-lg": [
-                            "64px",
-                            {
-                                    "lineHeight": "1.1",
-                                    "fontWeight": "600"
-                            }
-                    ]
-            }
-    },
+            fontSize: {
+              h1: [
+                '52px',
+                {
+                  lineHeight: '1.1',
+                  fontWeight: '600',
+                },
+              ],
+              small: [
+                '14px',
+                {
+                  lineHeight: '1.55',
+                  fontWeight: '400',
+                },
+              ],
+              'display-xl': [
+                '96px',
+                {
+                  lineHeight: '1.0',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700',
+                },
+              ],
+              body: [
+                '16px',
+                {
+                  lineHeight: '1.65',
+                  fontWeight: '400',
+                },
+              ],
+              'body-lg': [
+                '18px',
+                {
+                  lineHeight: '1.7',
+                  fontWeight: '400',
+                },
+              ],
+              'display-xl-mobile': [
+                '56px',
+                {
+                  lineHeight: '1.0',
+                  fontWeight: '700',
+                },
+              ],
+              label: [
+                '12px',
+                {
+                  lineHeight: '1.4',
+                  letterSpacing: '0.05em',
+                  fontWeight: '600',
+                },
+              ],
+              'editorial-italic': [
+                '18px',
+                {
+                  lineHeight: '1.6',
+                  fontWeight: '400',
+                },
+              ],
+              'h1-mobile': [
+                '40px',
+                {
+                  lineHeight: '1.1',
+                  fontWeight: '600',
+                },
+              ],
+              'display-lg-mobile': [
+                '48px',
+                {
+                  lineHeight: '1.1',
+                  fontWeight: '600',
+                },
+              ],
+              h3: [
+                '24px',
+                {
+                  lineHeight: '1.3',
+                  fontWeight: '500',
+                },
+              ],
+              h2: [
+                '36px',
+                {
+                  lineHeight: '1.2',
+                  fontWeight: '500',
+                },
+              ],
+              'display-lg': [
+                '64px',
+                {
+                  lineHeight: '1.1',
+                  fontWeight: '600',
+                },
+              ],
+            },
+          },
         },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #020205; /* The Canvas */
+        color: #f8fafc;
       }
-    </script>
-<style>
-        body {
-            background-color: #020205; /* The Canvas */
-            color: #F8FAFC;
-        }
-        
-        /* Glassmorphism effects */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
 
-        .glass-panel-interactive:hover {
-            border-color: rgba(255, 255, 255, 0.24);
-        }
+      /* Glassmorphism effects */
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
 
-        /* Custom Toggle Switch */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #67e8f9;
-        }
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #67e8f9;
-        }
-        .toggle-checkbox:checked + .toggle-label:after {
-            transform: translateX(100%);
-            border-color: white;
-        }
+      .glass-panel-interactive:hover {
+        border-color: rgba(255, 255, 255, 0.24);
+      }
+
+      /* Custom Toggle Switch */
+      .toggle-checkbox:checked {
+        right: 0;
+        border-color: #67e8f9;
+      }
+      .toggle-checkbox:checked + .toggle-label {
+        background-color: #67e8f9;
+      }
+      .toggle-checkbox:checked + .toggle-label:after {
+        transform: translateX(100%);
+        border-color: white;
+      }
     </style>
-</head>
-<body class="antialiased min-h-screen flex flex-col font-body pb-24">
-<!-- Top App Bar (Settings/Back intent - simplified for deep link) -->
-<header class="flex justify-between items-center w-full px-margin-mobile py-4 sticky top-0 z-50 bg-surface/90 backdrop-blur-md border-b border-border">
-<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-2 rounded-lg active:bg-surface-3">
-<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
-</button>
-<h1 class="font-h3 text-h3 font-bold text-text-primary">Settings</h1>
-<div class="w-10"></div> <!-- Spacer for centering -->
-</header>
-<main class="flex-1 w-full max-w-[720px] mx-auto px-margin-mobile pt-6 pb-12 flex flex-col gap-12">
-<!-- Account Identity Section -->
-<section class="flex flex-col gap-6">
-<h2 class="font-h2 text-h2 font-semibold text-text-primary tracking-tight">Account Identity</h2>
-<div class="glass-panel rounded-xl p-6 flex flex-col gap-6">
-<div class="flex items-center gap-4">
-<div class="w-16 h-16 rounded-full bg-surface-2 border border-border flex items-center justify-center overflow-hidden">
-<img alt="Profile avatar" class="w-full h-full object-cover" data-alt="A minimalist, abstract portrait avatar featuring soft, glowing cinematic lighting. Deep obsidian background with subtle cyan and violet rim lights highlighting a simplified geometric facial structure. Cinematic, high-end digital art style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm_u5JO2_mutm92-8m639nrkJesUHyba7oE_7oQzv3vUzMHwOChD3dy-RrRMMDxTOOuf7GngSxL316THA3laO1fFS1WYTgNQ6AIj-bps7qb6jAkrRSO3cEqCXp_O5c6yy8SHpto0feCQG8N_LdJCaaRKiQ_KQgSBXVRn1CnMvSEgmWB1rvCEP33s2LaVNEbppZq3Rc3vWAdR5gN7kHkt5nloHo1koMSR9Ye_pQ6qnKq_CnoD5tQFvzzQ"/>
-</div>
-<button class="px-4 py-2 bg-surface-2 border border-border rounded-lg font-label text-label text-text-primary hover:border-border-strong transition-colors duration-120">
-                        Change Photo
-                    </button>
-</div>
-<div class="flex flex-col gap-4">
-<div class="flex flex-col gap-2">
-<label class="font-label text-label text-text-secondary">Display Name</label>
-<input class="w-full bg-surface-1 border border-border rounded-lg px-4 py-3 font-body text-body text-text-primary focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container/30 transition-all" type="text" value="Alex"/>
-</div>
-<div class="flex flex-col gap-2">
-<label class="font-label text-label text-text-secondary">Email Address</label>
-<input class="w-full bg-surface-1 border border-border/50 rounded-lg px-4 py-3 font-body text-body text-text-secondary cursor-not-allowed opacity-70" readonly="" type="email" value="alex@example.com"/>
-<p class="font-small text-small text-text-tertiary">Email changes require re-authentication.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Experience Preferences Section -->
-<section class="flex flex-col gap-6">
-<div class="flex flex-col">
-<h2 class="font-h2 text-h2 font-semibold text-text-primary tracking-tight">Experience</h2>
-<p class="font-body text-body text-text-secondary mt-1">Customize your sanctuary environment.</p>
-</div>
-<div class="glass-panel rounded-xl flex flex-col divide-y divide-border">
-<div class="p-6 flex justify-between items-center">
-<div class="flex flex-col gap-1 pr-4">
-<span class="font-body-lg text-body-lg text-text-primary">Immersive Mode</span>
-<span class="font-small text-small text-text-secondary">Hide all navigation during reflections</span>
-</div>
-<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
-<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out" id="toggle1" name="toggle" style="right: 0; border-color: #67e8f9;" type="checkbox"/>
-<label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary-container cursor-pointer transition-colors duration-200 ease-in-out" for="toggle1"></label>
-</div>
-</div>
-<div class="p-6 flex justify-between items-center">
-<div class="flex flex-col gap-1 pr-4">
-<span class="font-body-lg text-body-lg text-text-primary">Haptic Feedback</span>
-<span class="font-small text-small text-text-secondary">Subtle vibrations for actions</span>
-</div>
-<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
-<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out" id="toggle2" name="toggle" style="right: 0; border-color: #67e8f9;" type="checkbox"/>
-<label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary-container cursor-pointer transition-colors duration-200 ease-in-out" for="toggle2"></label>
-</div>
-</div>
-<div class="p-6 flex justify-between items-center cursor-pointer hover:bg-surface-2 transition-colors">
-<div class="flex flex-col gap-1">
-<span class="font-body-lg text-body-lg text-text-primary">Theme Accent</span>
-<span class="font-small text-small text-text-secondary">Cyan Glow</span>
-</div>
-<span class="material-symbols-outlined text-text-tertiary" data-icon="chevron_right">chevron_right</span>
-</div>
-</div>
-</section>
-<!-- Privacy & Data Section -->
-<section class="flex flex-col gap-6">
-<h2 class="font-h2 text-h2 font-semibold text-text-primary tracking-tight">Privacy &amp; Data</h2>
-<div class="glass-panel rounded-xl flex flex-col divide-y divide-border">
-<a class="p-6 flex items-center justify-between group hover:bg-surface-2 transition-colors" href="#">
-<div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-text-secondary group-hover:text-primary-container transition-colors" data-icon="lock">lock</span>
-<span class="font-body-lg text-body-lg text-text-primary">End-to-End Encryption</span>
-</div>
-<span class="font-label text-label text-success flex items-center gap-1">
-<span class="material-symbols-outlined text-[16px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span> ACTIVE
-                    </span>
-</a>
-<a class="p-6 flex items-center justify-between group hover:bg-surface-2 transition-colors" href="#">
-<div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-text-secondary group-hover:text-primary-container transition-colors" data-icon="download">download</span>
-<span class="font-body-lg text-body-lg text-text-primary">Export My Data</span>
-</div>
-<span class="material-symbols-outlined text-text-tertiary group-hover:text-text-primary transition-colors" data-icon="arrow_forward">arrow_forward</span>
-</a>
-</div>
-</section>
-<!-- Danger Zone Section -->
-<section class="flex flex-col gap-6 mt-8">
-<h2 class="font-h2 text-h2 font-semibold text-error tracking-tight">Danger Zone</h2>
-<div class="border border-error/30 rounded-xl p-6 bg-error-container/10 flex flex-col gap-4">
-<div class="flex flex-col gap-1">
-<span class="font-body-lg text-body-lg text-text-primary">Delete Account</span>
-<span class="font-small text-small text-text-secondary">Permanently remove all reflections and data. This action cannot be undone.</span>
-</div>
-<button class="w-full mt-2 py-3 px-4 bg-transparent border border-error/50 rounded-lg font-label text-label text-error hover:bg-error/10 hover:border-error transition-colors duration-150 flex justify-center items-center gap-2">
-<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span>
-                    DELETE ACCOUNT
-                </button>
-</div>
-</section>
-</main>
-<!-- BottomNavBar for Mobile (Not strictly rendering standard nav as this is a deep settings page, but user requested bottom nav present. Mapping semantics: Settings usually isn't a primary tab, but we will render the shell as requested, defaulting to no active state or Identity if forced. Based on provided JSON labels: Identity, Paths, Timeline, Letter, Plan. Settings falls under "Identity" broadly.) -->
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 lg:hidden bg-surface-2/90 backdrop-blur-md border-t border-border-strong shadow-lg rounded-t-xl">
-<a class="flex flex-col items-center justify-center text-accent-strong font-bold active:bg-surface-3 p-2 rounded-lg transition-transform scale-110" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="fingerprint" data-weight="fill" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
-<span class="font-label text-label">Identity</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg transition-transform" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="alt_route">alt_route</span>
-<span class="font-label text-label">Paths</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg transition-transform" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="timeline">timeline</span>
-<span class="font-label text-label">Timeline</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg transition-transform" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="mail">mail</span>
-<span class="font-label text-label">Letter</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg transition-transform" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="event_note">event_note</span>
-<span class="font-label text-label">Plan</span>
-</a>
-</nav>
-<script>
-        // Simple toggle logic for custom switches
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                if(this.checked) {
-                    this.style.borderColor = '#67e8f9';
-                } else {
-                    this.style.borderColor = '#d1d5db'; // generic off color
-                    this.style.right = 'auto';
-                    this.style.left = '0';
-                }
-            });
-            // Init state
-            if(!checkbox.checked) {
-                checkbox.style.borderColor = '#d1d5db';
-                checkbox.style.right = 'auto';
-                checkbox.style.left = '0';
-                checkbox.nextElementSibling.style.backgroundColor = '#4b5563';
-            }
+  </head>
+  <body class="antialiased min-h-screen flex flex-col font-body pb-24">
+    <!-- Top App Bar (Settings/Back intent - simplified for deep link) -->
+    <header
+      class="flex justify-between items-center w-full px-margin-mobile py-4 sticky top-0 z-50 bg-surface/90 backdrop-blur-md border-b border-border"
+    >
+      <button
+        class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-2 rounded-lg active:bg-surface-3"
+      >
+        <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+      </button>
+      <h1 class="font-h3 text-h3 font-bold text-text-primary">Settings</h1>
+      <div class="w-10"></div>
+      <!-- Spacer for centering -->
+    </header>
+    <main
+      class="flex-1 w-full max-w-[720px] mx-auto px-margin-mobile pt-6 pb-12 flex flex-col gap-12"
+    >
+      <!-- Account Identity Section -->
+      <section class="flex flex-col gap-6">
+        <h2 class="font-h2 text-h2 font-semibold text-text-primary tracking-tight">
+          Account Identity
+        </h2>
+        <div class="glass-panel rounded-xl p-6 flex flex-col gap-6">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-16 h-16 rounded-full bg-surface-2 border border-border flex items-center justify-center overflow-hidden"
+            >
+              <img
+                alt="Profile avatar"
+                class="w-full h-full object-cover"
+                data-alt="A minimalist, abstract portrait avatar featuring soft, glowing cinematic lighting. Deep obsidian background with subtle cyan and violet rim lights highlighting a simplified geometric facial structure. Cinematic, high-end digital art style."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm_u5JO2_mutm92-8m639nrkJesUHyba7oE_7oQzv3vUzMHwOChD3dy-RrRMMDxTOOuf7GngSxL316THA3laO1fFS1WYTgNQ6AIj-bps7qb6jAkrRSO3cEqCXp_O5c6yy8SHpto0feCQG8N_LdJCaaRKiQ_KQgSBXVRn1CnMvSEgmWB1rvCEP33s2LaVNEbppZq3Rc3vWAdR5gN7kHkt5nloHo1koMSR9Ye_pQ6qnKq_CnoD5tQFvzzQ"
+              />
+            </div>
+            <button
+              class="px-4 py-2 bg-surface-2 border border-border rounded-lg font-label text-label text-text-primary hover:border-border-strong transition-colors duration-120"
+            >
+              Change Photo
+            </button>
+          </div>
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-2">
+              <label class="font-label text-label text-text-secondary">Display Name</label>
+              <input
+                class="w-full bg-surface-1 border border-border rounded-lg px-4 py-3 font-body text-body text-text-primary focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container/30 transition-all"
+                type="text"
+                value="Alex"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="font-label text-label text-text-secondary">Email Address</label>
+              <input
+                class="w-full bg-surface-1 border border-border/50 rounded-lg px-4 py-3 font-body text-body text-text-secondary cursor-not-allowed opacity-70"
+                readonly=""
+                type="email"
+                value="alex@example.com"
+              />
+              <p class="font-small text-small text-text-tertiary">
+                Email changes require re-authentication.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Experience Preferences Section -->
+      <section class="flex flex-col gap-6">
+        <div class="flex flex-col">
+          <h2 class="font-h2 text-h2 font-semibold text-text-primary tracking-tight">Experience</h2>
+          <p class="font-body text-body text-text-secondary mt-1">
+            Customize your sanctuary environment.
+          </p>
+        </div>
+        <div class="glass-panel rounded-xl flex flex-col divide-y divide-border">
+          <div class="p-6 flex justify-between items-center">
+            <div class="flex flex-col gap-1 pr-4">
+              <span class="font-body-lg text-body-lg text-text-primary">Immersive Mode</span>
+              <span class="font-small text-small text-text-secondary"
+                >Hide all navigation during reflections</span
+              >
+            </div>
+            <div
+              class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in"
+            >
+              <input
+                checked=""
+                class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out"
+                id="toggle1"
+                name="toggle"
+                style="right: 0; border-color: #67e8f9"
+                type="checkbox"
+              />
+              <label
+                class="toggle-label block overflow-hidden h-6 rounded-full bg-primary-container cursor-pointer transition-colors duration-200 ease-in-out"
+                for="toggle1"
+              ></label>
+            </div>
+          </div>
+          <div class="p-6 flex justify-between items-center">
+            <div class="flex flex-col gap-1 pr-4">
+              <span class="font-body-lg text-body-lg text-text-primary">Haptic Feedback</span>
+              <span class="font-small text-small text-text-secondary"
+                >Subtle vibrations for actions</span
+              >
+            </div>
+            <div
+              class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in"
+            >
+              <input
+                checked=""
+                class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out"
+                id="toggle2"
+                name="toggle"
+                style="right: 0; border-color: #67e8f9"
+                type="checkbox"
+              />
+              <label
+                class="toggle-label block overflow-hidden h-6 rounded-full bg-primary-container cursor-pointer transition-colors duration-200 ease-in-out"
+                for="toggle2"
+              ></label>
+            </div>
+          </div>
+          <div
+            class="p-6 flex justify-between items-center cursor-pointer hover:bg-surface-2 transition-colors"
+          >
+            <div class="flex flex-col gap-1">
+              <span class="font-body-lg text-body-lg text-text-primary">Theme Accent</span>
+              <span class="font-small text-small text-text-secondary">Cyan Glow</span>
+            </div>
+            <span class="material-symbols-outlined text-text-tertiary" data-icon="chevron_right"
+              >chevron_right</span
+            >
+          </div>
+        </div>
+      </section>
+      <!-- Privacy & Data Section -->
+      <section class="flex flex-col gap-6">
+        <h2 class="font-h2 text-h2 font-semibold text-text-primary tracking-tight">
+          Privacy &amp; Data
+        </h2>
+        <div class="glass-panel rounded-xl flex flex-col divide-y divide-border">
+          <a
+            class="p-6 flex items-center justify-between group hover:bg-surface-2 transition-colors"
+            href="#"
+          >
+            <div class="flex items-center gap-4">
+              <span
+                class="material-symbols-outlined text-text-secondary group-hover:text-primary-container transition-colors"
+                data-icon="lock"
+                >lock</span
+              >
+              <span class="font-body-lg text-body-lg text-text-primary">End-to-End Encryption</span>
+            </div>
+            <span class="font-label text-label text-success flex items-center gap-1">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="check_circle"
+                style="font-variation-settings: 'FILL' 1"
+                >check_circle</span
+              >
+              ACTIVE
+            </span>
+          </a>
+          <a
+            class="p-6 flex items-center justify-between group hover:bg-surface-2 transition-colors"
+            href="#"
+          >
+            <div class="flex items-center gap-4">
+              <span
+                class="material-symbols-outlined text-text-secondary group-hover:text-primary-container transition-colors"
+                data-icon="download"
+                >download</span
+              >
+              <span class="font-body-lg text-body-lg text-text-primary">Export My Data</span>
+            </div>
+            <span
+              class="material-symbols-outlined text-text-tertiary group-hover:text-text-primary transition-colors"
+              data-icon="arrow_forward"
+              >arrow_forward</span
+            >
+          </a>
+        </div>
+      </section>
+      <!-- Danger Zone Section -->
+      <section class="flex flex-col gap-6 mt-8">
+        <h2 class="font-h2 text-h2 font-semibold text-error tracking-tight">Danger Zone</h2>
+        <div
+          class="border border-error/30 rounded-xl p-6 bg-error-container/10 flex flex-col gap-4"
+        >
+          <div class="flex flex-col gap-1">
+            <span class="font-body-lg text-body-lg text-text-primary">Delete Account</span>
+            <span class="font-small text-small text-text-secondary"
+              >Permanently remove all reflections and data. This action cannot be undone.</span
+            >
+          </div>
+          <button
+            class="w-full mt-2 py-3 px-4 bg-transparent border border-error/50 rounded-lg font-label text-label text-error hover:bg-error/10 hover:border-error transition-colors duration-150 flex justify-center items-center gap-2"
+          >
+            <span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span>
+            DELETE ACCOUNT
+          </button>
+        </div>
+      </section>
+    </main>
+    <!-- BottomNavBar for Mobile (Not strictly rendering standard nav as this is a deep settings page, but user requested bottom nav present. Mapping semantics: Settings usually isn't a primary tab, but we will render the shell as requested, defaulting to no active state or Identity if forced. Based on provided JSON labels: Identity, Paths, Timeline, Letter, Plan. Settings falls under "Identity" broadly.) -->
+    <nav
+      class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 lg:hidden bg-surface-2/90 backdrop-blur-md border-t border-border-strong shadow-lg rounded-t-xl"
+    >
+      <a
+        class="flex flex-col items-center justify-center text-accent-strong font-bold active:bg-surface-3 p-2 rounded-lg transition-transform scale-110"
+        href="#"
+      >
+        <span
+          class="material-symbols-outlined mb-1"
+          data-icon="fingerprint"
+          data-weight="fill"
+          style="font-variation-settings: 'FILL' 1"
+          >fingerprint</span
+        >
+        <span class="font-label text-label">Identity</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg transition-transform"
+        href="#"
+      >
+        <span class="material-symbols-outlined mb-1" data-icon="alt_route">alt_route</span>
+        <span class="font-label text-label">Paths</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg transition-transform"
+        href="#"
+      >
+        <span class="material-symbols-outlined mb-1" data-icon="timeline">timeline</span>
+        <span class="font-label text-label">Timeline</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg transition-transform"
+        href="#"
+      >
+        <span class="material-symbols-outlined mb-1" data-icon="mail">mail</span>
+        <span class="font-label text-label">Letter</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-3 p-2 rounded-lg transition-transform"
+        href="#"
+      >
+        <span class="material-symbols-outlined mb-1" data-icon="event_note">event_note</span>
+        <span class="font-label text-label">Plan</span>
+      </a>
+    </nav>
+    <script>
+      // Simple toggle logic for custom switches
+      document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', function () {
+          if (this.checked) {
+            this.style.borderColor = '#67e8f9';
+          } else {
+            this.style.borderColor = '#d1d5db'; // generic off color
+            this.style.right = 'auto';
+            this.style.left = '0';
+          }
         });
+        // Init state
+        if (!checkbox.checked) {
+          checkbox.style.borderColor = '#d1d5db';
+          checkbox.style.right = 'auto';
+          checkbox.style.left = '0';
+          checkbox.nextElementSibling.style.backgroundColor = '#4b5563';
+        }
+      });
     </script>
-</body></html>
+  </body>
+</html>

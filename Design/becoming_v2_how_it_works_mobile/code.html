@@ -1,323 +1,439 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Becoming V2 - How It Works</title>
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Google Fonts (Inter & Space Grotesk) -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "tertiary": "#fff2db",
-                        "on-primary-fixed": "#001f23",
-                        "success": "#86EFAC",
-                        "tertiary-fixed": "#ffdf97",
-                        "on-tertiary-container": "#755900",
-                        "inverse-surface": "#e4e1ea",
-                        "on-tertiary-fixed-variant": "#5a4300",
-                        "on-surface": "#e4e1ea",
-                        "error-container": "#93000a",
-                        "primary": "#d5f9ff",
-                        "background": "#131319",
-                        "accent-strong": "#22D3EE",
-                        "secondary-fixed": "#e7deff",
-                        "surface-1": "#090A0F",
-                        "surface-variant": "#35343b",
-                        "surface-container-low": "#1b1b21",
-                        "tertiary-fixed-dim": "#edc150",
-                        "surface-container-high": "#2a2930",
-                        "surface-3": "rgba(255, 255, 255, 0.08)",
-                        "outline": "#869395",
-                        "on-primary-container": "#006771",
-                        "on-secondary": "#332664",
-                        "warning": "#FCD34D",
-                        "on-secondary-fixed-variant": "#4a3d7c",
-                        "danger": "#FCA5A5",
-                        "secondary-fixed-dim": "#ccbeff",
-                        "inverse-primary": "#006973",
-                        "surface-2": "rgba(255, 255, 255, 0.05)",
-                        "on-error": "#690005",
-                        "on-tertiary": "#3e2e00",
-                        "on-secondary-container": "#baabf3",
-                        "on-error-container": "#ffdad6",
-                        "on-background": "#e4e1ea",
-                        "primary-container": "#67e8f9",
-                        "border-strong": "rgba(255, 255, 255, 0.24)",
-                        "inverse-on-surface": "#303037",
-                        "outline-variant": "#3c494b",
-                        "surface-container": "#1f1f25",
-                        "surface-dim": "#131319",
-                        "on-secondary-fixed": "#1e0e4e",
-                        "surface": "#131319",
-                        "surface-container-highest": "#35343b",
-                        "surface-tint": "#54d8e8",
-                        "tertiary-container": "#ffd15e",
-                        "on-primary": "#00363c",
-                        "primary-fixed-dim": "#54d8e8",
-                        "text-primary": "#F8FAFC",
-                        "secondary": "#ccbeff",
-                        "primary-fixed": "#91f1ff",
-                        "text-tertiary": "#94A3B8",
-                        "border": "rgba(255, 255, 255, 0.12)",
-                        "on-surface-variant": "#bcc9cb",
-                        "secondary-container": "#4a3d7c",
-                        "error": "#ffb4ab",
-                        "on-primary-fixed-variant": "#004f57",
-                        "text-secondary": "#CBD5E1",
-                        "on-tertiary-fixed": "#251a00",
-                        "surface-bright": "#39383f",
-                        "surface-container-lowest": "#0e0e14"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "reading-width": "720px",
-                        "max-content-width": "1200px",
-                        "margin-desktop": "64px",
-                        "margin-mobile": "20px",
-                        "unit": "4px",
-                        "gutter-mobile": "16px",
-                        "gutter-desktop": "32px"
-                    },
-                    "fontFamily": {
-                        "body-lg": ["Inter"],
-                        "h1": ["Space Grotesk"],
-                        "body": ["Inter"],
-                        "display-xl": ["Space Grotesk"],
-                        "h3": ["Space Grotesk"],
-                        "h2": ["Space Grotesk"],
-                        "editorial-italic": ["Playfair Display"],
-                        "display-lg-mobile": ["Space Grotesk"],
-                        "display-xl-mobile": ["Space Grotesk"],
-                        "small": ["Inter"],
-                        "display-lg": ["Space Grotesk"],
-                        "label": ["Space Grotesk"],
-                        "h1-mobile": ["Space Grotesk"]
-                    },
-                    "fontSize": {
-                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
-                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
-                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
-                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
-                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
-                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
-                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }]
-                    }
-                }
-            }
-        }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Becoming V2 - How It Works</title>
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts (Inter & Space Grotesk) -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              tertiary: '#fff2db',
+              'on-primary-fixed': '#001f23',
+              success: '#86EFAC',
+              'tertiary-fixed': '#ffdf97',
+              'on-tertiary-container': '#755900',
+              'inverse-surface': '#e4e1ea',
+              'on-tertiary-fixed-variant': '#5a4300',
+              'on-surface': '#e4e1ea',
+              'error-container': '#93000a',
+              primary: '#d5f9ff',
+              background: '#131319',
+              'accent-strong': '#22D3EE',
+              'secondary-fixed': '#e7deff',
+              'surface-1': '#090A0F',
+              'surface-variant': '#35343b',
+              'surface-container-low': '#1b1b21',
+              'tertiary-fixed-dim': '#edc150',
+              'surface-container-high': '#2a2930',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              outline: '#869395',
+              'on-primary-container': '#006771',
+              'on-secondary': '#332664',
+              warning: '#FCD34D',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              danger: '#FCA5A5',
+              'secondary-fixed-dim': '#ccbeff',
+              'inverse-primary': '#006973',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'on-error': '#690005',
+              'on-tertiary': '#3e2e00',
+              'on-secondary-container': '#baabf3',
+              'on-error-container': '#ffdad6',
+              'on-background': '#e4e1ea',
+              'primary-container': '#67e8f9',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'inverse-on-surface': '#303037',
+              'outline-variant': '#3c494b',
+              'surface-container': '#1f1f25',
+              'surface-dim': '#131319',
+              'on-secondary-fixed': '#1e0e4e',
+              surface: '#131319',
+              'surface-container-highest': '#35343b',
+              'surface-tint': '#54d8e8',
+              'tertiary-container': '#ffd15e',
+              'on-primary': '#00363c',
+              'primary-fixed-dim': '#54d8e8',
+              'text-primary': '#F8FAFC',
+              secondary: '#ccbeff',
+              'primary-fixed': '#91f1ff',
+              'text-tertiary': '#94A3B8',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'on-surface-variant': '#bcc9cb',
+              'secondary-container': '#4a3d7c',
+              error: '#ffb4ab',
+              'on-primary-fixed-variant': '#004f57',
+              'text-secondary': '#CBD5E1',
+              'on-tertiary-fixed': '#251a00',
+              'surface-bright': '#39383f',
+              'surface-container-lowest': '#0e0e14',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              'reading-width': '720px',
+              'max-content-width': '1200px',
+              'margin-desktop': '64px',
+              'margin-mobile': '20px',
+              unit: '4px',
+              'gutter-mobile': '16px',
+              'gutter-desktop': '32px',
+            },
+            fontFamily: {
+              'body-lg': ['Inter'],
+              h1: ['Space Grotesk'],
+              body: ['Inter'],
+              'display-xl': ['Space Grotesk'],
+              h3: ['Space Grotesk'],
+              h2: ['Space Grotesk'],
+              'editorial-italic': ['Playfair Display'],
+              'display-lg-mobile': ['Space Grotesk'],
+              'display-xl-mobile': ['Space Grotesk'],
+              small: ['Inter'],
+              'display-lg': ['Space Grotesk'],
+              label: ['Space Grotesk'],
+              'h1-mobile': ['Space Grotesk'],
+            },
+            fontSize: {
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              'display-lg-mobile': ['48px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-xl-mobile': ['56px', {lineHeight: '1.0', fontWeight: '700'}],
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+              'h1-mobile': ['40px', {lineHeight: '1.1', fontWeight: '600'}],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        /* Minimalist Glassmorphism Utilities */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+    <style>
+      /* Minimalist Glassmorphism Utilities */
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .glass-panel-strong {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.24);
+      }
+
+      /* Orb Animation */
+      .ai-orb {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(103, 232, 249, 0.8),
+          rgba(34, 211, 238, 0.2),
+          transparent 70%
+        );
+        box-shadow:
+          0 0 40px rgba(103, 232, 249, 0.4),
+          inset 0 0 20px rgba(103, 232, 249, 0.6);
+        animation: pulse-orb 4s infinite alternate ease-in-out;
+        position: relative;
+      }
+      .ai-orb::after {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border-radius: 50%;
+        background: conic-gradient(
+          from 0deg at 50% 50%,
+          transparent,
+          rgba(103, 232, 249, 0.2),
+          transparent 50%
+        );
+        animation: spin 8s linear infinite;
+      }
+      @keyframes pulse-orb {
+        0% {
+          transform: scale(0.95);
+          opacity: 0.8;
         }
-        .glass-panel-strong {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.24);
+        100% {
+          transform: scale(1.05);
+          opacity: 1;
+          box-shadow:
+            0 0 60px rgba(103, 232, 249, 0.6),
+            inset 0 0 30px rgba(103, 232, 249, 0.8);
         }
-        
-        /* Orb Animation */
+      }
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
         .ai-orb {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(103, 232, 249, 0.8), rgba(34, 211, 238, 0.2), transparent 70%);
-            box-shadow: 0 0 40px rgba(103, 232, 249, 0.4), inset 0 0 20px rgba(103, 232, 249, 0.6);
-            animation: pulse-orb 4s infinite alternate ease-in-out;
-            position: relative;
+          animation: none;
+          box-shadow: 0 0 20px rgba(103, 232, 249, 0.4);
         }
         .ai-orb::after {
-            content: '';
-            position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg at 50% 50%, transparent, rgba(103, 232, 249, 0.2), transparent 50%);
-            animation: spin 8s linear infinite;
+          display: none;
         }
-        @keyframes pulse-orb {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            100% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 60px rgba(103, 232, 249, 0.6), inset 0 0 30px rgba(103, 232, 249, 0.8); }
-        }
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .ai-orb { animation: none; box-shadow: 0 0 20px rgba(103, 232, 249, 0.4); }
-            .ai-orb::after { display: none; }
-        }
+      }
 
-        /* Gradient Borders */
-        .identity-border {
-            position: relative;
-            background: #090A0F;
-            background-clip: padding-box;
-            border: 1px solid transparent;
-            border-radius: 0.75rem;
-        }
-        .identity-border::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            z-index: -1;
-            margin: -1px;
-            border-radius: inherit;
-            background: linear-gradient(135deg, rgba(204, 190, 255, 0.5), rgba(103, 232, 249, 0.5));
-        }
+      /* Gradient Borders */
+      .identity-border {
+        position: relative;
+        background: #090a0f;
+        background-clip: padding-box;
+        border: 1px solid transparent;
+        border-radius: 0.75rem;
+      }
+      .identity-border::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        margin: -1px;
+        border-radius: inherit;
+        background: linear-gradient(135deg, rgba(204, 190, 255, 0.5), rgba(103, 232, 249, 0.5));
+      }
     </style>
-</head>
-<body class="bg-background text-text-primary antialiased font-body min-h-screen flex flex-col pb-32 selection:bg-accent-strong selection:text-background">
-<!-- TopAppBar from JSON -->
-<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 z-50 bg-surface-2/80 backdrop-blur-xl border-b border-border">
-<div class="font-h2 text-h2 font-bold text-accent-strong tracking-tight">Becoming V2</div>
-<!-- Mobile Menu Trigger -->
-<button aria-label="Open menu" class="md:hidden text-primary focus:outline-none focus:ring-2 focus:ring-accent-strong rounded">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
-</button>
-<!-- Desktop Nav -->
-<nav class="hidden md:flex gap-6 items-center">
-<a class="font-label text-label text-primary border-b-2 border-accent-strong pb-1 hover:text-primary transition-colors duration-150" href="#">How it works</a>
-<a class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">Privacy</a>
-<a class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">Demo</a>
-<button class="font-label text-label bg-surface-2 border border-border text-primary px-4 py-2 rounded-lg hover:border-strong transition-colors">Sign In</button>
-</nav>
-</header>
-<main class="flex-grow flex flex-col px-margin-mobile">
-<!-- Hero Section -->
-<section class="mt-16 mb-24 flex flex-col items-center text-center">
-<div aria-hidden="true" class="mb-8">
-<div class="ai-orb mx-auto"></div>
-</div>
-<h1 class="font-h1-mobile text-h1-mobile md:font-h1 md:text-h1 max-w-reading-width mx-auto mb-6">
-                Eight prompts.<br/>Two paths.<br/><span class="text-accent-strong font-editorial-italic italic">One practical next step.</span>
-</h1>
-<p class="font-body-lg text-body-lg text-text-secondary max-w-[500px] mx-auto">
-                A private, guided reflection designed to clarify your identity and align your future actions.
+  </head>
+  <body
+    class="bg-background text-text-primary antialiased font-body min-h-screen flex flex-col pb-32 selection:bg-accent-strong selection:text-background"
+  >
+    <!-- TopAppBar from JSON -->
+    <header
+      class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 z-50 bg-surface-2/80 backdrop-blur-xl border-b border-border"
+    >
+      <div class="font-h2 text-h2 font-bold text-accent-strong tracking-tight">Becoming V2</div>
+      <!-- Mobile Menu Trigger -->
+      <button
+        aria-label="Open menu"
+        class="md:hidden text-primary focus:outline-none focus:ring-2 focus:ring-accent-strong rounded"
+      >
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+          >menu</span
+        >
+      </button>
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex gap-6 items-center">
+        <a
+          class="font-label text-label text-primary border-b-2 border-accent-strong pb-1 hover:text-primary transition-colors duration-150"
+          href="#"
+          >How it works</a
+        >
+        <a
+          class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150"
+          href="#"
+          >Privacy</a
+        >
+        <a
+          class="font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150"
+          href="#"
+          >Demo</a
+        >
+        <button
+          class="font-label text-label bg-surface-2 border border-border text-primary px-4 py-2 rounded-lg hover:border-strong transition-colors"
+        >
+          Sign In
+        </button>
+      </nav>
+    </header>
+    <main class="flex-grow flex flex-col px-margin-mobile">
+      <!-- Hero Section -->
+      <section class="mt-16 mb-24 flex flex-col items-center text-center">
+        <div aria-hidden="true" class="mb-8">
+          <div class="ai-orb mx-auto"></div>
+        </div>
+        <h1
+          class="font-h1-mobile text-h1-mobile md:font-h1 md:text-h1 max-w-reading-width mx-auto mb-6"
+        >
+          Eight prompts.<br />Two paths.<br /><span
+            class="text-accent-strong font-editorial-italic italic"
+            >One practical next step.</span
+          >
+        </h1>
+        <p class="font-body-lg text-body-lg text-text-secondary max-w-[500px] mx-auto">
+          A private, guided reflection designed to clarify your identity and align your future
+          actions.
+        </p>
+      </section>
+      <!-- Stepper Section -->
+      <section class="mb-32 max-w-reading-width mx-auto w-full">
+        <h2 class="font-h3 text-h3 mb-12 text-center">The Journey</h2>
+        <div class="relative border-l border-border ml-6 md:ml-12 pl-8 space-y-16">
+          <!-- Step 1 -->
+          <div class="relative">
+            <div
+              class="absolute -left-[45px] top-0 w-10 h-10 rounded-full bg-surface-1 border border-border flex items-center justify-center"
+            >
+              <span class="material-symbols-outlined text-primary text-xl">psychology</span>
+            </div>
+            <h3 class="font-h3 text-h3 mb-2">1. Reflect</h3>
+            <p class="font-body text-body text-text-secondary">
+              Answer eight carefully crafted prompts about your values, challenges, and aspirations.
             </p>
-</section>
-<!-- Stepper Section -->
-<section class="mb-32 max-w-reading-width mx-auto w-full">
-<h2 class="font-h3 text-h3 mb-12 text-center">The Journey</h2>
-<div class="relative border-l border-border ml-6 md:ml-12 pl-8 space-y-16">
-<!-- Step 1 -->
-<div class="relative">
-<div class="absolute -left-[45px] top-0 w-10 h-10 rounded-full bg-surface-1 border border-border flex items-center justify-center">
-<span class="material-symbols-outlined text-primary text-xl">psychology</span>
-</div>
-<h3 class="font-h3 text-h3 mb-2">1. Reflect</h3>
-<p class="font-body text-body text-text-secondary">
-                        Answer eight carefully crafted prompts about your values, challenges, and aspirations.
-                    </p>
-</div>
-<!-- Step 2 -->
-<div class="relative">
-<div class="absolute -left-[45px] top-0 w-10 h-10 rounded-full bg-surface-1 border border-border flex items-center justify-center">
-<span class="material-symbols-outlined text-primary text-xl">account_tree</span>
-</div>
-<h3 class="font-h3 text-h3 mb-2">2. Synthesize</h3>
-<p class="font-body text-body text-text-secondary">
-                        Our intelligence engine processes your reflections privately, identifying core themes and potential paths.
-                    </p>
-</div>
-<!-- Step 3 -->
-<div class="relative">
-<div class="absolute -left-[45px] top-0 w-10 h-10 rounded-full bg-primary-container border-2 border-accent-strong flex items-center justify-center">
-<span class="material-symbols-outlined text-on-primary-container text-xl" style="font-variation-settings: 'FILL' 1;">flag</span>
-</div>
-<h3 class="font-h3 text-h3 mb-2 text-accent-strong">3. Plan</h3>
-<p class="font-body text-body text-text-secondary">
-                        Receive a concrete blueprint mapping your abstract thoughts to practical next steps.
-                    </p>
-</div>
-</div>
-</section>
-<!-- What You Receive -->
-<section class="mb-32 w-full">
-<h2 class="font-h3 text-h3 mb-12 text-center">What You Receive</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-max-content-width mx-auto">
-<!-- Identity Card (Highlighted) -->
-<div class="identity-border p-6 md:col-span-2 md:w-2/3 md:mx-auto text-center flex flex-col items-center">
-<span class="material-symbols-outlined text-4xl text-accent-strong mb-4">fingerprint</span>
-<h3 class="font-h3 text-h3 mb-2">Identity Archetype</h3>
-<p class="font-body text-body text-text-secondary">A synthesized summary of who you are becoming, rooted in your reflections.</p>
-</div>
-<!-- Feature Cards -->
-<div class="glass-panel p-6 rounded-xl flex flex-col">
-<span class="material-symbols-outlined text-3xl text-primary mb-4">radar</span>
-<h3 class="font-body-lg text-body-lg font-semibold mb-2">Growth Radar</h3>
-<p class="font-body text-body text-text-secondary">Visual mapping of your strengths and areas needing attention.</p>
-</div>
-<div class="glass-panel p-6 rounded-xl flex flex-col">
-<span class="material-symbols-outlined text-3xl text-primary mb-4">timeline</span>
-<h3 class="font-body-lg text-body-lg font-semibold mb-2">Timeline</h3>
-<p class="font-body text-body text-text-secondary">Historical context connecting your past experiences to your current trajectory.</p>
-</div>
-<div class="glass-panel p-6 rounded-xl flex flex-col">
-<span class="material-symbols-outlined text-3xl text-primary mb-4">mail</span>
-<h3 class="font-body-lg text-body-lg font-semibold mb-2">Future Letter</h3>
-<p class="font-body text-body text-text-secondary">A generative letter written to your future self, establishing intent.</p>
-</div>
-<div class="glass-panel p-6 rounded-xl flex flex-col">
-<span class="material-symbols-outlined text-3xl text-primary mb-4">architecture</span>
-<h3 class="font-body-lg text-body-lg font-semibold mb-2">Blueprint</h3>
-<p class="font-body text-body text-text-secondary">A structured, actionable plan to execute on your synthesized insights.</p>
-</div>
-</div>
-</section>
-<!-- AI Boundaries -->
-<section class="mb-32 max-w-reading-width mx-auto w-full">
-<h2 class="font-h3 text-h3 mb-8 text-center">Our Boundaries</h2>
-<div class="flex flex-col gap-4">
-<div class="bg-surface-1 border border-border p-6 rounded-xl flex items-start gap-4">
-<span class="material-symbols-outlined text-success mt-1">check_circle</span>
-<div>
-<h4 class="font-body-lg text-body-lg font-semibold mb-1">Our Commitment</h4>
-<p class="font-body text-body text-text-secondary">Your data is yours. Reflections are processed ephemerally to generate insights and are never used to train external models.</p>
-</div>
-</div>
-<div class="bg-surface-1 border border-border p-6 rounded-xl flex items-start gap-4">
-<span class="material-symbols-outlined text-danger mt-1">block</span>
-<div>
-<h4 class="font-body-lg text-body-lg font-semibold mb-1">Our Boundaries</h4>
-<p class="font-body text-body text-text-secondary">We do not offer generic advice. The intelligence engine mirrors your own thoughts to provide structure, not solutions.</p>
-</div>
-</div>
-</div>
-</section>
-</main>
-<!-- Bottom CTA (Fixed/Sticky) -->
-<div class="fixed bottom-0 left-0 w-full z-40 bg-surface-2/90 backdrop-blur-md border-t border-border-strong p-4 flex flex-col gap-3 shadow-lg lg:hidden">
-<button class="w-full bg-primary-container text-on-primary-container font-label text-label py-4 rounded-lg font-bold hover:bg-primary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-            Start Reflection
-        </button>
-<button class="w-full bg-transparent text-primary font-label text-label py-3 rounded-lg border border-border hover:border-strong transition-colors focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-            Explore Demo
-        </button>
-</div>
-</body></html>
+          </div>
+          <!-- Step 2 -->
+          <div class="relative">
+            <div
+              class="absolute -left-[45px] top-0 w-10 h-10 rounded-full bg-surface-1 border border-border flex items-center justify-center"
+            >
+              <span class="material-symbols-outlined text-primary text-xl">account_tree</span>
+            </div>
+            <h3 class="font-h3 text-h3 mb-2">2. Synthesize</h3>
+            <p class="font-body text-body text-text-secondary">
+              Our intelligence engine processes your reflections privately, identifying core themes
+              and potential paths.
+            </p>
+          </div>
+          <!-- Step 3 -->
+          <div class="relative">
+            <div
+              class="absolute -left-[45px] top-0 w-10 h-10 rounded-full bg-primary-container border-2 border-accent-strong flex items-center justify-center"
+            >
+              <span
+                class="material-symbols-outlined text-on-primary-container text-xl"
+                style="font-variation-settings: 'FILL' 1"
+                >flag</span
+              >
+            </div>
+            <h3 class="font-h3 text-h3 mb-2 text-accent-strong">3. Plan</h3>
+            <p class="font-body text-body text-text-secondary">
+              Receive a concrete blueprint mapping your abstract thoughts to practical next steps.
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- What You Receive -->
+      <section class="mb-32 w-full">
+        <h2 class="font-h3 text-h3 mb-12 text-center">What You Receive</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-max-content-width mx-auto">
+          <!-- Identity Card (Highlighted) -->
+          <div
+            class="identity-border p-6 md:col-span-2 md:w-2/3 md:mx-auto text-center flex flex-col items-center"
+          >
+            <span class="material-symbols-outlined text-4xl text-accent-strong mb-4"
+              >fingerprint</span
+            >
+            <h3 class="font-h3 text-h3 mb-2">Identity Archetype</h3>
+            <p class="font-body text-body text-text-secondary">
+              A synthesized summary of who you are becoming, rooted in your reflections.
+            </p>
+          </div>
+          <!-- Feature Cards -->
+          <div class="glass-panel p-6 rounded-xl flex flex-col">
+            <span class="material-symbols-outlined text-3xl text-primary mb-4">radar</span>
+            <h3 class="font-body-lg text-body-lg font-semibold mb-2">Growth Radar</h3>
+            <p class="font-body text-body text-text-secondary">
+              Visual mapping of your strengths and areas needing attention.
+            </p>
+          </div>
+          <div class="glass-panel p-6 rounded-xl flex flex-col">
+            <span class="material-symbols-outlined text-3xl text-primary mb-4">timeline</span>
+            <h3 class="font-body-lg text-body-lg font-semibold mb-2">Timeline</h3>
+            <p class="font-body text-body text-text-secondary">
+              Historical context connecting your past experiences to your current trajectory.
+            </p>
+          </div>
+          <div class="glass-panel p-6 rounded-xl flex flex-col">
+            <span class="material-symbols-outlined text-3xl text-primary mb-4">mail</span>
+            <h3 class="font-body-lg text-body-lg font-semibold mb-2">Future Letter</h3>
+            <p class="font-body text-body text-text-secondary">
+              A generative letter written to your future self, establishing intent.
+            </p>
+          </div>
+          <div class="glass-panel p-6 rounded-xl flex flex-col">
+            <span class="material-symbols-outlined text-3xl text-primary mb-4">architecture</span>
+            <h3 class="font-body-lg text-body-lg font-semibold mb-2">Blueprint</h3>
+            <p class="font-body text-body text-text-secondary">
+              A structured, actionable plan to execute on your synthesized insights.
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- AI Boundaries -->
+      <section class="mb-32 max-w-reading-width mx-auto w-full">
+        <h2 class="font-h3 text-h3 mb-8 text-center">Our Boundaries</h2>
+        <div class="flex flex-col gap-4">
+          <div class="bg-surface-1 border border-border p-6 rounded-xl flex items-start gap-4">
+            <span class="material-symbols-outlined text-success mt-1">check_circle</span>
+            <div>
+              <h4 class="font-body-lg text-body-lg font-semibold mb-1">Our Commitment</h4>
+              <p class="font-body text-body text-text-secondary">
+                Your data is yours. Reflections are processed ephemerally to generate insights and
+                are never used to train external models.
+              </p>
+            </div>
+          </div>
+          <div class="bg-surface-1 border border-border p-6 rounded-xl flex items-start gap-4">
+            <span class="material-symbols-outlined text-danger mt-1">block</span>
+            <div>
+              <h4 class="font-body-lg text-body-lg font-semibold mb-1">Our Boundaries</h4>
+              <p class="font-body text-body text-text-secondary">
+                We do not offer generic advice. The intelligence engine mirrors your own thoughts to
+                provide structure, not solutions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Bottom CTA (Fixed/Sticky) -->
+    <div
+      class="fixed bottom-0 left-0 w-full z-40 bg-surface-2/90 backdrop-blur-md border-t border-border-strong p-4 flex flex-col gap-3 shadow-lg lg:hidden"
+    >
+      <button
+        class="w-full bg-primary-container text-on-primary-container font-label text-label py-4 rounded-lg font-bold hover:bg-primary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+      >
+        Start Reflection
+      </button>
+      <button
+        class="w-full bg-transparent text-primary font-label text-label py-3 rounded-lg border border-border hover:border-strong transition-colors focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+      >
+        Explore Demo
+      </button>
+    </div>
+  </body>
+</html>

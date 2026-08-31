@@ -1,320 +1,435 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Becoming V2 - Check-in</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400&amp;family=Playfair+Display:ital@1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-    tailwind.config = {
-        darkMode: "class",
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Becoming V2 - Check-in</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400&amp;family=Playfair+Display:ital@1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
         theme: {
-            extend: {
-                "colors": {
-                    "primary-container": "#67e8f9",
-                    "surface-variant": "#35343b",
-                    "on-surface-variant": "#bcc9cb",
-                    "surface-tint": "#54d8e8",
-                    "accent-strong": "#22D3EE",
-                    "primary-fixed-dim": "#54d8e8",
-                    "background": "#131319",
-                    "on-primary": "#00363c",
-                    "surface-1": "#090A0F",
-                    "surface-bright": "#39383f",
-                    "on-primary-fixed": "#001f23",
-                    "secondary": "#ccbeff",
-                    "border": "rgba(255, 255, 255, 0.12)",
-                    "on-secondary-container": "#baabf3",
-                    "on-tertiary-fixed-variant": "#5a4300",
-                    "error-container": "#93000a",
-                    "error": "#ffb4ab",
-                    "inverse-on-surface": "#303037",
-                    "success": "#86EFAC",
-                    "text-tertiary": "#94A3B8",
-                    "on-background": "#e4e1ea",
-                    "on-primary-container": "#006771",
-                    "on-secondary-fixed": "#1e0e4e",
-                    "text-primary": "#F8FAFC",
-                    "on-tertiary-fixed": "#251a00",
-                    "tertiary-fixed-dim": "#edc150",
-                    "tertiary-fixed": "#ffdf97",
-                    "surface-dim": "#131319",
-                    "outline": "#869395",
-                    "inverse-primary": "#006973",
-                    "secondary-fixed-dim": "#ccbeff",
-                    "surface-container-high": "#2a2930",
-                    "border-strong": "rgba(255, 255, 255, 0.24)",
-                    "on-error": "#690005",
-                    "inverse-surface": "#e4e1ea",
-                    "danger": "#FCA5A5",
-                    "on-tertiary-container": "#755900",
-                    "on-error-container": "#ffdad6",
-                    "tertiary-container": "#ffd15e",
-                    "on-secondary": "#332664",
-                    "primary-fixed": "#91f1ff",
-                    "surface-container-highest": "#35343b",
-                    "tertiary": "#fff2db",
-                    "on-surface": "#e4e1ea",
-                    "surface-2": "rgba(255, 255, 255, 0.05)",
-                    "text-secondary": "#CBD5E1",
-                    "outline-variant": "#3c494b",
-                    "warning": "#FCD34D",
-                    "surface-container": "#1f1f25",
-                    "surface-3": "rgba(255, 255, 255, 0.08)",
-                    "surface-container-lowest": "#0e0e14",
-                    "on-primary-fixed-variant": "#004f57",
-                    "primary": "#d5f9ff",
-                    "surface-container-low": "#1b1b21",
-                    "on-tertiary": "#3e2e00",
-                    "surface": "#131319",
-                    "on-secondary-fixed-variant": "#4a3d7c",
-                    "secondary-fixed": "#e7deff",
-                    "secondary-container": "#4a3d7c"
-                },
-                "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-                },
-                "spacing": {
-                    "reading-width": "720px",
-                    "margin-mobile": "20px",
-                    "gutter-mobile": "16px",
-                    "unit": "4px",
-                    "gutter-desktop": "32px",
-                    "max-content-width": "1200px",
-                    "margin-desktop": "64px"
-                },
-                "fontFamily": {
-                    "h2": ["Space Grotesk"],
-                    "label": ["Space Grotesk"],
-                    "h1": ["Space Grotesk"],
-                    "body": ["Inter"],
-                    "h3": ["Space Grotesk"],
-                    "h1-mobile": ["Space Grotesk"],
-                    "small": ["Inter"],
-                    "display-lg-mobile": ["Space Grotesk"],
-                    "display-xl": ["Space Grotesk"],
-                    "editorial-italic": ["Playfair Display"],
-                    "body-lg": ["Inter"],
-                    "display-xl-mobile": ["Space Grotesk"],
-                    "display-lg": ["Space Grotesk"]
-                },
-                "fontSize": {
-                    "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
-                    "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                    "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                    "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
-                    "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
-                    "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                    "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
-                    "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                    "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                    "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                    "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
-                    "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
-                    "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }]
-                }
-            }
-        }
-    }
+          extend: {
+            colors: {
+              'primary-container': '#67e8f9',
+              'surface-variant': '#35343b',
+              'on-surface-variant': '#bcc9cb',
+              'surface-tint': '#54d8e8',
+              'accent-strong': '#22D3EE',
+              'primary-fixed-dim': '#54d8e8',
+              background: '#131319',
+              'on-primary': '#00363c',
+              'surface-1': '#090A0F',
+              'surface-bright': '#39383f',
+              'on-primary-fixed': '#001f23',
+              secondary: '#ccbeff',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'on-secondary-container': '#baabf3',
+              'on-tertiary-fixed-variant': '#5a4300',
+              'error-container': '#93000a',
+              error: '#ffb4ab',
+              'inverse-on-surface': '#303037',
+              success: '#86EFAC',
+              'text-tertiary': '#94A3B8',
+              'on-background': '#e4e1ea',
+              'on-primary-container': '#006771',
+              'on-secondary-fixed': '#1e0e4e',
+              'text-primary': '#F8FAFC',
+              'on-tertiary-fixed': '#251a00',
+              'tertiary-fixed-dim': '#edc150',
+              'tertiary-fixed': '#ffdf97',
+              'surface-dim': '#131319',
+              outline: '#869395',
+              'inverse-primary': '#006973',
+              'secondary-fixed-dim': '#ccbeff',
+              'surface-container-high': '#2a2930',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'on-error': '#690005',
+              'inverse-surface': '#e4e1ea',
+              danger: '#FCA5A5',
+              'on-tertiary-container': '#755900',
+              'on-error-container': '#ffdad6',
+              'tertiary-container': '#ffd15e',
+              'on-secondary': '#332664',
+              'primary-fixed': '#91f1ff',
+              'surface-container-highest': '#35343b',
+              tertiary: '#fff2db',
+              'on-surface': '#e4e1ea',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'text-secondary': '#CBD5E1',
+              'outline-variant': '#3c494b',
+              warning: '#FCD34D',
+              'surface-container': '#1f1f25',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'surface-container-lowest': '#0e0e14',
+              'on-primary-fixed-variant': '#004f57',
+              primary: '#d5f9ff',
+              'surface-container-low': '#1b1b21',
+              'on-tertiary': '#3e2e00',
+              surface: '#131319',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              'secondary-fixed': '#e7deff',
+              'secondary-container': '#4a3d7c',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              'reading-width': '720px',
+              'margin-mobile': '20px',
+              'gutter-mobile': '16px',
+              unit: '4px',
+              'gutter-desktop': '32px',
+              'max-content-width': '1200px',
+              'margin-desktop': '64px',
+            },
+            fontFamily: {
+              h2: ['Space Grotesk'],
+              label: ['Space Grotesk'],
+              h1: ['Space Grotesk'],
+              body: ['Inter'],
+              h3: ['Space Grotesk'],
+              'h1-mobile': ['Space Grotesk'],
+              small: ['Inter'],
+              'display-lg-mobile': ['Space Grotesk'],
+              'display-xl': ['Space Grotesk'],
+              'editorial-italic': ['Playfair Display'],
+              'body-lg': ['Inter'],
+              'display-xl-mobile': ['Space Grotesk'],
+              'display-lg': ['Space Grotesk'],
+            },
+            fontSize: {
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+              'h1-mobile': ['40px', {lineHeight: '1.1', fontWeight: '600'}],
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+              'display-lg-mobile': ['48px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+              'display-xl-mobile': ['56px', {lineHeight: '1.0', fontWeight: '700'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        body {
-            background-color: theme('colors.background');
-            color: theme('colors.text-primary');
-        }
-        
-        /* Custom scrollbar for textareas */
-        textarea::-webkit-scrollbar {
-            width: 8px;
-        }
-        textarea::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        textarea::-webkit-scrollbar-thumb {
-            background-color: theme('colors.surface-3');
-            border-radius: 4px;
-        }
-        
-        /* Transition utility for segmented controls */
-        .segmented-transition {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    <style>
+      body {
+        background-color: theme('colors.background');
+        color: theme('colors.text-primary');
+      }
+
+      /* Custom scrollbar for textareas */
+      textarea::-webkit-scrollbar {
+        width: 8px;
+      }
+      textarea::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      textarea::-webkit-scrollbar-thumb {
+        background-color: theme('colors.surface-3');
+        border-radius: 4px;
+      }
+
+      /* Transition utility for segmented controls */
+      .segmented-transition {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
     </style>
-</head>
-<body class="min-h-screen flex flex-col font-body antialiased">
-<!-- TopAppBar Authenticated -->
-<header class="bg-surface dark:bg-surface border-b border-border flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 sticky top-0 z-50">
-<div class="flex items-center gap-8">
-<span class="font-h3 text-h3 font-bold text-accent-strong">Becoming V2</span>
-<!-- Navigation Links -->
-<nav class="hidden md:flex items-center gap-6">
-<a class="font-label text-label text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-2 transition-all" href="#">Dashboard</a>
-<a class="font-label text-label text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-2 transition-all" href="#">New Reflection</a>
-<a class="font-label text-label text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-2 transition-all" href="#">History</a>
-</nav>
-</div>
-<div class="flex items-center gap-4">
-<button aria-label="notifications" class="text-primary dark:text-primary hover:bg-surface-3 p-2 rounded-lg transition-all">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-<button aria-label="settings" class="text-primary dark:text-primary hover:bg-surface-3 p-2 rounded-lg transition-all">
-<span class="material-symbols-outlined">settings</span>
-</button>
-<div class="w-8 h-8 rounded-full overflow-hidden border border-border">
-<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A softly lit profile avatar of a person against a minimalist dark background, cinematic clarity style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVQGdVLkSoVMTHQE5vvjzDdO1s5QDbDdRDGxyMNzAr9F9GGGr6wGrGFVNOXOf3-e4dndnfqvBoII-iZ70zffP7K56hhRCj0_8giHPER1_dm5GbyqJff1m6cIodjbe0gcBCSvLzcL-jGY4tRI4ZIrJdUk-0r-6a8VGmbzQEVhxCyY21UqllTZ6ic6_g5qWNS3Uz_9YlJ5lwaje8g96Law4jJfKqhqrT2wZIwlbIwkXkG7zljAiWvh347Q"/>
-</div>
-</div>
-</header>
-<!-- Context Banner -->
-<div class="w-full bg-surface-2 backdrop-blur-md border-b border-border py-4">
-<div class="max-w-[720px] mx-auto px-margin-mobile md:px-0 flex items-center gap-3">
-<span class="material-symbols-outlined text-accent-strong opacity-80" style="font-variation-settings: 'FILL' 1;">insights</span>
-<p class="font-small text-small text-text-secondary">
-                Check-in for: <span class="text-text-primary font-medium">The Divergent Architect</span> • Analyzed on Oct 24, 2023
-            </p>
-</div>
-</div>
-<!-- Main Content Canvas -->
-<main class="flex-grow w-full max-w-[720px] mx-auto px-margin-mobile md:px-0 py-12 md:py-24 flex flex-col gap-16">
-<!-- Header -->
-<div class="flex flex-col gap-4">
-<h1 class="font-h1 text-h1-mobile md:text-h1">Weekly Check-in</h1>
-<p class="font-body-lg text-body-lg text-text-secondary max-w-2xl">
-                Take a moment to ground yourself. Reflect on your progress toward your identified paths and current mental state.
-            </p>
-</div>
-<!-- Section 1: Micro-Habits -->
-<section class="flex flex-col gap-8">
-<h2 class="font-h3 text-h3 border-b border-border pb-4">Your Micro-Habits</h2>
-<div class="flex flex-col gap-4">
-<!-- Habit Item 1 -->
-<div class="bg-surface-1 border border-border p-5 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-<div class="flex flex-col gap-1 max-w-sm">
-<span class="font-body text-body text-text-primary">Morning grounding routine</span>
-<span class="font-small text-small text-text-secondary">15 mins before screens</span>
-</div>
-<div class="flex bg-surface-2 p-1 rounded-lg border border-border">
-<button aria-pressed="true" class="segmented-transition px-4 py-2 font-label text-label rounded-md bg-surface-3 text-text-primary shadow-sm">
-                            Not Started
-                        </button>
-<button aria-pressed="false" class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary">
-                            In Progress
-                        </button>
-<button aria-pressed="false" class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary">
-                            Completed
-                        </button>
-</div>
-</div>
-<!-- Habit Item 2 -->
-<div class="bg-surface-1 border border-border p-5 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-<div class="flex flex-col gap-1 max-w-sm">
-<span class="font-body text-body text-text-primary">Deep work blocks</span>
-<span class="font-small text-small text-text-secondary">2x 90min sessions daily</span>
-</div>
-<div class="flex bg-surface-2 p-1 rounded-lg border border-border">
-<button aria-pressed="false" class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary">
-                            Not Started
-                        </button>
-<button aria-pressed="true" class="segmented-transition px-4 py-2 font-label text-label rounded-md bg-[#FCD34D]/20 text-[#FCD34D] border border-[#FCD34D]/30 shadow-sm">
-                            In Progress
-                        </button>
-<button aria-pressed="false" class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary">
-                            Completed
-                        </button>
-</div>
-</div>
-<!-- Habit Item 3 -->
-<div class="bg-surface-1 border border-border p-5 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-<div class="flex flex-col gap-1 max-w-sm">
-<span class="font-body text-body text-text-primary">Evening reflection</span>
-<span class="font-small text-small text-text-secondary">Review daily friction points</span>
-</div>
-<div class="flex bg-surface-2 p-1 rounded-lg border border-border">
-<button aria-pressed="false" class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary">
-                            Not Started
-                        </button>
-<button aria-pressed="false" class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary">
-                            In Progress
-                        </button>
-<button aria-pressed="true" class="segmented-transition px-4 py-2 font-label text-label rounded-md bg-success/20 text-success border border-success/30 shadow-sm">
-                            Completed
-                        </button>
-</div>
-</div>
-</div>
-</section>
-<!-- Section 2: Mental Clarity -->
-<section class="flex flex-col gap-8">
-<h2 class="font-h3 text-h3 border-b border-border pb-4">Mental Clarity</h2>
-<div class="bg-surface-1 border border-border p-8 rounded-xl flex flex-col gap-8 items-center">
-<div class="flex justify-between w-full max-w-md relative">
-<!-- Connecting line -->
-<div class="absolute top-1/2 left-0 right-0 h-[2px] bg-surface-3 -translate-y-1/2 z-0"></div>
-<!-- Scale points -->
-<button class="relative z-10 w-12 h-12 rounded-full bg-surface-2 border border-border flex items-center justify-center font-h3 text-h3 text-text-tertiary hover:border-accent-strong hover:text-accent-strong transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-                        1
-                    </button>
-<button class="relative z-10 w-12 h-12 rounded-full bg-surface-2 border border-border flex items-center justify-center font-h3 text-h3 text-text-tertiary hover:border-accent-strong hover:text-accent-strong transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-                        2
-                    </button>
-<button aria-current="true" class="relative z-10 w-14 h-14 rounded-full bg-surface-3 border-2 border-accent-strong flex items-center justify-center font-h2 text-h2 text-accent-strong shadow-[0_0_15px_rgba(34,211,238,0.2)] transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-                        3
-                    </button>
-<button class="relative z-10 w-12 h-12 rounded-full bg-surface-2 border border-border flex items-center justify-center font-h3 text-h3 text-text-tertiary hover:border-accent-strong hover:text-accent-strong transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-                        4
-                    </button>
-<button class="relative z-10 w-12 h-12 rounded-full bg-surface-2 border border-border flex items-center justify-center font-h3 text-h3 text-text-tertiary hover:border-accent-strong hover:text-accent-strong transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-                        5
-                    </button>
-</div>
-<div class="flex justify-between w-full max-w-md px-2">
-<span class="font-label text-label text-text-secondary">Foggy</span>
-<span class="font-label text-label text-accent-strong">Steady</span>
-<span class="font-label text-label text-text-secondary">Grounded</span>
-</div>
-</div>
-</section>
-<!-- Section 3: Reflection Notes -->
-<section class="flex flex-col gap-6">
-<div class="flex flex-col gap-2">
-<h2 class="font-h3 text-h3">Reflection Notes</h2>
-<label class="font-small text-small text-text-secondary" for="reflection-text">What worked this week? What caused friction?</label>
-</div>
-<div class="relative group">
-<textarea class="w-full bg-surface-1 border border-border rounded-xl p-5 font-body text-body text-text-primary placeholder:text-text-tertiary focus:border-accent-strong focus:ring-0 focus:outline-none transition-colors resize-none shadow-inner" id="reflection-text" maxlength="1000" placeholder="Begin typing your reflections here..." rows="6"></textarea>
-<!-- Character count -->
-<div class="absolute bottom-4 right-4 font-small text-small text-text-tertiary group-focus-within:text-accent-strong transition-colors">
-                    0 / 1000
-                </div>
-</div>
-</section>
-</main>
-<!-- Bottom Action Footer -->
-<footer class="w-full bg-surface-1/80 backdrop-blur-xl border-t border-border mt-auto sticky bottom-0 z-40">
-<div class="max-w-[720px] mx-auto px-margin-mobile md:px-0 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
-<div class="flex items-center gap-3 text-text-tertiary">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lock</span>
-<span class="font-small text-small">Saved privately to your personal history</span>
-</div>
-<button class="w-full md:w-auto bg-primary-container text-on-primary-container font-label text-label px-8 py-4 rounded-lg hover:bg-surface-tint hover:scale-[0.98] transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-                Save Check-in Progress
+  </head>
+  <body class="min-h-screen flex flex-col font-body antialiased">
+    <!-- TopAppBar Authenticated -->
+    <header
+      class="bg-surface dark:bg-surface border-b border-border flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 sticky top-0 z-50"
+    >
+      <div class="flex items-center gap-8">
+        <span class="font-h3 text-h3 font-bold text-accent-strong">Becoming V2</span>
+        <!-- Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6">
+          <a
+            class="font-label text-label text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-2 transition-all"
+            href="#"
+            >Dashboard</a
+          >
+          <a
+            class="font-label text-label text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-2 transition-all"
+            href="#"
+            >New Reflection</a
+          >
+          <a
+            class="font-label text-label text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-2 transition-all"
+            href="#"
+            >History</a
+          >
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <button
+          aria-label="notifications"
+          class="text-primary dark:text-primary hover:bg-surface-3 p-2 rounded-lg transition-all"
+        >
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button
+          aria-label="settings"
+          class="text-primary dark:text-primary hover:bg-surface-3 p-2 rounded-lg transition-all"
+        >
+          <span class="material-symbols-outlined">settings</span>
+        </button>
+        <div class="w-8 h-8 rounded-full overflow-hidden border border-border">
+          <img
+            alt="User profile avatar"
+            class="w-full h-full object-cover"
+            data-alt="A softly lit profile avatar of a person against a minimalist dark background, cinematic clarity style."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVQGdVLkSoVMTHQE5vvjzDdO1s5QDbDdRDGxyMNzAr9F9GGGr6wGrGFVNOXOf3-e4dndnfqvBoII-iZ70zffP7K56hhRCj0_8giHPER1_dm5GbyqJff1m6cIodjbe0gcBCSvLzcL-jGY4tRI4ZIrJdUk-0r-6a8VGmbzQEVhxCyY21UqllTZ6ic6_g5qWNS3Uz_9YlJ5lwaje8g96Law4jJfKqhqrT2wZIwlbIwkXkG7zljAiWvh347Q"
+          />
+        </div>
+      </div>
+    </header>
+    <!-- Context Banner -->
+    <div class="w-full bg-surface-2 backdrop-blur-md border-b border-border py-4">
+      <div class="max-w-[720px] mx-auto px-margin-mobile md:px-0 flex items-center gap-3">
+        <span
+          class="material-symbols-outlined text-accent-strong opacity-80"
+          style="font-variation-settings: 'FILL' 1"
+          >insights</span
+        >
+        <p class="font-small text-small text-text-secondary">
+          Check-in for: <span class="text-text-primary font-medium">The Divergent Architect</span> •
+          Analyzed on Oct 24, 2023
+        </p>
+      </div>
+    </div>
+    <!-- Main Content Canvas -->
+    <main
+      class="flex-grow w-full max-w-[720px] mx-auto px-margin-mobile md:px-0 py-12 md:py-24 flex flex-col gap-16"
+    >
+      <!-- Header -->
+      <div class="flex flex-col gap-4">
+        <h1 class="font-h1 text-h1-mobile md:text-h1">Weekly Check-in</h1>
+        <p class="font-body-lg text-body-lg text-text-secondary max-w-2xl">
+          Take a moment to ground yourself. Reflect on your progress toward your identified paths
+          and current mental state.
+        </p>
+      </div>
+      <!-- Section 1: Micro-Habits -->
+      <section class="flex flex-col gap-8">
+        <h2 class="font-h3 text-h3 border-b border-border pb-4">Your Micro-Habits</h2>
+        <div class="flex flex-col gap-4">
+          <!-- Habit Item 1 -->
+          <div
+            class="bg-surface-1 border border-border p-5 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4"
+          >
+            <div class="flex flex-col gap-1 max-w-sm">
+              <span class="font-body text-body text-text-primary">Morning grounding routine</span>
+              <span class="font-small text-small text-text-secondary">15 mins before screens</span>
+            </div>
+            <div class="flex bg-surface-2 p-1 rounded-lg border border-border">
+              <button
+                aria-pressed="true"
+                class="segmented-transition px-4 py-2 font-label text-label rounded-md bg-surface-3 text-text-primary shadow-sm"
+              >
+                Not Started
+              </button>
+              <button
+                aria-pressed="false"
+                class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary"
+              >
+                In Progress
+              </button>
+              <button
+                aria-pressed="false"
+                class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary"
+              >
+                Completed
+              </button>
+            </div>
+          </div>
+          <!-- Habit Item 2 -->
+          <div
+            class="bg-surface-1 border border-border p-5 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4"
+          >
+            <div class="flex flex-col gap-1 max-w-sm">
+              <span class="font-body text-body text-text-primary">Deep work blocks</span>
+              <span class="font-small text-small text-text-secondary">2x 90min sessions daily</span>
+            </div>
+            <div class="flex bg-surface-2 p-1 rounded-lg border border-border">
+              <button
+                aria-pressed="false"
+                class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary"
+              >
+                Not Started
+              </button>
+              <button
+                aria-pressed="true"
+                class="segmented-transition px-4 py-2 font-label text-label rounded-md bg-[#FCD34D]/20 text-[#FCD34D] border border-[#FCD34D]/30 shadow-sm"
+              >
+                In Progress
+              </button>
+              <button
+                aria-pressed="false"
+                class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary"
+              >
+                Completed
+              </button>
+            </div>
+          </div>
+          <!-- Habit Item 3 -->
+          <div
+            class="bg-surface-1 border border-border p-5 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4"
+          >
+            <div class="flex flex-col gap-1 max-w-sm">
+              <span class="font-body text-body text-text-primary">Evening reflection</span>
+              <span class="font-small text-small text-text-secondary"
+                >Review daily friction points</span
+              >
+            </div>
+            <div class="flex bg-surface-2 p-1 rounded-lg border border-border">
+              <button
+                aria-pressed="false"
+                class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary"
+              >
+                Not Started
+              </button>
+              <button
+                aria-pressed="false"
+                class="segmented-transition px-4 py-2 font-label text-label rounded-md text-text-tertiary hover:text-text-primary"
+              >
+                In Progress
+              </button>
+              <button
+                aria-pressed="true"
+                class="segmented-transition px-4 py-2 font-label text-label rounded-md bg-success/20 text-success border border-success/30 shadow-sm"
+              >
+                Completed
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Section 2: Mental Clarity -->
+      <section class="flex flex-col gap-8">
+        <h2 class="font-h3 text-h3 border-b border-border pb-4">Mental Clarity</h2>
+        <div
+          class="bg-surface-1 border border-border p-8 rounded-xl flex flex-col gap-8 items-center"
+        >
+          <div class="flex justify-between w-full max-w-md relative">
+            <!-- Connecting line -->
+            <div
+              class="absolute top-1/2 left-0 right-0 h-[2px] bg-surface-3 -translate-y-1/2 z-0"
+            ></div>
+            <!-- Scale points -->
+            <button
+              class="relative z-10 w-12 h-12 rounded-full bg-surface-2 border border-border flex items-center justify-center font-h3 text-h3 text-text-tertiary hover:border-accent-strong hover:text-accent-strong transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+            >
+              1
             </button>
-</div>
-</footer>
-<script>
-        // Simple character counter logic
-        const textarea = document.getElementById('reflection-text');
-        const charCount = textarea.nextElementSibling;
-        
-        textarea.addEventListener('input', function() {
-            const currentLength = this.value.length;
-            charCount.textContent = `${currentLength} / 1000`;
-        });
+            <button
+              class="relative z-10 w-12 h-12 rounded-full bg-surface-2 border border-border flex items-center justify-center font-h3 text-h3 text-text-tertiary hover:border-accent-strong hover:text-accent-strong transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+            >
+              2
+            </button>
+            <button
+              aria-current="true"
+              class="relative z-10 w-14 h-14 rounded-full bg-surface-3 border-2 border-accent-strong flex items-center justify-center font-h2 text-h2 text-accent-strong shadow-[0_0_15px_rgba(34,211,238,0.2)] transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+            >
+              3
+            </button>
+            <button
+              class="relative z-10 w-12 h-12 rounded-full bg-surface-2 border border-border flex items-center justify-center font-h3 text-h3 text-text-tertiary hover:border-accent-strong hover:text-accent-strong transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+            >
+              4
+            </button>
+            <button
+              class="relative z-10 w-12 h-12 rounded-full bg-surface-2 border border-border flex items-center justify-center font-h3 text-h3 text-text-tertiary hover:border-accent-strong hover:text-accent-strong transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+            >
+              5
+            </button>
+          </div>
+          <div class="flex justify-between w-full max-w-md px-2">
+            <span class="font-label text-label text-text-secondary">Foggy</span>
+            <span class="font-label text-label text-accent-strong">Steady</span>
+            <span class="font-label text-label text-text-secondary">Grounded</span>
+          </div>
+        </div>
+      </section>
+      <!-- Section 3: Reflection Notes -->
+      <section class="flex flex-col gap-6">
+        <div class="flex flex-col gap-2">
+          <h2 class="font-h3 text-h3">Reflection Notes</h2>
+          <label class="font-small text-small text-text-secondary" for="reflection-text"
+            >What worked this week? What caused friction?</label
+          >
+        </div>
+        <div class="relative group">
+          <textarea
+            class="w-full bg-surface-1 border border-border rounded-xl p-5 font-body text-body text-text-primary placeholder:text-text-tertiary focus:border-accent-strong focus:ring-0 focus:outline-none transition-colors resize-none shadow-inner"
+            id="reflection-text"
+            maxlength="1000"
+            placeholder="Begin typing your reflections here..."
+            rows="6"
+          ></textarea>
+          <!-- Character count -->
+          <div
+            class="absolute bottom-4 right-4 font-small text-small text-text-tertiary group-focus-within:text-accent-strong transition-colors"
+          >
+            0 / 1000
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Bottom Action Footer -->
+    <footer
+      class="w-full bg-surface-1/80 backdrop-blur-xl border-t border-border mt-auto sticky bottom-0 z-40"
+    >
+      <div
+        class="max-w-[720px] mx-auto px-margin-mobile md:px-0 py-6 flex flex-col md:flex-row items-center justify-between gap-6"
+      >
+        <div class="flex items-center gap-3 text-text-tertiary">
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1"
+            >lock</span
+          >
+          <span class="font-small text-small">Saved privately to your personal history</span>
+        </div>
+        <button
+          class="w-full md:w-auto bg-primary-container text-on-primary-container font-label text-label px-8 py-4 rounded-lg hover:bg-surface-tint hover:scale-[0.98] transition-all focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+        >
+          Save Check-in Progress
+        </button>
+      </div>
+    </footer>
+    <script>
+      // Simple character counter logic
+      const textarea = document.getElementById('reflection-text');
+      const charCount = textarea.nextElementSibling;
+
+      textarea.addEventListener('input', function () {
+        const currentLength = this.value.length;
+        charCount.textContent = `${currentLength} / 1000`;
+      });
     </script>
-</body></html>
+  </body>
+</html>

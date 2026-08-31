@@ -1,276 +1,370 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Dashboard - Analysis Status</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Playfair+Display:ital@0;1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "outline": "#869395",
-                        "primary-container": "#67e8f9",
-                        "on-tertiary": "#3e2e00",
-                        "surface-container-high": "#2a2930",
-                        "surface-2": "rgba(255, 255, 255, 0.05)",
-                        "text-tertiary": "#94A3B8",
-                        "on-primary": "#00363c",
-                        "on-tertiary-fixed": "#251a00",
-                        "primary": "#d5f9ff",
-                        "text-primary": "#F8FAFC",
-                        "surface-dim": "#131319",
-                        "accent-strong": "#22D3EE",
-                        "on-tertiary-container": "#755900",
-                        "text-secondary": "#CBD5E1",
-                        "inverse-primary": "#006973",
-                        "success": "#86EFAC",
-                        "surface-bright": "#39383f",
-                        "surface-container-lowest": "#0e0e14",
-                        "border-strong": "rgba(255, 255, 255, 0.24)",
-                        "surface-3": "rgba(255, 255, 255, 0.08)",
-                        "tertiary-container": "#ffd15e",
-                        "tertiary-fixed-dim": "#edc150",
-                        "surface-container-low": "#1b1b21",
-                        "inverse-on-surface": "#303037",
-                        "on-error": "#690005",
-                        "outline-variant": "#3c494b",
-                        "on-surface-variant": "#bcc9cb",
-                        "tertiary": "#fff2db",
-                        "inverse-surface": "#e4e1ea",
-                        "border": "rgba(255, 255, 255, 0.12)",
-                        "primary-fixed": "#91f1ff",
-                        "on-secondary": "#332664",
-                        "surface-container": "#1f1f25",
-                        "primary-fixed-dim": "#54d8e8",
-                        "background": "#131319",
-                        "on-secondary-fixed-variant": "#4a3d7c",
-                        "on-secondary-fixed": "#1e0e4e",
-                        "secondary-container": "#4a3d7c",
-                        "tertiary-fixed": "#ffdf97",
-                        "on-background": "#e4e1ea",
-                        "danger": "#FCA5A5",
-                        "on-secondary-container": "#baabf3",
-                        "secondary-fixed": "#e7deff",
-                        "on-surface": "#e4e1ea",
-                        "surface-1": "#090A0F",
-                        "on-primary-fixed": "#001f23",
-                        "surface-container-highest": "#35343b",
-                        "error-container": "#93000a",
-                        "warning": "#FCD34D",
-                        "on-primary-container": "#006771",
-                        "secondary": "#ccbeff",
-                        "on-primary-fixed-variant": "#004f57",
-                        "error": "#ffb4ab",
-                        "on-tertiary-fixed-variant": "#5a4300",
-                        "surface": "#131319",
-                        "surface-variant": "#35343b",
-                        "surface-tint": "#54d8e8",
-                        "secondary-fixed-dim": "#ccbeff",
-                        "on-error-container": "#ffdad6"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "unit": "4px",
-                        "margin-mobile": "20px",
-                        "reading-width": "720px",
-                        "margin-desktop": "64px",
-                        "gutter-desktop": "32px",
-                        "gutter-mobile": "16px",
-                        "max-content-width": "1200px"
-                    },
-                    "fontFamily": {
-                        "h1": ["Space Grotesk"],
-                        "body-lg": ["Inter"],
-                        "display-xl-mobile": ["Space Grotesk"],
-                        "h3": ["Space Grotesk"],
-                        "display-lg-mobile": ["Space Grotesk"],
-                        "body": ["Inter"],
-                        "display-xl": ["Space Grotesk"],
-                        "editorial-italic": ["Playfair Display"],
-                        "h2": ["Space Grotesk"],
-                        "display-lg": ["Space Grotesk"],
-                        "label": ["Space Grotesk"],
-                        "h1-mobile": ["Space Grotesk"],
-                        "small": ["Inter"]
-                    },
-                    "fontSize": {
-                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
-                        "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
-                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
-                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
-                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
-                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }]
-                    }
-                }
-            }
-        }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Dashboard - Analysis Status</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Playfair+Display:ital@0;1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              outline: '#869395',
+              'primary-container': '#67e8f9',
+              'on-tertiary': '#3e2e00',
+              'surface-container-high': '#2a2930',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'text-tertiary': '#94A3B8',
+              'on-primary': '#00363c',
+              'on-tertiary-fixed': '#251a00',
+              primary: '#d5f9ff',
+              'text-primary': '#F8FAFC',
+              'surface-dim': '#131319',
+              'accent-strong': '#22D3EE',
+              'on-tertiary-container': '#755900',
+              'text-secondary': '#CBD5E1',
+              'inverse-primary': '#006973',
+              success: '#86EFAC',
+              'surface-bright': '#39383f',
+              'surface-container-lowest': '#0e0e14',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'tertiary-container': '#ffd15e',
+              'tertiary-fixed-dim': '#edc150',
+              'surface-container-low': '#1b1b21',
+              'inverse-on-surface': '#303037',
+              'on-error': '#690005',
+              'outline-variant': '#3c494b',
+              'on-surface-variant': '#bcc9cb',
+              tertiary: '#fff2db',
+              'inverse-surface': '#e4e1ea',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'primary-fixed': '#91f1ff',
+              'on-secondary': '#332664',
+              'surface-container': '#1f1f25',
+              'primary-fixed-dim': '#54d8e8',
+              background: '#131319',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              'on-secondary-fixed': '#1e0e4e',
+              'secondary-container': '#4a3d7c',
+              'tertiary-fixed': '#ffdf97',
+              'on-background': '#e4e1ea',
+              danger: '#FCA5A5',
+              'on-secondary-container': '#baabf3',
+              'secondary-fixed': '#e7deff',
+              'on-surface': '#e4e1ea',
+              'surface-1': '#090A0F',
+              'on-primary-fixed': '#001f23',
+              'surface-container-highest': '#35343b',
+              'error-container': '#93000a',
+              warning: '#FCD34D',
+              'on-primary-container': '#006771',
+              secondary: '#ccbeff',
+              'on-primary-fixed-variant': '#004f57',
+              error: '#ffb4ab',
+              'on-tertiary-fixed-variant': '#5a4300',
+              surface: '#131319',
+              'surface-variant': '#35343b',
+              'surface-tint': '#54d8e8',
+              'secondary-fixed-dim': '#ccbeff',
+              'on-error-container': '#ffdad6',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              unit: '4px',
+              'margin-mobile': '20px',
+              'reading-width': '720px',
+              'margin-desktop': '64px',
+              'gutter-desktop': '32px',
+              'gutter-mobile': '16px',
+              'max-content-width': '1200px',
+            },
+            fontFamily: {
+              h1: ['Space Grotesk'],
+              'body-lg': ['Inter'],
+              'display-xl-mobile': ['Space Grotesk'],
+              h3: ['Space Grotesk'],
+              'display-lg-mobile': ['Space Grotesk'],
+              body: ['Inter'],
+              'display-xl': ['Space Grotesk'],
+              'editorial-italic': ['Playfair Display'],
+              h2: ['Space Grotesk'],
+              'display-lg': ['Space Grotesk'],
+              label: ['Space Grotesk'],
+              'h1-mobile': ['Space Grotesk'],
+              small: ['Inter'],
+            },
+            fontSize: {
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+              'display-xl-mobile': ['56px', {lineHeight: '1.0', fontWeight: '700'}],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+              'display-lg-mobile': ['48px', {lineHeight: '1.1', fontWeight: '600'}],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+              'h1-mobile': ['40px', {lineHeight: '1.1', fontWeight: '600'}],
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        body {
-            background-color: #020205; /* The Canvas */
-            color: #F8FAFC;
-        }
-        .glass-panel {
-            background-color: rgba(255, 255, 255, 0.05); /* surface-2 */
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12); /* default border */
-        }
-        
-        .pulse-orb {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #67E8F9;
-            box-shadow: 0 0 10px #67E8F9, 0 0 20px #67E8F9;
-            animation: pulse 2s infinite ease-in-out;
-        }
+    <style>
+      body {
+        background-color: #020205; /* The Canvas */
+        color: #f8fafc;
+      }
+      .glass-panel {
+        background-color: rgba(255, 255, 255, 0.05); /* surface-2 */
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12); /* default border */
+      }
 
-        @keyframes pulse {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.8); opacity: 0.5; }
-        }
+      .pulse-orb {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #67e8f9;
+        box-shadow:
+          0 0 10px #67e8f9,
+          0 0 20px #67e8f9;
+        animation: pulse 2s infinite ease-in-out;
+      }
 
-        .error-orb {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #ffb4ab;
-            box-shadow: 0 0 10px #ffb4ab;
+      @keyframes pulse {
+        0% {
+          transform: scale(0.8);
+          opacity: 0.5;
         }
+        50% {
+          transform: scale(1.2);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0.8);
+          opacity: 0.5;
+        }
+      }
+
+      .error-orb {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #ffb4ab;
+        box-shadow: 0 0 10px #ffb4ab;
+      }
     </style>
-</head>
-<body class="min-h-screen flex flex-col font-body antialiased selection:bg-primary-container selection:text-on-primary">
-<!-- TopAppBar -->
-<header class="bg-surface dark:bg-surface text-primary dark:text-primary font-label text-label flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 sticky top-0 z-50 border-b border-border flat no shadows">
-<div class="flex items-center gap-8">
-<span class="font-h3 text-h3 font-bold text-accent-strong">Becoming V2</span>
-<nav class="hidden md:flex gap-6 items-center">
-<a class="text-primary font-bold hover:bg-surface-3 rounded-lg px-3 py-1 transition-all scale-98" href="#">Dashboard</a>
-<a class="text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-1 transition-colors duration-150" href="#">New Reflection</a>
-<a class="text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-1 transition-colors duration-150" href="#">History</a>
-</nav>
-</div>
-<div class="flex items-center gap-4">
-<button class="text-on-surface-variant hover:bg-surface-3 rounded-lg p-2 transition-colors duration-150">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-</button>
-<button class="text-on-surface-variant hover:bg-surface-3 rounded-lg p-2 transition-colors duration-150">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-</button>
-<div class="w-8 h-8 rounded-full overflow-hidden border border-border cursor-pointer">
-<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A cinematic, moody portrait of a user avatar in a minimal dark setting, dramatic rim lighting highlighting the silhouette, sophisticated and calm atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBODiFIh44Pt9i_rHU2eOuOpSMEebFdyyjkiGi5kYEqG2Vg7hLMz1Y-3QdlHndqQG56gl-pA52OLgY3_WLdqIkPlx1csvN9MsoxEwckP4A9QNYLymbd3QK-gIQckrOPd4cKWKhDuubKzn-U9Xwi4IlJC8laxDndDawYoTEom1egS3DXNqsm_f1DMbM_iA57qnh-zGFWcYwQlfKZDxI4yKJ3Ii5Pc52qLQc6rty8ZoSX3fiZY6yH-3w0SA"/>
-</div>
-</div>
-</header>
-<main class="flex-1 w-full max-w-max-content-width mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-gutter-mobile md:gap-gutter-desktop">
-<!-- Left Column: Status Cards -->
-<div class="md:col-span-8 flex flex-col gap-6">
-<div class="mb-8">
-<h1 class="font-h2 text-h2 text-text-primary mb-2">Analysis Status</h1>
-<p class="font-body-lg text-body-lg text-text-secondary">Track the progress of your recent reflections.</p>
-</div>
-<!-- Pending State Card -->
-<div class="glass-panel rounded-xl p-8 flex flex-col gap-6 relative overflow-hidden group hover:border-strong transition-colors duration-300">
-<!-- Subtle background gradient hint -->
-<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
-<div class="flex items-start justify-between">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-lg bg-surface-3 flex items-center justify-center border border-border">
-<span class="material-symbols-outlined text-accent-strong" data-icon="memory">memory</span>
-</div>
-<div>
-<h3 class="font-h3 text-h3 text-text-primary">Identity Synthesis V4</h3>
-<p class="font-small text-small text-text-tertiary">Started 12 mins ago</p>
-</div>
-</div>
-<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-3 border border-border">
-<div aria-hidden="true" class="pulse-orb"></div>
-<span class="font-label text-label text-accent-strong tracking-wide uppercase">Processing</span>
-</div>
-</div>
-<div class="py-4 border-y border-border/50">
-<p class="font-body text-body text-text-secondary">
-                        Your analysis is synthesizing... We are currently connecting themes from your "Paths" module to generate deeper insights.
-                    </p>
-<!-- Progress visualization -->
-<div class="mt-6 flex gap-1 h-1.5 w-full rounded-full overflow-hidden bg-surface-3">
-<div class="w-1/4 h-full bg-accent-strong/40"></div>
-<div class="w-1/4 h-full bg-accent-strong/60"></div>
-<div class="w-1/4 h-full bg-accent-strong relative overflow-hidden">
-<div class="absolute inset-0 bg-white/20 animate-pulse"></div>
-</div>
-<div class="w-1/4 h-full bg-transparent"></div>
-</div>
-</div>
-<div class="flex justify-end pt-2">
-<button class="font-label text-label text-accent-strong flex items-center gap-2 hover:text-primary transition-colors group-hover:translate-x-1 duration-200">
-                        Resume Processing <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
-</button>
-</div>
-</div>
-<!-- Failed State Card -->
-<div class="glass-panel rounded-xl p-8 flex flex-col gap-6 relative overflow-hidden group border-danger/30 hover:border-danger/50 transition-colors duration-300">
-<div class="absolute top-0 right-0 w-64 h-64 bg-error/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
-<div class="flex items-start justify-between">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-lg bg-error-container/20 flex items-center justify-center border border-error/20">
-<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
-</div>
-<div>
-<h3 class="font-h3 text-h3 text-text-primary">Timeline Reflection</h3>
-<p class="font-small text-small text-text-tertiary">Failed 2 hours ago</p>
-</div>
-</div>
-<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-error-container/20 border border-error/20">
-<div aria-hidden="true" class="error-orb"></div>
-<span class="font-label text-label text-error tracking-wide uppercase">Needs Attention</span>
-</div>
-</div>
-<div class="py-4 border-y border-border/50">
-<p class="font-body text-body text-text-secondary">
-                        The synthesis process encountered an interruption. Your raw answers are safely stored, but we couldn't complete the AI analysis.
-                    </p>
-</div>
-<div class="flex justify-end pt-2">
-<button class="px-6 py-3 rounded-lg bg-surface-2 border border-border text-text-primary font-label text-label hover:border-danger/50 hover:bg-surface-3 transition-all flex items-center gap-2">
-<span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span> Retry synthesis without losing answers
-                    </button>
-</div>
-</div>
-</div>
-<!-- Right Column: Supplemental Info (Optional layout balance) -->
-<div class="md:col-span-4 hidden md:flex flex-col gap-6 pt-[120px]">
-<div class="glass-panel rounded-xl p-6">
-<h4 class="font-label text-label text-text-tertiary uppercase tracking-wider mb-4">System Status</h4>
-<div class="flex items-center gap-3 mb-4">
-<span class="material-symbols-outlined text-success" data-icon="check_circle">check_circle</span>
-<span class="font-small text-small text-text-secondary">Neural Engine Online</span>
-</div>
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-success" data-icon="check_circle">check_circle</span>
-<span class="font-small text-small text-text-secondary">Data Vault Secured</span>
-</div>
-</div>
-</div>
-</main>
-</body></html>
+  </head>
+  <body
+    class="min-h-screen flex flex-col font-body antialiased selection:bg-primary-container selection:text-on-primary"
+  >
+    <!-- TopAppBar -->
+    <header
+      class="bg-surface dark:bg-surface text-primary dark:text-primary font-label text-label flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 sticky top-0 z-50 border-b border-border flat no shadows"
+    >
+      <div class="flex items-center gap-8">
+        <span class="font-h3 text-h3 font-bold text-accent-strong">Becoming V2</span>
+        <nav class="hidden md:flex gap-6 items-center">
+          <a
+            class="text-primary font-bold hover:bg-surface-3 rounded-lg px-3 py-1 transition-all scale-98"
+            href="#"
+            >Dashboard</a
+          >
+          <a
+            class="text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-1 transition-colors duration-150"
+            href="#"
+            >New Reflection</a
+          >
+          <a
+            class="text-on-surface-variant hover:bg-surface-3 rounded-lg px-3 py-1 transition-colors duration-150"
+            href="#"
+            >History</a
+          >
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <button
+          class="text-on-surface-variant hover:bg-surface-3 rounded-lg p-2 transition-colors duration-150"
+        >
+          <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+        </button>
+        <button
+          class="text-on-surface-variant hover:bg-surface-3 rounded-lg p-2 transition-colors duration-150"
+        >
+          <span class="material-symbols-outlined" data-icon="settings">settings</span>
+        </button>
+        <div class="w-8 h-8 rounded-full overflow-hidden border border-border cursor-pointer">
+          <img
+            alt="User profile avatar"
+            class="w-full h-full object-cover"
+            data-alt="A cinematic, moody portrait of a user avatar in a minimal dark setting, dramatic rim lighting highlighting the silhouette, sophisticated and calm atmosphere."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBODiFIh44Pt9i_rHU2eOuOpSMEebFdyyjkiGi5kYEqG2Vg7hLMz1Y-3QdlHndqQG56gl-pA52OLgY3_WLdqIkPlx1csvN9MsoxEwckP4A9QNYLymbd3QK-gIQckrOPd4cKWKhDuubKzn-U9Xwi4IlJC8laxDndDawYoTEom1egS3DXNqsm_f1DMbM_iA57qnh-zGFWcYwQlfKZDxI4yKJ3Ii5Pc52qLQc6rty8ZoSX3fiZY6yH-3w0SA"
+          />
+        </div>
+      </div>
+    </header>
+    <main
+      class="flex-1 w-full max-w-max-content-width mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-gutter-mobile md:gap-gutter-desktop"
+    >
+      <!-- Left Column: Status Cards -->
+      <div class="md:col-span-8 flex flex-col gap-6">
+        <div class="mb-8">
+          <h1 class="font-h2 text-h2 text-text-primary mb-2">Analysis Status</h1>
+          <p class="font-body-lg text-body-lg text-text-secondary">
+            Track the progress of your recent reflections.
+          </p>
+        </div>
+        <!-- Pending State Card -->
+        <div
+          class="glass-panel rounded-xl p-8 flex flex-col gap-6 relative overflow-hidden group hover:border-strong transition-colors duration-300"
+        >
+          <!-- Subtle background gradient hint -->
+          <div
+            class="absolute top-0 right-0 w-64 h-64 bg-primary-container/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none"
+          ></div>
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-surface-3 flex items-center justify-center border border-border"
+              >
+                <span class="material-symbols-outlined text-accent-strong" data-icon="memory"
+                  >memory</span
+                >
+              </div>
+              <div>
+                <h3 class="font-h3 text-h3 text-text-primary">Identity Synthesis V4</h3>
+                <p class="font-small text-small text-text-tertiary">Started 12 mins ago</p>
+              </div>
+            </div>
+            <div
+              class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-3 border border-border"
+            >
+              <div aria-hidden="true" class="pulse-orb"></div>
+              <span class="font-label text-label text-accent-strong tracking-wide uppercase"
+                >Processing</span
+              >
+            </div>
+          </div>
+          <div class="py-4 border-y border-border/50">
+            <p class="font-body text-body text-text-secondary">
+              Your analysis is synthesizing... We are currently connecting themes from your "Paths"
+              module to generate deeper insights.
+            </p>
+            <!-- Progress visualization -->
+            <div class="mt-6 flex gap-1 h-1.5 w-full rounded-full overflow-hidden bg-surface-3">
+              <div class="w-1/4 h-full bg-accent-strong/40"></div>
+              <div class="w-1/4 h-full bg-accent-strong/60"></div>
+              <div class="w-1/4 h-full bg-accent-strong relative overflow-hidden">
+                <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+              </div>
+              <div class="w-1/4 h-full bg-transparent"></div>
+            </div>
+          </div>
+          <div class="flex justify-end pt-2">
+            <button
+              class="font-label text-label text-accent-strong flex items-center gap-2 hover:text-primary transition-colors group-hover:translate-x-1 duration-200"
+            >
+              Resume Processing
+              <span class="material-symbols-outlined text-sm" data-icon="arrow_forward"
+                >arrow_forward</span
+              >
+            </button>
+          </div>
+        </div>
+        <!-- Failed State Card -->
+        <div
+          class="glass-panel rounded-xl p-8 flex flex-col gap-6 relative overflow-hidden group border-danger/30 hover:border-danger/50 transition-colors duration-300"
+        >
+          <div
+            class="absolute top-0 right-0 w-64 h-64 bg-error/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none"
+          ></div>
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-error-container/20 flex items-center justify-center border border-error/20"
+              >
+                <span class="material-symbols-outlined text-error" data-icon="warning"
+                  >warning</span
+                >
+              </div>
+              <div>
+                <h3 class="font-h3 text-h3 text-text-primary">Timeline Reflection</h3>
+                <p class="font-small text-small text-text-tertiary">Failed 2 hours ago</p>
+              </div>
+            </div>
+            <div
+              class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-error-container/20 border border-error/20"
+            >
+              <div aria-hidden="true" class="error-orb"></div>
+              <span class="font-label text-label text-error tracking-wide uppercase"
+                >Needs Attention</span
+              >
+            </div>
+          </div>
+          <div class="py-4 border-y border-border/50">
+            <p class="font-body text-body text-text-secondary">
+              The synthesis process encountered an interruption. Your raw answers are safely stored,
+              but we couldn't complete the AI analysis.
+            </p>
+          </div>
+          <div class="flex justify-end pt-2">
+            <button
+              class="px-6 py-3 rounded-lg bg-surface-2 border border-border text-text-primary font-label text-label hover:border-danger/50 hover:bg-surface-3 transition-all flex items-center gap-2"
+            >
+              <span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
+              Retry synthesis without losing answers
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Right Column: Supplemental Info (Optional layout balance) -->
+      <div class="md:col-span-4 hidden md:flex flex-col gap-6 pt-[120px]">
+        <div class="glass-panel rounded-xl p-6">
+          <h4 class="font-label text-label text-text-tertiary uppercase tracking-wider mb-4">
+            System Status
+          </h4>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="material-symbols-outlined text-success" data-icon="check_circle"
+              >check_circle</span
+            >
+            <span class="font-small text-small text-text-secondary">Neural Engine Online</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-success" data-icon="check_circle"
+              >check_circle</span
+            >
+            <span class="font-small text-small text-text-secondary">Data Vault Secured</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

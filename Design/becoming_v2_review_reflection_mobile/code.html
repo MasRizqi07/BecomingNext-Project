@@ -1,278 +1,432 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Becoming V2 - Review Reflection</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Custom Fonts based on Config -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "secondary-fixed-dim": "#ccbeff",
-                      "surface-bright": "#39383f",
-                      "on-tertiary-fixed": "#251a00",
-                      "inverse-surface": "#e4e1ea",
-                      "border-strong": "rgba(255, 255, 255, 0.24)",
-                      "surface-container-highest": "#35343b",
-                      "surface-container-low": "#1b1b21",
-                      "text-secondary": "#CBD5E1",
-                      "danger": "#FCA5A5",
-                      "error-container": "#93000a",
-                      "surface": "#131319",
-                      "surface-2": "rgba(255, 255, 255, 0.05)",
-                      "on-error-container": "#ffdad6",
-                      "tertiary-container": "#ffd15e",
-                      "on-primary-container": "#006771",
-                      "border": "rgba(255, 255, 255, 0.12)",
-                      "surface-tint": "#54d8e8",
-                      "primary": "#d5f9ff",
-                      "surface-variant": "#35343b",
-                      "on-surface-variant": "#bcc9cb",
-                      "primary-container": "#67e8f9",
-                      "outline-variant": "#3c494b",
-                      "inverse-on-surface": "#303037",
-                      "on-secondary-fixed-variant": "#4a3d7c",
-                      "surface-container": "#1f1f25",
-                      "tertiary-fixed-dim": "#edc150",
-                      "text-primary": "#F8FAFC",
-                      "on-error": "#690005",
-                      "on-tertiary-container": "#755900",
-                      "surface-dim": "#131319",
-                      "warning": "#FCD34D",
-                      "error": "#ffb4ab",
-                      "outline": "#869395",
-                      "surface-container-lowest": "#0e0e14",
-                      "secondary": "#ccbeff",
-                      "inverse-primary": "#006973",
-                      "on-secondary-container": "#baabf3",
-                      "tertiary": "#fff2db",
-                      "on-primary": "#00363c",
-                      "primary-fixed-dim": "#54d8e8",
-                      "text-tertiary": "#94A3B8",
-                      "surface-3": "rgba(255, 255, 255, 0.08)",
-                      "on-tertiary-fixed-variant": "#5a4300",
-                      "background": "#131319",
-                      "on-primary-fixed": "#001f23",
-                      "on-background": "#e4e1ea",
-                      "success": "#86EFAC",
-                      "on-tertiary": "#3e2e00",
-                      "secondary-fixed": "#e7deff",
-                      "accent-strong": "#22D3EE",
-                      "on-secondary-fixed": "#1e0e4e",
-                      "tertiary-fixed": "#ffdf97",
-                      "on-primary-fixed-variant": "#004f57",
-                      "surface-1": "#090A0F",
-                      "secondary-container": "#4a3d7c",
-                      "on-secondary": "#332664",
-                      "surface-container-high": "#2a2930",
-                      "on-surface": "#e4e1ea",
-                      "primary-fixed": "#91f1ff"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "unit": "4px",
-                      "margin-desktop": "64px",
-                      "reading-width": "720px",
-                      "gutter-desktop": "32px",
-                      "margin-mobile": "20px",
-                      "max-content-width": "1200px",
-                      "gutter-mobile": "16px"
-              },
-              "fontFamily": {
-                      "small": ["Inter"],
-                      "body-lg": ["Inter"],
-                      "display-xl-mobile": ["Space Grotesk"],
-                      "h3": ["Space Grotesk"],
-                      "editorial-italic": ["Playfair Display"],
-                      "label": ["Space Grotesk"],
-                      "body": ["Inter"],
-                      "display-xl": ["Space Grotesk"],
-                      "display-lg-mobile": ["Space Grotesk"],
-                      "display-lg": ["Space Grotesk"],
-                      "h1": ["Space Grotesk"],
-                      "h1-mobile": ["Space Grotesk"],
-                      "h2": ["Space Grotesk"]
-              },
-              "fontSize": {
-                      "small": ["14px", {"lineHeight": "1.55", "fontWeight": "400"}],
-                      "body-lg": ["18px", {"lineHeight": "1.7", "fontWeight": "400"}],
-                      "display-xl-mobile": ["56px", {"lineHeight": "1.0", "fontWeight": "700"}],
-                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
-                      "editorial-italic": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                      "label": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                      "body": ["16px", {"lineHeight": "1.65", "fontWeight": "400"}],
-                      "display-xl": ["96px", {"lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                      "display-lg-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "600"}],
-                      "display-lg": ["64px", {"lineHeight": "1.1", "fontWeight": "600"}],
-                      "h1": ["52px", {"lineHeight": "1.1", "fontWeight": "600"}],
-                      "h1-mobile": ["40px", {"lineHeight": "1.1", "fontWeight": "600"}],
-                      "h2": ["36px", {"lineHeight": "1.2", "fontWeight": "500"}]
-              }
-            }
-          }
-        }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Becoming V2 - Review Reflection</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Custom Fonts based on Config -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'secondary-fixed-dim': '#ccbeff',
+              'surface-bright': '#39383f',
+              'on-tertiary-fixed': '#251a00',
+              'inverse-surface': '#e4e1ea',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'surface-container-highest': '#35343b',
+              'surface-container-low': '#1b1b21',
+              'text-secondary': '#CBD5E1',
+              danger: '#FCA5A5',
+              'error-container': '#93000a',
+              surface: '#131319',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'on-error-container': '#ffdad6',
+              'tertiary-container': '#ffd15e',
+              'on-primary-container': '#006771',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'surface-tint': '#54d8e8',
+              primary: '#d5f9ff',
+              'surface-variant': '#35343b',
+              'on-surface-variant': '#bcc9cb',
+              'primary-container': '#67e8f9',
+              'outline-variant': '#3c494b',
+              'inverse-on-surface': '#303037',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              'surface-container': '#1f1f25',
+              'tertiary-fixed-dim': '#edc150',
+              'text-primary': '#F8FAFC',
+              'on-error': '#690005',
+              'on-tertiary-container': '#755900',
+              'surface-dim': '#131319',
+              warning: '#FCD34D',
+              error: '#ffb4ab',
+              outline: '#869395',
+              'surface-container-lowest': '#0e0e14',
+              secondary: '#ccbeff',
+              'inverse-primary': '#006973',
+              'on-secondary-container': '#baabf3',
+              tertiary: '#fff2db',
+              'on-primary': '#00363c',
+              'primary-fixed-dim': '#54d8e8',
+              'text-tertiary': '#94A3B8',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'on-tertiary-fixed-variant': '#5a4300',
+              background: '#131319',
+              'on-primary-fixed': '#001f23',
+              'on-background': '#e4e1ea',
+              success: '#86EFAC',
+              'on-tertiary': '#3e2e00',
+              'secondary-fixed': '#e7deff',
+              'accent-strong': '#22D3EE',
+              'on-secondary-fixed': '#1e0e4e',
+              'tertiary-fixed': '#ffdf97',
+              'on-primary-fixed-variant': '#004f57',
+              'surface-1': '#090A0F',
+              'secondary-container': '#4a3d7c',
+              'on-secondary': '#332664',
+              'surface-container-high': '#2a2930',
+              'on-surface': '#e4e1ea',
+              'primary-fixed': '#91f1ff',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              unit: '4px',
+              'margin-desktop': '64px',
+              'reading-width': '720px',
+              'gutter-desktop': '32px',
+              'margin-mobile': '20px',
+              'max-content-width': '1200px',
+              'gutter-mobile': '16px',
+            },
+            fontFamily: {
+              small: ['Inter'],
+              'body-lg': ['Inter'],
+              'display-xl-mobile': ['Space Grotesk'],
+              h3: ['Space Grotesk'],
+              'editorial-italic': ['Playfair Display'],
+              label: ['Space Grotesk'],
+              body: ['Inter'],
+              'display-xl': ['Space Grotesk'],
+              'display-lg-mobile': ['Space Grotesk'],
+              'display-lg': ['Space Grotesk'],
+              h1: ['Space Grotesk'],
+              'h1-mobile': ['Space Grotesk'],
+              h2: ['Space Grotesk'],
+            },
+            fontSize: {
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+              'display-xl-mobile': ['56px', {lineHeight: '1.0', fontWeight: '700'}],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+              'display-lg-mobile': ['48px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              'h1-mobile': ['40px', {lineHeight: '1.1', fontWeight: '600'}],
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        .material-symbols-outlined {
-          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        
-        /* Custom scrollbar for webkit */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+
+      /* Custom scrollbar for webkit */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
     </style>
-</head>
-<body class="bg-surface text-text-primary min-h-screen flex flex-col antialiased selection:bg-primary-container/30 selection:text-primary-container">
-<!-- Top spacing for status bar / visual breathing room -->
-<div class="h-12 w-full"></div>
-<!-- Main Content Canvas -->
-<main class="flex-1 px-margin-mobile flex flex-col gap-10 pb-40 max-w-reading-width mx-auto w-full">
-<!-- Header Section -->
-<header class="flex flex-col gap-4 mt-4">
-<h1 class="font-display-lg-mobile text-display-lg-mobile text-text-primary tracking-tight">Review Your Reflection</h1>
-<p class="font-body-lg text-body-lg text-text-secondary">Take a moment to ensure your answers capture the truth of where you are before we synthesize your trajectory.</p>
-</header>
-<!-- Stacked Summary Cards -->
-<div class="flex flex-col gap-unit">
-<!-- Card 1 -->
-<article class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group">
-<div class="flex justify-between items-start">
-<span class="font-label text-label text-accent-strong uppercase">Core Identity</span>
-<button aria-label="Edit Core Identity" class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3">
-<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
-</button>
-</div>
-<h3 class="font-body text-body text-text-primary">Who are you right now, outside of your professional titles?</h3>
-<p class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic">I feel like I'm in a transitional phase. A student of patience, learning to let go of old expectations and finding comfort in uncertainty.</p>
-</article>
-<!-- Card 2 -->
-<article class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group">
-<div class="flex justify-between items-start">
-<span class="font-label text-label text-accent-strong uppercase">Primary Path</span>
-<button aria-label="Edit Primary Path" class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3">
-<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
-</button>
-</div>
-<h3 class="font-body text-body text-text-primary">What is the central pursuit demanding most of your energy?</h3>
-<p class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic">Rebuilding my physical health after the burnout of last year. It requires strict boundaries that I'm not used to enforcing.</p>
-</article>
-<!-- Card 3 -->
-<article class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group">
-<div class="flex justify-between items-start">
-<span class="font-label text-label text-accent-strong uppercase">Internal Blockers</span>
-<button aria-label="Edit Internal Blockers" class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3">
-<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
-</button>
-</div>
-<h3 class="font-body text-body text-text-primary">What quiet fear is currently holding you back?</h3>
-<p class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic">The fear of disappointing people who relied on the 'old' version of me. Saying no still feels like a betrayal, even when it's necessary.</p>
-</article>
-<!-- Card 4 -->
-<article class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group">
-<div class="flex justify-between items-start">
-<span class="font-label text-label text-accent-strong uppercase">Recent Milestone</span>
-<button aria-label="Edit Recent Milestone" class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3">
-<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
-</button>
-</div>
-<h3 class="font-body text-body text-text-primary">Describe a recent moment where you felt deeply aligned.</h3>
-<p class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic">Last weekend, walking in the woods without my phone. For an hour, I wasn't optimizing anything. Just existing felt like a massive victory.</p>
-</article>
-<!-- Card 5 -->
-<article class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group">
-<div class="flex justify-between items-start">
-<span class="font-label text-label text-accent-strong uppercase">Energy Drain</span>
-<button aria-label="Edit Energy Drain" class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3">
-<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
-</button>
-</div>
-<h3 class="font-body text-body text-text-primary">What environment or habit is silently depleting you?</h3>
-<p class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic">Endless scrolling first thing in the morning. It sets a frantic, reactive tone for the entire day before I've even had water.</p>
-</article>
-<!-- Card 6 -->
-<article class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group">
-<div class="flex justify-between items-start">
-<span class="font-label text-label text-accent-strong uppercase">Spark of Joy</span>
-<button aria-label="Edit Spark of Joy" class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3">
-<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
-</button>
-</div>
-<h3 class="font-body text-body text-text-primary">What brings you immediate, uncomplicated peace?</h3>
-<p class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic">Making pour-over coffee. The exactness of the water ratio, the smell, the five minutes it takes where I can't rush the process.</p>
-</article>
-<!-- Card 7 -->
-<article class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group">
-<div class="flex justify-between items-start">
-<span class="font-label text-label text-accent-strong uppercase">Future Vision</span>
-<button aria-label="Edit Future Vision" class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3">
-<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
-</button>
-</div>
-<h3 class="font-body text-body text-text-primary">If this trajectory holds, where are you in six months?</h3>
-<p class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic">Physically stronger, mentally quieter. I'll have shipped the personal project and stopped checking email after 7 PM.</p>
-</article>
-<!-- Card 8 -->
-<article class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group">
-<div class="flex justify-between items-start">
-<span class="font-label text-label text-accent-strong uppercase">Immediate Action</span>
-<button aria-label="Edit Immediate Action" class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3">
-<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
-</button>
-</div>
-<h3 class="font-body text-body text-text-primary">What is one micro-action you commit to tomorrow?</h3>
-<p class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic">Leaving my phone charging in the kitchen overnight instead of on the nightstand.</p>
-</article>
-</div>
-<!-- Trust Disclosure Box -->
-<div class="bg-surface-2 backdrop-blur-md rounded-xl p-6 border border-accent-strong/40 flex flex-col gap-4 mt-4 relative overflow-hidden">
-<!-- Subtle gradient glow behind the lock -->
-<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/10 rounded-full blur-2xl pointer-events-none"></div>
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-accent-strong" style="font-variation-settings: 'FILL' 1;">lock</span>
-<h4 class="font-h3 text-h3 text-text-primary">Your Privacy is Paramount</h4>
-</div>
-<p class="font-small text-small text-text-secondary leading-relaxed">
-                Your reflections are end-to-end encrypted and processed with zero-retention AI models. We use this data solely to generate your personal insights. It is never stored plainly, shared, or sold. This is your digital sanctuary.
-            </p>
-</div>
-</main>
-<!-- Sticky Bottom Action Bar -->
-<div class="fixed bottom-0 left-0 w-full bg-surface/80 backdrop-blur-xl border-t border-border px-margin-mobile py-4 z-50 flex items-center justify-between gap-4 pb-safe">
-<!-- Back Button (Secondary/Ghost) -->
-<button aria-label="Go Back" class="w-14 h-14 shrink-0 rounded-full border border-border-strong flex items-center justify-center text-text-primary hover:bg-surface-3 active:bg-surface-2 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface">
-<span class="material-symbols-outlined">arrow_back</span>
-</button>
-<!-- Primary Action Button -->
-<button class="flex-1 h-14 bg-primary-container text-on-primary-container font-label text-label rounded-full flex items-center justify-center font-bold tracking-wide uppercase shadow-[0_0_20px_rgba(103,232,249,0.15)] active:scale-[0.98] transition-transform focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface relative overflow-hidden group">
-<span class="relative z-10 flex items-center gap-2">
-                Create My Trajectory Analysis
-                <span class="material-symbols-outlined text-on-primary-container" style="font-size: 18px;">auto_awesome</span>
-</span>
-<!-- Button hover/active subtle sheen -->
-<div class="absolute inset-0 bg-white/0 group-hover:bg-white/10 group-active:bg-black/10 transition-colors z-0"></div>
-</button>
-</div>
-<!-- Inline CSS for safe area padding (iOS specific usually, but good practice) -->
-<style>
-        .pb-safe {
-            padding-bottom: env(safe-area-inset-bottom, 16px);
-        }
+  </head>
+  <body
+    class="bg-surface text-text-primary min-h-screen flex flex-col antialiased selection:bg-primary-container/30 selection:text-primary-container"
+  >
+    <!-- Top spacing for status bar / visual breathing room -->
+    <div class="h-12 w-full"></div>
+    <!-- Main Content Canvas -->
+    <main
+      class="flex-1 px-margin-mobile flex flex-col gap-10 pb-40 max-w-reading-width mx-auto w-full"
+    >
+      <!-- Header Section -->
+      <header class="flex flex-col gap-4 mt-4">
+        <h1 class="font-display-lg-mobile text-display-lg-mobile text-text-primary tracking-tight">
+          Review Your Reflection
+        </h1>
+        <p class="font-body-lg text-body-lg text-text-secondary">
+          Take a moment to ensure your answers capture the truth of where you are before we
+          synthesize your trajectory.
+        </p>
+      </header>
+      <!-- Stacked Summary Cards -->
+      <div class="flex flex-col gap-unit">
+        <!-- Card 1 -->
+        <article
+          class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group"
+        >
+          <div class="flex justify-between items-start">
+            <span class="font-label text-label text-accent-strong uppercase">Core Identity</span>
+            <button
+              aria-label="Edit Core Identity"
+              class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3"
+            >
+              <span class="material-symbols-outlined" style="font-size: 20px">edit</span>
+            </button>
+          </div>
+          <h3 class="font-body text-body text-text-primary">
+            Who are you right now, outside of your professional titles?
+          </h3>
+          <p
+            class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic"
+          >
+            I feel like I'm in a transitional phase. A student of patience, learning to let go of
+            old expectations and finding comfort in uncertainty.
+          </p>
+        </article>
+        <!-- Card 2 -->
+        <article
+          class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group"
+        >
+          <div class="flex justify-between items-start">
+            <span class="font-label text-label text-accent-strong uppercase">Primary Path</span>
+            <button
+              aria-label="Edit Primary Path"
+              class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3"
+            >
+              <span class="material-symbols-outlined" style="font-size: 20px">edit</span>
+            </button>
+          </div>
+          <h3 class="font-body text-body text-text-primary">
+            What is the central pursuit demanding most of your energy?
+          </h3>
+          <p
+            class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic"
+          >
+            Rebuilding my physical health after the burnout of last year. It requires strict
+            boundaries that I'm not used to enforcing.
+          </p>
+        </article>
+        <!-- Card 3 -->
+        <article
+          class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group"
+        >
+          <div class="flex justify-between items-start">
+            <span class="font-label text-label text-accent-strong uppercase"
+              >Internal Blockers</span
+            >
+            <button
+              aria-label="Edit Internal Blockers"
+              class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3"
+            >
+              <span class="material-symbols-outlined" style="font-size: 20px">edit</span>
+            </button>
+          </div>
+          <h3 class="font-body text-body text-text-primary">
+            What quiet fear is currently holding you back?
+          </h3>
+          <p
+            class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic"
+          >
+            The fear of disappointing people who relied on the 'old' version of me. Saying no still
+            feels like a betrayal, even when it's necessary.
+          </p>
+        </article>
+        <!-- Card 4 -->
+        <article
+          class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group"
+        >
+          <div class="flex justify-between items-start">
+            <span class="font-label text-label text-accent-strong uppercase">Recent Milestone</span>
+            <button
+              aria-label="Edit Recent Milestone"
+              class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3"
+            >
+              <span class="material-symbols-outlined" style="font-size: 20px">edit</span>
+            </button>
+          </div>
+          <h3 class="font-body text-body text-text-primary">
+            Describe a recent moment where you felt deeply aligned.
+          </h3>
+          <p
+            class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic"
+          >
+            Last weekend, walking in the woods without my phone. For an hour, I wasn't optimizing
+            anything. Just existing felt like a massive victory.
+          </p>
+        </article>
+        <!-- Card 5 -->
+        <article
+          class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group"
+        >
+          <div class="flex justify-between items-start">
+            <span class="font-label text-label text-accent-strong uppercase">Energy Drain</span>
+            <button
+              aria-label="Edit Energy Drain"
+              class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3"
+            >
+              <span class="material-symbols-outlined" style="font-size: 20px">edit</span>
+            </button>
+          </div>
+          <h3 class="font-body text-body text-text-primary">
+            What environment or habit is silently depleting you?
+          </h3>
+          <p
+            class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic"
+          >
+            Endless scrolling first thing in the morning. It sets a frantic, reactive tone for the
+            entire day before I've even had water.
+          </p>
+        </article>
+        <!-- Card 6 -->
+        <article
+          class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group"
+        >
+          <div class="flex justify-between items-start">
+            <span class="font-label text-label text-accent-strong uppercase">Spark of Joy</span>
+            <button
+              aria-label="Edit Spark of Joy"
+              class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3"
+            >
+              <span class="material-symbols-outlined" style="font-size: 20px">edit</span>
+            </button>
+          </div>
+          <h3 class="font-body text-body text-text-primary">
+            What brings you immediate, uncomplicated peace?
+          </h3>
+          <p
+            class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic"
+          >
+            Making pour-over coffee. The exactness of the water ratio, the smell, the five minutes
+            it takes where I can't rush the process.
+          </p>
+        </article>
+        <!-- Card 7 -->
+        <article
+          class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group"
+        >
+          <div class="flex justify-between items-start">
+            <span class="font-label text-label text-accent-strong uppercase">Future Vision</span>
+            <button
+              aria-label="Edit Future Vision"
+              class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3"
+            >
+              <span class="material-symbols-outlined" style="font-size: 20px">edit</span>
+            </button>
+          </div>
+          <h3 class="font-body text-body text-text-primary">
+            If this trajectory holds, where are you in six months?
+          </h3>
+          <p
+            class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic"
+          >
+            Physically stronger, mentally quieter. I'll have shipped the personal project and
+            stopped checking email after 7 PM.
+          </p>
+        </article>
+        <!-- Card 8 -->
+        <article
+          class="bg-surface-1 border border-border rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden group"
+        >
+          <div class="flex justify-between items-start">
+            <span class="font-label text-label text-accent-strong uppercase">Immediate Action</span>
+            <button
+              aria-label="Edit Immediate Action"
+              class="p-2 -mr-2 -mt-2 text-text-tertiary hover:text-accent-strong transition-colors rounded-full active:bg-surface-3"
+            >
+              <span class="material-symbols-outlined" style="font-size: 20px">edit</span>
+            </button>
+          </div>
+          <h3 class="font-body text-body text-text-primary">
+            What is one micro-action you commit to tomorrow?
+          </h3>
+          <p
+            class="font-body text-body text-text-secondary pl-4 border-l-2 border-surface-3 italic"
+          >
+            Leaving my phone charging in the kitchen overnight instead of on the nightstand.
+          </p>
+        </article>
+      </div>
+      <!-- Trust Disclosure Box -->
+      <div
+        class="bg-surface-2 backdrop-blur-md rounded-xl p-6 border border-accent-strong/40 flex flex-col gap-4 mt-4 relative overflow-hidden"
+      >
+        <!-- Subtle gradient glow behind the lock -->
+        <div
+          class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/10 rounded-full blur-2xl pointer-events-none"
+        ></div>
+        <div class="flex items-center gap-3">
+          <span
+            class="material-symbols-outlined text-accent-strong"
+            style="font-variation-settings: 'FILL' 1"
+            >lock</span
+          >
+          <h4 class="font-h3 text-h3 text-text-primary">Your Privacy is Paramount</h4>
+        </div>
+        <p class="font-small text-small text-text-secondary leading-relaxed">
+          Your reflections are end-to-end encrypted and processed with zero-retention AI models. We
+          use this data solely to generate your personal insights. It is never stored plainly,
+          shared, or sold. This is your digital sanctuary.
+        </p>
+      </div>
+    </main>
+    <!-- Sticky Bottom Action Bar -->
+    <div
+      class="fixed bottom-0 left-0 w-full bg-surface/80 backdrop-blur-xl border-t border-border px-margin-mobile py-4 z-50 flex items-center justify-between gap-4 pb-safe"
+    >
+      <!-- Back Button (Secondary/Ghost) -->
+      <button
+        aria-label="Go Back"
+        class="w-14 h-14 shrink-0 rounded-full border border-border-strong flex items-center justify-center text-text-primary hover:bg-surface-3 active:bg-surface-2 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface"
+      >
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+      <!-- Primary Action Button -->
+      <button
+        class="flex-1 h-14 bg-primary-container text-on-primary-container font-label text-label rounded-full flex items-center justify-center font-bold tracking-wide uppercase shadow-[0_0_20px_rgba(103,232,249,0.15)] active:scale-[0.98] transition-transform focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface relative overflow-hidden group"
+      >
+        <span class="relative z-10 flex items-center gap-2">
+          Create My Trajectory Analysis
+          <span class="material-symbols-outlined text-on-primary-container" style="font-size: 18px"
+            >auto_awesome</span
+          >
+        </span>
+        <!-- Button hover/active subtle sheen -->
+        <div
+          class="absolute inset-0 bg-white/0 group-hover:bg-white/10 group-active:bg-black/10 transition-colors z-0"
+        ></div>
+      </button>
+    </div>
+    <!-- Inline CSS for safe area padding (iOS specific usually, but good practice) -->
+    <style>
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 16px);
+      }
     </style>
-</body></html>
+  </body>
+</html>

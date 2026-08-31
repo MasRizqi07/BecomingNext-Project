@@ -1,17 +1,35 @@
-import {Calendar, Download, RefreshCcw, Share2, ShieldCheck, Target, Trash2} from 'lucide-react';
-import {motion} from 'motion/react';
+import {
+  CheckCircle2,
+  Download,
+  Fingerprint,
+  GitFork,
+  Mail,
+  Milestone,
+  RefreshCcw,
+  Share2,
+  ShieldCheck,
+  Target,
+  Trash2,
+  Zap,
+} from 'lucide-react';
 import {lazy, Suspense, useEffect, useState} from 'react';
 import ReactMarkdown from 'react-markdown';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 
 import type {AnalysisResult} from '@shared/contracts';
+import {AppHeader} from '@/components/AppHeader';
+import {Footer} from '@/components/layout/Footer';
+import {MobileBottomNav} from '@/components/layout/MobileBottomNav';
+import {PublicHeader} from '@/components/layout/PublicHeader';
+import {DeleteAccountModal} from '@/components/modals/DeleteAccountModal';
+import {ShareSummaryModal} from '@/components/modals/ShareSummaryModal';
+import {SignInModal} from '@/components/modals/SignInModal';
+import {Badge} from '@/components/primitives/Badge';
+import {Toast, type ToastItem} from '@/components/primitives/Toast';
 import {DEMO_ANALYSIS} from '@/data/demoAnalysis';
 import {formatServiceError} from '@/lib/errors';
 import {useBecomingStore} from '@/store/useBecomingStore';
 
-const AppHeader = lazy(() =>
-  import('@/components/AppHeader').then((module) => ({default: module.AppHeader})),
-);
 const RadarVisualization = lazy(() =>
   import('@/components/RadarVisualization').then((module) => ({
     default: module.RadarVisualization,
@@ -28,16 +46,24 @@ export function Results({demo = false}: {demo?: boolean}) {
     setActiveAnalysisId,
     resetReflection,
   } = useBecomingStore();
+
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(
     demo ? DEMO_ANALYSIS : activeAnalysisId === analysisId ? storedAnalysis : null,
   );
   const [loading, setLoading] = useState(!analysis);
   const [error, setError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
+
+  // Modals & Feedback
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
+  const [toast, setToast] = useState<ToastItem | null>(null);
+  const [activeSection, setActiveSection] = useState('identity');
 
   useEffect(() => {
     if (demo || analysis || !analysisId) return;
     let active = true;
+
     void import('@/services/analysisService')
       .then(({getAnalysisRecord}) => getAnalysisRecord(analysisId))
       .then((record) => {
@@ -58,391 +84,551 @@ export function Results({demo = false}: {demo?: boolean}) {
       .finally(() => {
         if (active) setLoading(false);
       });
+
     return () => {
       active = false;
     };
   }, [analysis, analysisId, demo, navigate, setActiveAnalysisId, storeAnalysis]);
 
-  if (loading) {
-    return (
-      <div
-        className="flex min-h-screen items-center justify-center text-sm text-white/65"
-        role="status"
-      >
-        Loading your analysis…
-      </div>
-    );
+  function scrollToSection(id: string) {
+    setActiveSection(id);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({behavior: 'smooth'});
+    }
   }
-
-  if (error || !analysis) {
-    return (
-      <div className="flex min-h-screen items-center justify-center px-5">
-        <div className="glass max-w-lg rounded-3xl p-9 text-center">
-          <h1 className="mb-4 font-display text-2xl font-semibold">Analysis unavailable</h1>
-          <p className="mb-7 text-sm leading-7 text-gray-400" role="alert">
-            {error}
-          </p>
-          <Link className="primary-button mx-auto" to="/history">
-            Return to history
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const currentAnalysis = analysis;
 
   function downloadLetter() {
-    const content = `Becoming — ${currentAnalysis.identity.archetype}\n\n${currentAnalysis.futureLetter}\n\nGenerated reflection guidance; not professional advice.`;
+    if (!analysis) return;
+    const content = `Becoming — ${analysis.identity.archetype}\n\n${analysis.futureLetter}\n\nGenerated reflection guidance; not professional or medical advice.`;
     const url = URL.createObjectURL(new Blob([content], {type: 'text/plain;charset=utf-8'}));
     const anchor = document.createElement('a');
     anchor.href = url;
     anchor.download = 'becoming-future-letter.txt';
     anchor.click();
     URL.revokeObjectURL(url);
-    setNotice('Future letter downloaded.');
+    setToast({id: 'download', message: 'Future letter downloaded.', type: 'success'});
   }
 
-  async function shareSummary() {
-    const text = `${currentAnalysis.identity.archetype}: ${currentAnalysis.identity.description}`;
-    if (navigator.share) {
-      await navigator.share({title: 'My Becoming reflection', text});
-      setNotice('Share sheet opened.');
-      return;
-    }
-    await navigator.clipboard.writeText(text);
-    setNotice('Summary copied to your clipboard.');
-  }
-
-  async function removeAnalysis() {
+  async function handleDeleteAnalysis() {
     if (demo || !analysisId) return;
-    if (!window.confirm('Delete this analysis and its private reflection permanently?')) return;
     try {
       const {deleteAnalysisRecord} = await import('@/services/analysisService');
       await deleteAnalysisRecord(analysisId);
       resetReflection();
       navigate('/history', {replace: true});
     } catch (deleteError) {
-      setNotice(formatServiceError(deleteError));
+      setToast({id: 'delete-err', message: formatServiceError(deleteError), type: 'error'});
     }
   }
 
-  function startAgain() {
+  function handleStartAgain() {
     resetReflection();
     navigate(demo ? '/' : '/reflect');
   }
 
+  if (loading) {
+    return (
+      <div
+        className="flex min-h-screen flex-col items-center justify-center bg-[#020205] text-[#F8FAFC]"
+        role="status"
+      >
+        <div className="h-8 w-8 animate-spin rounded-full border border-cyan-400/20 border-t-cyan-400" />
+        <p className="mt-4 font-display text-xs uppercase tracking-[0.25em] text-slate-400">
+          Loading your trajectory analysis…
+        </p>
+      </div>
+    );
+  }
+
+  if (error || !analysis) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#020205] px-5 text-[#F8FAFC]">
+        <div className="glass-panel-strong max-w-lg rounded-3xl p-10 text-center">
+          <h1 className="font-display text-2xl font-bold text-white">Analysis Unavailable</h1>
+          <p className="mt-3 text-sm leading-relaxed text-slate-400" role="alert">
+            {error ?? 'Unable to find this reflection record.'}
+          </p>
+          <div className="mt-8">
+            <Link className="primary-button" to="/history">
+              Return to History
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col transition-colors pb-16 lg:pb-0">
       {demo ? (
-        <header className="mx-auto flex max-w-7xl items-center justify-between px-5 py-6 md:px-10">
-          <Link className="flex items-center gap-2" to="/">
-            <span className="h-2 w-2 rounded-full bg-cyan-400" />
-            <span className="font-display text-xs font-semibold uppercase tracking-[0.35em]">
-              Becoming.
-            </span>
-          </Link>
-          <Link className="primary-button" to="/">
-            Create my own
-          </Link>
-        </header>
+        <PublicHeader onOpenSignIn={() => setSignInOpen(true)} />
       ) : (
-        <Suspense fallback={<div className="h-21" />}>
-          <AppHeader backTo="/history" />
-        </Suspense>
+        <AppHeader backTo="/history" />
       )}
 
-      <div className="mx-auto max-w-7xl space-y-20 px-5 pb-24 pt-10 md:px-10">
-        <section className="text-center">
-          <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-cyan-400/15 bg-cyan-400/5 px-4 py-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-            <span className="font-display text-[10px] uppercase tracking-[0.35em] text-cyan-300">
-              {demo ? 'Demonstration analysis' : 'Private analysis complete'}
-            </span>
+      {/* Demo Mode Sticky Notice */}
+      {demo ? (
+        <div className="sticky top-16 z-30 flex flex-wrap items-center justify-between gap-4 py-2.5 px-6 sm:px-12 bg-[#090A0F]/90 backdrop-blur-md border-b border-cyan-400/20">
+          <div className="flex items-center gap-2 text-xs text-cyan-200">
+            <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+            <strong className="font-display uppercase tracking-wider">Demo Mode:</strong> No
+            personal data was collected. This is a sample analysis.
           </div>
-          <h1 className="mb-6 text-5xl font-extralight leading-none tracking-tighter md:text-7xl">
-            The evolution of
-            <br />
-            <span className="text-gradient-cyan font-serif italic">your becoming.</span>
-          </h1>
-          <p className="mx-auto max-w-2xl text-lg font-light italic leading-8 text-gray-400">
-            “{analysis.identity.description}”
-          </p>
-          <p className="mx-auto mt-6 max-w-xl text-xs leading-6 text-white/65">
-            This is generated reflection guidance, not a prediction, diagnosis, or scientific
-            assessment.
-          </p>
-        </section>
+          <Link
+            to="/"
+            className="primary-button text-[10px] font-bold uppercase tracking-wider py-1.5 px-4 min-h-8"
+          >
+            Create my own
+          </Link>
+        </div>
+      ) : null}
 
-        <section
-          className="glass grid gap-4 rounded-3xl p-6 sm:grid-cols-2 lg:grid-cols-4"
-          aria-label="Reflection summary"
-        >
-          <Metric label="Potential score" value={`${analysis.identityCard.potentialScore}/100`} />
-          <Metric label="AI-era readiness" value={`${analysis.identityCard.aiReadiness}/100`} />
-          <Metric label="Growth potential" value={analysis.identityCard.growthPotential} compact />
-          <div className="rounded-2xl border border-white/5 p-5">
-            <p className="mb-4 text-[10px] uppercase tracking-widest text-white/65">
-              Primary archetype
-            </p>
-            <div className="flex items-center gap-3 text-sm font-medium">
-              <ShieldCheck size={17} className="text-cyan-400" /> {analysis.identity.archetype}
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 md:px-12 md:py-16 flex-1 w-full">
+        <div className="grid gap-12 lg:grid-cols-12">
+          {/* Sticky Table of Contents Navigation Rail (Desktop) */}
+          <aside className="hidden lg:col-span-3 lg:block">
+            <div className="sticky top-28 space-y-2 rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
+              <span className="font-display text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-400 px-3 block mb-3">
+                Navigation Rail
+              </span>
+
+              {[
+                {id: 'identity', label: 'Identity & Summary', icon: Fingerprint},
+                {id: 'paths', label: 'Two Trajectories', icon: GitFork},
+                {id: 'radar', label: 'Capability Radar', icon: Target},
+                {id: 'timeline', label: 'Evolution Roadmap', icon: Milestone},
+                {id: 'letter', label: 'Future Letter', icon: Mail},
+                {id: 'protocols', label: 'Active Protocols', icon: Zap},
+              ].map((item) => {
+                const Icon = item.icon;
+                const isCurrent = activeSection === item.id;
+
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => scrollToSection(item.id)}
+                    className={`flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold tracking-wider transition ${
+                      isCurrent
+                        ? 'bg-cyan-400/15 text-cyan-300 font-bold border border-cyan-400/30'
+                        : 'text-slate-400 hover:bg-white/5 hover:text-white'
+                    }`}
+                  >
+                    <Icon size={14} className={isCurrent ? 'text-cyan-300' : 'text-slate-500'} />
+                    <span>{item.label}</span>
+                  </button>
+                );
+              })}
             </div>
-          </div>
-        </section>
+          </aside>
 
-        <section className="grid gap-8 md:grid-cols-2" aria-label="Two possible paths">
-          <PathCard
-            eyebrow="The drift path"
-            title={analysis.futureA.title}
-            description={analysis.futureA.description}
-            highlightLabel="Possible regret"
-            highlight={analysis.futureA.keyRegret}
-            tone="red"
-          />
-          <PathCard
-            eyebrow="The becoming path"
-            title={analysis.futureB.title}
-            description={analysis.futureB.description}
-            highlightLabel="Possible growth"
-            highlight={analysis.futureB.keyGrowth}
-            tone="cyan"
-          />
-        </section>
-
-        <section className="grid gap-8 lg:grid-cols-12">
-          <div className="glass rounded-3xl p-6 md:p-10 lg:col-span-7">
-            <div className="mb-5">
-              <h2 className="font-display text-xl font-bold uppercase">
-                Reflective capability map
-              </h2>
-              <p className="mt-2 text-xs leading-6 text-gray-400">
-                Illustrative scores generated from your answers; they are not validated
-                measurements.
-              </p>
-            </div>
-            <Suspense
-              fallback={
-                <div className="flex h-90 items-center justify-center text-sm text-white/65">
-                  Loading visualization…
+          {/* Main Results Content Canvas */}
+          <div className="space-y-20 lg:col-span-9">
+            {/* Section 1: Hero & Identity */}
+            <section id="identity" className="space-y-8 scroll-mt-28">
+              <div className="text-center lg:text-left space-y-4">
+                <div className="inline-flex items-center gap-2">
+                  <Badge tone={demo ? 'demo' : 'info'}>
+                    {demo ? 'Demonstration Analysis' : 'Authoritative Analysis'}
+                  </Badge>
                 </div>
-              }
-            >
-              <RadarVisualization data={analysis.radarData} />
-            </Suspense>
-            <details className="rounded-xl border border-white/10 p-4 text-sm text-white/60">
-              <summary className="cursor-pointer font-medium text-white/75">
-                View chart as accessible data
-              </summary>
-              <table className="mt-4 w-full text-left">
-                <thead>
-                  <tr>
-                    <th className="py-2">Capability</th>
-                    <th>Drift</th>
-                    <th>Becoming</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {analysis.radarData.map((item) => (
-                    <tr key={item.subject} className="border-t border-white/5">
-                      <th className="py-2 font-normal">{item.subject}</th>
-                      <td>{item.A}</td>
-                      <td>{item.B}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </details>
-          </div>
 
-          <div className="glass rounded-3xl p-7 md:p-10 lg:col-span-5">
-            <h2 className="mb-8 flex items-center gap-3 font-display text-xl font-bold uppercase">
-              <Calendar size={19} className="text-cyan-400" /> Evolution roadmap
-            </h2>
-            <div className="space-y-8">
-              {analysis.timeline.map((item) => (
-                <article className="border-l border-cyan-400/20 pl-5" key={item.period}>
-                  <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-400">
-                    {item.period}
-                  </p>
-                  <p className="mb-2 text-xs leading-6 text-red-200/80">
-                    <strong>Drift:</strong> {item.stateA}
-                  </p>
-                  <p className="text-sm leading-7 text-gray-300">
-                    <strong>Intentional:</strong> {item.stateB}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+                <h1 className="text-4xl font-extralight tracking-tight sm:text-6xl text-white">
+                  The evolution of <br />
+                  <span className="text-gradient-cyan font-serif italic font-normal">
+                    your becoming.
+                  </span>
+                </h1>
 
-        <section className="glass mx-auto max-w-4xl rounded-[2.5rem] p-8 md:p-16">
-          <div className="mb-10 text-center">
-            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.45em] text-cyan-400">
-              A letter from your potential self
-            </p>
-            <h2 className="text-3xl font-extralight md:text-5xl">A direction—not a prophecy.</h2>
-          </div>
-          <div className="prose prose-invert max-w-none text-base font-light leading-8 text-gray-300 md:text-lg">
-            <ReactMarkdown
-              components={{
-                a: ({href, children}) => (
-                  <a href={href} target="_blank" rel="noreferrer noopener">
-                    {children}
-                  </a>
-                ),
-              }}
-            >
-              {analysis.futureLetter}
-            </ReactMarkdown>
-          </div>
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <button className="secondary-button" type="button" onClick={downloadLetter}>
-              <Download size={15} /> Download letter
-            </button>
-            <button className="secondary-button" type="button" onClick={() => void shareSummary()}>
-              <Share2 size={15} /> Share summary
-            </button>
-          </div>
-        </section>
+                <p className="text-base font-light italic leading-relaxed text-slate-300 sm:text-lg max-w-3xl">
+                  “{analysis.identity.description}”
+                </p>
 
-        <section>
-          <div className="mb-10 text-center">
-            <h2 className="font-display text-3xl font-bold uppercase tracking-tight">
-              Active protocols
-            </h2>
-            <p className="mt-3 text-sm text-gray-400">
-              Small actions you can review and adapt to your circumstances.
-            </p>
-          </div>
-          <div className="grid gap-5 md:grid-cols-3">
-            <ActionCard
-              icon={<RefreshCcw size={18} />}
-              title="Daily habits"
-              items={analysis.plan.dailyHabits}
-            />
-            <ActionCard
-              icon={<Target size={18} />}
-              title="Learning roadmap"
-              items={analysis.plan.learningRoadmap}
-            />
-            <article className="glass rounded-3xl p-8">
-              <div className="mb-7 flex h-10 w-10 items-center justify-center rounded-xl border border-blue-400/25 text-blue-300">
-                <Calendar size={18} />
+                <p className="text-xs leading-relaxed text-slate-300 max-w-2xl">
+                  This reflection guidance is generated by AI from your honest inputs. It represents
+                  illustrative trajectory mapping, not a psychiatric diagnosis or prediction.
+                </p>
               </div>
-              <h3 className="mb-5 font-display text-sm font-bold uppercase tracking-widest text-white/60">
-                Start strategy
-              </h3>
-              <p className="text-sm font-light italic leading-7 text-gray-400">
-                “{analysis.plan.antiProcrastination}”
+
+              {/* Identity Metrics Grid */}
+              <div className="identity-gradient-border p-6 sm:p-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="space-y-1">
+                  <span className="font-display text-[10px] uppercase tracking-widest text-slate-300">
+                    Primary Archetype
+                  </span>
+                  <p className="font-display text-lg font-bold text-white flex items-center gap-2">
+                    <ShieldCheck size={18} className="text-cyan-400 shrink-0" />
+                    <span>{analysis.identity.archetype}</span>
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="font-display text-[10px] uppercase tracking-widest text-slate-300">
+                    Potential Score
+                  </span>
+                  <p className="font-display text-2xl font-light text-cyan-300">
+                    {analysis.identityCard.potentialScore}
+                    <span className="text-xs text-slate-400">/100</span>
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="font-display text-[10px] uppercase tracking-widest text-slate-300">
+                    AI-Era Readiness
+                  </span>
+                  <p className="font-display text-2xl font-light text-violet-300">
+                    {analysis.identityCard.aiReadiness}
+                    <span className="text-xs text-slate-400">/100</span>
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="font-display text-[10px] uppercase tracking-widest text-slate-300">
+                    Growth Potential
+                  </span>
+                  <p className="font-display text-sm font-semibold text-emerald-300 pt-1">
+                    {analysis.identityCard.growthPotential}
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 2: Two Possible Trajectories */}
+            <section id="paths" aria-label="Two possible paths" className="space-y-6 scroll-mt-28">
+              <div>
+                <span className="font-display text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-400">
+                  Trajectory Divergence
+                </span>
+                <h2 className="mt-1 font-display text-2xl font-bold text-white sm:text-3xl">
+                  Two Plausible Directions
+                </h2>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                {/* Drift Path */}
+                <article className="glass-panel rounded-3xl border border-red-400/20 p-8 flex flex-col justify-between">
+                  <div>
+                    <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-red-300">
+                      The Drift Path
+                    </span>
+                    <h3 className="mt-3 font-display text-2xl font-bold text-white">
+                      {analysis.futureA.title}
+                    </h3>
+                    <p className="mt-4 text-sm font-light leading-relaxed text-slate-300">
+                      {analysis.futureA.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-8 border-t border-white/5 pt-4">
+                    <span className="font-display text-[10px] font-bold uppercase tracking-wider text-red-300/80">
+                      Key Friction / Regret
+                    </span>
+                    <p className="mt-1 font-serif text-sm italic text-red-200">
+                      “{analysis.futureA.keyRegret}”
+                    </p>
+                  </div>
+                </article>
+
+                {/* Becoming Path */}
+                <article className="glass-panel rounded-3xl border border-violet-400/25 p-8 flex flex-col justify-between">
+                  <div>
+                    <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-violet-300">
+                      The Becoming Path
+                    </span>
+                    <h3 className="mt-3 font-display text-2xl font-bold text-white">
+                      {analysis.futureB.title}
+                    </h3>
+                    <p className="mt-4 text-sm font-light leading-relaxed text-slate-300">
+                      {analysis.futureB.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-8 border-t border-white/5 pt-4">
+                    <span className="font-display text-[10px] font-bold uppercase tracking-wider text-violet-300/80">
+                      Key Growth Unlock
+                    </span>
+                    <p className="mt-1 font-serif text-sm italic text-violet-200">
+                      “{analysis.futureB.keyGrowth}”
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            {/* Section 3: Capability Radar Visualization */}
+            <section id="radar" className="space-y-6 scroll-mt-28">
+              <div className="glass-panel rounded-3xl p-6 sm:p-10">
+                <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <span className="font-display text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-400">
+                      Multi-Dimensional Map
+                    </span>
+                    <h2 className="mt-1 font-display text-2xl font-bold text-white">
+                      Reflective Capability Radar
+                    </h2>
+                  </div>
+
+                  <div className="flex items-center gap-4 text-xs font-display uppercase tracking-wider">
+                    <span className="flex items-center gap-1.5 text-cyan-300">
+                      <span className="h-2.5 w-2.5 rounded-full bg-cyan-400" /> Drift Path
+                    </span>
+                    <span className="flex items-center gap-1.5 text-violet-300">
+                      <span className="h-2.5 w-2.5 rounded-full bg-violet-400" /> Becoming Path
+                    </span>
+                  </div>
+                </div>
+
+                <Suspense
+                  fallback={
+                    <div className="flex h-72 items-center justify-center text-sm text-slate-500">
+                      Loading radar chart…
+                    </div>
+                  }
+                >
+                  <RadarVisualization data={analysis.radarData} />
+                </Suspense>
+
+                {/* Accessible Data Table Fallback */}
+                <details className="mt-6 rounded-2xl border border-white/8 bg-black/30 p-4 text-xs text-slate-400">
+                  <summary className="cursor-pointer font-semibold text-slate-300 hover:text-white">
+                    View Chart Data as Accessible Table
+                  </summary>
+                  <table className="mt-3 w-full text-left">
+                    <thead>
+                      <tr className="border-b border-white/10 text-[10px] uppercase font-display">
+                        <th className="py-2">Dimension</th>
+                        <th className="py-2 text-cyan-300">Drift Score</th>
+                        <th className="py-2 text-violet-300">Becoming Score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {analysis.radarData.map((row) => (
+                        <tr key={row.subject} className="border-b border-white/5">
+                          <td className="py-2 font-medium text-white">{row.subject}</td>
+                          <td className="py-2">{row.A}</td>
+                          <td className="py-2">{row.B}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </details>
+              </div>
+            </section>
+
+            {/* Section 4: Evolution Roadmap */}
+            <section id="timeline" className="space-y-6 scroll-mt-28">
+              <div>
+                <span className="font-display text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-400">
+                  Milestones
+                </span>
+                <h2 className="mt-1 font-display text-2xl font-bold text-white sm:text-3xl">
+                  Evolution Roadmap
+                </h2>
+              </div>
+
+              <div className="glass-panel rounded-3xl p-6 sm:p-10 space-y-8">
+                {analysis.timeline.map((stage) => (
+                  <article
+                    key={stage.period}
+                    className="relative border-l-2 border-cyan-400/30 pl-6 sm:pl-8 space-y-2"
+                  >
+                    <span className="absolute -left-[9px] top-0 h-4 w-4 rounded-full border-2 border-[#090A0F] bg-cyan-400" />
+                    <span className="font-display text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">
+                      {stage.period}
+                    </span>
+
+                    <div className="grid gap-3 sm:grid-cols-2 pt-2">
+                      <div className="rounded-xl border border-red-400/15 bg-red-950/15 p-4 text-xs">
+                        <strong className="block text-red-300 uppercase tracking-wider mb-1">
+                          Drift State
+                        </strong>
+                        <span className="text-slate-300 leading-relaxed">{stage.stateA}</span>
+                      </div>
+
+                      <div className="rounded-xl border border-violet-400/15 bg-violet-950/15 p-4 text-xs">
+                        <strong className="block text-violet-300 uppercase tracking-wider mb-1">
+                          Intentional State
+                        </strong>
+                        <span className="text-slate-300 leading-relaxed">{stage.stateB}</span>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            {/* Section 5: Future Letter */}
+            <section id="letter" className="space-y-6 scroll-mt-28">
+              <div className="glass-panel-strong mx-auto rounded-3xl p-8 sm:p-14">
+                <div className="mb-8 text-center space-y-3">
+                  <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-cyan-400">
+                    A Letter from Your Potential Self
+                  </span>
+                  <h2 className="font-display text-2xl font-light text-white sm:text-4xl">
+                    A Direction — Not a Prophecy.
+                  </h2>
+                </div>
+
+                <div className="prose prose-invert max-w-none text-base font-light leading-relaxed text-slate-300 sm:text-lg">
+                  <ReactMarkdown>{analysis.futureLetter}</ReactMarkdown>
+                </div>
+
+                <div className="mt-10 flex flex-wrap justify-center gap-4 border-t border-white/10 pt-8">
+                  <button
+                    type="button"
+                    onClick={downloadLetter}
+                    className="secondary-button text-xs"
+                  >
+                    <Download size={14} /> Download Letter
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShareModalOpen(true)}
+                    className="secondary-button text-xs"
+                  >
+                    <Share2 size={14} /> Share Summary
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 6: Active Protocols */}
+            <section id="protocols" className="space-y-6 scroll-mt-28">
+              <div>
+                <span className="font-display text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-400">
+                  Actionable Steps
+                </span>
+                <h2 className="mt-1 font-display text-2xl font-bold text-white sm:text-3xl">
+                  Active Protocols
+                </h2>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-3">
+                {/* Daily Habits */}
+                <div className="glass-panel rounded-3xl p-7 flex flex-col justify-between">
+                  <div>
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-400/30 bg-cyan-400/10 text-cyan-300">
+                      <RefreshCcw size={18} />
+                    </div>
+                    <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white">
+                      Daily Micro-Habits
+                    </h3>
+                    <ul className="mt-4 space-y-3">
+                      {analysis.plan.dailyHabits.map((habit, i) => (
+                        <li
+                          key={habit}
+                          className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed"
+                        >
+                          <span className="font-mono text-cyan-400">0{i + 1}</span>
+                          <span>{habit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Learning Roadmap */}
+                <div className="glass-panel rounded-3xl p-7 flex flex-col justify-between">
+                  <div>
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-violet-400/30 bg-violet-400/10 text-violet-300">
+                      <Target size={18} />
+                    </div>
+                    <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white">
+                      Learning Roadmap
+                    </h3>
+                    <ul className="mt-4 space-y-3">
+                      {analysis.plan.learningRoadmap.map((item, i) => (
+                        <li
+                          key={item}
+                          className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed"
+                        >
+                          <span className="font-mono text-violet-400">0{i + 1}</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Anti-Procrastination */}
+                <div className="glass-panel rounded-3xl p-7 flex flex-col justify-between">
+                  <div>
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-400/30 bg-emerald-400/10 text-emerald-300">
+                      <Zap size={18} />
+                    </div>
+                    <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white">
+                      Anti-Procrastination
+                    </h3>
+                    <p className="mt-4 font-serif text-sm italic leading-relaxed text-slate-300">
+                      “{analysis.plan.antiProcrastination}”
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Bottom Actions Footer */}
+            <footer className="flex flex-col items-center gap-6 border-t border-white/10 pt-12 text-center">
+              <div className="flex flex-wrap justify-center gap-3">
+                {!demo ? (
+                  <Link to={`/check-in/${analysisId}`} className="primary-button">
+                    <CheckCircle2 size={15} /> Open Habit Check-in
+                  </Link>
+                ) : null}
+
+                <button type="button" onClick={handleStartAgain} className="secondary-button">
+                  <RefreshCcw size={15} /> {demo ? 'Start Reflection' : 'Reflect Again'}
+                </button>
+
+                {!demo ? (
+                  <Link to="/history" className="secondary-button">
+                    Archive History
+                  </Link>
+                ) : null}
+
+                {!demo ? (
+                  <button
+                    type="button"
+                    onClick={() => setDeleteModalOpen(true)}
+                    className="danger-button"
+                  >
+                    <Trash2 size={15} /> Delete Analysis
+                  </button>
+                ) : null}
+              </div>
+
+              <p className="text-xs text-slate-300 max-w-md">
+                Keep what is helpful, discard what is not, and seek professional guidance for
+                critical health, legal, or financial decisions.
               </p>
-            </article>
+            </footer>
           </div>
-        </section>
-
-        <footer className="flex flex-col items-center gap-5 border-t border-white/5 pt-12 text-center">
-          {notice ? (
-            <p className="text-sm text-cyan-200" role="status">
-              {notice}
-            </p>
-          ) : null}
-          <div className="flex flex-wrap justify-center gap-3">
-            <button className="primary-button" type="button" onClick={startAgain}>
-              <RefreshCcw size={15} /> {demo ? 'Return home' : 'Reflect again'}
-            </button>
-            {!demo ? (
-              <Link className="secondary-button" to="/history">
-                View history
-              </Link>
-            ) : null}
-            {!demo ? (
-              <button
-                className="secondary-button text-red-300"
-                type="button"
-                onClick={() => void removeAnalysis()}
-              >
-                <Trash2 size={15} /> Delete
-              </button>
-            ) : null}
-          </div>
-          <p className="max-w-xl text-xs leading-6 text-white/65">
-            Keep what is useful, question what is not, and seek qualified support for decisions that
-            require professional care.
-          </p>
-        </footer>
+        </div>
       </div>
+
+      <MobileBottomNav activeSection={activeSection} onSelectSection={scrollToSection} />
+
+      <Footer />
+
+      <ShareSummaryModal
+        isOpen={shareModalOpen}
+        onClose={() => setShareModalOpen(false)}
+        analysis={analysis}
+        onCopied={() =>
+          setToast({id: 'copy', message: 'Summary copied to clipboard.', type: 'success'})
+        }
+      />
+
+      <DeleteAccountModal
+        isOpen={deleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+        onConfirm={handleDeleteAnalysis}
+      />
+
+      <SignInModal isOpen={signInOpen} onClose={() => setSignInOpen(false)} />
+
+      <Toast toast={toast} onDismiss={() => setToast(null)} />
     </div>
-  );
-}
-
-function Metric({
-  label,
-  value,
-  compact = false,
-}: {
-  label: string;
-  value: string;
-  compact?: boolean;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/5 p-5">
-      <p className="mb-4 text-[10px] uppercase tracking-widest text-white/65">{label}</p>
-      <p className={compact ? 'text-sm leading-6 text-cyan-100' : 'text-3xl font-light'}>{value}</p>
-    </div>
-  );
-}
-
-function PathCard({
-  eyebrow,
-  title,
-  description,
-  highlightLabel,
-  highlight,
-  tone,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-  highlightLabel: string;
-  highlight: string;
-  tone: 'red' | 'cyan';
-}) {
-  const toneClass =
-    tone === 'red' ? 'text-red-300 border-red-400/20' : 'text-cyan-300 border-cyan-400/20';
-  return (
-    <motion.article
-      className={`glass rounded-3xl border p-8 md:p-10 ${toneClass}`}
-      whileHover={{y: -4}}
-    >
-      <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em]">{eyebrow}</p>
-      <h2 className="mb-6 font-display text-3xl font-bold text-white">{title}</h2>
-      <p className="mb-8 text-base font-light leading-8 text-gray-300">{description}</p>
-      <div className="border-t border-white/5 pt-6">
-        <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em]">{highlightLabel}</p>
-        <p className="font-serif text-lg italic leading-7 text-white/75">“{highlight}”</p>
-      </div>
-    </motion.article>
-  );
-}
-
-function ActionCard({icon, title, items}: {icon: React.ReactNode; title: string; items: string[]}) {
-  return (
-    <article className="glass rounded-3xl p-8">
-      <div className="mb-7 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-400/25 text-cyan-300">
-        {icon}
-      </div>
-      <h3 className="mb-5 font-display text-sm font-bold uppercase tracking-widest text-white/60">
-        {title}
-      </h3>
-      <ol className="space-y-4">
-        {items.map((item, index) => (
-          <li className="flex gap-4 text-sm font-light leading-6 text-gray-400" key={item}>
-            <span className="text-cyan-300">0{index + 1}</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ol>
-    </article>
   );
 }

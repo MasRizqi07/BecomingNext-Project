@@ -1,397 +1,703 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Becoming V2 - Global Navigation Shells</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500&amp;family=Playfair+Display:ital@0;1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-tertiary-fixed-variant": "#5a4300",
-                        "success": "#86EFAC",
-                        "secondary-fixed-dim": "#ccbeff",
-                        "on-surface": "#e4e1ea",
-                        "surface-container": "#1f1f25",
-                        "primary": "#d5f9ff",
-                        "on-surface-variant": "#bcc9cb",
-                        "tertiary-fixed": "#ffdf97",
-                        "accent-strong": "#22D3EE",
-                        "border": "rgba(255, 255, 255, 0.12)",
-                        "surface": "#131319",
-                        "text-tertiary": "#94A3B8",
-                        "on-primary-fixed-variant": "#004f57",
-                        "inverse-primary": "#006973",
-                        "secondary-fixed": "#e7deff",
-                        "text-primary": "#F8FAFC",
-                        "surface-container-high": "#2a2930",
-                        "background": "#131319",
-                        "tertiary-fixed-dim": "#edc150",
-                        "on-secondary-fixed-variant": "#4a3d7c",
-                        "inverse-on-surface": "#303037",
-                        "surface-container-highest": "#35343b",
-                        "on-primary-fixed": "#001f23",
-                        "text-secondary": "#CBD5E1",
-                        "on-background": "#e4e1ea",
-                        "on-secondary-container": "#baabf3",
-                        "surface-container-low": "#1b1b21",
-                        "on-tertiary-fixed": "#251a00",
-                        "primary-fixed-dim": "#54d8e8",
-                        "primary-fixed": "#91f1ff",
-                        "outline": "#869395",
-                        "on-error-container": "#ffdad6",
-                        "error-container": "#93000a",
-                        "surface-bright": "#39383f",
-                        "on-primary-container": "#006771",
-                        "error": "#ffb4ab",
-                        "warning": "#FCD34D",
-                        "tertiary": "#fff2db",
-                        "on-primary": "#00363c",
-                        "inverse-surface": "#e4e1ea",
-                        "surface-dim": "#131319",
-                        "surface-tint": "#54d8e8",
-                        "secondary": "#ccbeff",
-                        "danger": "#FCA5A5",
-                        "surface-variant": "#35343b",
-                        "surface-1": "#090A0F",
-                        "primary-container": "#67e8f9",
-                        "surface-2": "rgba(255, 255, 255, 0.05)",
-                        "surface-container-lowest": "#0e0e14",
-                        "on-error": "#690005",
-                        "surface-3": "rgba(255, 255, 255, 0.08)",
-                        "on-tertiary-container": "#755900",
-                        "on-tertiary": "#3e2e00",
-                        "secondary-container": "#4a3d7c",
-                        "border-strong": "rgba(255, 255, 255, 0.24)",
-                        "on-secondary": "#332664",
-                        "tertiary-container": "#ffd15e",
-                        "outline-variant": "#3c494b",
-                        "on-secondary-fixed": "#1e0e4e"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "max-content-width": "1200px",
-                        "margin-mobile": "20px",
-                        "margin-desktop": "64px",
-                        "gutter-mobile": "16px",
-                        "gutter-desktop": "32px",
-                        "unit": "4px",
-                        "reading-width": "720px"
-                    },
-                    "fontFamily": {
-                        "h1": ["Space Grotesk"],
-                        "display-xl": ["Space Grotesk"],
-                        "small": ["Inter"],
-                        "display-xl-mobile": ["Space Grotesk"],
-                        "editorial-italic": ["Playfair Display"],
-                        "display-lg-mobile": ["Space Grotesk"],
-                        "body-lg": ["Inter"],
-                        "display-lg": ["Space Grotesk"],
-                        "h1-mobile": ["Space Grotesk"],
-                        "label": ["Space Grotesk"],
-                        "body": ["Inter"],
-                        "h3": ["Space Grotesk"],
-                        "h2": ["Space Grotesk"]
-                    },
-                    "fontSize": {
-                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
-                        "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
-                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
-                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
-                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
-                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }]
-                    }
-                },
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Becoming V2 - Global Navigation Shells</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500&amp;family=Playfair+Display:ital@0;1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-tertiary-fixed-variant': '#5a4300',
+              success: '#86EFAC',
+              'secondary-fixed-dim': '#ccbeff',
+              'on-surface': '#e4e1ea',
+              'surface-container': '#1f1f25',
+              primary: '#d5f9ff',
+              'on-surface-variant': '#bcc9cb',
+              'tertiary-fixed': '#ffdf97',
+              'accent-strong': '#22D3EE',
+              border: 'rgba(255, 255, 255, 0.12)',
+              surface: '#131319',
+              'text-tertiary': '#94A3B8',
+              'on-primary-fixed-variant': '#004f57',
+              'inverse-primary': '#006973',
+              'secondary-fixed': '#e7deff',
+              'text-primary': '#F8FAFC',
+              'surface-container-high': '#2a2930',
+              background: '#131319',
+              'tertiary-fixed-dim': '#edc150',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              'inverse-on-surface': '#303037',
+              'surface-container-highest': '#35343b',
+              'on-primary-fixed': '#001f23',
+              'text-secondary': '#CBD5E1',
+              'on-background': '#e4e1ea',
+              'on-secondary-container': '#baabf3',
+              'surface-container-low': '#1b1b21',
+              'on-tertiary-fixed': '#251a00',
+              'primary-fixed-dim': '#54d8e8',
+              'primary-fixed': '#91f1ff',
+              outline: '#869395',
+              'on-error-container': '#ffdad6',
+              'error-container': '#93000a',
+              'surface-bright': '#39383f',
+              'on-primary-container': '#006771',
+              error: '#ffb4ab',
+              warning: '#FCD34D',
+              tertiary: '#fff2db',
+              'on-primary': '#00363c',
+              'inverse-surface': '#e4e1ea',
+              'surface-dim': '#131319',
+              'surface-tint': '#54d8e8',
+              secondary: '#ccbeff',
+              danger: '#FCA5A5',
+              'surface-variant': '#35343b',
+              'surface-1': '#090A0F',
+              'primary-container': '#67e8f9',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'surface-container-lowest': '#0e0e14',
+              'on-error': '#690005',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'on-tertiary-container': '#755900',
+              'on-tertiary': '#3e2e00',
+              'secondary-container': '#4a3d7c',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'on-secondary': '#332664',
+              'tertiary-container': '#ffd15e',
+              'outline-variant': '#3c494b',
+              'on-secondary-fixed': '#1e0e4e',
             },
-        }
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              'max-content-width': '1200px',
+              'margin-mobile': '20px',
+              'margin-desktop': '64px',
+              'gutter-mobile': '16px',
+              'gutter-desktop': '32px',
+              unit: '4px',
+              'reading-width': '720px',
+            },
+            fontFamily: {
+              h1: ['Space Grotesk'],
+              'display-xl': ['Space Grotesk'],
+              small: ['Inter'],
+              'display-xl-mobile': ['Space Grotesk'],
+              'editorial-italic': ['Playfair Display'],
+              'display-lg-mobile': ['Space Grotesk'],
+              'body-lg': ['Inter'],
+              'display-lg': ['Space Grotesk'],
+              'h1-mobile': ['Space Grotesk'],
+              label: ['Space Grotesk'],
+              body: ['Inter'],
+              h3: ['Space Grotesk'],
+              h2: ['Space Grotesk'],
+            },
+            fontSize: {
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+              'display-xl-mobile': ['56px', {lineHeight: '1.0', fontWeight: '700'}],
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              'display-lg-mobile': ['48px', {lineHeight: '1.1', fontWeight: '600'}],
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+              'h1-mobile': ['40px', {lineHeight: '1.1', fontWeight: '600'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        body { background-color: #020205; color: #F8FAFC; }
-        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .nav-link { position: relative; }
-        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background-color: #22D3EE; transition: width 0.2s ease; }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        
-        .glowing-orb {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(34,211,238,0.15) 0%, rgba(34,211,238,0) 70%);
-            top: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .subtle-grid {
-            background-size: 40px 40px;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        }
+    <style>
+      body {
+        background-color: #020205;
+        color: #f8fafc;
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: #22d3ee;
+        transition: width 0.2s ease;
+      }
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 100%;
+      }
+
+      .glowing-orb {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(34, 211, 238, 0.15) 0%, rgba(34, 211, 238, 0) 70%);
+        top: -150px;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .subtle-grid {
+        background-size: 40px 40px;
+        background-image:
+          linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      }
     </style>
-</head>
-<body class="font-body text-body bg-[#020205] text-text-primary min-h-screen flex flex-col antialiased selection:bg-accent-strong selection:text-background subtle-grid">
-<!-- Container to simulate context -->
-<div class="flex-grow flex flex-col gap-32 py-16 px-4 md:px-margin-desktop max-w-max-content-width mx-auto w-full relative z-10">
-<div class="text-center mb-8">
-<h1 class="font-h1 text-h1-mobile md:text-h1 mb-4">Navigation Architecture</h1>
-<p class="font-body-lg text-body-lg text-text-secondary max-w-2xl mx-auto">A cinematic showcase of the structural shell components defining the privacy-first experience of Becoming V2.</p>
-</div>
-<!-- 1. PUBLIC HEADER -->
-<section class="flex flex-col gap-6">
-<h2 class="font-h3 text-h3 text-text-tertiary border-b border-border pb-2">1. Public Header (Unauthenticated)</h2>
-<div class="relative w-full border border-border rounded-xl overflow-hidden bg-background h-64 flex flex-col shadow-2xl shadow-black/50">
-<!-- TopAppBar 1 from JSON -->
-<nav class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 z-50 bg-surface-2/80 backdrop-blur-xl border-b border-border">
-<!-- Brand -->
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-sm border border-accent-strong/50 bg-accent-strong/10 flex items-center justify-center relative overflow-hidden group cursor-pointer">
-<div class="absolute inset-0 bg-accent-strong opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-<div class="w-3 h-3 bg-accent-strong rotate-45 group-hover:rotate-90 transition-transform duration-500 ease-in-out"></div>
-</div>
-<span class="font-h2 text-h2 font-bold text-accent-strong tracking-tight">BECOMING.</span>
-</div>
-<!-- Links -->
-<div class="hidden md:flex items-center gap-8 font-label text-label">
-<a class="text-primary border-b-2 border-accent-strong pb-1 hover:text-primary transition-colors duration-150" href="#">How it works</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">Privacy</a>
-</div>
-<!-- Actions -->
-<div class="flex items-center gap-6">
-<a class="hidden md:block font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">Demo</a>
-<button class="bg-white text-black hover:bg-gray-100 transition-colors duration-150 rounded-full px-5 py-2 font-label text-label flex items-center gap-2">
-<svg class="w-4 h-4" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
-<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
-<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
-<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
-</svg>
-                            Sign In
-                        </button>
-</div>
-</nav>
-<div class="flex-grow flex items-center justify-center text-text-tertiary font-editorial-italic text-editorial-italic opacity-50">
-                    Scroll down to explore states
+  </head>
+  <body
+    class="font-body text-body bg-[#020205] text-text-primary min-h-screen flex flex-col antialiased selection:bg-accent-strong selection:text-background subtle-grid"
+  >
+    <!-- Container to simulate context -->
+    <div
+      class="flex-grow flex flex-col gap-32 py-16 px-4 md:px-margin-desktop max-w-max-content-width mx-auto w-full relative z-10"
+    >
+      <div class="text-center mb-8">
+        <h1 class="font-h1 text-h1-mobile md:text-h1 mb-4">Navigation Architecture</h1>
+        <p class="font-body-lg text-body-lg text-text-secondary max-w-2xl mx-auto">
+          A cinematic showcase of the structural shell components defining the privacy-first
+          experience of Becoming V2.
+        </p>
+      </div>
+      <!-- 1. PUBLIC HEADER -->
+      <section class="flex flex-col gap-6">
+        <h2 class="font-h3 text-h3 text-text-tertiary border-b border-border pb-2">
+          1. Public Header (Unauthenticated)
+        </h2>
+        <div
+          class="relative w-full border border-border rounded-xl overflow-hidden bg-background h-64 flex flex-col shadow-2xl shadow-black/50"
+        >
+          <!-- TopAppBar 1 from JSON -->
+          <nav
+            class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 z-50 bg-surface-2/80 backdrop-blur-xl border-b border-border"
+          >
+            <!-- Brand -->
+            <div class="flex items-center gap-3">
+              <div
+                class="w-8 h-8 rounded-sm border border-accent-strong/50 bg-accent-strong/10 flex items-center justify-center relative overflow-hidden group cursor-pointer"
+              >
+                <div
+                  class="absolute inset-0 bg-accent-strong opacity-0 group-hover:opacity-20 transition-opacity duration-300"
+                ></div>
+                <div
+                  class="w-3 h-3 bg-accent-strong rotate-45 group-hover:rotate-90 transition-transform duration-500 ease-in-out"
+                ></div>
+              </div>
+              <span class="font-h2 text-h2 font-bold text-accent-strong tracking-tight"
+                >BECOMING.</span
+              >
+            </div>
+            <!-- Links -->
+            <div class="hidden md:flex items-center gap-8 font-label text-label">
+              <a
+                class="text-primary border-b-2 border-accent-strong pb-1 hover:text-primary transition-colors duration-150"
+                href="#"
+                >How it works</a
+              >
+              <a
+                class="text-on-surface-variant hover:text-primary transition-colors duration-150"
+                href="#"
+                >Privacy</a
+              >
+            </div>
+            <!-- Actions -->
+            <div class="flex items-center gap-6">
+              <a
+                class="hidden md:block font-label text-label text-on-surface-variant hover:text-primary transition-colors duration-150"
+                href="#"
+                >Demo</a
+              >
+              <button
+                class="bg-white text-black hover:bg-gray-100 transition-colors duration-150 rounded-full px-5 py-2 font-label text-label flex items-center gap-2"
+              >
+                <svg class="w-4 h-4" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                    fill="#4285F4"
+                  ></path>
+                  <path
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                    fill="#34A853"
+                  ></path>
+                  <path
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                    fill="#FBBC05"
+                  ></path>
+                  <path
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                    fill="#EA4335"
+                  ></path>
+                </svg>
+                Sign In
+              </button>
+            </div>
+          </nav>
+          <div
+            class="flex-grow flex items-center justify-center text-text-tertiary font-editorial-italic text-editorial-italic opacity-50"
+          >
+            Scroll down to explore states
+          </div>
+        </div>
+      </section>
+      <!-- 2. AUTHENTICATED HEADER -->
+      <section class="flex flex-col gap-6">
+        <h2 class="font-h3 text-h3 text-text-tertiary border-b border-border pb-2">
+          2. Authenticated Header (App View)
+        </h2>
+        <div
+          class="relative w-full border border-border rounded-xl overflow-hidden bg-surface-1 h-80 flex flex-col shadow-2xl shadow-black/50"
+        >
+          <!-- TopAppBar 2 from JSON -->
+          <nav
+            class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 sticky top-0 z-50 bg-surface border-b border-border"
+          >
+            <!-- Brand / Context -->
+            <div class="flex items-center gap-4">
+              <button
+                aria-label="Go back"
+                class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-3 text-text-secondary transition-colors"
+              >
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+                  >arrow_back</span
+                >
+              </button>
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-6 h-6 rounded-sm border border-accent-strong/30 flex items-center justify-center"
+                >
+                  <div class="w-2 h-2 bg-accent-strong rotate-45"></div>
                 </div>
-</div>
-</section>
-<!-- 2. AUTHENTICATED HEADER -->
-<section class="flex flex-col gap-6">
-<h2 class="font-h3 text-h3 text-text-tertiary border-b border-border pb-2">2. Authenticated Header (App View)</h2>
-<div class="relative w-full border border-border rounded-xl overflow-hidden bg-surface-1 h-80 flex flex-col shadow-2xl shadow-black/50">
-<!-- TopAppBar 2 from JSON -->
-<nav class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-3 sticky top-0 z-50 bg-surface border-b border-border">
-<!-- Brand / Context -->
-<div class="flex items-center gap-4">
-<button aria-label="Go back" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-3 text-text-secondary transition-colors">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
-</button>
-<div class="flex items-center gap-2">
-<div class="w-6 h-6 rounded-sm border border-accent-strong/30 flex items-center justify-center">
-<div class="w-2 h-2 bg-accent-strong rotate-45"></div>
-</div>
-<span class="font-h3 text-h3 font-bold text-accent-strong hidden sm:block">Becoming V2</span>
-</div>
-</div>
-<!-- Navigation Links -->
-<div class="hidden md:flex items-center gap-1 bg-surface-container-low rounded-full px-2 py-1 border border-border">
-<a class="px-4 py-1.5 rounded-full text-on-surface-variant font-label text-label hover:bg-surface-3 transition-colors" href="#">Dashboard</a>
-<div class="relative px-4 py-1.5 rounded-full bg-surface-3 border border-border-strong text-primary font-bold font-label text-label flex items-center gap-2 cursor-pointer shadow-sm">
-<div class="w-1.5 h-1.5 bg-accent-strong rounded-full shadow-[0_0_8px_rgba(34,211,238,0.8)]"></div>
-                            New Reflection
-                        </div>
-<a class="px-4 py-1.5 rounded-full text-on-surface-variant font-label text-label hover:bg-surface-3 transition-colors" href="#">History</a>
-</div>
-<!-- Actions / Profile -->
-<div class="flex items-center gap-2">
-<button aria-label="Notifications" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-3 text-on-surface-variant transition-colors">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
-</button>
-<button aria-label="Settings" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-3 text-on-surface-variant transition-colors">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
-</button>
-<!-- Simulated Profile Dropdown Trigger -->
-<div class="relative ml-2 cursor-pointer group">
-<div class="w-9 h-9 rounded-full overflow-hidden border border-border hover:border-accent-strong transition-colors ring-2 ring-transparent group-hover:ring-accent-strong/20">
-<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A macro photograph of an abstract, smooth, dark iridescent stone reflecting cyan and deep purple light in a moody, minimalist setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjUtYD466oH-iHn1JwDAbqJZpASOwKUhtlbFyIvxxKRRK2iSIv0VWs-MM93YY6THSOaoBiZPxE3xAW_9WWJGhyyfF1HqaY87PJYu49ecflv5GKGKiTrreUvF9853Jw0OHUurbX3cg-rcBsGw2muhErb4uVHq-LrraQrlKdwLa18iVkrw_yC11vER3ep5APBH7XUHIupL_5RsrMXmc24Nk2vimfidUbtZs48cfvQgPJIrpJa532Ur_j_A"/>
-</div>
-<!-- Simulated Dropdown -->
-<div class="absolute right-0 top-full mt-2 w-48 bg-surface-container-highest border border-border rounded-xl shadow-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100">
-<div class="px-4 py-3 border-b border-border/50">
-<p class="font-small text-small text-text-primary">Elias Vance</p>
-<p class="text-xs text-text-tertiary truncate">elias.vance@example.com</p>
-</div>
-<div class="py-1">
-<a class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:bg-surface-3 hover:text-text-primary transition-colors" href="#">
-<span class="material-symbols-outlined text-[18px]">manage_accounts</span> Account Settings
-                                    </a>
-<a class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:bg-surface-3 hover:text-text-primary transition-colors" href="#">
-<span class="material-symbols-outlined text-[18px]">contrast</span> Appearance
-                                    </a>
-</div>
-<div class="py-1 border-t border-border/50">
-<a class="flex items-center gap-3 px-4 py-2 text-sm text-error hover:bg-error/10 transition-colors" href="#">
-<span class="material-symbols-outlined text-[18px]">logout</span> Sign Out
-                                    </a>
-</div>
-</div>
-</div>
-</div>
-</nav>
-<!-- Inner Layout Context (SideNav + Content) -->
-<div class="flex-grow flex p-6 gap-8 overflow-hidden relative">
-<div class="glowing-orb"></div>
-<!-- SideNavBar from JSON (condensed for visual) -->
-<aside class="hidden lg:flex flex-col w-48 shrink-0 gap-4 relative z-10">
-<div class="mb-4">
-<h3 class="font-label text-label text-text-tertiary uppercase tracking-wider mb-1">Navigation</h3>
-<p class="text-xs text-text-secondary opacity-50">Reflection Sections</p>
-</div>
-<nav class="flex flex-col gap-1">
-<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-2 rounded-lg font-label text-label transition-colors" href="#">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">fingerprint</span> Identity
-                            </a>
-<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-2 rounded-lg font-label text-label transition-colors" href="#">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">alt_route</span> Paths
-                            </a>
-<!-- Active State -->
-<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-bold font-label text-label translate-x-1 transition-transform duration-200 shadow-sm shadow-accent-strong/20" href="#">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">timeline</span> Timeline
-                            </a>
-<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-2 rounded-lg font-label text-label transition-colors" href="#">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">mail</span> Letter
-                            </a>
-<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-2 rounded-lg font-label text-label transition-colors" href="#">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">event_note</span> Plan
-                            </a>
-</nav>
-</aside>
-<main class="flex-grow rounded-xl border border-border/50 bg-surface-2 backdrop-blur-sm p-8 flex items-center justify-center relative z-10">
-<div class="text-center">
-<div class="w-16 h-16 rounded-full border border-border-strong bg-surface-3 flex items-center justify-center mx-auto mb-4 shadow-[0_0_15px_rgba(34,211,238,0.1)]">
-<span class="material-symbols-outlined text-[28px] text-accent-strong" style="font-variation-settings: 'FILL' 1;">timeline</span>
-</div>
-<h4 class="font-h3 text-h3 text-text-primary mb-2">Timeline Reflection Active</h4>
-<p class="font-small text-small text-text-tertiary">The canvas prioritizes focus over navigation.</p>
-</div>
-</main>
-</div>
-<!-- BottomNavBar from JSON (Simulated Mobile View Overlay) -->
-<div class="absolute bottom-0 left-0 w-full h-16 border-t border-border bg-surface-2/90 backdrop-blur-md flex lg:hidden justify-around items-center px-4 z-50">
-<a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:bg-surface-3 p-2 rounded-lg w-16" href="#">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">fingerprint</span>
-<span class="text-[10px] font-semibold tracking-wider">Identity</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:bg-surface-3 p-2 rounded-lg w-16" href="#">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">alt_route</span>
-<span class="text-[10px] font-semibold tracking-wider">Paths</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-accent-strong font-bold active:bg-surface-3 p-2 rounded-lg w-16 scale-110 transition-transform" href="#">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">timeline</span>
-<span class="text-[10px] font-bold tracking-wider">Timeline</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:bg-surface-3 p-2 rounded-lg w-16" href="#">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">mail</span>
-<span class="text-[10px] font-semibold tracking-wider">Letter</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:bg-surface-3 p-2 rounded-lg w-16" href="#">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">event_note</span>
-<span class="text-[10px] font-semibold tracking-wider">Plan</span>
-</a>
-</div>
-</div>
-<p class="text-sm text-text-tertiary italic text-center">Note: Bottom nav visible here to demonstrate mobile breakpoint logic within container.</p>
-</section>
-</div>
-<!-- 3. GLOBAL FOOTER -->
-<footer class="w-full bg-surface-1 border-t border-border mt-auto relative z-20">
-<div class="max-w-max-content-width mx-auto px-4 md:px-margin-desktop py-16 md:py-24">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
-<!-- Col 1: Brand -->
-<div class="flex flex-col gap-6 lg:col-span-1">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-sm border border-accent-strong/50 bg-accent-strong/5 flex items-center justify-center">
-<div class="w-3 h-3 bg-accent-strong rotate-45"></div>
-</div>
-<span class="font-h2 text-h2 font-bold text-text-primary tracking-tight">BECOMING.</span>
-</div>
-<p class="font-body text-body text-text-secondary leading-relaxed">
-                        A private digital sanctuary for intentional growth. Move away from algorithmic noise and toward profound personal reflection.
-                    </p>
-<div class="flex gap-4 mt-2">
-<a class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-tertiary hover:text-accent-strong hover:border-accent-strong/50 transition-all" href="#">
-<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
-</a>
-<a class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-tertiary hover:text-accent-strong hover:border-accent-strong/50 transition-all" href="#">
-<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
-</a>
-</div>
-</div>
-<!-- Col 2: Product -->
-<div class="flex flex-col gap-4">
-<h4 class="font-label text-label text-text-primary uppercase tracking-widest mb-2">Platform</h4>
-<a class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit" href="#">How it Works</a>
-<a class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit" href="#">The Methodology</a>
-<a class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit" href="#">Pricing &amp; Tiers</a>
-<a class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit flex items-center gap-2" href="#">
-                        Manifesto <span class="px-2 py-0.5 rounded-full bg-surface-3 border border-border text-[10px] text-text-tertiary">New</span>
-</a>
-</div>
-<!-- Col 3: Privacy & Legal -->
-<div class="flex flex-col gap-4">
-<h4 class="font-label text-label text-text-primary uppercase tracking-widest mb-2">Trust &amp; Boundaries</h4>
-<a class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit" href="#">Privacy Policy</a>
-<a class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit" href="#">Data Retention</a>
-<a class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit" href="#">AI &amp; Local Processing</a>
-<a class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit" href="#">Terms of Service</a>
-</div>
-<!-- Col 4: Disclaimer -->
-<div class="lg:col-span-1">
-<div class="glass-panel p-5 rounded-xl border border-warning/30 bg-warning/5 relative overflow-hidden">
-<div class="absolute top-0 left-0 w-1 h-full bg-warning"></div>
-<div class="flex items-start gap-3">
-<span class="material-symbols-outlined text-warning text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">info</span>
-<div class="flex flex-col gap-2">
-<h5 class="font-label text-label text-text-primary">Not Medical Advice</h5>
-<p class="text-xs text-text-secondary leading-relaxed">
-                                    Becoming is a tool for self-reflection and personal growth. It does not provide clinical diagnoses, psychiatric evaluation, or substitute for professional therapeutic care.
-                                </p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Bottom Bar -->
-<div class="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="font-small text-small text-text-tertiary">
-                    © 2024 Becoming Labs Inc. All rights reserved.
+                <span class="font-h3 text-h3 font-bold text-accent-strong hidden sm:block"
+                  >Becoming V2</span
+                >
+              </div>
+            </div>
+            <!-- Navigation Links -->
+            <div
+              class="hidden md:flex items-center gap-1 bg-surface-container-low rounded-full px-2 py-1 border border-border"
+            >
+              <a
+                class="px-4 py-1.5 rounded-full text-on-surface-variant font-label text-label hover:bg-surface-3 transition-colors"
+                href="#"
+                >Dashboard</a
+              >
+              <div
+                class="relative px-4 py-1.5 rounded-full bg-surface-3 border border-border-strong text-primary font-bold font-label text-label flex items-center gap-2 cursor-pointer shadow-sm"
+              >
+                <div
+                  class="w-1.5 h-1.5 bg-accent-strong rounded-full shadow-[0_0_8px_rgba(34,211,238,0.8)]"
+                ></div>
+                New Reflection
+              </div>
+              <a
+                class="px-4 py-1.5 rounded-full text-on-surface-variant font-label text-label hover:bg-surface-3 transition-colors"
+                href="#"
+                >History</a
+              >
+            </div>
+            <!-- Actions / Profile -->
+            <div class="flex items-center gap-2">
+              <button
+                aria-label="Notifications"
+                class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-3 text-on-surface-variant transition-colors"
+              >
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+                  >notifications</span
+                >
+              </button>
+              <button
+                aria-label="Settings"
+                class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-3 text-on-surface-variant transition-colors"
+              >
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+                  >settings</span
+                >
+              </button>
+              <!-- Simulated Profile Dropdown Trigger -->
+              <div class="relative ml-2 cursor-pointer group">
+                <div
+                  class="w-9 h-9 rounded-full overflow-hidden border border-border hover:border-accent-strong transition-colors ring-2 ring-transparent group-hover:ring-accent-strong/20"
+                >
+                  <img
+                    alt="User profile avatar"
+                    class="w-full h-full object-cover"
+                    data-alt="A macro photograph of an abstract, smooth, dark iridescent stone reflecting cyan and deep purple light in a moody, minimalist setting."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjUtYD466oH-iHn1JwDAbqJZpASOwKUhtlbFyIvxxKRRK2iSIv0VWs-MM93YY6THSOaoBiZPxE3xAW_9WWJGhyyfF1HqaY87PJYu49ecflv5GKGKiTrreUvF9853Jw0OHUurbX3cg-rcBsGw2muhErb4uVHq-LrraQrlKdwLa18iVkrw_yC11vER3ep5APBH7XUHIupL_5RsrMXmc24Nk2vimfidUbtZs48cfvQgPJIrpJa532Ur_j_A"
+                  />
+                </div>
+                <!-- Simulated Dropdown -->
+                <div
+                  class="absolute right-0 top-full mt-2 w-48 bg-surface-container-highest border border-border rounded-xl shadow-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100"
+                >
+                  <div class="px-4 py-3 border-b border-border/50">
+                    <p class="font-small text-small text-text-primary">Elias Vance</p>
+                    <p class="text-xs text-text-tertiary truncate">elias.vance@example.com</p>
+                  </div>
+                  <div class="py-1">
+                    <a
+                      class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:bg-surface-3 hover:text-text-primary transition-colors"
+                      href="#"
+                    >
+                      <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+                      Account Settings
+                    </a>
+                    <a
+                      class="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary hover:bg-surface-3 hover:text-text-primary transition-colors"
+                      href="#"
+                    >
+                      <span class="material-symbols-outlined text-[18px]">contrast</span> Appearance
+                    </a>
+                  </div>
+                  <div class="py-1 border-t border-border/50">
+                    <a
+                      class="flex items-center gap-3 px-4 py-2 text-sm text-error hover:bg-error/10 transition-colors"
+                      href="#"
+                    >
+                      <span class="material-symbols-outlined text-[18px]">logout</span> Sign Out
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <!-- Inner Layout Context (SideNav + Content) -->
+          <div class="flex-grow flex p-6 gap-8 overflow-hidden relative">
+            <div class="glowing-orb"></div>
+            <!-- SideNavBar from JSON (condensed for visual) -->
+            <aside class="hidden lg:flex flex-col w-48 shrink-0 gap-4 relative z-10">
+              <div class="mb-4">
+                <h3 class="font-label text-label text-text-tertiary uppercase tracking-wider mb-1">
+                  Navigation
+                </h3>
+                <p class="text-xs text-text-secondary opacity-50">Reflection Sections</p>
+              </div>
+              <nav class="flex flex-col gap-1">
+                <a
+                  class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-2 rounded-lg font-label text-label transition-colors"
+                  href="#"
+                >
+                  <span
+                    class="material-symbols-outlined text-[20px]"
+                    style="font-variation-settings: 'FILL' 0"
+                    >fingerprint</span
+                  >
+                  Identity
+                </a>
+                <a
+                  class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-2 rounded-lg font-label text-label transition-colors"
+                  href="#"
+                >
+                  <span
+                    class="material-symbols-outlined text-[20px]"
+                    style="font-variation-settings: 'FILL' 0"
+                    >alt_route</span
+                  >
+                  Paths
+                </a>
+                <!-- Active State -->
+                <a
+                  class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-bold font-label text-label translate-x-1 transition-transform duration-200 shadow-sm shadow-accent-strong/20"
+                  href="#"
+                >
+                  <span
+                    class="material-symbols-outlined text-[20px]"
+                    style="font-variation-settings: 'FILL' 1"
+                    >timeline</span
+                  >
+                  Timeline
+                </a>
+                <a
+                  class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-2 rounded-lg font-label text-label transition-colors"
+                  href="#"
+                >
+                  <span
+                    class="material-symbols-outlined text-[20px]"
+                    style="font-variation-settings: 'FILL' 0"
+                    >mail</span
+                  >
+                  Letter
+                </a>
+                <a
+                  class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-2 rounded-lg font-label text-label transition-colors"
+                  href="#"
+                >
+                  <span
+                    class="material-symbols-outlined text-[20px]"
+                    style="font-variation-settings: 'FILL' 0"
+                    >event_note</span
+                  >
+                  Plan
+                </a>
+              </nav>
+            </aside>
+            <main
+              class="flex-grow rounded-xl border border-border/50 bg-surface-2 backdrop-blur-sm p-8 flex items-center justify-center relative z-10"
+            >
+              <div class="text-center">
+                <div
+                  class="w-16 h-16 rounded-full border border-border-strong bg-surface-3 flex items-center justify-center mx-auto mb-4 shadow-[0_0_15px_rgba(34,211,238,0.1)]"
+                >
+                  <span
+                    class="material-symbols-outlined text-[28px] text-accent-strong"
+                    style="font-variation-settings: 'FILL' 1"
+                    >timeline</span
+                  >
+                </div>
+                <h4 class="font-h3 text-h3 text-text-primary mb-2">Timeline Reflection Active</h4>
+                <p class="font-small text-small text-text-tertiary">
+                  The canvas prioritizes focus over navigation.
                 </p>
-<div class="flex items-center gap-2 text-text-tertiary font-small text-small">
-<span class="w-2 h-2 rounded-full bg-success shadow-[0_0_8px_rgba(134,239,172,0.6)]"></span>
-                    Systems Normal
+              </div>
+            </main>
+          </div>
+          <!-- BottomNavBar from JSON (Simulated Mobile View Overlay) -->
+          <div
+            class="absolute bottom-0 left-0 w-full h-16 border-t border-border bg-surface-2/90 backdrop-blur-md flex lg:hidden justify-around items-center px-4 z-50"
+          >
+            <a
+              class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:bg-surface-3 p-2 rounded-lg w-16"
+              href="#"
+            >
+              <span
+                class="material-symbols-outlined text-[20px]"
+                style="font-variation-settings: 'FILL' 0"
+                >fingerprint</span
+              >
+              <span class="text-[10px] font-semibold tracking-wider">Identity</span>
+            </a>
+            <a
+              class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:bg-surface-3 p-2 rounded-lg w-16"
+              href="#"
+            >
+              <span
+                class="material-symbols-outlined text-[20px]"
+                style="font-variation-settings: 'FILL' 0"
+                >alt_route</span
+              >
+              <span class="text-[10px] font-semibold tracking-wider">Paths</span>
+            </a>
+            <a
+              class="flex flex-col items-center justify-center gap-1 text-accent-strong font-bold active:bg-surface-3 p-2 rounded-lg w-16 scale-110 transition-transform"
+              href="#"
+            >
+              <span
+                class="material-symbols-outlined text-[20px]"
+                style="font-variation-settings: 'FILL' 1"
+                >timeline</span
+              >
+              <span class="text-[10px] font-bold tracking-wider">Timeline</span>
+            </a>
+            <a
+              class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:bg-surface-3 p-2 rounded-lg w-16"
+              href="#"
+            >
+              <span
+                class="material-symbols-outlined text-[20px]"
+                style="font-variation-settings: 'FILL' 0"
+                >mail</span
+              >
+              <span class="text-[10px] font-semibold tracking-wider">Letter</span>
+            </a>
+            <a
+              class="flex flex-col items-center justify-center gap-1 text-on-surface-variant active:bg-surface-3 p-2 rounded-lg w-16"
+              href="#"
+            >
+              <span
+                class="material-symbols-outlined text-[20px]"
+                style="font-variation-settings: 'FILL' 0"
+                >event_note</span
+              >
+              <span class="text-[10px] font-semibold tracking-wider">Plan</span>
+            </a>
+          </div>
+        </div>
+        <p class="text-sm text-text-tertiary italic text-center">
+          Note: Bottom nav visible here to demonstrate mobile breakpoint logic within container.
+        </p>
+      </section>
+    </div>
+    <!-- 3. GLOBAL FOOTER -->
+    <footer class="w-full bg-surface-1 border-t border-border mt-auto relative z-20">
+      <div class="max-w-max-content-width mx-auto px-4 md:px-margin-desktop py-16 md:py-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+          <!-- Col 1: Brand -->
+          <div class="flex flex-col gap-6 lg:col-span-1">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-8 h-8 rounded-sm border border-accent-strong/50 bg-accent-strong/5 flex items-center justify-center"
+              >
+                <div class="w-3 h-3 bg-accent-strong rotate-45"></div>
+              </div>
+              <span class="font-h2 text-h2 font-bold text-text-primary tracking-tight"
+                >BECOMING.</span
+              >
+            </div>
+            <p class="font-body text-body text-text-secondary leading-relaxed">
+              A private digital sanctuary for intentional growth. Move away from algorithmic noise
+              and toward profound personal reflection.
+            </p>
+            <div class="flex gap-4 mt-2">
+              <a
+                class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-tertiary hover:text-accent-strong hover:border-accent-strong/50 transition-all"
+                href="#"
+              >
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+                  <path
+                    d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-tertiary hover:text-accent-strong hover:border-accent-strong/50 transition-all"
+                href="#"
+              >
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+                  <path
+                    clip-rule="evenodd"
+                    d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <!-- Col 2: Product -->
+          <div class="flex flex-col gap-4">
+            <h4 class="font-label text-label text-text-primary uppercase tracking-widest mb-2">
+              Platform
+            </h4>
+            <a
+              class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit"
+              href="#"
+              >How it Works</a
+            >
+            <a
+              class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit"
+              href="#"
+              >The Methodology</a
+            >
+            <a
+              class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit"
+              href="#"
+              >Pricing &amp; Tiers</a
+            >
+            <a
+              class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit flex items-center gap-2"
+              href="#"
+            >
+              Manifesto
+              <span
+                class="px-2 py-0.5 rounded-full bg-surface-3 border border-border text-[10px] text-text-tertiary"
+                >New</span
+              >
+            </a>
+          </div>
+          <!-- Col 3: Privacy & Legal -->
+          <div class="flex flex-col gap-4">
+            <h4 class="font-label text-label text-text-primary uppercase tracking-widest mb-2">
+              Trust &amp; Boundaries
+            </h4>
+            <a
+              class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit"
+              href="#"
+              >Privacy Policy</a
+            >
+            <a
+              class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit"
+              href="#"
+              >Data Retention</a
+            >
+            <a
+              class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit"
+              href="#"
+              >AI &amp; Local Processing</a
+            >
+            <a
+              class="font-small text-small text-text-secondary hover:text-accent-strong transition-colors w-fit"
+              href="#"
+              >Terms of Service</a
+            >
+          </div>
+          <!-- Col 4: Disclaimer -->
+          <div class="lg:col-span-1">
+            <div
+              class="glass-panel p-5 rounded-xl border border-warning/30 bg-warning/5 relative overflow-hidden"
+            >
+              <div class="absolute top-0 left-0 w-1 h-full bg-warning"></div>
+              <div class="flex items-start gap-3">
+                <span
+                  class="material-symbols-outlined text-warning text-[20px] shrink-0 mt-0.5"
+                  style="font-variation-settings: 'FILL' 1"
+                  >info</span
+                >
+                <div class="flex flex-col gap-2">
+                  <h5 class="font-label text-label text-text-primary">Not Medical Advice</h5>
+                  <p class="text-xs text-text-secondary leading-relaxed">
+                    Becoming is a tool for self-reflection and personal growth. It does not provide
+                    clinical diagnoses, psychiatric evaluation, or substitute for professional
+                    therapeutic care.
+                  </p>
                 </div>
-</div>
-</div>
-</footer>
-</body></html>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Bottom Bar -->
+        <div
+          class="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <p class="font-small text-small text-text-tertiary">
+            © 2024 Becoming Labs Inc. All rights reserved.
+          </p>
+          <div class="flex items-center gap-2 text-text-tertiary font-small text-small">
+            <span
+              class="w-2 h-2 rounded-full bg-success shadow-[0_0_8px_rgba(134,239,172,0.6)]"
+            ></span>
+            Systems Normal
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

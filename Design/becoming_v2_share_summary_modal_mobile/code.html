@@ -1,206 +1,262 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Becoming V2 - Share Summary Modal</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "text-secondary": "#CBD5E1",
-                        "inverse-surface": "#e4e1ea",
-                        "primary": "#d5f9ff",
-                        "on-tertiary-fixed": "#251a00",
-                        "outline-variant": "#3c494b",
-                        "on-tertiary-container": "#755900",
-                        "surface-container-low": "#1b1b21",
-                        "surface": "#131319",
-                        "on-secondary-container": "#baabf3",
-                        "surface-bright": "#39383f",
-                        "on-error-container": "#ffdad6",
-                        "danger": "#FCA5A5",
-                        "on-secondary": "#332664",
-                        "text-primary": "#F8FAFC",
-                        "on-error": "#690005",
-                        "on-tertiary-fixed-variant": "#5a4300",
-                        "surface-container": "#1f1f25",
-                        "tertiary-container": "#ffd15e",
-                        "surface-tint": "#54d8e8",
-                        "error": "#ffb4ab",
-                        "primary-fixed-dim": "#54d8e8",
-                        "tertiary-fixed-dim": "#edc150",
-                        "secondary-fixed": "#e7deff",
-                        "secondary-container": "#4a3d7c",
-                        "on-primary-container": "#006771",
-                        "border-strong": "rgba(255, 255, 255, 0.24)",
-                        "border": "rgba(255, 255, 255, 0.12)",
-                        "on-primary": "#00363c",
-                        "success": "#86EFAC",
-                        "on-surface": "#e4e1ea",
-                        "surface-3": "rgba(255, 255, 255, 0.08)",
-                        "on-secondary-fixed": "#1e0e4e",
-                        "on-surface-variant": "#bcc9cb",
-                        "on-tertiary": "#3e2e00",
-                        "outline": "#869395",
-                        "on-primary-fixed": "#001f23",
-                        "surface-container-highest": "#35343b",
-                        "on-primary-fixed-variant": "#004f57",
-                        "surface-dim": "#131319",
-                        "warning": "#FCD34D",
-                        "secondary-fixed-dim": "#ccbeff",
-                        "primary-container": "#67e8f9",
-                        "on-secondary-fixed-variant": "#4a3d7c",
-                        "secondary": "#ccbeff",
-                        "background": "#131319",
-                        "inverse-on-surface": "#303037",
-                        "surface-1": "#090A0F",
-                        "primary-fixed": "#91f1ff",
-                        "error-container": "#93000a",
-                        "tertiary": "#fff2db",
-                        "on-background": "#e4e1ea",
-                        "tertiary-fixed": "#ffdf97",
-                        "surface-container-high": "#2a2930",
-                        "surface-variant": "#35343b",
-                        "surface-container-lowest": "#0e0e14",
-                        "surface-2": "rgba(255, 255, 255, 0.05)",
-                        "inverse-primary": "#006973",
-                        "accent-strong": "#22D3EE",
-                        "text-tertiary": "#94A3B8"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px",
-                        "3xl": "1.5rem"
-                    },
-                    "spacing": {
-                        "unit": "4px",
-                        "gutter-mobile": "16px",
-                        "margin-desktop": "64px",
-                        "max-content-width": "1200px",
-                        "margin-mobile": "20px",
-                        "reading-width": "720px",
-                        "gutter-desktop": "32px"
-                    },
-                    "fontFamily": {
-                        "h1-mobile": ["Space Grotesk"],
-                        "label": ["Space Grotesk"],
-                        "display-xl": ["Space Grotesk"],
-                        "small": ["Inter"],
-                        "display-lg": ["Space Grotesk"],
-                        "display-lg-mobile": ["Space Grotesk"],
-                        "body-lg": ["Inter"],
-                        "editorial-italic": ["Playfair Display"],
-                        "body": ["Inter"],
-                        "h1": ["Space Grotesk"],
-                        "display-xl-mobile": ["Space Grotesk"],
-                        "h2": ["Space Grotesk"],
-                        "h3": ["Space Grotesk"]
-                    },
-                    "fontSize": {
-                        "h1-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
-                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
-                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
-                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "display-xl-mobile": ["56px", { "lineHeight": "1.0", "fontWeight": "700" }],
-                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
-                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }]
-                    }
-                }
-            }
-        }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Becoming V2 - Share Summary Modal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital@0;1&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'text-secondary': '#CBD5E1',
+              'inverse-surface': '#e4e1ea',
+              primary: '#d5f9ff',
+              'on-tertiary-fixed': '#251a00',
+              'outline-variant': '#3c494b',
+              'on-tertiary-container': '#755900',
+              'surface-container-low': '#1b1b21',
+              surface: '#131319',
+              'on-secondary-container': '#baabf3',
+              'surface-bright': '#39383f',
+              'on-error-container': '#ffdad6',
+              danger: '#FCA5A5',
+              'on-secondary': '#332664',
+              'text-primary': '#F8FAFC',
+              'on-error': '#690005',
+              'on-tertiary-fixed-variant': '#5a4300',
+              'surface-container': '#1f1f25',
+              'tertiary-container': '#ffd15e',
+              'surface-tint': '#54d8e8',
+              error: '#ffb4ab',
+              'primary-fixed-dim': '#54d8e8',
+              'tertiary-fixed-dim': '#edc150',
+              'secondary-fixed': '#e7deff',
+              'secondary-container': '#4a3d7c',
+              'on-primary-container': '#006771',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'on-primary': '#00363c',
+              success: '#86EFAC',
+              'on-surface': '#e4e1ea',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'on-secondary-fixed': '#1e0e4e',
+              'on-surface-variant': '#bcc9cb',
+              'on-tertiary': '#3e2e00',
+              outline: '#869395',
+              'on-primary-fixed': '#001f23',
+              'surface-container-highest': '#35343b',
+              'on-primary-fixed-variant': '#004f57',
+              'surface-dim': '#131319',
+              warning: '#FCD34D',
+              'secondary-fixed-dim': '#ccbeff',
+              'primary-container': '#67e8f9',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              secondary: '#ccbeff',
+              background: '#131319',
+              'inverse-on-surface': '#303037',
+              'surface-1': '#090A0F',
+              'primary-fixed': '#91f1ff',
+              'error-container': '#93000a',
+              tertiary: '#fff2db',
+              'on-background': '#e4e1ea',
+              'tertiary-fixed': '#ffdf97',
+              'surface-container-high': '#2a2930',
+              'surface-variant': '#35343b',
+              'surface-container-lowest': '#0e0e14',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'inverse-primary': '#006973',
+              'accent-strong': '#22D3EE',
+              'text-tertiary': '#94A3B8',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+              '3xl': '1.5rem',
+            },
+            spacing: {
+              unit: '4px',
+              'gutter-mobile': '16px',
+              'margin-desktop': '64px',
+              'max-content-width': '1200px',
+              'margin-mobile': '20px',
+              'reading-width': '720px',
+              'gutter-desktop': '32px',
+            },
+            fontFamily: {
+              'h1-mobile': ['Space Grotesk'],
+              label: ['Space Grotesk'],
+              'display-xl': ['Space Grotesk'],
+              small: ['Inter'],
+              'display-lg': ['Space Grotesk'],
+              'display-lg-mobile': ['Space Grotesk'],
+              'body-lg': ['Inter'],
+              'editorial-italic': ['Playfair Display'],
+              body: ['Inter'],
+              h1: ['Space Grotesk'],
+              'display-xl-mobile': ['Space Grotesk'],
+              h2: ['Space Grotesk'],
+              h3: ['Space Grotesk'],
+            },
+            fontSize: {
+              'h1-mobile': ['40px', {lineHeight: '1.1', fontWeight: '600'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-lg-mobile': ['48px', {lineHeight: '1.1', fontWeight: '600'}],
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              'display-xl-mobile': ['56px', {lineHeight: '1.0', fontWeight: '700'}],
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        .bottom-sheet-enter {
-            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    <style>
+      .bottom-sheet-enter {
+        animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(100%);
         }
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
+        to {
+          transform: translateY(0);
         }
-        .identity-card-gradient {
-            background: linear-gradient(135deg, rgba(74,61,124,0.2) 0%, rgba(103,232,249,0.1) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
+      }
+      .identity-card-gradient {
+        background: linear-gradient(
+          135deg,
+          rgba(74, 61, 124, 0.2) 0%,
+          rgba(103, 232, 249, 0.1) 100%
+        );
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
     </style>
-</head>
-<body class="bg-canvas text-text-primary min-h-screen flex items-center justify-center font-body selection:bg-accent-strong selection:text-canvas relative">
-<!-- Overlay Background (simulating active state behind modal) -->
-<div class="absolute inset-0 bg-black/60 backdrop-blur-sm z-40"></div>
-<!-- Bottom Sheet Container -->
-<div class="fixed bottom-0 left-0 w-full z-50 bg-surface-1 rounded-t-3xl border-t border-border shadow-2xl flex flex-col bottom-sheet-enter md:max-w-[480px] md:left-1/2 md:-translate-x-1/2 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:rounded-3xl">
-<!-- Handle for mobile -->
-<div class="w-full flex justify-center pt-4 pb-2 md:hidden">
-<div class="w-12 h-1.5 bg-border-strong rounded-full"></div>
-</div>
-<!-- Header -->
-<div class="px-margin-mobile pt-2 pb-6 flex justify-between items-center md:pt-8 md:px-8">
-<h2 class="font-h3 text-h3 text-text-primary w-full text-center">Share Summary</h2>
-<!-- Close button for desktop, visually hidden on mobile but functionally present if needed -->
-<button class="absolute right-4 top-4 md:right-8 md:top-8 text-text-tertiary hover:text-text-primary transition-colors">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
-</button>
-</div>
-<!-- Scrollable Content Area -->
-<div class="flex-1 overflow-y-auto px-margin-mobile pb-8 space-y-8 md:px-8">
-<!-- Preview Card (1:1 Aspect Ratio simulated) -->
-<div class="identity-card-gradient rounded-xl p-6 aspect-square flex flex-col justify-between relative overflow-hidden group">
-<!-- Subtle background texture/glow -->
-<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent-strong/10 via-transparent to-transparent opacity-50"></div>
-<!-- Card Header -->
-<div class="flex justify-between items-start z-10">
-<span class="font-label text-label text-text-tertiary uppercase tracking-widest">BECOMING.</span>
-<div class="bg-surface-2 border border-border px-3 py-1 rounded-full backdrop-blur-md">
-<span class="font-label text-label text-accent-strong">The Divergent Architect</span>
-</div>
-</div>
-<!-- Card Body (Quote) -->
-<div class="z-10 py-8">
-<p class="font-editorial-italic text-editorial-italic text-text-primary text-center leading-relaxed">
-                        "Your path is defined not by the structures you follow, but by the negative space you courageously carve out for yourself."
-                    </p>
-</div>
-<!-- Card Footer -->
-<div class="z-10 flex justify-between items-end border-t border-border pt-4">
-<div class="flex flex-col">
-<span class="font-label text-label text-text-tertiary">Reflective Estimate</span>
-<span class="font-small text-small text-text-secondary">Q3 Synthesis</span>
-</div>
-<span class="material-symbols-outlined text-accent-strong" style="font-variation-settings: 'FILL' 0;">all_inclusive</span>
-</div>
-</div>
-<!-- Actions Container -->
-<div class="flex flex-col gap-4">
-<button class="w-full bg-primary-container text-on-primary-container font-label text-label py-4 rounded-lg flex justify-center items-center gap-2 hover:bg-primary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-surface-1">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">content_copy</span>
-<span>Copy Summary Text</span>
-</button>
-<button class="w-full bg-surface-2 border border-border text-text-primary font-label text-label py-4 rounded-lg flex justify-center items-center gap-2 hover:border-border-strong hover:bg-surface-3 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-surface-1">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">ios_share</span>
-<span>Share via Device</span>
-</button>
-</div>
-<!-- Privacy Note -->
-<div class="flex items-start gap-3 bg-surface-2/50 border border-border rounded-lg p-4">
-<span class="material-symbols-outlined text-text-tertiary text-sm" style="font-variation-settings: 'FILL' 0;">shield_lock</span>
-<p class="font-small text-small text-text-secondary text-sm">
-                    Only this high-level synthesis is shared. Your raw reflections and private answers remain strictly confidential.
-                </p>
-</div>
-</div>
-</div>
-</body></html>
+  </head>
+  <body
+    class="bg-canvas text-text-primary min-h-screen flex items-center justify-center font-body selection:bg-accent-strong selection:text-canvas relative"
+  >
+    <!-- Overlay Background (simulating active state behind modal) -->
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm z-40"></div>
+    <!-- Bottom Sheet Container -->
+    <div
+      class="fixed bottom-0 left-0 w-full z-50 bg-surface-1 rounded-t-3xl border-t border-border shadow-2xl flex flex-col bottom-sheet-enter md:max-w-[480px] md:left-1/2 md:-translate-x-1/2 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:rounded-3xl"
+    >
+      <!-- Handle for mobile -->
+      <div class="w-full flex justify-center pt-4 pb-2 md:hidden">
+        <div class="w-12 h-1.5 bg-border-strong rounded-full"></div>
+      </div>
+      <!-- Header -->
+      <div class="px-margin-mobile pt-2 pb-6 flex justify-between items-center md:pt-8 md:px-8">
+        <h2 class="font-h3 text-h3 text-text-primary w-full text-center">Share Summary</h2>
+        <!-- Close button for desktop, visually hidden on mobile but functionally present if needed -->
+        <button
+          class="absolute right-4 top-4 md:right-8 md:top-8 text-text-tertiary hover:text-text-primary transition-colors"
+        >
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+            >close</span
+          >
+        </button>
+      </div>
+      <!-- Scrollable Content Area -->
+      <div class="flex-1 overflow-y-auto px-margin-mobile pb-8 space-y-8 md:px-8">
+        <!-- Preview Card (1:1 Aspect Ratio simulated) -->
+        <div
+          class="identity-card-gradient rounded-xl p-6 aspect-square flex flex-col justify-between relative overflow-hidden group"
+        >
+          <!-- Subtle background texture/glow -->
+          <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent-strong/10 via-transparent to-transparent opacity-50"
+          ></div>
+          <!-- Card Header -->
+          <div class="flex justify-between items-start z-10">
+            <span class="font-label text-label text-text-tertiary uppercase tracking-widest"
+              >BECOMING.</span
+            >
+            <div class="bg-surface-2 border border-border px-3 py-1 rounded-full backdrop-blur-md">
+              <span class="font-label text-label text-accent-strong">The Divergent Architect</span>
+            </div>
+          </div>
+          <!-- Card Body (Quote) -->
+          <div class="z-10 py-8">
+            <p
+              class="font-editorial-italic text-editorial-italic text-text-primary text-center leading-relaxed"
+            >
+              "Your path is defined not by the structures you follow, but by the negative space you
+              courageously carve out for yourself."
+            </p>
+          </div>
+          <!-- Card Footer -->
+          <div class="z-10 flex justify-between items-end border-t border-border pt-4">
+            <div class="flex flex-col">
+              <span class="font-label text-label text-text-tertiary">Reflective Estimate</span>
+              <span class="font-small text-small text-text-secondary">Q3 Synthesis</span>
+            </div>
+            <span
+              class="material-symbols-outlined text-accent-strong"
+              style="font-variation-settings: 'FILL' 0"
+              >all_inclusive</span
+            >
+          </div>
+        </div>
+        <!-- Actions Container -->
+        <div class="flex flex-col gap-4">
+          <button
+            class="w-full bg-primary-container text-on-primary-container font-label text-label py-4 rounded-lg flex justify-center items-center gap-2 hover:bg-primary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-surface-1"
+          >
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1"
+              >content_copy</span
+            >
+            <span>Copy Summary Text</span>
+          </button>
+          <button
+            class="w-full bg-surface-2 border border-border text-text-primary font-label text-label py-4 rounded-lg flex justify-center items-center gap-2 hover:border-border-strong hover:bg-surface-3 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-surface-1"
+          >
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+              >ios_share</span
+            >
+            <span>Share via Device</span>
+          </button>
+        </div>
+        <!-- Privacy Note -->
+        <div class="flex items-start gap-3 bg-surface-2/50 border border-border rounded-lg p-4">
+          <span
+            class="material-symbols-outlined text-text-tertiary text-sm"
+            style="font-variation-settings: 'FILL' 0"
+            >shield_lock</span
+          >
+          <p class="font-small text-small text-text-secondary text-sm">
+            Only this high-level synthesis is shared. Your raw reflections and private answers
+            remain strictly confidential.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

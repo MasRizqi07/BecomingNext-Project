@@ -4,24 +4,31 @@ import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 
 import {Landing} from '@/components/Landing';
 import {useBecomingStore} from '@/store/useBecomingStore';
+import {useThemeStore} from '@/store/useThemeStore';
 
-const Results = lazy(() =>
-  import('@/components/Results').then((module) => ({default: module.Results})),
+const Dashboard = lazy(() =>
+  import('@/features/dashboard/Dashboard').then((m) => ({default: m.Dashboard})),
 );
-const Intake = lazy(() =>
-  import('@/components/Intake').then((module) => ({default: module.Intake})),
+const HowItWorks = lazy(() =>
+  import('@/components/HowItWorks').then((m) => ({default: m.HowItWorks})),
 );
-const Analysis = lazy(() =>
-  import('@/components/Analysis').then((module) => ({default: module.Analysis})),
+const PrivacyBoundaries = lazy(() =>
+  import('@/components/PrivacyBoundaries').then((m) => ({default: m.PrivacyBoundaries})),
 );
-const History = lazy(() =>
-  import('@/components/History').then((module) => ({default: module.History})),
+const Intake = lazy(() => import('@/components/Intake').then((m) => ({default: m.Intake})));
+const ReviewReflection = lazy(() =>
+  import('@/components/ReviewReflection').then((m) => ({default: m.ReviewReflection})),
 );
-const Settings = lazy(() =>
-  import('@/components/Settings').then((module) => ({default: module.Settings})),
+const Analysis = lazy(() => import('@/components/Analysis').then((m) => ({default: m.Analysis})));
+const Results = lazy(() => import('@/components/Results').then((m) => ({default: m.Results})));
+const HabitCheckIn = lazy(() =>
+  import('@/features/check-in/HabitCheckIn').then((m) => ({default: m.HabitCheckIn})),
 );
+const History = lazy(() => import('@/components/History').then((m) => ({default: m.History})));
+const Settings = lazy(() => import('@/components/Settings').then((m) => ({default: m.Settings})));
+const NotFound = lazy(() => import('@/components/NotFound').then((m) => ({default: m.NotFound})));
 const ParticlesBG = lazy(() =>
-  import('@/components/ParticlesBG').then((module) => ({default: module.ParticlesBG})),
+  import('@/components/ParticlesBG').then((m) => ({default: m.ParticlesBG})),
 );
 
 function PageLoading() {
@@ -29,7 +36,9 @@ function PageLoading() {
     <div className="flex min-h-screen items-center justify-center px-6" role="status">
       <div className="space-y-4 text-center">
         <div className="mx-auto h-8 w-8 animate-spin rounded-full border border-cyan-400/20 border-t-cyan-400" />
-        <p className="text-xs uppercase tracking-[0.3em] text-white/50">Preparing your space</p>
+        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-white/50">
+          Preparing your space
+        </p>
       </div>
     </div>
   );
@@ -49,6 +58,7 @@ export default function App() {
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    useThemeStore.getState().initTheme();
     let cancelled = false;
     let unsubscribe: (() => void) | undefined;
 
@@ -67,17 +77,20 @@ export default function App() {
   }, [setAuth]);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-[#020205] text-white">
+    <div className="relative min-h-screen overflow-x-hidden transition-colors duration-300">
       <a className="skip-link" href="#main-content">
         Skip to main content
       </a>
-      <div className="pointer-events-none fixed -left-24 -top-24 h-125 w-125 rounded-full bg-cyan-900/10 blur-[120px]" />
-      <div className="pointer-events-none fixed -bottom-24 -right-24 h-150 w-150 rounded-full bg-purple-900/10 blur-[140px]" />
+
+      {/* Atmospheric ambient glows */}
+      <div className="pointer-events-none fixed -left-24 -top-24 h-128 w-128 rounded-full bg-cyan-900/10 blur-[130px]" />
+      <div className="pointer-events-none fixed -bottom-24 -right-24 h-144 w-144 rounded-full bg-purple-900/10 blur-[150px]" />
+
       <Suspense fallback={null}>
         <ParticlesBG />
       </Suspense>
 
-      <main id="main-content" className="relative z-10 min-h-screen">
+      <main id="main-content" className="relative z-10 min-h-screen flex flex-col">
         <Suspense fallback={<PageLoading />}>
           <AnimatePresence mode="wait">
             <motion.div
@@ -85,16 +98,38 @@ export default function App() {
               initial={prefersReducedMotion ? false : {opacity: 0}}
               animate={{opacity: 1}}
               exit={{opacity: 0}}
-              transition={{duration: prefersReducedMotion ? 0 : 0.25}}
+              transition={{duration: prefersReducedMotion ? 0 : 0.2}}
+              className="flex-1 flex flex-col"
             >
               <Routes location={location}>
+                {/* Public Discovery Routes */}
                 <Route path="/" element={<Landing />} />
                 <Route path="/demo" element={<Results demo />} />
+                <Route path="/how-it-works" element={<HowItWorks />} />
+                <Route path="/privacy" element={<PrivacyBoundaries />} />
+
+                {/* Authenticated Application Routes */}
+                <Route
+                  path="/dashboard"
+                  element={
+                    <RequireAuth>
+                      <Dashboard />
+                    </RequireAuth>
+                  }
+                />
                 <Route
                   path="/reflect"
                   element={
                     <RequireAuth>
                       <Intake />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/reflect/review"
+                  element={
+                    <RequireAuth>
+                      <ReviewReflection />
                     </RequireAuth>
                   }
                 />
@@ -115,6 +150,14 @@ export default function App() {
                   }
                 />
                 <Route
+                  path="/check-in/:analysisId"
+                  element={
+                    <RequireAuth>
+                      <HabitCheckIn />
+                    </RequireAuth>
+                  }
+                />
+                <Route
                   path="/history"
                   element={
                     <RequireAuth>
@@ -130,7 +173,9 @@ export default function App() {
                     </RequireAuth>
                   }
                 />
-                <Route path="*" element={<Navigate to="/" replace />} />
+
+                {/* 404 Recovery Route */}
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </motion.div>
           </AnimatePresence>

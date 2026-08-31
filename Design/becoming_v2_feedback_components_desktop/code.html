@@ -1,200 +1,262 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Becoming V2 - Global Feedback Components</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-secondary-container": "#baabf3",
-                        "on-error": "#690005",
-                        "inverse-primary": "#006973",
-                        "tertiary": "#fff2db",
-                        "outline": "#869395",
-                        "on-primary-fixed": "#001f23",
-                        "surface-2": "rgba(255, 255, 255, 0.05)",
-                        "primary-fixed": "#91f1ff",
-                        "inverse-surface": "#e4e1ea",
-                        "danger": "#FCA5A5",
-                        "secondary": "#ccbeff",
-                        "on-secondary-fixed-variant": "#4a3d7c",
-                        "surface-container-lowest": "#0e0e14",
-                        "surface-dim": "#131319",
-                        "on-tertiary-fixed-variant": "#5a4300",
-                        "primary-container": "#67e8f9",
-                        "tertiary-fixed": "#ffdf97",
-                        "on-tertiary-fixed": "#251a00",
-                        "surface-container-highest": "#35343b",
-                        "secondary-container": "#4a3d7c",
-                        "on-primary-container": "#006771",
-                        "surface-container-low": "#1b1b21",
-                        "on-primary": "#00363c",
-                        "secondary-fixed": "#e7deff",
-                        "accent-strong": "#22D3EE",
-                        "background": "#131319",
-                        "error-container": "#93000a",
-                        "text-tertiary": "#94A3B8",
-                        "surface-1": "#090A0F",
-                        "success": "#86EFAC",
-                        "on-surface": "#e4e1ea",
-                        "on-secondary-fixed": "#1e0e4e",
-                        "tertiary-fixed-dim": "#edc150",
-                        "border": "rgba(255, 255, 255, 0.12)",
-                        "on-primary-fixed-variant": "#004f57",
-                        "outline-variant": "#3c494b",
-                        "primary": "#d5f9ff",
-                        "on-background": "#e4e1ea",
-                        "primary-fixed-dim": "#54d8e8",
-                        "tertiary-container": "#ffd15e",
-                        "text-primary": "#F8FAFC",
-                        "error": "#ffb4ab",
-                        "inverse-on-surface": "#303037",
-                        "surface-tint": "#54d8e8",
-                        "surface-container-high": "#2a2930",
-                        "surface-container": "#1f1f25",
-                        "text-secondary": "#CBD5E1",
-                        "on-surface-variant": "#bcc9cb",
-                        "on-tertiary-container": "#755900",
-                        "warning": "#FCD34D",
-                        "on-tertiary": "#3e2e00",
-                        "surface-3": "rgba(255, 255, 255, 0.08)",
-                        "border-strong": "rgba(255, 255, 255, 0.24)",
-                        "on-secondary": "#332664",
-                        "on-error-container": "#ffdad6",
-                        "surface": "#131319",
-                        "surface-bright": "#39383f",
-                        "surface-variant": "#35343b",
-                        "secondary-fixed-dim": "#ccbeff"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "margin-mobile": "20px",
-                        "unit": "4px",
-                        "margin-desktop": "64px",
-                        "reading-width": "720px",
-                        "max-content-width": "1200px",
-                        "gutter-mobile": "16px",
-                        "gutter-desktop": "32px"
-                    },
-                    "fontFamily": {
-                        "display-xl": ["Space Grotesk"],
-                        "body": ["Inter"],
-                        "h3": ["Space Grotesk"],
-                        "h1": ["Space Grotesk"],
-                        "editorial-italic": ["Playfair Display"],
-                        "display-lg": ["Space Grotesk"],
-                        "h2": ["Space Grotesk"],
-                        "small": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "label": ["Space Grotesk"]
-                    },
-                    "fontSize": {
-                        "display-xl": ["96px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body": ["16px", { "lineHeight": "1.65", "fontWeight": "400" }],
-                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
-                        "h1": ["52px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "editorial-italic": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "display-lg": ["64px", { "lineHeight": "1.1", "fontWeight": "600" }],
-                        "h2": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
-                        "small": ["14px", { "lineHeight": "1.55", "fontWeight": "400" }],
-                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
-                        "label": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }]
-                    }
-                }
-            }
-        }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Becoming V2 - Global Feedback Components</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-secondary-container': '#baabf3',
+              'on-error': '#690005',
+              'inverse-primary': '#006973',
+              tertiary: '#fff2db',
+              outline: '#869395',
+              'on-primary-fixed': '#001f23',
+              'surface-2': 'rgba(255, 255, 255, 0.05)',
+              'primary-fixed': '#91f1ff',
+              'inverse-surface': '#e4e1ea',
+              danger: '#FCA5A5',
+              secondary: '#ccbeff',
+              'on-secondary-fixed-variant': '#4a3d7c',
+              'surface-container-lowest': '#0e0e14',
+              'surface-dim': '#131319',
+              'on-tertiary-fixed-variant': '#5a4300',
+              'primary-container': '#67e8f9',
+              'tertiary-fixed': '#ffdf97',
+              'on-tertiary-fixed': '#251a00',
+              'surface-container-highest': '#35343b',
+              'secondary-container': '#4a3d7c',
+              'on-primary-container': '#006771',
+              'surface-container-low': '#1b1b21',
+              'on-primary': '#00363c',
+              'secondary-fixed': '#e7deff',
+              'accent-strong': '#22D3EE',
+              background: '#131319',
+              'error-container': '#93000a',
+              'text-tertiary': '#94A3B8',
+              'surface-1': '#090A0F',
+              success: '#86EFAC',
+              'on-surface': '#e4e1ea',
+              'on-secondary-fixed': '#1e0e4e',
+              'tertiary-fixed-dim': '#edc150',
+              border: 'rgba(255, 255, 255, 0.12)',
+              'on-primary-fixed-variant': '#004f57',
+              'outline-variant': '#3c494b',
+              primary: '#d5f9ff',
+              'on-background': '#e4e1ea',
+              'primary-fixed-dim': '#54d8e8',
+              'tertiary-container': '#ffd15e',
+              'text-primary': '#F8FAFC',
+              error: '#ffb4ab',
+              'inverse-on-surface': '#303037',
+              'surface-tint': '#54d8e8',
+              'surface-container-high': '#2a2930',
+              'surface-container': '#1f1f25',
+              'text-secondary': '#CBD5E1',
+              'on-surface-variant': '#bcc9cb',
+              'on-tertiary-container': '#755900',
+              warning: '#FCD34D',
+              'on-tertiary': '#3e2e00',
+              'surface-3': 'rgba(255, 255, 255, 0.08)',
+              'border-strong': 'rgba(255, 255, 255, 0.24)',
+              'on-secondary': '#332664',
+              'on-error-container': '#ffdad6',
+              surface: '#131319',
+              'surface-bright': '#39383f',
+              'surface-variant': '#35343b',
+              'secondary-fixed-dim': '#ccbeff',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              'margin-mobile': '20px',
+              unit: '4px',
+              'margin-desktop': '64px',
+              'reading-width': '720px',
+              'max-content-width': '1200px',
+              'gutter-mobile': '16px',
+              'gutter-desktop': '32px',
+            },
+            fontFamily: {
+              'display-xl': ['Space Grotesk'],
+              body: ['Inter'],
+              h3: ['Space Grotesk'],
+              h1: ['Space Grotesk'],
+              'editorial-italic': ['Playfair Display'],
+              'display-lg': ['Space Grotesk'],
+              h2: ['Space Grotesk'],
+              small: ['Inter'],
+              'body-lg': ['Inter'],
+              label: ['Space Grotesk'],
+            },
+            fontSize: {
+              'display-xl': [
+                '96px',
+                {lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '700'},
+              ],
+              body: ['16px', {lineHeight: '1.65', fontWeight: '400'}],
+              h3: ['24px', {lineHeight: '1.3', fontWeight: '500'}],
+              h1: ['52px', {lineHeight: '1.1', fontWeight: '600'}],
+              'editorial-italic': ['18px', {lineHeight: '1.6', fontWeight: '400'}],
+              'display-lg': ['64px', {lineHeight: '1.1', fontWeight: '600'}],
+              h2: ['36px', {lineHeight: '1.2', fontWeight: '500'}],
+              small: ['14px', {lineHeight: '1.55', fontWeight: '400'}],
+              'body-lg': ['18px', {lineHeight: '1.7', fontWeight: '400'}],
+              label: ['12px', {lineHeight: '1.4', letterSpacing: '0.05em', fontWeight: '600'}],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        body {
-            background-color: #020205; /* The Canvas */
-            color: #F8FAFC;
-        }
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
+    <style>
+      body {
+        background-color: #020205; /* The Canvas */
+        color: #f8fafc;
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
     </style>
-</head>
-<body class="antialiased min-h-screen font-body flex flex-col relative overflow-hidden">
-<!-- Top AppBar Semantic Shell - Suppressed for transactional/modal demo, but included as per JSON requirement for a top-level page demo if it were one. Assuming this is a showcase of components on a canvas. -->
-<!-- Offline / Polling Paused Alert (Sticky Top Banner) -->
-<div class="sticky top-0 z-[100] w-full bg-surface-1 border-b border-warning/50 shadow-[0_4px_24px_rgba(252,211,77,0.1)] py-3 px-margin-mobile md:px-margin-desktop flex items-center justify-between gap-4 backdrop-blur-md">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-warning" style="font-variation-settings: 'FILL' 1;">warning</span>
-<span class="font-small text-small text-text-primary">Connection lost. Background synthesis paused. Your answers are saved locally.</span>
-</div>
-<button class="font-label text-label text-warning hover:text-accent-strong transition-colors underline underline-offset-4 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background rounded-sm">Retry connection</button>
-</div>
-<!-- Main Content Canvas (Background for demo) -->
-<main class="flex-grow flex flex-col items-center justify-center p-8 relative z-0">
-<div class="text-center mb-16 opacity-30 pointer-events-none">
-<h1 class="font-h1 text-h1 text-text-secondary mb-4">Feedback Components</h1>
-<p class="font-body text-body text-text-tertiary max-w-lg mx-auto">Demonstration of global feedback states in the Cinematic Clarity design system.</p>
-</div>
-<!-- Unsaved Changes Exit Dialog (Modal) -->
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4">
-<div class="glass-panel rounded-xl shadow-2xl p-8 max-w-md w-full border-border-strong relative animate-fade-in-up">
-<div class="flex flex-col gap-6 text-center">
-<div class="w-12 h-12 rounded-full bg-surface-2 flex items-center justify-center mx-auto mb-2 border border-border">
-<span class="material-symbols-outlined text-text-primary" style="font-variation-settings: 'FILL' 0;">edit_off</span>
-</div>
-<div>
-<h2 class="font-h3 text-h3 text-text-primary mb-2">Unsaved Changes</h2>
-<p class="font-body text-body text-text-secondary">You have unsaved answers. Leave anyway or continue reflecting?</p>
-</div>
-<div class="flex flex-col gap-3 mt-4">
-<button class="w-full py-3 px-6 rounded-lg bg-text-primary text-background font-label text-label hover:bg-surface-3 hover:text-text-primary transition-all duration-150 border border-transparent hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-                            Keep reflecting
-                        </button>
-<button class="w-full py-3 px-6 rounded-lg bg-transparent text-text-tertiary font-label text-label hover:text-text-primary hover:border-border-strong transition-all duration-150 border border-transparent focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background">
-                            Leave without saving
-                        </button>
-</div>
-</div>
-</div>
-</div>
-</main>
-<!-- Success Toast (Bottom-right) -->
-<div class="fixed bottom-margin-desktop right-margin-desktop z-[100] animate-slide-in-right">
-<div class="bg-surface-1 border border-success/40 rounded-lg shadow-lg py-3 px-5 flex items-center gap-3 glass-panel">
-<div class="w-6 h-6 rounded-full bg-success/20 flex items-center justify-center">
-<span class="material-symbols-outlined text-success text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-</div>
-<span class="font-small text-small text-text-primary">Link copied to clipboard</span>
-</div>
-</div>
-<style>
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(10px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+  </head>
+  <body class="antialiased min-h-screen font-body flex flex-col relative overflow-hidden">
+    <!-- Top AppBar Semantic Shell - Suppressed for transactional/modal demo, but included as per JSON requirement for a top-level page demo if it were one. Assuming this is a showcase of components on a canvas. -->
+    <!-- Offline / Polling Paused Alert (Sticky Top Banner) -->
+    <div
+      class="sticky top-0 z-[100] w-full bg-surface-1 border-b border-warning/50 shadow-[0_4px_24px_rgba(252,211,77,0.1)] py-3 px-margin-mobile md:px-margin-desktop flex items-center justify-between gap-4 backdrop-blur-md"
+    >
+      <div class="flex items-center gap-3">
+        <span
+          class="material-symbols-outlined text-warning"
+          style="font-variation-settings: 'FILL' 1"
+          >warning</span
+        >
+        <span class="font-small text-small text-text-primary"
+          >Connection lost. Background synthesis paused. Your answers are saved locally.</span
+        >
+      </div>
+      <button
+        class="font-label text-label text-warning hover:text-accent-strong transition-colors underline underline-offset-4 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background rounded-sm"
+      >
+        Retry connection
+      </button>
+    </div>
+    <!-- Main Content Canvas (Background for demo) -->
+    <main class="flex-grow flex flex-col items-center justify-center p-8 relative z-0">
+      <div class="text-center mb-16 opacity-30 pointer-events-none">
+        <h1 class="font-h1 text-h1 text-text-secondary mb-4">Feedback Components</h1>
+        <p class="font-body text-body text-text-tertiary max-w-lg mx-auto">
+          Demonstration of global feedback states in the Cinematic Clarity design system.
+        </p>
+      </div>
+      <!-- Unsaved Changes Exit Dialog (Modal) -->
+      <div
+        class="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4"
+      >
+        <div
+          class="glass-panel rounded-xl shadow-2xl p-8 max-w-md w-full border-border-strong relative animate-fade-in-up"
+        >
+          <div class="flex flex-col gap-6 text-center">
+            <div
+              class="w-12 h-12 rounded-full bg-surface-2 flex items-center justify-center mx-auto mb-2 border border-border"
+            >
+              <span
+                class="material-symbols-outlined text-text-primary"
+                style="font-variation-settings: 'FILL' 0"
+                >edit_off</span
+              >
+            </div>
+            <div>
+              <h2 class="font-h3 text-h3 text-text-primary mb-2">Unsaved Changes</h2>
+              <p class="font-body text-body text-text-secondary">
+                You have unsaved answers. Leave anyway or continue reflecting?
+              </p>
+            </div>
+            <div class="flex flex-col gap-3 mt-4">
+              <button
+                class="w-full py-3 px-6 rounded-lg bg-text-primary text-background font-label text-label hover:bg-surface-3 hover:text-text-primary transition-all duration-150 border border-transparent hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+              >
+                Keep reflecting
+              </button>
+              <button
+                class="w-full py-3 px-6 rounded-lg bg-transparent text-text-tertiary font-label text-label hover:text-text-primary hover:border-border-strong transition-all duration-150 border border-transparent focus:outline-none focus:ring-2 focus:ring-accent-strong focus:ring-offset-2 focus:ring-offset-background"
+              >
+                Leave without saving
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Success Toast (Bottom-right) -->
+    <div class="fixed bottom-margin-desktop right-margin-desktop z-[100] animate-slide-in-right">
+      <div
+        class="bg-surface-1 border border-success/40 rounded-lg shadow-lg py-3 px-5 flex items-center gap-3 glass-panel"
+      >
+        <div class="w-6 h-6 rounded-full bg-success/20 flex items-center justify-center">
+          <span
+            class="material-symbols-outlined text-success text-[16px]"
+            style="font-variation-settings: 'FILL' 1"
+            >check_circle</span
+          >
+        </div>
+        <span class="font-small text-small text-text-primary">Link copied to clipboard</span>
+      </div>
+    </div>
+    <style>
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px) scale(0.98);
         }
-        .animate-fade-in-up {
-            animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
         }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
 
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
         }
-        .animate-slide-in-right {
-            animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        to {
+          opacity: 1;
+          transform: translateX(0);
         }
+      }
+      .animate-slide-in-right {
+        animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
     </style>
-</body></html>
+  </body>
+</html>
