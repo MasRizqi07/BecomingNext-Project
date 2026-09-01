@@ -1,9 +1,12 @@
 # Product Requirements Document — Becoming V2
 
-> Status: Draft siap implementasi  
-> Versi dokumen: 1.0  
-> Tanggal: 31 Agustus 2026  
-> Pemilik produk: Tim Becoming  
+> Status: Implemented locally; staging acceptance pending
+>
+> Versi dokumen: 1.1
+>
+> Tanggal: 1 September 2026
+>
+> Pemilik produk: Tim Becoming
 > Dokumen terkait: [Design.md](Design.md), [README.md](README.md), [Architecture](docs/architecture.md)
 
 ## 1. Ringkasan produk
@@ -22,7 +25,7 @@ Upgrade V2 berfokus pada peningkatan kejelasan perjalanan pengguna, keterbacaan 
 
 ## 2. Latar belakang dan masalah
 
-### 2.1 Kondisi saat ini
+### 2.1 Baseline sebelum V2
 
 Repository telah memiliki:
 
@@ -34,7 +37,19 @@ Repository telah memiliki:
 - Firebase Auth, App Check, callable Functions, Firestore, Gemini, idempotency, serta rate limit;
 - pengujian unit, rules, transaksi, E2E publik, E2E autentikasi, aksesibilitas, dan bundle budget.
 
-UI saat ini sudah memiliki identitas visual yang kuat, tetapi navigasi dan struktur informasi masih menyerupai pengalaman satu kali. Pengguna belum memiliki beranda personal, ringkasan progres, check-in terhadap rencana, atau penjelasan produk yang cukup sebelum autentikasi.
+Baseline tersebut memiliki identitas visual kuat, tetapi navigasi dan struktur informasi masih menyerupai pengalaman satu kali. Pengguna belum memiliki beranda personal, ringkasan progres, check-in terhadap rencana, atau penjelasan produk yang cukup sebelum autentikasi.
+
+### 2.2 Status implementasi V2
+
+Phase 0–3 kini terimplementasi di source: seluruh route pada information architecture aktif, dashboard
+menjadi authenticated home, reflection memiliki review step, check-in memakai callable authoritative,
+dan deletion mencakup cascade serta stale-token guard. Automated local validation mencakup unit,
+transaction/rules emulator, public cross-browser desktop/mobile, axe, visual regression, authenticated
+full-stack lifecycle, build, bundle, dan production dependency audit.
+
+Status ini bukan staging/production approval. Real Google Auth, App Check, Gemini, cloud IAM,
+monitoring, Lighthouse staging, backup retention, dan promotion review tetap membutuhkan evidence
+environment nyata.
 
 ### 2.2 Masalah pengguna
 
@@ -134,7 +149,8 @@ Membutuhkan transparansi tentang data, kontrol penghapusan, status akun, serta j
 | `/history`              | Analysis archive   | List, filter sederhana, open/resume/delete   |
 | `/settings`             | Account & privacy  | Account, preferences, data controls          |
 
-`/dashboard`, `/reflect/review`, `/check-in/:analysisId`, `/how-it-works`, `/privacy`, dan halaman 404 adalah penambahan V2. Route lama harus tetap valid.
+`/dashboard`, `/reflect/review`, `/check-in/:analysisId`, `/how-it-works`, `/privacy`, dan halaman 404
+adalah penambahan V2 yang kini aktif. Route lama tetap valid.
 
 ## 8. User journey utama
 
@@ -152,9 +168,9 @@ Membutuhkan transparansi tentang data, kontrol penghapusan, status akun, serta j
 
 ### 8.4 Penghapusan data
 
-`Result atau History → Confirm delete analysis → Delete reflection + analysis → Success notice`
+`Result atau History → Confirm delete analysis → Delete reflection + analysis + linked check-ins → Success notice`
 
-`Settings → Type DELETE → Delete all owned data + Auth account → Signed-out landing`
+`Settings → Type DELETE → Mark deletion + create 24-hour hashed guard → Delete owned data + Auth account → Signed-out landing`
 
 ## 9. Functional requirements
 
@@ -217,16 +233,19 @@ Membutuhkan transparansi tentang data, kontrol penghapusan, status akun, serta j
 ### FR-08 Check-in
 
 - Pengguna memilih status tiap habit: `not_started`, `in_progress`, atau `done`.
-- Pengguna dapat menambah catatan singkat dan mood opsional.
+- Pengguna memilih mood 1–5 dan dapat menambah catatan singkat opsional.
 - Check-in ditautkan ke analysis milik pengguna dan dapat dibuka dari result/dashboard.
 - Check-in tidak memanggil AI pada rilis pertama.
-- Membutuhkan collection/contract/rules/callable baru; tidak boleh disimulasikan sebagai data tersimpan sebelum backend tersedia.
+- Persist hanya melalui `upsertCheckIn`; UI success wajib menunggu response tervalidasi.
+- ID harian deterministik membuat retry/same-day update idempotent.
+- Callable wajib memverifikasi owner, analysis `completed`, exact habit coverage, deletion marker, dan
+  account tombstone dalam transaction.
 
 ### FR-09 History
 
 - Menampilkan status, archetype jika selesai, tanggal, dan CTA Open/Resume.
 - Filter client-side: All, Completed, In progress, Failed untuk maksimal 20 data yang sudah dimuat.
-- Delete memakai confirmation dialog aksesibel, bukan `window.confirm` pada target V2.
+- Delete memakai confirmation dialog aksesibel, bukan `window.confirm`.
 - Empty, loading, error, dan retry state harus eksplisit.
 
 ### FR-10 Settings dan privacy
@@ -234,6 +253,7 @@ Membutuhkan transparansi tentang data, kontrol penghapusan, status akun, serta j
 - Menampilkan account identity, sign out, motion preference, dan language readiness.
 - Menyediakan penghapusan seluruh data dengan typed confirmation.
 - Menjelaskan data yang dihapus dan sifat irreversible sebelum tindakan.
+- Menjelaskan hashed anti-replay marker 24 jam dan bahwa cleanup TTL bersifat asynchronous.
 - Tautan privacy dan AI boundary tersedia tanpa harus sign-in.
 
 ### FR-11 Global navigation dan feedback
@@ -251,9 +271,9 @@ Membutuhkan transparansi tentang data, kontrol penghapusan, status akun, serta j
 - Callable `createAnalysis`, `deleteAnalysis`, dan `deleteMyData`.
 - Shared Zod contracts, server-side Gemini, App Check, owner-only reads, direct client writes denied.
 
-### Penambahan untuk check-in
+### Implementasi check-in
 
-Usulan collection `checkIns/{checkInId}`:
+Collection `checkIns/{checkInId}`:
 
 | Field                    | Type          | Catatan                               |
 | ------------------------ | ------------- | ------------------------------------- |
@@ -261,10 +281,19 @@ Usulan collection `checkIns/{checkInId}`:
 | `analysisId`             | UUID string   | Referensi analysis yang dimiliki user |
 | `habitStates`            | bounded array | Maksimal 5 item, enum status          |
 | `note`                   | string        | Opsional, maksimal 1000 karakter      |
-| `mood`                   | integer       | Opsional, 1–5                         |
+| `mood`                   | integer       | Wajib, 1–5                            |
 | `createdAt`, `updatedAt` | timestamp     | Server timestamps                     |
 
-Wajib ada callable tervalidasi untuk create/update/delete, owner-only reads, index yang diperlukan, emulator rules tests, dan cascade deletion pada `deleteMyData` serta `deleteAnalysis`.
+`checkInId` adalah SHA-256 dari `userId:analysisId:UTC-day`. `upsertCheckIn` memvalidasi owner dan
+exact habit coverage dalam transaction. Owner-only reads, required indexes, emulator rules tests,
+server-only writes, dan cascade pada `deleteMyData`/`deleteAnalysis` telah diimplementasikan.
+
+### Account deletion guard
+
+`accountDeletionTombstones/{sha256(uid)}` menyimpan hanya `deletionRequestedAt` dan `expiresAt`.
+Mutation backend menolak tombstone agar ID token lama atau invocation terlambat tidak menghidupkan
+kembali data. Marker kedaluwarsa setelah 24 jam; Firestore TTL membersihkannya secara asynchronous.
+Collection tidak memiliki client read/write access.
 
 ## 11. Non-functional requirements
 
@@ -292,6 +321,7 @@ Wajib ada callable tervalidasi untuk create/update/delete, owner-only reads, ind
 - Direct client writes tetap ditolak.
 - Isi refleksi tidak boleh masuk analytics, crash report, URL, share payload, atau log.
 - App Check wajib fail closed di production.
+- Stale-token replay setelah account deletion wajib ditolak oleh server-side tombstone.
 
 ### NFR-04 Reliability
 
@@ -335,29 +365,35 @@ Angka conversion final harus ditetapkan setelah baseline staging tersedia; janga
 
 ### Phase 0 — Foundation
 
+- **Status lokal: complete.**
 - Tetapkan design tokens, shell, responsive navigation, primitives, state patterns, dan content rules.
 - Tambahkan visual regression baseline dan route inventory.
-- Tidak mengubah backend.
 
 ### Phase 1 — Existing journey upgrade (P0)
 
+- **Status lokal: complete.**
 - Landing, demo, intake, processing, result, history, settings, dan 404.
 - Tambah How it works, Privacy, serta Review answers.
 - Pertahankan kontrak backend yang ada.
 
 ### Phase 2 — Returning-user experience (P1)
 
+- **Status lokal: complete.**
 - Dashboard, latest analysis, recent history, dan contextual CTA.
 - Query tetap memakai data maksimal 20 item saat ini; optimasi query dapat menyusul berdasarkan evidence.
 
 ### Phase 3 — Check-in (P1, backend-dependent)
 
+- **Status lokal: complete, termasuk authoritative lifecycle dan cascade tests.**
 - Shared contract, callable, Firestore rules/indexes, cascade deletion, UI, unit/integration/E2E.
 - Tidak dirilis bila lifecycle data dan owner isolation belum terbukti.
 
 ### Phase 4 — Optimization and release evidence
 
-- Performance, accessibility, cross-browser, error/offline behavior, staging smoke, monitoring, dan rollout bertahap.
+- **Status 4A lokal: verified** untuk static/unit/emulator, bundle, audit, axe, visual regression,
+  Chromium/Firefox/WebKit desktop-mobile, dan authenticated emulator lifecycle.
+- **Status 4B external: pending** untuk exact-commit CI, Lighthouse staging, real Auth/App Check/Gemini,
+  monitoring, backup/privacy approval, dan rollout bertahap.
 
 ## 14. Acceptance criteria tingkat produk
 
@@ -386,12 +422,20 @@ V2 dinyatakan selesai hanya jika:
 | Polling berlebihan                | Biaya/read meningkat     | Bounded backoff, stop saat hidden/offline/completed               |
 | UI mengklaim sukses terlalu dini  | Hilangnya kepercayaan    | Success hanya setelah server confirmation                         |
 
-## 16. Keputusan yang masih perlu dikunci
+## 16. Keputusan produk
 
-- Bahasa default tetap Inggris atau mulai Bahasa Indonesia.
-- Apakah check-in cukup manual atau membutuhkan reminder opt-in pada fase berikutnya.
-- Retention policy eksplisit untuk reflection/analysis/check-in.
-- Apakah dashboard menjadi tujuan setelah sign-in untuk semua user atau hanya returning user.
-- Apakah hasil boleh dibagikan sebagai image card; default aman saat ini hanya text summary tanpa jawaban privat.
+### Dikunci untuk V2
 
-Keputusan tersebut harus dicatat sebelum fase yang terdampak dimulai. Default aman: UI Inggris, tanpa reminder, tanpa public share link, dan dashboard sebagai authenticated home.
+- Bahasa UI default tetap Inggris; i18n penuh ditunda agar tidak mencampur bahasa per route.
+- Check-in manual tanpa reminder/streak.
+- Dashboard menjadi authenticated home untuk first-time dan returning user.
+- Share hanya text summary tanpa jawaban privat atau public result URL.
+- Check-in menyimpan latest state per user/analysis/UTC day.
+- Account deletion memakai minimal hashed anti-replay marker 24 jam dengan TTL cleanup.
+
+### Wajib diputuskan sebelum production
+
+- Retention period operator untuk live reflection/analysis/check-in yang belum dihapus user.
+- Retention dan erasure policy untuk scheduled exports/backups.
+- Privacy/legal policy final, operator contact, dan provider-processing disclosure.
+- Production analytics/consent; default tetap tidak mengaktifkan analytics.

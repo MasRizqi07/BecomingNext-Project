@@ -63,7 +63,9 @@ export function DeleteAccountModal({isOpen, onClose, onConfirm}: DeleteAccountMo
         >
           This action <strong className="text-red-300">cannot be undone</strong>. All your
           reflections, generated analyses, habit check-ins, and user profile data will be
-          permanently wiped.
+          permanently wiped. A server-only anti-replay marker containing only a one-way hash of your
+          account ID and deletion timestamps expires after 24 hours; it contains no profile,
+          reflection, or analysis content and is then eligible for automatic TTL cleanup.
         </p>
 
         <div className="mt-6 w-full text-left">

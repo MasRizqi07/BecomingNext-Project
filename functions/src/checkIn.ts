@@ -37,10 +37,10 @@ export async function upsertCheckInRecord({
   await database.runTransaction(async (transaction) => {
     const [userSnapshot, deletionTombstoneSnapshot, analysisSnapshot, existingCheckIn] =
       await Promise.all([
-      transaction.get(userRef),
-      transaction.get(deletionTombstoneRef),
-      transaction.get(analysisRef),
-      transaction.get(checkInRef),
+        transaction.get(userRef),
+        transaction.get(deletionTombstoneRef),
+        transaction.get(analysisRef),
+        transaction.get(checkInRef),
       ]);
 
     if (

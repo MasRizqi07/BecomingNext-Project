@@ -6,5 +6,6 @@ export default defineConfig({
     include: ['src/**/*.emulator.test.ts'],
     fileParallelism: false,
     maxWorkers: 1,
+    testTimeout: 15_000,
   },
 });

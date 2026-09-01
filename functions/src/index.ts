@@ -180,7 +180,27 @@ export const createAnalysis = onCall(
       logger.info('Analysis completed', {analysisId: idempotencyKey, userId, model});
       return {analysisId: idempotencyKey, status: 'completed', analysis};
     } catch (error: unknown) {
-      await markAnalysisFailedUnlessDeleting(idempotencyKey, userId);
+      if (
+        error instanceof HttpsError &&
+        (error.code === 'failed-precondition' || error.code === 'not-found')
+      ) {
+        logger.info('Analysis completion cancelled', {
+          analysisId: idempotencyKey,
+          userId,
+          reason: error.code,
+        });
+        throw error;
+      }
+
+      try {
+        await markAnalysisFailedUnlessDeleting(idempotencyKey, userId);
+      } catch (cleanupError: unknown) {
+        logger.error('Failed to mark analysis as failed', {
+          analysisId: idempotencyKey,
+          userId,
+          errorName: cleanupError instanceof Error ? cleanupError.name : 'UnknownError',
+        });
+      }
       logger.error('Analysis generation failed', {
         analysisId: idempotencyKey,
         userId,
@@ -232,7 +252,15 @@ export const upsertCheckIn = onCall(
 const deleteAnalysisRequestSchema = z.object({analysisId: z.string().uuid()}).strict();
 
 export const deleteAnalysis = onCall(
-  {region: REGION, cors: true, ...callableSecurity},
+  {
+    region: REGION,
+    cors: true,
+    ...callableSecurity,
+    timeoutSeconds: 60,
+    memory: '256MiB',
+    maxInstances: 10,
+    concurrency: 20,
+  },
   async (request): Promise<{deleted: true}> => {
     if (!request.auth) {
       throw new HttpsError('unauthenticated', 'Sign in before deleting an analysis.');
@@ -282,7 +310,15 @@ async function deleteCollectionForUser(collectionName: string, userId: string): 
 }
 
 export const deleteMyData = onCall(
-  {region: REGION, cors: true, ...callableSecurity},
+  {
+    region: REGION,
+    cors: true,
+    ...callableSecurity,
+    timeoutSeconds: 120,
+    memory: '256MiB',
+    maxInstances: 10,
+    concurrency: 20,
+  },
   async (request): Promise<{deleted: true}> => {
     if (!request.auth) {
       throw new HttpsError('unauthenticated', 'Sign in before deleting your data.');

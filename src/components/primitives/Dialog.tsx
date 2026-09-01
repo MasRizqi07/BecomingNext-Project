@@ -4,40 +4,10 @@ import {useEffect, useId, useRef} from 'react';
 import {createPortal} from 'react-dom';
 import type {ReactNode} from 'react';
 
-let openDialogCount = 0;
-let applicationRootSnapshot: {
-  element: HTMLElement;
-  inert: boolean;
-  ariaHidden: string | null;
-} | null = null;
-
-function isolateApplicationRoot() {
-  const applicationRoot = document.getElementById('main-content');
-  if (!applicationRoot) return;
-
-  if (openDialogCount === 0) {
-    applicationRootSnapshot = {
-      element: applicationRoot,
-      inert: applicationRoot.inert,
-      ariaHidden: applicationRoot.getAttribute('aria-hidden'),
-    };
-  }
-
-  openDialogCount += 1;
-  applicationRoot.inert = true;
-  applicationRoot.setAttribute('aria-hidden', 'true');
-}
-
-function restoreApplicationRoot() {
-  openDialogCount = Math.max(0, openDialogCount - 1);
-  if (openDialogCount > 0 || !applicationRootSnapshot) return;
-
-  const {element, inert, ariaHidden} = applicationRootSnapshot;
-  element.inert = inert;
-  if (ariaHidden === null) element.removeAttribute('aria-hidden');
-  else element.setAttribute('aria-hidden', ariaHidden);
-  applicationRootSnapshot = null;
-}
+import {
+  isolateApplicationForModal,
+  restoreApplicationAfterModal,
+} from '@/components/primitives/modalIsolation';
 
 interface DialogProps {
   isOpen: boolean;
@@ -102,10 +72,8 @@ export function Dialog({
     }
 
     const previousActiveElement = document.activeElement as HTMLElement | null;
-    const previousOverflow = document.body.style.overflow;
-    isolateApplicationRoot();
+    isolateApplicationForModal();
     document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
 
     const focusTimer = window.setTimeout(() => {
       const requestedTarget = initialFocusSelector
@@ -120,8 +88,7 @@ export function Dialog({
     return () => {
       window.clearTimeout(focusTimer);
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = previousOverflow;
-      restoreApplicationRoot();
+      restoreApplicationAfterModal();
       previousActiveElement?.focus?.();
     };
   }, [initialFocusSelector, isOpen, onClose]);

@@ -137,9 +137,7 @@ describe('Firestore ownership rules', () => {
     });
     const ownerDb = environment.authenticatedContext('owner').firestore();
 
-    await assertFails(
-      getDoc(doc(ownerDb, 'accountDeletionTombstones', 'opaque-id')),
-    );
+    await assertFails(getDoc(doc(ownerDb, 'accountDeletionTombstones', 'opaque-id')));
     await assertFails(
       setDoc(doc(ownerDb, 'accountDeletionTombstones', 'client-created'), {
         expiresAt: new Date('2026-09-01T00:00:00Z'),

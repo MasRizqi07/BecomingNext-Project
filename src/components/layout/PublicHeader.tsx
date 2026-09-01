@@ -1,9 +1,14 @@
 import {Menu, X, Sparkles, ArrowRight} from 'lucide-react';
 import {AnimatePresence} from 'motion/react';
 import {useEffect, useRef, useState} from 'react';
+import {createPortal} from 'react-dom';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 
 import {useBecomingStore} from '@/store/useBecomingStore';
+import {
+  isolateApplicationForModal,
+  restoreApplicationAfterModal,
+} from '@/components/primitives/modalIsolation';
 import {ThemeToggle} from '@/components/primitives/ThemeToggle';
 
 interface PublicHeaderProps {
@@ -20,9 +25,8 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
-    const previousOverflow = document.body.style.overflow;
     const menuButton = menuButtonRef.current;
-    document.body.style.overflow = 'hidden';
+    isolateApplicationForModal();
     drawerRef.current?.querySelector<HTMLElement>('[data-drawer-initial]')?.focus();
 
     function handleKeyDown(event: KeyboardEvent) {
@@ -49,7 +53,7 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = previousOverflow;
+      restoreApplicationAfterModal();
       menuButton?.focus();
     };
   }, [mobileMenuOpen]);
@@ -135,83 +139,86 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
       </header>
 
       {/* Mobile Drawer Sheet */}
-      <AnimatePresence>
-        {mobileMenuOpen ? (
-          <div
-            id="mobile-navigation-drawer"
-            ref={drawerRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="mobile-navigation-title"
-            tabIndex={-1}
-            className="fixed inset-0 z-50 flex flex-col justify-between bg-[#090A0F] dark:bg-[#090A0F] light:bg-[#FFFFFF] p-6 md:hidden"
-          >
-            <h2 id="mobile-navigation-title" className="sr-only">
-              Navigation menu
-            </h2>
-            <div className="flex items-center justify-between border-b border-white/10 dark:border-white/10 light:border-black/10 pb-5">
-              <Link
-                to="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2.5"
-              >
-                <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
-                <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white dark:text-white light:text-slate-900">
-                  Becoming.
-                </span>
-              </Link>
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(false)}
-                className="icon-button h-10 w-10"
-                aria-label="Close menu"
-                data-drawer-initial
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            <nav className="flex flex-col gap-6 py-8" aria-label="Mobile navigation">
-              {navItems.map((item) => (
+      {createPortal(
+        <AnimatePresence>
+          {mobileMenuOpen ? (
+            <div
+              id="mobile-navigation-drawer"
+              ref={drawerRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="mobile-navigation-title"
+              tabIndex={-1}
+              className="fixed inset-0 z-50 flex flex-col justify-between bg-[#090A0F] dark:bg-[#090A0F] light:bg-[#FFFFFF] p-6 md:hidden"
+            >
+              <h2 id="mobile-navigation-title" className="sr-only">
+                Navigation menu
+              </h2>
+              <div className="flex items-center justify-between border-b border-white/10 dark:border-white/10 light:border-black/10 pb-5">
                 <Link
-                  key={item.href}
-                  to={item.href}
+                  to="/"
                   onClick={() => setMobileMenuOpen(false)}
-                  aria-current={location.pathname === item.href ? 'page' : undefined}
-                  className={`font-display text-2xl font-light tracking-tight transition ${
-                    location.pathname === item.href ? 'text-cyan-300' : 'text-slate-200'
-                  }`}
+                  className="flex items-center gap-2.5"
                 >
-                  {item.label}
+                  <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
+                  <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white dark:text-white light:text-slate-900">
+                    Becoming.
+                  </span>
                 </Link>
-              ))}
-            </nav>
-
-            <div className="border-t border-white/10 pt-6">
-              {user ? (
-                <Link
-                  to="/dashboard"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="primary-button w-full"
-                >
-                  Go to Dashboard <ArrowRight size={15} />
-                </Link>
-              ) : (
                 <button
                   type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    handleActionClick();
-                  }}
-                  className="primary-button w-full"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="icon-button h-10 w-10"
+                  aria-label="Close menu"
+                  data-drawer-initial
                 >
-                  <Sparkles size={15} /> Sign in / Start
+                  <X size={18} />
                 </button>
-              )}
+              </div>
+
+              <nav className="flex flex-col gap-6 py-8" aria-label="Mobile navigation">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-current={location.pathname === item.href ? 'page' : undefined}
+                    className={`font-display text-2xl font-light tracking-tight transition ${
+                      location.pathname === item.href ? 'text-cyan-300' : 'text-slate-200'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="border-t border-white/10 pt-6">
+                {user ? (
+                  <Link
+                    to="/dashboard"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="primary-button w-full"
+                  >
+                    Go to Dashboard <ArrowRight size={15} />
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      handleActionClick();
+                    }}
+                    className="primary-button w-full"
+                  >
+                    <Sparkles size={15} /> Sign in / Start
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        ) : null}
-      </AnimatePresence>
+          ) : null}
+        </AnimatePresence>,
+        document.body,
+      )}
     </>
   );
 }

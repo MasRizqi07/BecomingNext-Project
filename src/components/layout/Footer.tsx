@@ -5,7 +5,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="app-footer pb-16 pt-16 transition-colors">
+    <footer className="app-footer pb-16 pt-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 md:px-12">
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
           {/* Brand & Manifesto */}
@@ -16,7 +16,7 @@ export function Footer() {
                 Becoming.
               </span>
             </Link>
-            <p className="max-w-md text-sm font-light leading-relaxed">
+            <p className="max-w-md text-sm font-light leading-relaxed text-slate-400 dark:text-slate-400 light:text-slate-700">
               A private digital sanctuary for honest introspection. Transforming eight thoughtful
               reflections into two plausible future trajectories and an actionable personal roadmap.
             </p>
@@ -35,7 +35,7 @@ export function Footer() {
                 <li>
                   <Link
                     to="/how-it-works"
-                    className="transition hover:text-white dark:hover:text-white light:hover:text-slate-900"
+                    className="text-slate-400 dark:text-slate-400 light:text-slate-700 hover:text-white dark:hover:text-white light:hover:text-slate-900"
                   >
                     How it works
                   </Link>
@@ -43,7 +43,7 @@ export function Footer() {
                 <li>
                   <Link
                     to="/privacy"
-                    className="transition hover:text-white dark:hover:text-white light:hover:text-slate-900"
+                    className="text-slate-400 dark:text-slate-400 light:text-slate-700 hover:text-white dark:hover:text-white light:hover:text-slate-900"
                   >
                     Privacy & AI boundaries
                   </Link>
@@ -51,7 +51,7 @@ export function Footer() {
                 <li>
                   <Link
                     to="/demo"
-                    className="transition hover:text-white dark:hover:text-white light:hover:text-slate-900"
+                    className="text-slate-400 dark:text-slate-400 light:text-slate-700 hover:text-white dark:hover:text-white light:hover:text-slate-900"
                   >
                     Safe demonstration
                   </Link>
@@ -67,7 +67,7 @@ export function Footer() {
                 <li>
                   <Link
                     to="/reflect"
-                    className="transition hover:text-white dark:hover:text-white light:hover:text-slate-900"
+                    className="text-slate-400 dark:text-slate-400 light:text-slate-700 hover:text-white dark:hover:text-white light:hover:text-slate-900"
                   >
                     Begin reflection
                   </Link>
@@ -75,7 +75,7 @@ export function Footer() {
                 <li>
                   <Link
                     to="/dashboard"
-                    className="transition hover:text-white dark:hover:text-white light:hover:text-slate-900"
+                    className="text-slate-400 dark:text-slate-400 light:text-slate-700 hover:text-white dark:hover:text-white light:hover:text-slate-900"
                   >
                     Personal dashboard
                   </Link>
@@ -83,7 +83,7 @@ export function Footer() {
                 <li>
                   <Link
                     to="/history"
-                    className="transition hover:text-white dark:hover:text-white light:hover:text-slate-900"
+                    className="text-slate-400 dark:text-slate-400 light:text-slate-700 hover:text-white dark:hover:text-white light:hover:text-slate-900"
                   >
                     Archive & history
                   </Link>
@@ -94,7 +94,7 @@ export function Footer() {
         </div>
 
         {/* Disclaimer and Copyright */}
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 dark:border-white/10 light:border-black/10 pt-8 text-xs sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 dark:border-white/10 light:border-black/10 pt-8 text-xs text-slate-400 dark:text-slate-400 light:text-slate-700 sm:flex-row">
           <p>
             © {currentYear} Becoming. Guidance generated for personal reflection, not a medical or
             psychiatric diagnosis.
@@ -102,14 +102,14 @@ export function Footer() {
           <div className="flex items-center gap-4">
             <Link
               to="/privacy"
-              className="hover:text-white dark:hover:text-white light:hover:text-slate-950 underline underline-offset-4"
+              className="text-slate-400 dark:text-slate-400 light:text-slate-700 hover:text-white dark:hover:text-white light:hover:text-slate-950 underline underline-offset-4"
             >
               Privacy Policy
             </Link>
             <span>•</span>
             <Link
               to="/how-it-works"
-              className="hover:text-white dark:hover:text-white light:hover:text-slate-950 underline underline-offset-4"
+              className="text-slate-400 dark:text-slate-400 light:text-slate-700 hover:text-white dark:hover:text-white light:hover:text-slate-950 underline underline-offset-4"
             >
               Methodology
             </Link>

@@ -1,9 +1,18 @@
 # UI/UX Design Specification — Becoming V2
 
-> Status: Implementation specification  
-> Versi: 1.0  
-> Tanggal: 31 Agustus 2026  
+> Status: Implemented and visually verified locally; deployed staging acceptance pending
+>
+> Versi: 1.1
+>
+> Tanggal: 1 September 2026
+>
 > Referensi requirement: [PRD.md](PRD.md)
+
+Seluruh route dan interaction V2 di dokumen ini telah dipetakan ke source. Automated local evidence
+mencakup keyboard/axe, reduced motion, light/dark, responsive desktop/mobile, lintas Chromium,
+Firefox, dan WebKit, representative visual baselines untuk landing/demo, serta authenticated
+full-stack emulator lifecycle. Manual screen-reader, 200% zoom, Lighthouse, dan visual acceptance di
+deployment staging tetap menjadi release evidence—bukan asumsi dari hasil lokal.
 
 ## 1. Arah desain
 
@@ -294,7 +303,8 @@ States:
 - Pending: resume card dengan status akurat.
 - Failed: needs-attention card + retry.
 - Completed: latest insight + next action.
-- Check-in backend belum dibuat: CTA tidak ditampilkan, bukan fake success.
+- Check-in callable/rules/cascade tersedia: CTA aktif hanya untuk analysis `completed`, dan success
+  ditampilkan setelah acknowledgement server tervalidasi.
 
 ### 7.6 Reflection intro dan intake `/reflect`
 
@@ -377,12 +387,14 @@ Actions:
 
 - Context analysis archetype + tanggal.
 - Habit checklist tiga status, bukan checkbox biner.
-- Optional mood 1–5 dengan label teks.
+- Mood 1–5 wajib dipilih dan memiliki label teks.
 - Note maksimal 1000 karakter.
 - Save CTA dan privacy cue.
 - Setelah server confirmation: success summary + dashboard/result CTA.
 
-Analysis bukan milik user/tidak ditemukan memakai generic not-found agar tidak membocorkan data. Analysis pending diarahkan ke processing. Route tidak diaktifkan pada production navigation sebelum backend tersedia.
+Analysis bukan milik user/tidak ditemukan memakai generic not-found agar tidak membocorkan data.
+Analysis pending diarahkan ke processing. Route aktif setelah shared contract, callable transaction,
+owner-only rules, exact habit coverage, indexes, cascade deletion, dan emulator tests tersedia.
 
 ### 7.11 History `/history`
 
@@ -401,7 +413,8 @@ Analysis bukan milik user/tidak ditemukan memakai generic not-found agar tidak m
 4. Sign out.
 5. Danger zone: delete account.
 
-Typed confirmation tetap `DELETE`. Penjelasan deletion harus mencakup check-in bila fitur sudah ditambahkan.
+Typed confirmation tetap `DELETE`. Penjelasan deletion mencakup check-in dan server-only hashed
+anti-replay marker 24 jam yang tidak berisi profile/reflection content serta dibersihkan melalui TTL.
 
 ### 7.13 Not found `*`
 
@@ -489,6 +502,8 @@ Refactor dilakukan incremental. Jangan memindahkan seluruh repository sekaligus;
 
 ## 14. UI implementation sequence
 
+Langkah 1–10 berikut complete pada source dan automated local validation:
+
 1. Token audit dan primitives.
 2. Global public/authenticated shell.
 3. Landing, How it works, Privacy, 404.
@@ -498,9 +513,15 @@ Refactor dilakukan incremental. Jangan memindahkan seluruh repository sekaligus;
 7. History + Settings.
 8. Dashboard.
 9. Check-in setelah backend contract/rules siap.
-10. Responsive, accessibility, visual regression, performance polish.
+10. Responsive, accessibility, representative visual regression, performance/bundle polish.
+
+Tahap berikutnya adalah staging acceptance pada environment nyata, bukan source implementation baru.
 
 ## 15. Design QA checklist
+
+Automated local checks pada route representative, desktop/mobile, axe, keyboard, reduced motion,
+theme, cross-browser, bundle, dan visual baselines telah dijalankan. Item yang membutuhkan human or
+deployed-environment evidence tetap dijalankan saat staging:
 
 - Cocokkan seluruh route dengan state matrix.
 - Periksa 320, 360, 768, 1024, dan 1440 px.

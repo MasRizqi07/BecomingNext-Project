@@ -28,6 +28,7 @@
     "test:rules": "firebase emulators:exec --only firestore --project demo-becoming \"npm run test:rules:unit\"",
     "test:rules:unit": "vitest run --config vitest.rules.config.ts",
     "test:e2e": "playwright test",
+    "test:e2e:visual": "playwright test tests/e2e/visual-regression.spec.ts --project=chromium-desktop --project=chromium-mobile",
     "test:e2e:auth": "node scripts/run-auth-e2e.mjs",
     "test:e2e:auth:run": "cross-env VITE_USE_FIREBASE_EMULATORS=true playwright test --config playwright.auth.config.ts",
     "audit": "npm audit --omit=dev --audit-level=high && npm --prefix functions audit --omit=dev --audit-level=high",

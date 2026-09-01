@@ -152,6 +152,12 @@ export function PrivacyBoundaries() {
                     • <strong>Delete Account:</strong> Purges your user record, all reflections,
                     analyses, habit check-ins, and Firebase Auth account permanently.
                   </li>
+                  <li>
+                    • <strong>Deletion replay guard:</strong> A server-only one-way hash of the
+                    account ID plus deletion timestamps remains for 24 hours so a still-valid
+                    sign-in token cannot recreate deleted data. It contains no profile, reflection,
+                    or analysis content and becomes eligible for automatic TTL cleanup after expiry.
+                  </li>
                 </ul>
               </section>
 

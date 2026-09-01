@@ -35,6 +35,35 @@ jobs:
       - run: npm run test:transactions
       - run: npm run test:rules
 
+  functions-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install dependencies with the root toolchain
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            functions/package-lock.json
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm ci
+      - run: npm --prefix functions ci
+      - name: Select the Functions deployment runtime
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - run: npm --prefix functions run typecheck
+      - run: npm --prefix functions test
+      - run: npm run test:transactions
+      - run: npm --prefix functions run build
+      - run: npm --prefix functions audit --omit=dev --audit-level=high
+
   browser:
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -55,4 +84,21 @@ jobs:
       - run: npm --prefix functions ci
       - run: npx playwright install --with-deps chromium firefox webkit chrome
       - run: npm run test:e2e
+      - name: Select the Functions deployment runtime
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
       - run: npm run test:e2e:auth
+
+  visual:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install chromium
+      - run: npm run test:e2e:visual

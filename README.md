@@ -1,113 +1,115 @@
 # Becoming
 
-Becoming adalah aplikasi refleksi pribadi berbasis AI yang mengubah delapan jawaban pengguna menjadi dua skenario masa depan dan rencana tindakan kecil. Hasilnya adalah panduan reflektif—bukan diagnosis, ramalan, tes psikologi, atau skor ilmiah.
-
-## Product documentation
-
-Dokumen upgrade V2 menjadi sumber kerja utama:
-
-- [PRD.md](PRD.md) — tujuan produk, persona, requirement, prioritas, acceptance criteria, dan risiko;
-- [Design.md](Design.md) — design system, spesifikasi setiap halaman, komponen, responsive behavior, accessibility, dan design QA;
-- [docs/architecture.md](docs/architecture.md) — trust boundary, request lifecycle, security, reliability, dan trade-off teknis;
-- [docs/runbook.md](docs/runbook.md) — setup environment, deployment, smoke test, monitoring, incident response, dan rollback;
-- [docs/release-readiness.md](docs/release-readiness.md) — evidence gate terbaru dan blocker promotion.
-
-PRD dan Design mendeskripsikan target V2. Tidak semua route/fitur target telah diimplementasikan pada source saat ini; lihat bagian “Current vs target”.
+Becoming adalah aplikasi refleksi pribadi berbasis AI yang mengubah delapan jawaban pengguna menjadi
+dua skenario masa depan dan rencana tindakan kecil. Hasilnya adalah panduan reflektif—bukan diagnosis,
+ramalan, tes psikologi, atau skor ilmiah.
 
 ## Status project
 
-Fondasi repository sudah production-oriented dan gate lokal telah diverifikasi. Staging dan production belum terverifikasi serta belum disetujui untuk promotion. Deployment publik masih membutuhkan Firebase project milik operator, kredensial Google Cloud, App Check key, dan Gemini secret yang valid.
+V2 telah diimplementasikan end-to-end di repository: public discovery, authenticated reflection,
+review, processing, result, dashboard, history, authoritative habit check-in, settings, scoped
+analysis deletion, account deletion, dan 404. Seluruh mutation melewati callable backend; Gemini
+secret tidak pernah masuk bundle browser.
 
-Tidak ada secret AI di browser. Gemini hanya dipanggil melalui trusted callable Cloud Function.
+Status harus dibaca per environment:
 
-### Current vs target
+| Boundary                       | Status              | Arti                                                                |
+| ------------------------------ | ------------------- | ------------------------------------------------------------------- |
+| Source implementation          | Complete            | Phase 0–3 tersedia dan terhubung ke behavior nyata                  |
+| Local automated evidence       | Verified 2026-09-01 | Static, unit, emulator, browser, a11y, visual, build, bundle, audit |
+| GitHub Actions pada commit ini | Belum diverifikasi  | Memerlukan push/PR dan run CI baru                                  |
+| Staging                        | Belum diverifikasi  | Real Auth, App Check, Gemini, monitoring, Lighthouse belum diuji    |
+| Production                     | Belum disetujui     | Promotion memerlukan staging evidence dan reviewer approval         |
 
-| Area          | Saat ini                                          | Target V2                                            |
-| ------------- | ------------------------------------------------- | ---------------------------------------------------- |
-| Public        | Landing, safe demo                                | + How it works, Privacy, explicit 404                |
-| Authenticated | Reflection, processing, result, history, settings | + Dashboard, review answers, check-in                |
-| Navigation    | Compact page header                               | Public/authenticated shell yang konsisten            |
-| Result        | Full long-form result                             | Section navigation, hierarchy, accessible data view  |
-| Retention     | History archive                                   | Latest action dashboard + non-addictive check-in     |
-| Design system | Tailwind utilities + shared CSS classes           | Semantic tokens + reusable primitives/state patterns |
-| Backend       | Analysis lifecycle dan deletion                   | + Check-in contract/rules/callable pada Phase 3      |
+Detail bukti dan blocker tersedia di [release readiness](docs/release-readiness.md). Lolos lokal tidak
+sama dengan release-ready.
 
-## Fitur yang sudah tersedia
+## Dokumentasi
 
-- Safe demo tanpa Auth, Firestore write, atau Gemini call.
+- [PRD](PRD.md) — requirement, acceptance criteria, fase, risiko, dan status implementasi;
+- [Design](Design.md) — design system, route/state specification, responsive, dan accessibility;
+- [Architecture](docs/architecture.md) — trust boundary, lifecycle, invariants, scaling, dan trade-off;
+- [Runbook](docs/runbook.md) — environment, deployment, smoke, monitoring, incident, rollback;
+- [ADR 0001](docs/adr/0001-secure-serverless-boundary.md) — secure serverless boundary;
+- [ADR 0002](docs/adr/0002-gemini-model-and-interface.md) — model/API Gemini dan rollback lever;
+- [ADR 0003](docs/adr/0003-authoritative-check-in-and-deletion-guard.md) — check-in authoritative dan deletion guard.
+
+## Fitur
+
+- Safe demo statis tanpa Auth, Firestore write, atau Gemini call.
 - Google Authentication dan account-aware route protection.
-- Delapan pertanyaan refleksi dengan session draft.
-- Server-side Gemini structured output dengan validasi Zod.
-- Idempotency, lease recovery, dan batas analisis harian.
-- Processing yang dapat dilanjutkan setelah refresh.
-- Hasil: identity, two paths, radar, timeline, future letter, action plan, identity card.
-- Download letter dan share summary.
-- History owner-only, delete satu analisis, serta delete seluruh akun/data.
-- App Check, Firestore rules, CSP, security headers, automated tests, dan bundle budget.
+- Delapan pertanyaan refleksi, session draft, review sebelum submit, dan recovery setelah refresh.
+- Server-side Gemini structured output dengan Zod validation, idempotency, quota, dan lease recovery.
+- Result lengkap: identity, two paths, radar + accessible table, timeline, future letter, action plan.
+- Personal dashboard, recent history, filter, download letter, dan share summary.
+- Daily habit check-in dengan status setiap habit, mood, note, deterministic daily upsert, dan
+  acknowledgement server.
+- Delete satu analisis yang juga menghapus reflection dan check-in terkait.
+- Delete akun yang menghapus application data dan Auth, dengan hashed anti-replay tombstone 24 jam.
+- Light/dark theme, reduced motion, keyboard dialog/drawer, focus restoration, dan axe coverage.
+- CSP/security headers, owner-only reads, direct client writes denied, emulator suites, visual
+  regression, cross-browser E2E, production dependency audit, dan bundle budget.
 
 ## Route inventory
 
-### Route saat ini
+| Route                    | Access            | Implementasi                                      |
+| ------------------------ | ----------------- | ------------------------------------------------- |
+| `/`                      | Public            | Landing, trust content, sign-in, safe demo CTA    |
+| `/demo`                  | Public            | Static full result tanpa personal data/write/AI   |
+| `/how-it-works`          | Public            | Method, output, AI boundaries, FAQ                |
+| `/privacy`               | Public            | Data, AI, retention, deletion, crisis boundary    |
+| `/dashboard`             | Auth              | Latest/recent analysis dan contextual action      |
+| `/reflect`               | Auth              | Reflection intake delapan pertanyaan              |
+| `/reflect/review`        | Auth              | Review/edit dan authoritative submission          |
+| `/analysis/:analysisId?` | Auth              | Create/resume pending/failed analysis             |
+| `/results/:analysisId`   | Auth              | Owner-only personalized result                    |
+| `/check-in/:analysisId`  | Auth              | Authoritative daily habit check-in                |
+| `/history`               | Auth              | Archive, status filter, open/resume/delete        |
+| `/settings`              | Auth              | Theme, account, privacy, sign-out, delete account |
+| `*`                      | Public/Auth aware | Explicit 404 recovery                             |
 
-| Route                    | Access | Implementasi                 |
-| ------------------------ | ------ | ---------------------------- |
-| `/`                      | Public | Landing + sign-in + demo CTA |
-| `/demo`                  | Public | Static safe result           |
-| `/reflect`               | Auth   | Reflection intake            |
-| `/analysis/:analysisId?` | Auth   | Create/resume processing     |
-| `/results/:analysisId`   | Auth   | Personalized result          |
-| `/history`               | Auth   | Analysis archive             |
-| `/settings`              | Auth   | Account/privacy controls     |
+## Stack
 
-Unknown route saat ini kembali ke `/`. Target V2 menggunakan halaman 404 eksplisit.
+| Layer         | Teknologi                                                          |
+| ------------- | ------------------------------------------------------------------ |
+| Frontend      | React 19, TypeScript, Vite 8, React Router 7                       |
+| Styling       | Tailwind CSS 4, semantic CSS, Motion, Lucide, local variable fonts |
+| State         | Zustand session persistence                                        |
+| Visualization | Recharts + accessible table equivalent                             |
+| Validation    | Shared Zod contracts                                               |
+| Platform      | Firebase Hosting, Auth, App Check, Firestore, Functions            |
+| AI            | Gemini Interactions API, server-side, `store: false`               |
+| Test          | Vitest, Firebase Emulator, Playwright, axe-core                    |
 
-### Route target V2
-
-Tambahan yang direncanakan: `/how-it-works`, `/privacy`, `/dashboard`, `/reflect/review`, `/check-in/:analysisId`, dan halaman not-found. Requirement per route tersedia di [PRD.md](PRD.md); layout dan state tersedia di [Design.md](Design.md).
-
-## Technology stack
-
-| Layer         | Teknologi                                                 |
-| ------------- | --------------------------------------------------------- |
-| Frontend      | React 19, TypeScript, Vite 8, React Router 7              |
-| Styling       | Tailwind CSS 4, CSS theme, Motion, Lucide                 |
-| State         | Zustand session persistence                               |
-| Visualization | Recharts                                                  |
-| Validation    | Zod shared contracts                                      |
-| Platform      | Firebase Hosting, Auth, App Check, Firestore, Functions   |
-| AI            | Gemini Interactions API, server-side only, `store: false` |
-| Test          | Vitest, Firebase Emulator, Playwright, axe-core           |
-
-## Architecture
+## Trust flow
 
 ```text
-Public visitor
-  -> Firebase Hosting
-  -> local static demo result
+Public visitor -> Hosting -> static DEMO_ANALYSIS (no write, no AI)
 
 Authenticated user
-  -> React/Vite client
-  -> Firebase Auth + limited-use App Check token
-  -> callable Cloud Function
-  -> Zod request validation
-  -> Firestore idempotency/quota/lease transaction
-  -> Gemini structured output
-  -> Zod response validation
-  -> authoritative Firestore result
-  -> owner-only client read
+  -> Auth + limited-use App Check token
+  -> callable Function
+  -> shared Zod validation
+  -> Firestore transaction / bounded batch lifecycle
+  -> optional Gemini structured-output request
+  -> authoritative Firestore state
+  -> owner-only client read / server-confirmed mutation result
 ```
 
-Direct client writes ditolak. `GEMINI_API_KEY` berada di Secret Manager dan tidak boleh ditempatkan pada variable `VITE_*`.
+Mutation yang tersedia: `createAnalysis`, `upsertCheckIn`, `deleteAnalysis`, dan `deleteMyData`.
+Direct client writes ditolak. `GEMINI_API_KEY` disimpan di Secret Manager dan tidak boleh menjadi
+variable `VITE_*`.
 
 ## Prerequisites
 
 - Node.js 24 untuk root toolchain dan CI (`.nvmrc`);
-- npm 10 atau lebih baru;
-- Java 21 atau lebih baru untuk Firestore Emulator;
-- Firebase CLI login untuk emulator/deployment;
-- Google Chrome untuk E2E.
+- npm 10+;
+- Java 21+ untuk Firestore Emulator;
+- Chromium, Firefox, WebKit, dan Google Chrome dari Playwright;
+- Firebase CLI login hanya untuk deployment atau project nyata.
 
-Firebase Functions dideploy dengan runtime Node.js 22 sebagaimana dikonfigurasi pada `firebase.json`.
+Firebase Functions menggunakan runtime Node.js 22 sesuai `functions/package.json` dan
+`firebase.json`.
 
 ## Local setup
 
@@ -118,9 +120,9 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Aplikasi berjalan pada `http://localhost:3000`.
-
-Isi `.env.local` dengan Firebase web configuration milik environment Anda. Nilai konfigurasi web Firebase adalah identifier publik, tetapi Gemini secret tidak pernah menjadi `VITE_*`.
+Aplikasi berjalan pada `http://localhost:3000`. Isi `.env.local` dengan Firebase web configuration
+environment yang dipakai. Firebase web config adalah identifier publik; Gemini secret tetap
+server-side.
 
 ### Emulator mode
 
@@ -128,14 +130,10 @@ Isi `.env.local` dengan Firebase web configuration milik environment Anda. Nilai
 VITE_USE_FIREBASE_EMULATORS="true"
 ```
 
-Jalankan pada terminal terpisah:
-
 ```bash
 npx firebase-tools emulators:start --project demo-becoming
 npm run dev
 ```
-
-Emulator ports:
 
 | Service     | Port |
 | ----------- | ---- |
@@ -145,156 +143,81 @@ Emulator ports:
 | Auth        | 9099 |
 | Hosting     | 5000 |
 
-## Available scripts
+## Scripts
 
-| Command                     | Fungsi                                            |
-| --------------------------- | ------------------------------------------------- |
-| `npm run dev`               | Vite development server pada port 3000            |
-| `npm run build`             | Build web dan Functions                           |
-| `npm run preview`           | Preview production build pada port 4173           |
-| `npm run lint`              | ESLint tanpa warning                              |
-| `npm run typecheck`         | Typecheck web dan Functions                       |
-| `npm run test`              | Frontend/shared Vitest                            |
-| `npm run test:functions`    | Functions unit tests                              |
-| `npm run test:transactions` | Firestore reservation/concurrency emulator tests  |
-| `npm run test:rules`        | Firestore rules emulator tests                    |
-| `npm run test:e2e`          | Public desktop/mobile + accessibility             |
-| `npm run test:e2e:auth`     | Authenticated full-stack lifecycle via emulator   |
-| `npm run verify`            | Static, unit, build, bundle, dan dependency gates |
-| `npm run verify:full`       | Seluruh gate termasuk emulator dan E2E            |
-| `npm run clean`             | Hapus generated build/test artifacts              |
+| Command                     | Fungsi                                              |
+| --------------------------- | --------------------------------------------------- |
+| `npm run dev`               | Vite development server                             |
+| `npm run build`             | Build web + Functions + bundle budget               |
+| `npm run lint`              | ESLint tanpa warning                                |
+| `npm run typecheck`         | Strict typecheck web + Functions                    |
+| `npm run test:coverage`     | Frontend/shared tests + coverage                    |
+| `npm run test:functions`    | Functions unit tests                                |
+| `npm run test:transactions` | Reservation/check-in/deletion emulator tests        |
+| `npm run test:rules`        | Firestore authorization emulator tests              |
+| `npm run test:e2e`          | Chromium/Firefox/WebKit desktop/mobile, axe, visual |
+| `npm run test:e2e:visual`   | Windows/Chromium visual regression baselines        |
+| `npm run test:e2e:auth`     | Authenticated full-stack emulator lifecycle         |
+| `npm run audit`             | Production dependency audit root + Functions        |
+| `npm run verify`            | Static, unit, build, bundle, audit                  |
+| `npm run verify:full`       | Semua gate lokal termasuk emulator dan E2E          |
+| `npm run clean`             | Hapus generated build/test artifacts                |
 
-## Quality gates
+## Implementation phases
 
-Sebelum membuka perubahan untuk review:
-
-```bash
-npm run format:check
-npm run lint
-npm run typecheck
-npm run test
-npm run build
-```
-
-Sebelum release candidate:
-
-```bash
-npm run verify:full
-```
-
-Bundle production diperiksa otomatis: entry maksimal 180 KiB gzip dan setiap lazy chunk maksimal 130 KiB gzip.
-
-Lolos lokal tidak sama dengan lolos staging. Promotion membutuhkan evidence real Google sign-in, valid App Check, owner isolation, satu real Gemini response, retry, deletion, logs, monitoring, dan smoke test pada deployment staging.
-
-## Implementing the V2 upgrade
-
-### Phase 0 — UI foundation
-
-1. Pindahkan warna, typography, spacing, radius, motion, dan state color ke semantic tokens.
-2. Ekstrak Button, Card, Field, Dialog, Badge, Toast, PageShell, PublicHeader, dan AppHeader.
-3. Buat route/state inventory test serta screenshot baseline.
-4. Pertahankan route dan backend behavior selama refactor.
-
-### Phase 1 — Existing journey
-
-1. Upgrade landing dan demo.
-2. Tambah How it works, Privacy, dan 404.
-3. Upgrade intake dan tambah review answers.
-4. Rapikan processing recovery serta result hierarchy.
-5. Upgrade history dan settings.
-
-Fase ini seharusnya tidak memerlukan perubahan besar pada backend analysis contract.
-
-### Phase 2 — Dashboard
-
-1. Tambah authenticated dashboard.
-2. Gunakan existing history query untuk latest/recent analysis.
-3. Tambahkan contextual CTA berdasarkan status.
-4. Ubah post-sign-in destination setelah flow teruji.
-
-### Phase 3 — Check-in
-
-1. Definisikan Zod contract bersama.
-2. Implementasikan callable mutation tervalidasi.
-3. Tambahkan owner-only rules, indexes, dan emulator tests.
-4. Tambahkan cascade deletion pada analysis dan account deletion.
-5. Baru aktifkan route serta CTA check-in.
-
-UI tidak boleh menampilkan check-in tersimpan sampai server mengonfirmasi write.
-
-### Phase 4 — Release validation
-
-1. Responsive dan keyboard audit.
-2. Axe + screen-reader smoke.
-3. Visual regression dan cross-browser check.
-4. Performance/bundle audit.
-5. `npm run verify:full`.
-6. Deploy staging dan isi checklist pada runbook.
-
-## Engineering conventions
-
-- Gunakan strict TypeScript dan shared Zod schemas pada trust boundary.
-- Lazy-load route berat dan visualization.
-- Jangan memasukkan jawaban refleksi ke URL, analytics, console, atau structured logs.
-- Gunakan server-confirmed state untuk success, delete, dan persistence.
-- Pertahankan idempotency key untuk seluruh retry analysis yang sama.
-- Gunakan accessible native semantics sebelum menambah ARIA.
-- Hormati `prefers-reduced-motion`.
-- Tambahkan test untuk setiap state baru, bukan hanya happy path.
-- Perubahan check-in dianggap full-stack dan wajib mencakup rules serta deletion lifecycle.
-
-## Project structure
-
-```text
-src/                  frontend routes, UI, state, Firebase client
-shared/               request/response contracts dan demo fixture
-functions/src/         callable API, AI adapter, idempotency, quota
-tests/e2e/             public browser dan accessibility tests
-tests/e2e-auth/        authenticated full-stack lifecycle
-tests/rules/           Firestore authorization tests
-docs/                  architecture, ADR, runbook, release evidence
-.github/workflows/     CI dan controlled deployment
-PRD.md                 target product requirements
-Design.md              target UI/UX implementation specification
-```
+| Phase | Scope                                                                    | Status lokal              |
+| ----- | ------------------------------------------------------------------------ | ------------------------- |
+| 0     | Tokens, primitives, shell, route/state inventory                         | Complete                  |
+| 1     | Landing, demo, information, intake/review, result, history/settings, 404 | Complete                  |
+| 2     | Returning-user dashboard dan contextual CTA                              | Complete                  |
+| 3     | Shared check-in contract, callable, rules/indexes, cascade, UI, E2E      | Complete                  |
+| 4A    | Static/unit/emulator/cross-browser/a11y/visual/build/audit               | Verified locally          |
+| 4B    | CI, staging, real providers, monitoring, performance acceptance, rollout | Pending external evidence |
 
 ## Production configuration
 
-1. Pisahkan Firebase project staging dan production.
+1. Gunakan Firebase project terpisah untuk staging dan production.
 2. Aktifkan Google Auth, Firestore, Functions, Hosting, App Check, dan reCAPTCHA Enterprise.
-3. Isi seluruh `VITE_FIREBASE_*` dan `VITE_RECAPTCHA_ENTERPRISE_SITE_KEY` per environment.
-4. Simpan Gemini key:
+3. Isi `VITE_FIREBASE_*`, `VITE_FIRESTORE_DATABASE_ID`, dan site key per environment.
+4. Simpan Gemini key dengan `firebase functions:secrets:set GEMINI_API_KEY`.
+5. Deploy Firestore rules/indexes/TTL policy sebelum Functions dan Hosting.
+6. Verifikasi composite indexes serta TTL `accountDeletionTombstones.expiresAt` aktif.
+7. Konfigurasikan budgets, quota, logs, monitoring, alert, backup, dan retention.
+8. Jalankan `npm run verify:full`, deploy staging, lalu isi seluruh checklist runbook.
+9. Promotion production hanya melalui protected environment dengan reviewer approval.
 
-   ```bash
-   npx firebase-tools functions:secrets:set GEMINI_API_KEY --project <project-id>
-   ```
-
-5. Atur `GEMINI_MODEL` dan `DAILY_ANALYSIS_LIMIT` bila diperlukan.
-6. Konfigurasikan budgets, quota, monitoring, dan alert.
-7. Jalankan full verification, deploy staging, lalu selesaikan smoke checklist.
-8. Promotion production memerlukan reviewer approval.
-
-Default AI runtime saat ini adalah Gemini 3.7 Flash melalui Interactions API stateless (`store: false`). Lihat [ADR 0002](docs/adr/0002-gemini-model-and-interface.md) untuk keputusan dan rollback lever.
+Default model adalah Gemini 3.7 Flash melalui Interactions API stateless (`store: false`).
+`GEMINI_MODEL` tetap tersedia sebagai rollback lever.
 
 ## Data and privacy
 
-- Reflection dan analysis hanya dapat dibaca oleh pemilik terautentikasi.
-- Client tidak dapat menulis dokumen aplikasi langsung.
-- Delete analysis menghapus reflection dan analysis terkait.
-- Delete account menghapus data pengguna dan Firebase Auth account.
-- Backend log hanya memuat identifier operasional, bukan isi refleksi.
-- Safe demo menggunakan data statis dan tidak memanggil AI.
+- Reflection, analysis, dan check-in hanya dapat dibaca pemilik terautentikasi.
+- Client tidak dapat menulis application documents langsung.
+- Delete analysis menghapus reflection, analysis, dan seluruh check-in terkait.
+- Delete account menghapus profile, rate limit, reflections, analyses, check-ins, lalu Auth account.
+- Untuk mencegah ID token lama membuat ulang data, server menyimpan tombstone berisi hash satu arah
+  UID serta timestamp deletion/expiry, tanpa profile atau reflection content. Tombstone kedaluwarsa
+  setelah 24 jam dan kemudian eligible untuk cleanup TTL yang asynchronous.
+- Structured logs hanya memuat operational identifiers, bukan isi refleksi.
+- Safe demo memakai fixture lokal dan tidak memanggil provider.
 
-## Complexity and scaling notes
+## Complexity and trade-offs
 
 - Request validation/hashing: `O(C)`, dengan `C` total karakter yang dibatasi schema.
-- Reservation transaction: `O(1)` document reads/writes.
-- History render/query result: `O(k)`, saat ini `k ≤ 20` di client service.
-- Account deletion: `O(n)` terhadap jumlah dokumen pengguna, batch maksimum 400 sehingga peak working memory `O(400)`.
-- Filter history V2 tetap `O(k)` dan tidak membutuhkan query baru selama dataset yang dimuat tetap bounded.
+- Analysis reservation: `O(1)` document reads/writes per transaction.
+- Check-in upsert: `O(h)`, `2 <= h <= 5`, sehingga bounded secara operasional.
+- History: `O(k)` untuk maksimal 20 record yang dimuat client.
+- Delete analysis/account: `O(n)` terhadap owned documents, batch maksimum 400 dengan peak memory
+  `O(400)`.
+- Tombstone lookup: `O(1)` document read pada mutation transaction.
 
-Trade-off utama: Firebase serverless mengurangi beban operasi tetapi meningkatkan provider coupling; synchronous AI menyederhanakan UX tetapi dibatasi timeout; cinematic visuals memperkuat brand tetapi harus tunduk pada performance, contrast, dan reduced-motion requirements.
+Trade-off: Firebase serverless mengurangi operational surface tetapi meningkatkan provider coupling;
+synchronous AI menyederhanakan UX tetapi dibatasi timeout; deterministic daily check-in mencegah
+duplikasi tetapi hanya menyimpan state terakhir per UTC day; TTL mengurangi retention identifier namun
+cleanup fisiknya asynchronous.
 
-## Release status
+## Release boundary
 
-Repository gates lokal telah lolos berdasarkan evidence tanggal 31 Agustus 2026. CI berikutnya, staging, real Gemini, dan production tetap belum terverifikasi. Gunakan [release-readiness](docs/release-readiness.md) sebagai sumber status dan [runbook](docs/runbook.md) sebagai checklist operasional.
+Gunakan [runbook](docs/runbook.md) untuk deployment dan [release readiness](docs/release-readiness.md)
+sebagai satu-satunya sumber status promotion. Jangan menyimpulkan CI, staging, real Gemini/App Check,
+atau production dari hasil lokal.
