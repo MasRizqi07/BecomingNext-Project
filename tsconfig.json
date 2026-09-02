@@ -25,6 +25,13 @@
     },
     "types": ["vite/client", "vitest/globals"]
   },
-  "include": ["src", "shared", "vite.config.ts", "vitest.config.ts", "playwright.config.ts"],
+  "include": [
+    "src",
+    "shared",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "playwright.config.ts",
+    "playwright.phase1.config.ts"
+  ],
   "exclude": ["dist", "functions", "node_modules"]
 }

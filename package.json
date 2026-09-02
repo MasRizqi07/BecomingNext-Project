@@ -28,12 +28,13 @@
     "test:rules": "firebase emulators:exec --only firestore --project demo-becoming \"npm run test:rules:unit\"",
     "test:rules:unit": "vitest run --config vitest.rules.config.ts",
     "test:e2e": "playwright test",
+    "test:e2e:phase1": "playwright test --config playwright.phase1.config.ts",
     "test:e2e:visual": "playwright test tests/e2e/visual-regression.spec.ts --project=chromium-desktop --project=chromium-mobile",
     "test:e2e:auth": "node scripts/run-auth-e2e.mjs",
     "test:e2e:auth:run": "cross-env VITE_USE_FIREBASE_EMULATORS=true playwright test --config playwright.auth.config.ts",
     "audit": "npm audit --omit=dev --audit-level=high && npm --prefix functions audit --omit=dev --audit-level=high",
     "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run test:functions && npm run build && npm run audit",
-    "verify:full": "npm run verify && npm run test:transactions && npm run test:rules && npm run test:e2e && npm run test:e2e:auth"
+    "verify:full": "npm run verify && npm run test:transactions && npm run test:rules && npm run test:e2e && npm run test:e2e:phase1 && npm run test:e2e:auth"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
@@ -83,7 +84,16 @@
   },
   "overrides": {
     "@grpc/grpc-js": "^1.14.4",
+    "body-parser@^1.0.0": "1.20.6",
+    "express@^4.0.0": "4.22.2",
     "protobufjs": "^7.6.6",
+    "qs@^6.0.0": "6.16.0",
     "websocket-driver": "^0.7.5"
+  },
+  "allowScripts": {
+    "protobufjs@7.6.6": true,
+    "@firebase/util@1.15.1": true,
+    "@tsparticles/engine@3.9.1": true,
+    "re2@1.26.1": true
   }
 }

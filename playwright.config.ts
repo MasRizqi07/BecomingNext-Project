@@ -2,11 +2,14 @@ import {defineConfig} from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/e2e',
+  testIgnore: '**/phase1-verification.spec.ts',
   fullyParallel: true,
   workers: 2,
+  timeout: 60_000,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   reporter: [['list'], ['html', {open: 'never'}]],
+  expect: {timeout: 15_000},
   use: {
     baseURL: 'http://127.0.0.1:4173',
     actionTimeout: 15_000,

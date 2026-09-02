@@ -1,7 +1,6 @@
 import {ArrowLeft, History, LogOut, Settings, LayoutDashboard, PlusCircle} from 'lucide-react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 
-import {ThemeToggle} from '@/components/primitives/ThemeToggle';
 import {useBecomingStore} from '@/store/useBecomingStore';
 
 export function AppHeader({backTo}: {backTo?: string}) {
@@ -24,7 +23,7 @@ export function AppHeader({backTo}: {backTo?: string}) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/8 dark:border-white/8 light:border-black/10 bg-[#020205]/85 dark:bg-[#020205]/85 light:bg-[#FFFFFF]/90 backdrop-blur-xl transition-all">
+    <header className="sticky top-0 z-40 w-full border-b border-white/8 bg-[var(--color-canvas)]/85 backdrop-blur-xl transition-all">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-8 md:px-12">
         {/* Left: Back / Brand */}
         <div className="flex items-center gap-4 sm:gap-6">
@@ -38,8 +37,8 @@ export function AppHeader({backTo}: {backTo?: string}) {
             to="/dashboard"
             aria-label="Becoming Dashboard"
           >
-            <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
-            <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white dark:text-white light:text-slate-900">
+            <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_var(--color-accent-strong)]" />
+            <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white">
               Becoming.
             </span>
           </Link>
@@ -56,28 +55,19 @@ export function AppHeader({backTo}: {backTo?: string}) {
                 aria-current={isActive ? 'page' : undefined}
                 className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 font-display text-xs font-semibold tracking-wider transition ${
                   isActive
-                    ? 'bg-white/10 text-cyan-300 dark:bg-white/10 dark:text-cyan-300 light:bg-black/5 light:text-cyan-800 shadow-xs'
-                    : 'text-white/60 hover:bg-white/5 hover:text-white dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white light:text-slate-600 light:hover:bg-black/5 light:hover:text-slate-900'
+                    ? 'bg-white/10 text-cyan-300     shadow-xs'
+                    : 'text-white/60 hover:bg-white/5 hover:text-white      '
                 }`}
               >
-                <item.icon
-                  size={14}
-                  className={
-                    isActive
-                      ? 'text-cyan-300 dark:text-cyan-300 light:text-cyan-800'
-                      : 'text-white/50 dark:text-white/50 light:text-slate-400'
-                  }
-                />
+                <item.icon size={14} className={isActive ? 'text-cyan-300  ' : 'text-white/50  '} />
                 <span>{item.label}</span>
               </Link>
             );
           })}
         </nav>
 
-        {/* Right: Theme Toggle, User Profile, Settings, Sign Out */}
+        {/* Right: User Profile, Settings, Sign Out */}
         <div className="flex items-center gap-2">
-          <ThemeToggle />
-
           <Link
             className="icon-button h-9 w-9 sm:h-10 sm:w-10"
             to="/settings"

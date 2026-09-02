@@ -9,7 +9,6 @@ import {
   isolateApplicationForModal,
   restoreApplicationAfterModal,
 } from '@/components/primitives/modalIsolation';
-import {ThemeToggle} from '@/components/primitives/ThemeToggle';
 
 interface PublicHeaderProps {
   onOpenSignIn?: () => void;
@@ -76,11 +75,11 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-white/8 dark:border-white/8 light:border-black/10 bg-[#020205]/85 dark:bg-[#020205]/85 light:bg-[#FFFFFF]/90 backdrop-blur-xl transition-all">
+      <header className="sticky top-0 z-40 w-full border-b border-white/8 bg-[var(--color-canvas)]/85 backdrop-blur-xl transition-all">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 md:px-12">
           <Link className="flex items-center gap-2.5" to="/" aria-label="Becoming Home">
-            <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
-            <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white dark:text-white light:text-slate-900">
+            <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_var(--color-accent-strong)]" />
+            <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white">
               Becoming.
             </span>
           </Link>
@@ -104,7 +103,6 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
 
           {/* CTA Action */}
           <div className="hidden items-center gap-4 md:flex">
-            <ThemeToggle />
             {user ? (
               <Link to="/dashboard" className="secondary-button px-5 py-2 text-xs">
                 Dashboard <ArrowRight size={14} />
@@ -122,7 +120,6 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
 
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 md:hidden">
-            <ThemeToggle />
             <button
               type="button"
               ref={menuButtonRef}
@@ -149,19 +146,19 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
               aria-modal="true"
               aria-labelledby="mobile-navigation-title"
               tabIndex={-1}
-              className="fixed inset-0 z-50 flex flex-col justify-between bg-[#090A0F] dark:bg-[#090A0F] light:bg-[#FFFFFF] p-6 md:hidden"
+              className="fixed inset-0 z-50 flex flex-col justify-between bg-[var(--color-surface-1)] p-6 md:hidden"
             >
               <h2 id="mobile-navigation-title" className="sr-only">
                 Navigation menu
               </h2>
-              <div className="flex items-center justify-between border-b border-white/10 dark:border-white/10 light:border-black/10 pb-5">
+              <div className="flex items-center justify-between border-b border-white/10 pb-5">
                 <Link
                   to="/"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-2.5"
                 >
-                  <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
-                  <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white dark:text-white light:text-slate-900">
+                  <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_var(--color-accent-strong)]" />
+                  <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white">
                     Becoming.
                   </span>
                 </Link>

@@ -432,6 +432,7 @@ V2 dinyatakan selesai hanya jika:
 - Share hanya text summary tanpa jawaban privat atau public result URL.
 - Check-in menyimpan latest state per user/analysis/UTC day.
 - Account deletion memakai minimal hashed anti-replay marker 24 jam dengan TTL cleanup.
+- Presentasi V2 memakai satu tema gelap; tidak ada toggle, `data-theme`, atau persistence tema.
 
 ### Wajib diputuskan sebelum production
 

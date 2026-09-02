@@ -9,7 +9,7 @@
 > Referensi requirement: [PRD.md](PRD.md)
 
 Seluruh route dan interaction V2 di dokumen ini telah dipetakan ke source. Automated local evidence
-mencakup keyboard/axe, reduced motion, light/dark, responsive desktop/mobile, lintas Chromium,
+mencakup keyboard/axe, reduced motion, locked single-dark theme, responsive desktop/mobile, lintas Chromium,
 Firefox, dan WebKit, representative visual baselines untuk landing/demo, serta authenticated
 full-stack emulator lifecycle. Manual screen-reader, 200% zoom, Lighthouse, dan visual acceptance di
 deployment staging tetap menjadi release evidence—bukan asumsi dari hasil lokal.
@@ -520,7 +520,7 @@ Tahap berikutnya adalah staging acceptance pada environment nyata, bukan source 
 ## 15. Design QA checklist
 
 Automated local checks pada route representative, desktop/mobile, axe, keyboard, reduced motion,
-theme, cross-browser, bundle, dan visual baselines telah dijalankan. Item yang membutuhkan human or
+single-dark theme, cross-browser, bundle, dan visual baselines telah dijalankan. Item yang membutuhkan human or
 deployed-environment evidence tetap dijalankan saat staging:
 
 - Cocokkan seluruh route dengan state matrix.

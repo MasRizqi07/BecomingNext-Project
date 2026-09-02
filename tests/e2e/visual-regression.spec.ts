@@ -10,25 +10,18 @@ test('key public screens retain their approved visual hierarchy', async ({browse
   await page.emulateMedia({reducedMotion: 'reduce'});
 
   await page.goto('/');
-  await expect(page).toHaveScreenshot('landing-dark.png', {
+  await expect(page).toHaveScreenshot('landing.png', {
     animations: 'disabled',
     fullPage: true,
     maxDiffPixelRatio: 0.002,
   });
 
-  await page.getByRole('button', {name: /switch to light mode/i}).click();
-  await expect(page).toHaveScreenshot('landing-light.png', {
-    animations: 'disabled',
-    fullPage: true,
-    maxDiffPixelRatio: 0.002,
-  });
-
-  await page.getByRole('button', {name: /switch to dark mode/i}).click();
   await page.goto('/demo');
   await expect(page.getByText('The Quiet Builder', {exact: true})).toBeVisible({timeout: 15_000});
   await expect(page.locator('main svg.recharts-surface')).toBeVisible({timeout: 15_000});
   await expect(page.getByRole('main')).toHaveScreenshot('demo-result.png', {
     animations: 'disabled',
     maxDiffPixelRatio: 0.002,
+    timeout: 15_000,
   });
 });

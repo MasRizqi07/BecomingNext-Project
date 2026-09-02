@@ -31,25 +31,15 @@ test('landing page communicates the product and exposes a safe demo', async ({pa
   expect(accessibility.violations).toEqual([]);
 });
 
-test('theme toggle switches between dark and light modes seamlessly', async ({page}) => {
+test('single dark theme has no toggle or persisted theme state', async ({page}) => {
   await page.goto('/');
 
-  // Find theme toggle button (first instance in header)
-  const themeToggle = page.getByRole('button', {name: /switch to (light|dark) mode/i}).first();
-  await expect(themeToggle).toBeVisible();
-
-  // Toggle to light mode
-  await themeToggle.click();
-  await expect(page.locator('html')).toHaveClass(/light/);
-  await waitForBrowserPaint(page);
-
-  // Check light mode accessibility
-  const lightA11y = await new AxeBuilder({page}).withTags(['wcag2a', 'wcag2aa']).analyze();
-  expect(lightA11y.violations).toEqual([]);
-
-  // Toggle back to dark mode
-  await themeToggle.click();
-  await expect(page.locator('html')).toHaveClass(/dark/);
+  await expect(page.getByRole('button', {name: /switch to (light|dark) mode/i})).toHaveCount(0);
+  await expect(page.locator('html')).not.toHaveAttribute('data-theme');
+  expect(await page.evaluate(() => localStorage.getItem('becoming-theme-v1'))).toBeNull();
+  await expect
+    .poll(() => page.locator('html').evaluate((element) => getComputedStyle(element).colorScheme))
+    .toContain('dark');
 });
 
 test('demo result is complete and all public actions are reachable', async ({page}) => {
@@ -97,6 +87,11 @@ test('sign-in dialog is named, keyboard-contained, and restores focus', async ({
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
     .analyze();
   expect(accessibility.violations).toEqual([]);
+
+  for (let index = 0; index < 6; index += 1) {
+    await page.keyboard.press('Tab');
+    expect(await dialog.evaluate((element) => element.contains(document.activeElement))).toBe(true);
+  }
 
   await page.keyboard.press('Escape');
   await expect(dialog).toBeHidden();

@@ -6,10 +6,13 @@ import {
   RadarChart,
   ResponsiveContainer,
 } from 'recharts';
+import {useReducedMotion} from 'motion/react';
 
 import type {AnalysisResult} from '@shared/contracts';
 
 export function RadarVisualization({data}: {data: AnalysisResult['radarData']}) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className="h-90 w-full" aria-hidden="true">
       <ResponsiveContainer
@@ -18,12 +21,31 @@ export function RadarVisualization({data}: {data: AnalysisResult['radarData']}) 
         minWidth={0}
         initialDimension={{width: 640, height: 360}}
       >
-        <RadarChart data={data} outerRadius="78%" accessibilityLayer={false}>
-          <PolarGrid stroke="#ffffff14" />
-          <PolarAngleAxis dataKey="subject" tick={{fill: '#8b98a8', fontSize: 11}} />
+        <RadarChart
+          data={data}
+          outerRadius="78%"
+          margin={{top: 16, right: 36, bottom: 16, left: 36}}
+          accessibilityLayer={false}
+        >
+          <PolarGrid stroke="var(--color-border)" />
+          <PolarAngleAxis dataKey="subject" tick={{fill: 'var(--color-text-3)', fontSize: 11}} />
           <PolarRadiusAxis domain={[0, 100]} tick={false} axisLine={false} />
-          <Radar name="Drift" dataKey="A" stroke="#f87171" fill="#f87171" fillOpacity={0.08} />
-          <Radar name="Becoming" dataKey="B" stroke="#22d3ee" fill="#22d3ee" fillOpacity={0.18} />
+          <Radar
+            name="Drift"
+            dataKey="A"
+            stroke="var(--color-accent)"
+            fill="var(--color-accent)"
+            fillOpacity={0.14}
+            isAnimationActive={!prefersReducedMotion}
+          />
+          <Radar
+            name="Becoming"
+            dataKey="B"
+            stroke="var(--color-violet)"
+            fill="var(--color-violet)"
+            fillOpacity={0.18}
+            isAnimationActive={!prefersReducedMotion}
+          />
         </RadarChart>
       </ResponsiveContainer>
     </div>

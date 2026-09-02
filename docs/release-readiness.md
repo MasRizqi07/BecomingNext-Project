@@ -1,6 +1,6 @@
 # Release readiness evidence
 
-Evidence captured: 2026-09-01 20:50 WIB
+Evidence captured: 2026-09-02 23:56 WIB
 
 ## Decision
 
@@ -33,22 +33,24 @@ host version cannot hide a runtime-contract problem.
 | ------------------------------------------------------ | ----------------------------------------------------------------------- |
 | `npm run verify:full` on Node 24                       | **Pass**, exit code 0                                                   |
 | Prettier, ESLint with zero warnings, strict TypeScript | **Pass**                                                                |
-| Frontend/shared unit and component tests               | **21/21 files, 44/44 tests pass**                                       |
-| Frontend coverage                                      | 60.40% statements, 50.79% branches, 54.54% functions, 61.91% lines      |
+| Frontend/shared unit and component tests               | **19/19 files, 50/50 tests pass**                                       |
+| Demo-route unit stability stress                       | **10/10 consecutive isolated runs pass**                                |
+| Frontend coverage                                      | 66.20% statements, 57.30% branches, 58.63% functions, 68.63% lines      |
 | Functions unit tests                                   | **2/2 files, 3/3 tests pass** on Node 24 and Node 22                    |
 | Firestore transaction/invariant tests                  | **2/2 files, 10/10 tests pass** on Node 24 and Node 22                  |
 | Firestore Security Rules tests                         | **1/1 file, 6/6 tests pass**                                            |
 | Public Playwright matrix                               | **38 passed, 4 intentionally skipped, 0 failed** across 42 cases        |
+| Phase 1 primitive/interaction browser gate             | **1/1 pass** with six captured visual evidence artifacts                |
 | Authenticated emulator lifecycle                       | **1/1 pass** on Node 24 and Node 22                                     |
-| Web and Functions production builds                    | **Pass**; 3,292 modules transformed                                     |
-| Entry bundle budget                                    | **Pass**; 65.3 KiB gzip, 36 JavaScript chunks                           |
+| Web and Functions production builds                    | **Pass**; 3,290 modules transformed                                     |
+| Entry bundle budget                                    | **Pass**; 102.4 KiB gzip, 34 JavaScript chunks                          |
 | Production dependency audit                            | **0 vulnerabilities** in root and Functions production trees            |
 | Client artifact scan                                   | **No source maps, external Google Font URLs, or Gemini secret markers** |
-| Visual regression baselines                            | **6 inspected snapshots** for desktop/mobile landing and demo result    |
+| Visual evidence                                        | **10 inspected artifacts**: 4 canonical baselines + 6 Phase 1 captures  |
 
 The four local Playwright skips are expected: pixel baselines run only on Chromium desktop/mobile to
 avoid comparing images produced by different rendering engines. Chromium, Firefox, and WebKit
-desktop/mobile still execute all functional, theme, keyboard, focus, route, drawer, and axe
+desktop/mobile still execute all functional, single-theme, keyboard, focus, route, drawer, and axe
 accessibility scenarios. CI and deploy use a dedicated Windows visual job so the `win32` baselines are
 compared in the same operating-system family where they were generated.
 
@@ -73,22 +75,29 @@ deletion, tombstone creation, and Auth user removal.
 
 ## Accessibility and visual evidence
 
-- Dialogs and the mobile drawer are rendered through body portals.
-- Background application content is isolated with reference-counted `inert` and `aria-hidden` state.
-- Tab containment, Escape dismissal, initial focus, nested modal isolation, and trigger focus restoration
-  have automated coverage.
-- Axe checks pass for the landing page, both themes, public routes, sign-in dialog, and mobile drawer.
-- Six Windows/Chromium snapshots cover landing dark/light and demo-result hierarchy at desktop and
-  mobile viewports.
+- Dialogs use native `<dialog>.showModal()` and the browser top layer; the mobile drawer remains a body
+  portal with reference-counted `inert` and `aria-hidden` isolation.
+- Tab containment safety-net behavior, Escape/backdrop dismissal, configured initial focus, and trigger
+  focus restoration have unit and real-browser coverage.
+- Axe checks pass for the locked dark landing page, public routes, sign-in dialog, mobile drawer, and the
+  Phase 1 primitive showcase.
+- Four canonical Windows/Chromium baselines cover landing and demo-result hierarchy at desktop/mobile;
+  six additional captures cover buttons, cards, fields, radar semantics, toast/dialog, and the full
+  primitive showcase.
 
 ## Dependency audit disposition
 
 The release audit intentionally evaluates runtime dependencies and is clean: root 0 and Functions 0.
-The broader root development audit reports **1 low and 7 moderate** advisories, all beneath the direct
-development-only `firebase-tools@15.28.2` dependency. Registry verification showed 15.28.2 is the
-current release at evidence time. npm proposes `firebase-tools@14.23.0` as a semver-major remediation,
-which is a downgrade and is not an acceptable unattended fix. Functions' complete dependency tree is
-clean. This remains a tracked developer-tooling risk, not a shipped-client vulnerability.
+The safe, non-forced npm remediation updated the lockfile, and targeted overrides keep patched
+`body-parser`, Express, and `qs` versions instead of accepting npm's regressive resolution. Under the
+[npm 11 install-script approval model](https://docs.npmjs.com/cli/v11/commands/npm-install-scripts),
+dependency scripts are denied unless their reviewed, version-pinned packages appear in `allowScripts`;
+root and Functions approvals are recorded independently. The broader root development
+audit now reports **5 moderate** advisories, all beneath the direct development-only
+`firebase-tools@15.28.2` dependency. Registry verification showed 15.28.2 is the current release at
+evidence time. npm proposes `firebase-tools@14.23.0` as a semver-major remediation, which is a downgrade
+and is not an acceptable unattended fix. Functions' complete dependency tree is clean. This remains a
+tracked developer-tooling risk, not a shipped-client vulnerability.
 
 Re-evaluate the full development audit whenever Firebase CLI publishes a newer fixed dependency tree.
 Do not use `npm audit fix --force` without separately validating emulator, deploy, and CI behavior.

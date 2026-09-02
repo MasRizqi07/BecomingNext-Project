@@ -145,7 +145,7 @@ export function HabitCheckIn() {
               </strong>{' '}
               micro-habits as completed today.
             </p>
-            <p className="mt-2 text-xs text-slate-400 light:text-slate-600">
+            <p className="mt-2 text-xs text-slate-400">
               Saved securely{savedAt ? ` at ${savedAt.toLocaleTimeString()}` : ''}.
             </p>
 
@@ -250,9 +250,7 @@ export function HabitCheckIn() {
                             onClick={() => handleSetHabitStatus(index, opt.id)}
                             aria-pressed={isSelected}
                             className={`rounded-lg px-3 py-1.5 font-display text-xs transition-all ${
-                              isSelected
-                                ? activeStyles
-                                : 'text-slate-400 hover:text-slate-300 light:text-slate-600 light:hover:text-slate-800'
+                              isSelected ? activeStyles : 'text-slate-400 hover:text-slate-300  '
                             }`}
                           >
                             {opt.label}
@@ -325,7 +323,7 @@ export function HabitCheckIn() {
               placeholder="What friction did you notice? What helped you stay intentional?"
               className="w-full resize-y rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-white placeholder-white/25 outline-none focus:border-cyan-400/80 focus:ring-4 focus:ring-cyan-400/10"
             />
-            <div className="flex justify-between text-xs text-slate-400 light:text-slate-600">
+            <div className="flex justify-between text-xs text-slate-400">
               <span className="flex items-center gap-1.5">
                 <Lock size={12} className="text-cyan-400/70" /> Private check-in log
               </span>

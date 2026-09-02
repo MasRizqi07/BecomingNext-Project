@@ -2,12 +2,10 @@ import {useEffect, useState} from 'react';
 import Particles, {initParticlesEngine} from '@tsparticles/react';
 import {loadSlim} from '@tsparticles/slim';
 import {useReducedMotion} from 'motion/react';
-import {useThemeStore} from '@/store/useThemeStore';
 
 export function ParticlesBG() {
   const [ready, setReady] = useState(false);
   const reduceMotion = useReducedMotion();
-  const resolvedTheme = useThemeStore((state) => state.resolvedTheme);
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -26,8 +24,7 @@ export function ParticlesBG() {
     typeof navigator !== 'undefined' &&
     navigator.hardwareConcurrency > 0 &&
     navigator.hardwareConcurrency <= 4;
-  const isDark = resolvedTheme === 'dark';
-  const particleColor = isDark ? '#67e8f9' : '#0f172a';
+  const particleColor = '#67e8f9';
 
   return (
     <Particles
@@ -44,12 +41,12 @@ export function ParticlesBG() {
             color: particleColor,
             distance: 140,
             enable: true,
-            opacity: isDark ? 0.08 : 0.04,
+            opacity: 0.08,
             width: 1,
           },
           move: {enable: true, speed: 0.35, direction: 'none', outModes: {default: 'out'}},
           number: {density: {enable: true}, value: isConstrained ? 18 : 36},
-          opacity: {value: isDark ? 0.22 : 0.12},
+          opacity: {value: 0.22},
           shape: {type: 'circle'},
           size: {value: {min: 1, max: 2}},
         },

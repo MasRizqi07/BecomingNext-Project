@@ -1,15 +1,22 @@
 import {X} from 'lucide-react';
-import {AnimatePresence, motion, useReducedMotion} from 'motion/react';
-import {useEffect, useId, useRef} from 'react';
-import {createPortal} from 'react-dom';
-import type {ReactNode} from 'react';
+import {useCallback, useEffect, useId, useRef} from 'react';
+import type {KeyboardEvent, MouseEvent, ReactNode, SyntheticEvent} from 'react';
 
-import {
-  isolateApplicationForModal,
-  restoreApplicationAfterModal,
-} from '@/components/primitives/modalIsolation';
+const FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'area[href]',
+  'button:not([disabled])',
+  'input:not([disabled]):not([type="hidden"])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  'iframe',
+  'object',
+  'embed',
+  '[contenteditable="true"]',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',');
 
-interface DialogProps {
+export interface DialogProps {
   isOpen: boolean;
   onClose: () => void;
   title?: ReactNode;
@@ -36,125 +43,141 @@ export function Dialog({
   labelledBy,
   describedBy,
 }: DialogProps) {
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const previousTriggerRef = useRef<HTMLElement | null>(null);
+  const wasOpenRef = useRef(false);
   const titleId = useId();
   const descriptionId = useId();
 
+  const restoreTriggerFocus = useCallback(() => {
+    const trigger = previousTriggerRef.current;
+    previousTriggerRef.current = null;
+    if (!trigger) return;
+
+    queueMicrotask(() => {
+      if (document.body.contains(trigger)) trigger.focus();
+    });
+  }, []);
+
   useEffect(() => {
-    if (!isOpen) return;
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        onClose();
-        return;
+    if (isOpen) {
+      if (!wasOpenRef.current) {
+        previousTriggerRef.current = document.activeElement as HTMLElement | null;
       }
-      if (event.key !== 'Tab') return;
-
-      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
-        'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])',
-      );
-      if (!focusable?.length) {
-        event.preventDefault();
-        dialogRef.current?.focus();
-        return;
+      wasOpenRef.current = true;
+      const dialog = dialogRef.current;
+      if (dialog && !dialog.open) {
+        if (typeof dialog.showModal === 'function') {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute('open', '');
+        }
       }
 
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last?.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first?.focus();
+      if (dialog && initialFocusSelector) {
+        try {
+          dialog.querySelector<HTMLElement>(initialFocusSelector)?.focus();
+        } catch {
+          // A bad consumer selector must not break an otherwise usable modal.
+        }
       }
+    } else if (wasOpenRef.current) {
+      wasOpenRef.current = false;
+      restoreTriggerFocus();
+    }
+  }, [initialFocusSelector, isOpen, restoreTriggerFocus]);
+
+  useEffect(() => {
+    return () => {
+      if (wasOpenRef.current) restoreTriggerFocus();
+    };
+  }, [restoreTriggerFocus]);
+
+  const handleCancel = (e: SyntheticEvent<HTMLDialogElement, Event>) => {
+    e.preventDefault();
+    onClose();
+  };
+
+  const handleBackdropClick = (e: MouseEvent<HTMLDialogElement>) => {
+    if (e.target !== e.currentTarget) return;
+    const bounds = e.currentTarget.getBoundingClientRect();
+    const clickedOutside =
+      e.clientX < bounds.left ||
+      e.clientX > bounds.right ||
+      e.clientY < bounds.top ||
+      e.clientY > bounds.bottom;
+    if (clickedOutside) {
+      onClose();
+    }
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDialogElement>) => {
+    if (event.key !== 'Tab') return;
+    const dialog = event.currentTarget;
+    const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
+      (element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true',
+    );
+
+    if (focusable.length === 0) {
+      event.preventDefault();
+      dialog.focus();
+      return;
     }
 
-    const previousActiveElement = document.activeElement as HTMLElement | null;
-    isolateApplicationForModal();
-    document.addEventListener('keydown', handleKeyDown);
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement;
+    if (event.shiftKey && (active === first || !dialog.contains(active))) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && (active === last || !dialog.contains(active))) {
+      event.preventDefault();
+      first?.focus();
+    }
+  };
 
-    const focusTimer = window.setTimeout(() => {
-      const requestedTarget = initialFocusSelector
-        ? dialogRef.current?.querySelector<HTMLElement>(initialFocusSelector)
-        : null;
-      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
-        'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])',
-      );
-      (requestedTarget ?? focusable?.[0] ?? dialogRef.current)?.focus();
-    }, 50);
+  if (!isOpen) return null;
 
-    return () => {
-      window.clearTimeout(focusTimer);
-      document.removeEventListener('keydown', handleKeyDown);
-      restoreApplicationAfterModal();
-      previousActiveElement?.focus?.();
-    };
-  }, [initialFocusSelector, isOpen, onClose]);
+  return (
+    <dialog
+      ref={dialogRef}
+      role={role}
+      aria-modal="true"
+      aria-labelledby={title ? titleId : labelledBy}
+      aria-describedby={description ? descriptionId : describedBy}
+      onCancel={handleCancel}
+      onClick={handleBackdropClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={-1}
+      className={`fixed inset-0 z-50 m-auto ${maxWidthClass} max-h-[calc(100dvh_-_2rem)] w-[calc(100%_-_2rem)] overscroll-contain rounded-3xl border border-[var(--color-border-strong)] bg-[var(--color-surface-1)] p-6 text-[var(--color-text-1)] shadow-2xl backdrop:bg-[var(--color-canvas)]/80 backdrop:backdrop-blur-md open:flex open:flex-col sm:w-full sm:p-8`}
+    >
+      {showCloseButton ? (
+        <button
+          type="button"
+          className="absolute right-5 top-5 rounded-full p-2 text-[var(--color-text-3)] transition hover:bg-white/10 hover:text-[var(--color-text-1)] focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
+          onClick={onClose}
+          aria-label="Close dialog"
+        >
+          <X size={18} aria-hidden="true" />
+        </button>
+      ) : null}
 
-  const dialog = (
-    <AnimatePresence>
-      {isOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" role="none">
-          {/* Backdrop */}
-          <motion.div
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0}}
-            transition={{duration: prefersReducedMotion ? 0 : 0.2}}
-            className="fixed inset-0 bg-[#020205]/80 backdrop-blur-md"
-            onClick={onClose}
-            aria-hidden="true"
-          />
+      {title ? (
+        <h2
+          id={titleId}
+          className="font-display text-xl font-bold tracking-tight text-[var(--color-text-1)] sm:text-2xl"
+        >
+          {title}
+        </h2>
+      ) : null}
 
-          {/* Dialog Container */}
-          <motion.div
-            ref={dialogRef}
-            role={role}
-            tabIndex={-1}
-            aria-modal="true"
-            aria-labelledby={title ? titleId : labelledBy}
-            aria-describedby={description ? descriptionId : describedBy}
-            initial={prefersReducedMotion ? false : {opacity: 0, scale: 0.95, y: 10}}
-            animate={{opacity: 1, scale: 1, y: 0}}
-            exit={{opacity: 0, scale: 0.95, y: 10}}
-            transition={{duration: prefersReducedMotion ? 0 : 0.2, ease: 'easeOut'}}
-            className={`relative z-10 w-full ${maxWidthClass} glass-panel-strong rounded-3xl border border-white/15 p-6 sm:p-8 shadow-2xl`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {showCloseButton ? (
-              <button
-                type="button"
-                className="absolute right-5 top-5 rounded-full p-2 text-white/50 transition hover:bg-white/10 hover:text-white"
-                onClick={onClose}
-                aria-label="Close dialog"
-              >
-                <X size={18} />
-              </button>
-            ) : null}
-
-            {title ? (
-              <h2
-                id={titleId}
-                className="font-display text-xl font-bold tracking-tight text-white sm:text-2xl"
-              >
-                {title}
-              </h2>
-            ) : null}
-
-            {description ? (
-              <div id={descriptionId} className="mt-2 text-sm leading-relaxed text-slate-300">
-                {description}
-              </div>
-            ) : null}
-
-            <div className="mt-6">{children}</div>
-          </motion.div>
+      {description ? (
+        <div id={descriptionId} className="mt-2 text-sm leading-relaxed text-[var(--color-text-2)]">
+          {description}
         </div>
       ) : null}
-    </AnimatePresence>
-  );
 
-  return createPortal(dialog, document.body);
+      <div className="mt-6">{children}</div>
+    </dialog>
+  );
 }

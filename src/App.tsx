@@ -4,7 +4,6 @@ import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 
 import {Landing} from '@/components/Landing';
 import {useBecomingStore} from '@/store/useBecomingStore';
-import {useThemeStore} from '@/store/useThemeStore';
 
 const Dashboard = lazy(() =>
   import('@/features/dashboard/Dashboard').then((m) => ({default: m.Dashboard})),
@@ -58,7 +57,6 @@ export default function App() {
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    useThemeStore.getState().initTheme();
     let cancelled = false;
     let unsubscribe: (() => void) | undefined;
 
@@ -77,14 +75,14 @@ export default function App() {
   }, [setAuth]);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden transition-colors duration-300">
+    <div className="relative min-h-screen overflow-x-hidden bg-[var(--color-canvas)] transition-colors duration-300">
       <a className="skip-link" href="#main-content">
         Skip to main content
       </a>
 
       {/* Atmospheric ambient glows */}
-      <div className="pointer-events-none fixed -left-24 -top-24 h-128 w-128 rounded-full bg-cyan-900/10 blur-[130px]" />
-      <div className="pointer-events-none fixed -bottom-24 -right-24 h-144 w-144 rounded-full bg-purple-900/10 blur-[150px]" />
+      <div className="pointer-events-none fixed -left-24 -top-24 h-125 w-125 rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
+      <div className="pointer-events-none fixed -bottom-24 -right-24 h-150 w-150 rounded-full bg-[var(--color-violet)]/10 blur-[140px]" />
 
       <Suspense fallback={null}>
         <ParticlesBG />

@@ -84,7 +84,7 @@ npm run verify:full
 ### Public and UI
 
 - Landing, How it works, Privacy, Demo, and 404 render without console errors.
-- Desktop/mobile navigation, light/dark theme, keyboard focus, reduced motion, and dialog/drawer
+- Desktop/mobile navigation, locked single-dark theme, keyboard focus, reduced motion, and dialog/drawer
   isolation behave correctly.
 - Demo performs no Auth-required write and no Gemini request.
 - Run Lighthouse mobile: Performance >= 90, Accessibility >= 95, Best Practices >= 95, SEO >= 90.

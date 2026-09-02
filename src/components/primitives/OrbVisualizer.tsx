@@ -59,7 +59,7 @@ export function OrbVisualizer({size = 'md', className = ''}: OrbVisualizerProps)
       />
 
       {/* Inner luminous dot */}
-      <div className="h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_15px_#67e8f9]" />
+      <div className="h-3 w-3 rounded-full bg-[var(--color-accent)] shadow-[0_0_15px_var(--color-accent)]" />
     </div>
   );
 }

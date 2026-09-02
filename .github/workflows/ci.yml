@@ -84,6 +84,7 @@ jobs:
       - run: npm --prefix functions ci
       - run: npx playwright install --with-deps chromium firefox webkit chrome
       - run: npm run test:e2e
+      - run: npm run test:e2e:phase1
       - name: Select the Functions deployment runtime
         uses: actions/setup-node@v6
         with:

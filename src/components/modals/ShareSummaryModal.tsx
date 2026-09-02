@@ -114,7 +114,7 @@ export function ShareSummaryModal({isOpen, onClose, analysis, onCopied}: ShareSu
         </div>
 
         {/* Privacy Note */}
-        <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-[11px] text-slate-400 light:text-slate-600">
+        <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-[11px] text-slate-400">
           <ShieldCheck size={13} className="text-cyan-400/80" />
           <span>Only the public summary is shared. Your 8 reflections remain private.</span>
         </p>

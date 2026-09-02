@@ -13,13 +13,13 @@ secret tidak pernah masuk bundle browser.
 
 Status harus dibaca per environment:
 
-| Boundary                       | Status              | Arti                                                                |
-| ------------------------------ | ------------------- | ------------------------------------------------------------------- |
-| Source implementation          | Complete            | Phase 0–3 tersedia dan terhubung ke behavior nyata                  |
-| Local automated evidence       | Verified 2026-09-01 | Static, unit, emulator, browser, a11y, visual, build, bundle, audit |
-| GitHub Actions pada commit ini | Belum diverifikasi  | Memerlukan push/PR dan run CI baru                                  |
-| Staging                        | Belum diverifikasi  | Real Auth, App Check, Gemini, monitoring, Lighthouse belum diuji    |
-| Production                     | Belum disetujui     | Promotion memerlukan staging evidence dan reviewer approval         |
+| Boundary                       | Status              | Arti                                                             |
+| ------------------------------ | ------------------- | ---------------------------------------------------------------- |
+| Source implementation          | Complete            | Phase 0–3 tersedia dan terhubung ke behavior nyata               |
+| Local automated evidence       | Verified 2026-09-02 | Static, unit, emulator, browser, a11y, visual, build, audit      |
+| GitHub Actions pada commit ini | Belum diverifikasi  | Memerlukan push/PR dan run CI baru                               |
+| Staging                        | Belum diverifikasi  | Real Auth, App Check, Gemini, monitoring, Lighthouse belum diuji |
+| Production                     | Belum disetujui     | Promotion memerlukan staging evidence dan reviewer approval      |
 
 Detail bukti dan blocker tersedia di [release readiness](docs/release-readiness.md). Lolos lokal tidak
 sama dengan release-ready.
@@ -46,27 +46,28 @@ sama dengan release-ready.
   acknowledgement server.
 - Delete satu analisis yang juga menghapus reflection dan check-in terkait.
 - Delete akun yang menghapus application data dan Auth, dengan hashed anti-replay tombstone 24 jam.
-- Light/dark theme, reduced motion, keyboard dialog/drawer, focus restoration, dan axe coverage.
+- Locked single-dark theme, reduced motion, native keyboard dialog, drawer isolation, focus restoration,
+  dan axe coverage.
 - CSP/security headers, owner-only reads, direct client writes denied, emulator suites, visual
   regression, cross-browser E2E, production dependency audit, dan bundle budget.
 
 ## Route inventory
 
-| Route                    | Access            | Implementasi                                      |
-| ------------------------ | ----------------- | ------------------------------------------------- |
-| `/`                      | Public            | Landing, trust content, sign-in, safe demo CTA    |
-| `/demo`                  | Public            | Static full result tanpa personal data/write/AI   |
-| `/how-it-works`          | Public            | Method, output, AI boundaries, FAQ                |
-| `/privacy`               | Public            | Data, AI, retention, deletion, crisis boundary    |
-| `/dashboard`             | Auth              | Latest/recent analysis dan contextual action      |
-| `/reflect`               | Auth              | Reflection intake delapan pertanyaan              |
-| `/reflect/review`        | Auth              | Review/edit dan authoritative submission          |
-| `/analysis/:analysisId?` | Auth              | Create/resume pending/failed analysis             |
-| `/results/:analysisId`   | Auth              | Owner-only personalized result                    |
-| `/check-in/:analysisId`  | Auth              | Authoritative daily habit check-in                |
-| `/history`               | Auth              | Archive, status filter, open/resume/delete        |
-| `/settings`              | Auth              | Theme, account, privacy, sign-out, delete account |
-| `*`                      | Public/Auth aware | Explicit 404 recovery                             |
+| Route                    | Access            | Implementasi                                    |
+| ------------------------ | ----------------- | ----------------------------------------------- |
+| `/`                      | Public            | Landing, trust content, sign-in, safe demo CTA  |
+| `/demo`                  | Public            | Static full result tanpa personal data/write/AI |
+| `/how-it-works`          | Public            | Method, output, AI boundaries, FAQ              |
+| `/privacy`               | Public            | Data, AI, retention, deletion, crisis boundary  |
+| `/dashboard`             | Auth              | Latest/recent analysis dan contextual action    |
+| `/reflect`               | Auth              | Reflection intake delapan pertanyaan            |
+| `/reflect/review`        | Auth              | Review/edit dan authoritative submission        |
+| `/analysis/:analysisId?` | Auth              | Create/resume pending/failed analysis           |
+| `/results/:analysisId`   | Auth              | Owner-only personalized result                  |
+| `/check-in/:analysisId`  | Auth              | Authoritative daily habit check-in              |
+| `/history`               | Auth              | Archive, status filter, open/resume/delete      |
+| `/settings`              | Auth              | Account, privacy, sign-out, delete account      |
+| `*`                      | Public/Auth aware | Explicit 404 recovery                           |
 
 ## Stack
 
@@ -156,6 +157,7 @@ npm run dev
 | `npm run test:transactions` | Reservation/check-in/deletion emulator tests        |
 | `npm run test:rules`        | Firestore authorization emulator tests              |
 | `npm run test:e2e`          | Chromium/Firefox/WebKit desktop/mobile, axe, visual |
+| `npm run test:e2e:phase1`   | Portable Chromium primitive/interaction visual gate |
 | `npm run test:e2e:visual`   | Windows/Chromium visual regression baselines        |
 | `npm run test:e2e:auth`     | Authenticated full-stack emulator lifecycle         |
 | `npm run audit`             | Production dependency audit root + Functions        |
@@ -210,11 +212,15 @@ Default model adalah Gemini 3.7 Flash melalui Interactions API stateless (`store
 - Delete analysis/account: `O(n)` terhadap owned documents, batch maksimum 400 dengan peak memory
   `O(400)`.
 - Tombstone lookup: `O(1)` document read pada mutation transaction.
+- Native-dialog Tab containment: `O(f)` per Tab, dengan `f` jumlah kontrol focusable di dialog.
+- Score-field keyboard navigation: `O(s)` per key event, dengan default `s = 10`; toast scheduling
+  tetap `O(1)`.
 
 Trade-off: Firebase serverless mengurangi operational surface tetapi meningkatkan provider coupling;
 synchronous AI menyederhanakan UX tetapi dibatasi timeout; deterministic daily check-in mencegah
 duplikasi tetapi hanya menyimpan state terakhir per UTC day; TTL mengurangi retention identifier namun
-cleanup fisiknya asynchronous.
+cleanup fisiknya asynchronous. Native `<dialog>` memberi top-layer modality lintas browser, sementara
+Tab-containment safety net tetap dipertahankan untuk konsistensi engine.
 
 ## Release boundary
 

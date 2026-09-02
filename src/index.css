@@ -1,76 +1,60 @@
 @import 'tailwindcss';
 
-@custom-variant light (&:where(.light, .light *, [data-theme="light"], [data-theme="light"] *));
-@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
-
 @theme {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
   --font-serif: 'Playfair Display Variable', ui-serif, Georgia, serif;
-
-  --color-canvas: #020205;
-  --color-surface-1: #090a0f;
-  --color-surface-2: rgba(255, 255, 255, 0.05);
-  --color-surface-3: rgba(255, 255, 255, 0.08);
-
-  --color-accent: #67e8f9;
-  --color-accent-strong: #22d3ee;
-  --color-violet: #c4b5fd;
-  --color-violet-strong: #a78bfa;
-
-  --color-border-subtle: rgba(255, 255, 255, 0.08);
-  --color-border-default: rgba(255, 255, 255, 0.12);
-  --color-border-strong: rgba(255, 255, 255, 0.24);
-
-  --color-text-primary: #f8fafc;
-  --color-text-secondary: #cbd5e1;
-  --color-text-tertiary: #94a3b8;
-
-  --color-success: #86efac;
-  --color-warning: #fcd34d;
-  --color-danger: #fca5a5;
 }
 
 @layer base {
   :root {
-    --canvas-bg: #020205;
-    --text-main: #f8fafc;
-    --glass-bg: rgba(255, 255, 255, 0.04);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-strong-bg: rgba(255, 255, 255, 0.07);
-    --glass-strong-border: rgba(255, 255, 255, 0.18);
-    --identity-card-bg: #090a0f;
+    /* Tier: semantic color tokens — nilai final dari Design.md §3.1 */
+    --color-canvas: #020205;
+    --color-surface-1: #090a0f;
+    --color-surface-2: rgba(255, 255, 255, 0.05);
+    --color-surface-3: rgba(255, 255, 255, 0.08);
+    --color-border: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.24);
+    --color-text-1: #f8fafc;
+    --color-text-2: #cbd5e1;
+    --color-text-3: #94a3b8;
+    --color-accent: #67e8f9; /* cyan primary and drifting radar path */
+    --color-accent-strong: #22d3ee; /* active/progress */
+    --color-violet: #c4b5fd; /* violet secondary and becoming radar path */
+    --color-danger: #fca5a5;
+    --color-warning: #fcd34d;
+    --color-success: #86efac;
+
+    /* Component alias tokens */
+    --canvas-bg: var(--color-canvas);
+    --text-main: var(--color-text-1);
+    --glass-bg: var(--color-surface-2);
+    --glass-border: var(--color-border);
+    --glass-strong-bg: var(--color-surface-3);
+    --glass-strong-border: var(--color-border-strong);
+    --identity-card-bg: var(--color-surface-1);
     --subtle-grid-color: rgba(255, 255, 255, 0.02);
     color-scheme: dark;
     font-synthesis: none;
   }
 
-  .light,
-  [data-theme='light'] {
-    --canvas-bg: #f8fafc;
-    --text-main: #0f172a;
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-border: rgba(15, 23, 42, 0.08);
-    --glass-strong-bg: rgba(255, 255, 255, 0.95);
-    --glass-strong-border: rgba(15, 23, 42, 0.14);
-    --identity-card-bg: #ffffff;
-    --subtle-grid-color: rgba(15, 23, 42, 0.03);
-    color-scheme: light;
-  }
-
   html {
     scroll-behavior: smooth;
-    background: var(--canvas-bg);
+    background: var(--color-canvas);
     transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   body {
-    @apply m-0 min-w-80 overflow-x-hidden font-sans antialiased selection:bg-cyan-500/30 selection:text-white;
-    background: var(--canvas-bg);
-    color: var(--text-main);
+    @apply m-0 min-w-80 overflow-x-hidden font-sans antialiased selection:bg-cyan-500/30 selection:text-white bg-[var(--color-canvas)];
+    background: var(--color-canvas);
+    color: var(--color-text-1);
     transition:
       background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
       color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body:has(dialog[open]) {
+    overflow: hidden;
   }
 
   button,
@@ -84,7 +68,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid #67e8f9;
+    outline: 2px solid var(--color-accent);
     outline-offset: 4px;
   }
 }
@@ -138,8 +122,8 @@
     padding: 1.5px;
     background: linear-gradient(135deg, rgba(196, 181, 253, 0.5), rgba(103, 232, 249, 0.5));
     -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+      linear-gradient(white 0 0) content-box,
+      linear-gradient(white 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
@@ -162,43 +146,36 @@
 
   .app-footer {
     background: rgba(9, 10, 15, 0.6);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    color: #94a3b8;
-  }
-
-  .light .app-footer,
-  [data-theme='light'] .app-footer {
-    background: #f1f5f9;
-    border-top: 1px solid rgba(15, 23, 42, 0.12);
-    color: #334155;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-3);
   }
 
   .primary-button {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-cyan-300 px-7 py-3 font-display text-[11px] font-bold uppercase tracking-[0.17em] text-black transition hover:bg-cyan-200 hover:shadow-[0_0_24px_rgba(103,232,249,0.45)] active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-gray-700 disabled:text-gray-400 disabled:shadow-none;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[var(--color-accent)] px-7 py-3 font-display text-[11px] font-bold uppercase tracking-[0.17em] text-black transition hover:bg-[var(--color-accent)] hover:shadow-[0_0_24px_rgba(103,232,249,0.45)] active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-gray-700 disabled:text-gray-400 disabled:shadow-none;
   }
 
   .secondary-button {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-6 py-3 font-display text-[11px] font-semibold uppercase tracking-[0.15em] text-white/80 transition hover:border-white/25 hover:bg-white/10 hover:text-white dark:border-white/12 dark:bg-white/5 dark:text-white/80 dark:hover:border-white/25 dark:hover:bg-white/10 dark:hover:text-white light:border-black/15 light:bg-black/5 light:text-slate-800 light:hover:border-black/25 light:hover:bg-black/10 light:hover:text-black active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-6 py-3 font-display text-[11px] font-semibold uppercase tracking-[0.15em] text-white/80 transition hover:border-white/25 hover:bg-white/10 hover:text-white active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
   }
 
   .ghost-button {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 font-display text-[11px] font-semibold uppercase tracking-[0.15em] text-white/60 transition hover:bg-white/5 hover:text-white dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white light:text-slate-600 light:hover:bg-black/5 light:hover:text-slate-900 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 font-display text-[11px] font-semibold uppercase tracking-[0.15em] text-white/60 transition hover:bg-white/5 hover:text-white active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
   }
 
   .danger-button {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-red-400/20 border border-red-400/30 px-6 py-3 font-display text-[11px] font-bold uppercase tracking-[0.15em] text-red-200 transition hover:bg-red-400/30 hover:border-red-400/50 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/20 px-6 py-3 font-display text-[11px] font-bold uppercase tracking-[0.15em] text-[var(--color-danger)] transition hover:border-[var(--color-danger)]/50 hover:bg-[var(--color-danger)]/30 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
   }
 
   .icon-button {
-    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:border-white/25 hover:bg-white/10 hover:text-white dark:border-white/10 dark:bg-white/5 dark:text-white/70 dark:hover:border-white/25 dark:hover:bg-white/10 dark:hover:text-white light:border-black/10 light:bg-black/5 light:text-slate-700 light:hover:border-black/25 light:hover:bg-black/10 light:hover:text-black active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:border-white/25 hover:bg-white/10 hover:text-white active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
   }
 
   .nav-link {
-    @apply relative font-display text-[11px] font-medium uppercase tracking-[0.2em] text-white/60 transition hover:text-white dark:text-white/60 dark:hover:text-white light:text-slate-600 light:hover:text-slate-900;
+    @apply relative font-display text-[11px] font-medium uppercase tracking-[0.2em] text-white/60 transition hover:text-white;
   }
 
   .nav-link.active {
-    @apply text-white dark:text-white light:text-slate-900;
+    @apply text-white;
   }
 
   .nav-link.active::after {
@@ -208,7 +185,7 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #22d3ee;
+    background-color: var(--color-accent-strong);
     border-radius: 9999px;
   }
 
@@ -217,7 +194,7 @@
   }
 
   .skip-link {
-    @apply fixed left-4 top-4 z-100 -translate-y-24 rounded-lg bg-cyan-300 px-4 py-3 font-semibold text-black transition focus:translate-y-0;
+    @apply fixed left-4 top-4 z-100 -translate-y-24 rounded-lg bg-[var(--color-accent)] px-4 py-3 font-semibold text-black transition focus:translate-y-0;
   }
 }
 
