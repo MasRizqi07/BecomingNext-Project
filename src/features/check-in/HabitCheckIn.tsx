@@ -132,7 +132,10 @@ export function HabitCheckIn() {
             animate={{opacity: 1, scale: 1}}
             className="w-full max-w-lg"
           >
-            <Card variant="glass-card" className="p-8 sm:p-12 text-center border border-[var(--color-border-strong)]">
+            <Card
+              variant="glass-card"
+              className="p-8 sm:p-12 text-center border border-[var(--color-border-strong)]"
+            >
               <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 text-[var(--color-success)] shadow-[0_0_20px_rgba(134,239,172,0.2)]">
                 <CheckCircle2 size={32} />
               </div>

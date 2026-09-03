@@ -18,10 +18,9 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@shared/*": ["shared/*"]
+      "@/*": ["./src/*"],
+      "@shared/*": ["./shared/*"]
     },
     "types": ["vite/client", "vitest/globals"]
   },

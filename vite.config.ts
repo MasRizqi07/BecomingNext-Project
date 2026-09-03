@@ -11,6 +11,9 @@ export default defineConfig({
       '@shared': path.resolve(import.meta.dirname, 'shared'),
     },
   },
+  optimizeDeps: {
+    entries: ['index.html', 'test-showcase.html'],
+  },
   build: {
     target: 'es2022',
     sourcemap: process.env.SOURCE_MAPS === 'true',

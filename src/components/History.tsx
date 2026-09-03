@@ -5,6 +5,8 @@ import {Link, useNavigate} from 'react-router-dom';
 import {AppHeader} from '@/components/AppHeader';
 import {DeleteAnalysisDialog} from '@/components/modals/DeleteAnalysisDialog';
 import {Card} from '@/components/primitives/Card';
+import {StatusBadge} from '@/components/primitives/StatusBadge';
+import {Toast, type ToastItem} from '@/components/primitives/Toast';
 import {formatServiceError} from '@/lib/errors';
 import {
   deleteAnalysisRecord,
@@ -171,6 +173,7 @@ export function History() {
         ) : filteredRecords.length === 0 ? (
           <Card variant="glass-card" className="p-12 text-center">
             <Sparkles className="mx-auto mb-4 text-[var(--color-accent)] opacity-60" size={32} />
+            <h3 className="font-display text-xl font-bold text-[var(--color-text-1)]">
               No Archived Reflections
             </h3>
             <p className="mx-auto mt-2 max-w-sm text-xs leading-relaxed text-[var(--color-text-3)]">
@@ -186,6 +189,7 @@ export function History() {
           </Card>
         ) : (
           <div className="space-y-4">
+            {filteredRecords.map((rec) => {
               const isCompleted = rec.status === 'completed';
               const dateString = rec.createdAt ? rec.createdAt.toLocaleDateString() : 'Recent';
 
@@ -194,8 +198,11 @@ export function History() {
                   key={rec.id}
                   variant="glass-card"
                   className="card-interactive group flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-6 sm:p-7"
+                >
                   <div className="space-y-2">
                     <div className="flex items-center gap-3">
+                      <StatusBadge status={rec.status} />
+                      <span className="flex items-center gap-1 text-xs text-[var(--color-text-3)]">
                         <Clock size={12} /> {dateString}
                       </span>
                     </div>
