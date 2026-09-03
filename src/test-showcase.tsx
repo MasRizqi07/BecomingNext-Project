@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import '@/index.css';
 
@@ -8,7 +8,9 @@ import {InputField, TextareaField, ScoreField} from '@/components/primitives/Fie
 import {Toast, type ToastItem} from '@/components/primitives/Toast';
 import {Dialog} from '@/components/primitives/Dialog';
 import {StatusBadge} from '@/components/primitives/StatusBadge';
+import {ThemeToggle} from '@/components/primitives/ThemeToggle';
 import {RadarVisualization} from '@/components/RadarVisualization';
+import {useThemeStore} from '@/store/useThemeStore';
 import {Settings} from 'lucide-react';
 
 import type {AnalysisResult} from '@shared/contracts';
@@ -29,15 +31,20 @@ export function ShowcaseApp() {
     'I notice myself slipping into reactive multitasking instead of prioritizing one deep project.',
   );
 
+  useEffect(() => useThemeStore.getState().initTheme(), []);
+
   return (
     <main className="min-h-screen p-8 max-w-6xl mx-auto space-y-12 bg-[var(--color-canvas)] text-[var(--color-text-1)]">
-      <header className="border-b border-[var(--color-border)] pb-6">
-        <h1 className="font-display text-3xl font-bold tracking-tight">
-          Phase 1 Primitives Showcase
-        </h1>
-        <p className="text-sm text-[var(--color-text-2)] mt-1">
-          Visual verification of single-dark-theme design tokens and component primitives.
-        </p>
+      <header className="flex flex-col gap-5 border-b border-[var(--color-border)] pb-6 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="font-display text-3xl font-bold tracking-tight">
+            Phase 1 Primitives Showcase
+          </h1>
+          <p className="mt-1 text-sm text-[var(--color-text-2)]">
+            Visual verification of dark/light design tokens and component primitives.
+          </p>
+        </div>
+        <ThemeToggle variant="segmented" />
       </header>
 
       {/* SECTION 1: BUTTONS */}

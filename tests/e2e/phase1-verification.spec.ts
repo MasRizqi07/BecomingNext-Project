@@ -13,18 +13,30 @@ test.describe('Phase 1 component evidence', () => {
     await page.emulateMedia({reducedMotion: 'reduce'});
     await page.goto('/test-showcase.html');
     await expect(page.getByRole('heading', {name: /phase 1 primitives showcase/i})).toBeVisible();
-    await expect(page.locator('html')).not.toHaveAttribute('data-theme');
-    await expect(page.getByRole('button', {name: /switch to .* mode/i})).toHaveCount(0);
-    await expect
-      .poll(() => page.locator('html').evaluate((element) => getComputedStyle(element).colorScheme))
-      .toContain('dark');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.getByRole('radio', {name: 'Dark'})).toHaveAttribute('aria-checked', 'true');
 
     await expect(page.locator('#section-radar svg.recharts-surface')).toBeVisible();
     await page.screenshot({
-      path: testInfo.outputPath('full-showcase.png'),
+      path: testInfo.outputPath('full-showcase-dark.png'),
       fullPage: true,
       animations: 'disabled',
     });
+
+    await page.getByRole('radio', {name: 'Light'}).click();
+    await expect(page.locator('html')).toHaveClass(/light/);
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await expect(page.getByRole('radio', {name: 'Light'})).toHaveAttribute('aria-checked', 'true');
+    await page.screenshot({
+      path: testInfo.outputPath('full-showcase-light.png'),
+      fullPage: true,
+      animations: 'disabled',
+    });
+
+    const lightAccessibility = await new AxeBuilder({page})
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze();
+    expect(lightAccessibility.violations).toEqual([]);
     await page.locator('#section-buttons').screenshot({
       path: testInfo.outputPath('button-variants.png'),
       animations: 'disabled',

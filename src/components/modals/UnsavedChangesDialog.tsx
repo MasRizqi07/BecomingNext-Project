@@ -20,19 +20,19 @@ export function UnsavedChangesDialog({isOpen, onClose, onConfirmLeave}: UnsavedC
       initialFocusSelector="[data-dialog-initial]"
     >
       <div className="flex flex-col items-center text-center">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-amber-400/30 bg-amber-400/10 text-amber-300">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-warning)]/30 bg-[var(--color-warning)]/10 text-[var(--color-warning)]">
           <Edit3 size={22} />
         </div>
 
         <h2
           id="unsaved-changes-dialog-title"
-          className="font-display text-xl font-bold tracking-tight text-white"
+          className="font-display text-xl font-bold tracking-tight text-[var(--color-text-1)]"
         >
           Unsaved Changes
         </h2>
         <p
           id="unsaved-changes-dialog-description"
-          className="mt-2 text-sm leading-relaxed text-slate-300"
+          className="mt-2 text-sm leading-relaxed text-[var(--color-text-2)]"
         >
           You have reflection answers that haven't been submitted into an analysis yet.
         </p>
@@ -49,7 +49,7 @@ export function UnsavedChangesDialog({isOpen, onClose, onConfirmLeave}: UnsavedC
           <button
             type="button"
             onClick={onConfirmLeave}
-            className="ghost-button w-full text-slate-400 hover:text-white"
+            className="ghost-button w-full text-[var(--color-text-3)] hover:text-[var(--color-text-1)]"
           >
             Leave Without Submitting
           </button>

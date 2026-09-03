@@ -3,7 +3,9 @@ import {AnimatePresence, motion, useReducedMotion} from 'motion/react';
 import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 
 import {Landing} from '@/components/Landing';
+import {DeferredParticlesBG} from '@/components/DeferredParticlesBG';
 import {useBecomingStore} from '@/store/useBecomingStore';
+import {useThemeStore} from '@/store/useThemeStore';
 
 const Dashboard = lazy(() =>
   import('@/features/dashboard/Dashboard').then((m) => ({default: m.Dashboard})),
@@ -26,16 +28,12 @@ const HabitCheckIn = lazy(() =>
 const History = lazy(() => import('@/components/History').then((m) => ({default: m.History})));
 const Settings = lazy(() => import('@/components/Settings').then((m) => ({default: m.Settings})));
 const NotFound = lazy(() => import('@/components/NotFound').then((m) => ({default: m.NotFound})));
-const ParticlesBG = lazy(() =>
-  import('@/components/ParticlesBG').then((m) => ({default: m.ParticlesBG})),
-);
-
 function PageLoading() {
   return (
     <div className="flex min-h-screen items-center justify-center px-6" role="status">
       <div className="space-y-4 text-center">
         <div className="mx-auto h-8 w-8 animate-spin rounded-full border border-cyan-400/20 border-t-cyan-400" />
-        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-white/50">
+        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-3)]">
           Preparing your space
         </p>
       </div>
@@ -57,6 +55,7 @@ export default function App() {
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    const disposeTheme = useThemeStore.getState().initTheme();
     let cancelled = false;
     let unsubscribe: (() => void) | undefined;
 
@@ -71,6 +70,7 @@ export default function App() {
     return () => {
       cancelled = true;
       unsubscribe?.();
+      disposeTheme();
     };
   }, [setAuth]);
 
@@ -84,9 +84,7 @@ export default function App() {
       <div className="pointer-events-none fixed -left-24 -top-24 h-125 w-125 rounded-full bg-[var(--color-accent)]/10 blur-[120px]" />
       <div className="pointer-events-none fixed -bottom-24 -right-24 h-150 w-150 rounded-full bg-[var(--color-violet)]/10 blur-[140px]" />
 
-      <Suspense fallback={null}>
-        <ParticlesBG />
-      </Suspense>
+      <DeferredParticlesBG />
 
       <div id="main-content" className="relative z-10 min-h-screen flex flex-col" tabIndex={-1}>
         <Suspense fallback={<PageLoading />}>

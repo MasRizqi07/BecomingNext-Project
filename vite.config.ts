@@ -15,5 +15,18 @@ export default defineConfig({
     target: 'es2022',
     sourcemap: process.env.SOURCE_MAPS === 'true',
     chunkSizeWarningLimit: 500,
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: 'shared-icons',
+              test: /\/lucide-react\/dist\/esm\/icons\/(circle-alert|circle-check|clock|layout-dashboard|plus|refresh-ccw|trash-2)\.js$/,
+              includeDependenciesRecursively: false,
+            },
+          ],
+        },
+      },
+    },
   },
 });

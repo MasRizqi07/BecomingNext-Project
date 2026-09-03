@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+@custom-variant light (&:where(.light, .light *, [data-theme="light"], [data-theme="light"] *));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
@@ -36,6 +39,27 @@
     --subtle-grid-color: rgba(255, 255, 255, 0.02);
     color-scheme: dark;
     font-synthesis: none;
+  }
+
+  .light,
+  [data-theme='light'] {
+    --color-canvas: #f8fafc;
+    --color-surface-1: #ffffff;
+    --color-surface-2: rgba(255, 255, 255, 0.82);
+    --color-surface-3: rgba(255, 255, 255, 0.96);
+    --color-border: rgba(15, 23, 42, 0.14);
+    --color-border-strong: rgba(15, 23, 42, 0.28);
+    --color-text-1: #0f172a;
+    --color-text-2: #334155;
+    --color-text-3: #475569;
+    --color-accent: #0e6177;
+    --color-accent-strong: #0e7490;
+    --color-violet: #6d28d9;
+    --color-danger: #991b1b;
+    --color-warning: #92400e;
+    --color-success: #166534;
+    --subtle-grid-color: rgba(15, 23, 42, 0.035);
+    color-scheme: light;
   }
 
   html {
@@ -145,21 +169,21 @@
   }
 
   .app-footer {
-    background: rgba(9, 10, 15, 0.6);
+    background: color-mix(in srgb, var(--color-surface-1) 60%, transparent);
     border-top: 1px solid var(--color-border);
     color: var(--color-text-3);
   }
 
   .primary-button {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[var(--color-accent)] px-7 py-3 font-display text-[11px] font-bold uppercase tracking-[0.17em] text-black transition hover:bg-[var(--color-accent)] hover:shadow-[0_0_24px_rgba(103,232,249,0.45)] active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-gray-700 disabled:text-gray-400 disabled:shadow-none;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[var(--color-accent)] px-7 py-3 font-display text-[11px] font-bold uppercase tracking-[0.17em] text-[var(--color-canvas)] transition hover:bg-[var(--color-accent)] hover:shadow-[0_0_24px_rgba(103,232,249,0.45)] active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-gray-700 disabled:text-gray-400 disabled:shadow-none;
   }
 
   .secondary-button {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-6 py-3 font-display text-[11px] font-semibold uppercase tracking-[0.15em] text-white/80 transition hover:border-white/25 hover:bg-white/10 hover:text-white active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] px-6 py-3 font-display text-[11px] font-semibold uppercase tracking-[0.15em] text-[var(--color-text-2)] transition hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-3)] hover:text-[var(--color-text-1)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
   }
 
   .ghost-button {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 font-display text-[11px] font-semibold uppercase tracking-[0.15em] text-white/60 transition hover:bg-white/5 hover:text-white active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 font-display text-[11px] font-semibold uppercase tracking-[0.15em] text-[var(--color-text-3)] transition hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text-1)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
   }
 
   .danger-button {
@@ -167,15 +191,15 @@
   }
 
   .icon-button {
-    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:border-white/25 hover:bg-white/10 hover:text-white active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] text-[var(--color-text-2)] transition hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-3)] hover:text-[var(--color-text-1)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
   }
 
   .nav-link {
-    @apply relative font-display text-[11px] font-medium uppercase tracking-[0.2em] text-white/60 transition hover:text-white;
+    @apply relative font-display text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--color-text-3)] transition hover:text-[var(--color-text-1)];
   }
 
   .nav-link.active {
-    @apply text-white;
+    @apply text-[var(--color-text-1)];
   }
 
   .nav-link.active::after {
@@ -193,8 +217,13 @@
     @apply bg-linear-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent;
   }
 
+  .light .text-gradient-cyan,
+  [data-theme='light'] .text-gradient-cyan {
+    @apply from-cyan-800 via-blue-800 to-purple-800;
+  }
+
   .skip-link {
-    @apply fixed left-4 top-4 z-100 -translate-y-24 rounded-lg bg-[var(--color-accent)] px-4 py-3 font-semibold text-black transition focus:translate-y-0;
+    @apply fixed left-4 top-4 z-100 -translate-y-24 rounded-lg bg-[var(--color-accent)] px-4 py-3 font-semibold text-[var(--color-canvas)] transition focus:translate-y-0;
   }
 }
 

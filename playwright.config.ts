@@ -8,7 +8,9 @@ export default defineConfig({
   timeout: 60_000,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
-  reporter: [['list'], ['html', {open: 'never'}]],
+  reporter: [['list'], ['html', {open: 'never', outputFolder: 'playwright-report/public'}]],
+  outputDir: 'test-results/public',
+  preserveOutput: 'always',
   expect: {timeout: 15_000},
   use: {
     baseURL: 'http://127.0.0.1:4173',

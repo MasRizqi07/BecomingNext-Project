@@ -13,18 +13,22 @@ export interface FieldBaseProps {
   error?: ReactNode;
   id?: string;
   className?: string;
+  labelClassName?: string;
   required?: boolean;
 }
 
 export interface InputFieldProps
-  extends FieldBaseProps, Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
+  extends FieldBaseProps,
+    Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'className' | 'required'> {
   type?: string;
 }
 
 export interface TextareaFieldProps
-  extends FieldBaseProps, Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id'> {
+  extends FieldBaseProps,
+    Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id' | 'className' | 'required' | 'maxLength'> {
   showCounter?: boolean;
   maxLength?: number;
+  ref?: React.Ref<HTMLTextAreaElement>;
 }
 
 export interface ScoreOption {
@@ -51,6 +55,7 @@ export function InputField({
   error,
   id: explicitId,
   className = '',
+  labelClassName = '',
   required,
   type = 'text',
   ...inputProps
@@ -67,7 +72,10 @@ export function InputField({
     <div className={`flex flex-col gap-2 ${className}`.trim()}>
       <label
         htmlFor={id}
-        className="font-display text-xs font-semibold uppercase tracking-wider text-[var(--color-text-2)]"
+        className={
+          labelClassName ||
+          'font-display text-xs font-semibold uppercase tracking-wider text-[var(--color-text-2)]'
+        }
       >
         {label}
         {required ? (
@@ -119,11 +127,13 @@ export function TextareaField({
   error,
   id: explicitId,
   className = '',
+  labelClassName = '',
   required,
   maxLength,
   showCounter = Boolean(maxLength),
   value,
   onChange,
+  ref,
   ...textareaProps
 }: TextareaFieldProps) {
   const generatedId = useId();
@@ -150,7 +160,10 @@ export function TextareaField({
       <div className="flex items-center justify-between gap-2">
         <label
           htmlFor={id}
-          className="font-display text-xs font-semibold uppercase tracking-wider text-[var(--color-text-2)]"
+          className={
+            labelClassName ||
+            'font-display text-xs font-semibold uppercase tracking-wider text-[var(--color-text-2)]'
+          }
         >
           {label}
           {required ? (
@@ -182,6 +195,7 @@ export function TextareaField({
 
       <textarea
         {...textareaProps}
+        ref={ref}
         id={id}
         value={value}
         onChange={handleChange}
@@ -224,6 +238,7 @@ export function ScoreField({
   max = 10,
   disabled = false,
   className = '',
+  labelClassName = '',
   required,
 }: ScoreFieldProps) {
   const generatedId = useId();
@@ -274,7 +289,10 @@ export function ScoreField({
     <div className={`flex flex-col gap-2 ${className}`.trim()}>
       <span
         id={`${id}-label`}
-        className="font-display text-xs font-semibold uppercase tracking-wider text-[var(--color-text-2)]"
+        className={
+          labelClassName ||
+          'font-display text-xs font-semibold uppercase tracking-wider text-[var(--color-text-2)]'
+        }
       >
         {label}
         {required ? (

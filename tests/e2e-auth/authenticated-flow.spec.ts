@@ -47,6 +47,8 @@ test('authenticated reflection can be created, resumed, deleted, and erased', as
 
   await expect(page).toHaveURL(/\/dashboard$/);
   await expect(page.getByRole('heading', {name: /welcome back/i})).toBeVisible();
+  await page.getByRole('button', {name: 'Switch to light mode'}).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await expectNoWcagViolations(page);
   await page.getByRole('button', {name: /begin first reflection|new reflection/i}).click();
   await page.getByRole('button', {name: /begin reflection/i}).click();

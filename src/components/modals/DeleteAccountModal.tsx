@@ -47,22 +47,22 @@ export function DeleteAccountModal({isOpen, onClose, onConfirm}: DeleteAccountMo
       initialFocusSelector="[data-dialog-initial]"
     >
       <div className="flex flex-col items-center text-center">
-        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-red-400/30 bg-red-400/10 text-red-300">
+        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 text-[var(--color-danger)]">
           <AlertTriangle size={26} />
         </div>
 
         <h2
           id="delete-account-dialog-title"
-          className="font-display text-xl font-bold tracking-tight text-white sm:text-2xl"
+          className="font-display text-xl font-bold tracking-tight text-[var(--color-text-1)] sm:text-2xl"
         >
           Permanently Delete Account?
         </h2>
         <p
           id="delete-account-dialog-description"
-          className="mt-3 text-sm leading-relaxed text-slate-300"
+          className="mt-3 text-sm leading-relaxed text-[var(--color-text-2)]"
         >
-          This action <strong className="text-red-300">cannot be undone</strong>. All your
-          reflections, generated analyses, habit check-ins, and user profile data will be
+          This action <strong className="text-[var(--color-danger)]">cannot be undone</strong>. All
+          your reflections, generated analyses, habit check-ins, and user profile data will be
           permanently wiped. A server-only anti-replay marker containing only a one-way hash of your
           account ID and deletion timestamps expires after 24 hours; it contains no profile,
           reflection, or analysis content and is then eligible for automatic TTL cleanup.
@@ -71,9 +71,9 @@ export function DeleteAccountModal({isOpen, onClose, onConfirm}: DeleteAccountMo
         <div className="mt-6 w-full text-left">
           <label
             htmlFor="delete-confirm-input"
-            className="block text-xs font-semibold uppercase tracking-wider text-slate-400"
+            className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-text-3)]"
           >
-            Type <span className="font-mono text-red-300">DELETE</span> to confirm
+            Type <span className="font-mono text-[var(--color-danger)]">DELETE</span> to confirm
           </label>
           <input
             id="delete-confirm-input"
@@ -81,13 +81,13 @@ export function DeleteAccountModal({isOpen, onClose, onConfirm}: DeleteAccountMo
             value={confirmationText}
             onChange={(e) => setConfirmationText(e.target.value)}
             placeholder="DELETE"
-            className="mt-2 w-full rounded-xl border border-white/15 bg-black/40 px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-red-400 focus:ring-2 focus:ring-red-400/20"
+            className="mt-2 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-4 py-2.5 text-sm text-[var(--color-text-1)] placeholder:text-[var(--color-text-3)] outline-none focus:border-[var(--color-danger)] focus:ring-2 focus:ring-[var(--color-danger)]/20"
           />
         </div>
 
         {error ? (
           <p
-            className="mt-3 w-full rounded-lg border border-red-400/20 bg-red-950/20 p-2 text-xs text-red-300"
+            className="mt-3 w-full rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-2 text-xs text-[var(--color-danger)]"
             role="alert"
           >
             {error}

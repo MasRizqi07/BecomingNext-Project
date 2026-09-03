@@ -12,8 +12,9 @@ import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
 import {AppHeader} from '@/components/AppHeader';
-import {Badge} from '@/components/primitives/Badge';
+import {Card} from '@/components/primitives/Card';
 import {OrbVisualizer} from '@/components/primitives/OrbVisualizer';
+import {StatusBadge} from '@/components/primitives/StatusBadge';
 import {formatServiceError} from '@/lib/errors';
 import {getAnalysisHistory, type AnalysisRecord} from '@/services/analysisService';
 import {useBecomingStore} from '@/store/useBecomingStore';
@@ -73,15 +74,16 @@ export function Dashboard() {
 
       <main className="flex-1 w-full max-w-7xl mx-auto px-5 py-8 sm:px-8 md:px-12 md:py-12 flex flex-col gap-10">
         {/* Greeting Section */}
-        <section className="flex flex-col justify-between items-start gap-4 sm:flex-row sm:items-end border-b border-white/8 pb-8">
+        <section className="flex flex-col justify-between items-start gap-4 sm:flex-row sm:items-end border-b border-[var(--color-border)] pb-8">
           <div>
-            <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-400">
+            <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)]">
               Personal Sanctuary
             </span>
-            <h1 className="mt-2 text-3xl font-extralight tracking-tight sm:text-5xl md:text-6xl text-white">
-              Welcome back, <span className="font-serif italic text-white/90">{displayName}</span>
+            <h1 className="mt-2 text-3xl font-extralight tracking-tight sm:text-5xl md:text-6xl text-[var(--color-text-1)]">
+              Welcome back,{' '}
+              <span className="font-serif italic text-[var(--color-text-2)]">{displayName}</span>
             </h1>
-            <p className="mt-2 text-sm text-slate-400 font-light">
+            <p className="mt-2 text-sm text-[var(--color-text-3)] font-light">
               Ready to observe your patterns and continue your growth?
             </p>
           </div>
@@ -98,7 +100,7 @@ export function Dashboard() {
         {/* Error Alert if history load failed */}
         {error ? (
           <div
-            className="flex items-center justify-between gap-4 rounded-2xl border border-red-400/20 bg-red-950/20 p-4 text-sm text-red-200"
+            className="flex items-center justify-between gap-4 rounded-2xl border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-4 text-sm text-[var(--color-danger)]"
             role="alert"
           >
             <span>{error}</span>
@@ -115,26 +117,27 @@ export function Dashboard() {
 
         {/* Loading State */}
         {loading ? (
-          <div
-            className="glass-panel flex min-h-64 flex-col items-center justify-center rounded-3xl p-12 text-center"
+          <Card
+            variant="glass-card"
+            className="flex min-h-64 flex-col items-center justify-center p-12 text-center"
             role="status"
           >
             <div className="mx-auto h-8 w-8 animate-spin rounded-full border border-cyan-400/20 border-t-cyan-400" />
-            <p className="mt-4 font-display text-xs uppercase tracking-[0.25em] text-slate-400">
+            <p className="mt-4 font-display text-xs uppercase tracking-[0.25em] text-[var(--color-text-3)]">
               Accessing your private sanctuary…
             </p>
-          </div>
+          </Card>
         ) : records.length === 0 ? (
           /* Empty State */
-          <section className="glass-panel-strong mx-auto max-w-3xl rounded-3xl p-10 text-center sm:p-16">
+          <Card variant="glass-card" className="mx-auto max-w-3xl p-10 text-center sm:p-16">
             <OrbVisualizer size="md" className="mb-8" />
-            <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-400">
+            <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)]">
               Empty Sanctuary
             </span>
-            <h2 className="mt-3 text-2xl font-light text-white sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-light text-[var(--color-text-1)] sm:text-4xl">
               No reflections recorded yet
             </h2>
-            <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-slate-400">
+            <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[var(--color-text-3)]">
               Take 8 to 12 minutes to answer eight honest questions. Your future trajectories and
               action roadmap will appear here.
             </p>
@@ -147,40 +150,46 @@ export function Dashboard() {
                 <Sparkles size={15} /> Begin First Reflection
               </button>
             </div>
-          </section>
+          </Card>
         ) : (
           /* Populated Dashboard */
           <>
             {/* Status Banner for Pending/Failed Job */}
             {latestPendingOrFailed && latestPendingOrFailed.status === 'pending' ? (
-              <div className="glass-panel flex flex-col items-start justify-between gap-4 rounded-2xl border border-amber-400/30 bg-amber-400/5 p-5 sm:flex-row sm:items-center">
+              <Card
+                variant="status-card"
+                className="flex flex-col items-start justify-between gap-4 border border-[var(--color-warning)]/30 bg-[var(--color-warning)]/5 p-5 sm:flex-row sm:items-center"
+              >
                 <div className="flex items-center gap-3">
                   <span className="h-3 w-3 rounded-full bg-amber-400 animate-ping" />
                   <div>
-                    <h4 className="font-display text-sm font-bold text-white">
+                    <h4 className="font-display text-sm font-bold text-[var(--color-text-1)]">
                       Analysis in progress
                     </h4>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-[var(--color-text-3)]">
                       Your previous reflection is being synthesized. You can resume safely.
                     </p>
                   </div>
                 </div>
                 <Link
                   to={`/analysis/${latestPendingOrFailed.id}`}
-                  className="secondary-button text-xs font-semibold py-2 text-amber-300 border-amber-400/30"
+                  className="secondary-button border-[var(--color-warning)]/30 py-2 text-xs font-semibold text-[var(--color-warning)]"
                 >
                   Resume Analysis <ArrowRight size={14} />
                 </Link>
-              </div>
+              </Card>
             ) : latestPendingOrFailed && latestPendingOrFailed.status === 'failed' ? (
-              <div className="glass-panel flex flex-col items-start justify-between gap-4 rounded-2xl border border-red-400/30 bg-red-400/5 p-5 sm:flex-row sm:items-center">
+              <Card
+                variant="status-card"
+                className="flex flex-col items-start justify-between gap-4 border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/5 p-5 sm:flex-row sm:items-center"
+              >
                 <div className="flex items-center gap-3">
-                  <AlertCircle size={20} className="text-red-400" />
+                  <AlertCircle size={20} className="text-[var(--color-danger)]" />
                   <div>
-                    <h4 className="font-display text-sm font-bold text-white">
+                    <h4 className="font-display text-sm font-bold text-[var(--color-text-1)]">
                       Previous analysis paused
                     </h4>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-[var(--color-text-3)]">
                       Your answers are saved. You can retry the synthesis safely.
                     </p>
                   </div>
@@ -191,42 +200,45 @@ export function Dashboard() {
                 >
                   <RefreshCcw size={14} /> Retry Safely
                 </Link>
-              </div>
+              </Card>
             ) : null}
 
             {/* 2-Column Grid for Latest Completed Analysis */}
             {latestCompleted && latestCompleted.result ? (
               <section className="grid gap-6 lg:grid-cols-12">
                 {/* Left Card: Latest Archetype */}
-                <div className="identity-gradient-border p-7 sm:p-9 lg:col-span-7 flex flex-col justify-between">
+                <Card
+                  variant="insight-card"
+                  className="p-7 sm:p-9 lg:col-span-7 flex flex-col justify-between"
+                >
                   <div>
                     <div className="flex items-start justify-between">
                       <div>
-                        <span className="font-display text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-400">
+                        <span className="font-display text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-accent)]">
                           Current Archetype
                         </span>
-                        <h2 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">
+                        <h2 className="mt-2 font-display text-2xl font-bold text-[var(--color-text-1)] sm:text-3xl">
                           {latestCompleted.result.identity.archetype}
                         </h2>
                       </div>
-                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-cyan-300">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-2)] text-[var(--color-accent)]">
                         <Sparkles size={20} />
                       </div>
                     </div>
 
-                    <p className="mt-4 text-sm font-light leading-relaxed text-slate-300">
+                    <p className="mt-4 text-sm font-light leading-relaxed text-[var(--color-text-2)]">
                       "{latestCompleted.result.identity.description}"
                     </p>
 
                     {/* Score Bar */}
                     <div className="mt-6 space-y-2">
-                      <div className="flex items-center justify-between text-xs font-display uppercase tracking-wider text-slate-400">
+                      <div className="flex items-center justify-between text-xs font-display uppercase tracking-wider text-[var(--color-text-3)]">
                         <span>Trajectory Alignment</span>
-                        <span className="text-cyan-300 font-bold">
+                        <span className="font-bold text-[var(--color-accent)]">
                           {latestCompleted.result.identityCard.potentialScore}% Aligned
                         </span>
                       </div>
-                      <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-[var(--color-surface-3)]">
                         <div
                           className="h-full bg-gradient-to-r from-cyan-400 to-violet-400 rounded-full"
                           style={{
@@ -240,7 +252,7 @@ export function Dashboard() {
                     </div>
                   </div>
 
-                  <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-white/10 pt-6">
+                  <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-[var(--color-border)] pt-6">
                     <Link to={`/results/${latestCompleted.id}`} className="primary-button text-xs">
                       Open Full Analysis <ArrowRight size={14} />
                     </Link>
@@ -251,30 +263,33 @@ export function Dashboard() {
                       <CheckCircle2 size={14} /> Habit Check-in
                     </Link>
                   </div>
-                </div>
+                </Card>
 
                 {/* Right Card: Active Plan / Today's Habit */}
-                <div className="glass-panel flex flex-col justify-between rounded-3xl p-7 sm:p-9 lg:col-span-5">
+                <Card
+                  variant="glass-card"
+                  className="flex flex-col justify-between p-7 sm:p-9 lg:col-span-5"
+                >
                   <div>
-                    <div className="flex items-center gap-2 text-amber-300 font-display text-[10px] uppercase tracking-[0.25em]">
+                    <div className="flex items-center gap-2 font-display text-[10px] uppercase tracking-[0.25em] text-[var(--color-warning)]">
                       <Zap size={14} />
                       <span>Today's Micro-Habit</span>
                     </div>
 
-                    <h3 className="mt-4 font-display text-xl font-bold text-white sm:text-2xl">
+                    <h3 className="mt-4 font-display text-xl font-bold text-[var(--color-text-1)] sm:text-2xl">
                       {latestCompleted.result.plan.dailyHabits[0] ??
                         'Deep work without distraction'}
                     </h3>
 
-                    <p className="mt-3 text-xs leading-relaxed text-slate-400">
+                    <p className="mt-3 text-xs leading-relaxed text-[var(--color-text-3)]">
                       Focus on small, continuous progress. This directly develops your{' '}
-                      <strong className="text-slate-200">
+                      <strong className="text-[var(--color-text-2)]">
                         {latestCompleted.result.identity.archetype}
                       </strong>{' '}
                       pathway.
                     </p>
 
-                    <div className="mt-6 rounded-2xl border border-white/5 bg-white/5 p-4 text-xs font-serif italic text-slate-300">
+                    <div className="mt-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-2)] p-4 text-xs font-serif italic text-[var(--color-text-2)]">
                       “{latestCompleted.result.plan.antiProcrastination}”
                     </div>
                   </div>
@@ -287,20 +302,24 @@ export function Dashboard() {
                       <CheckCircle2 size={14} /> Weekly / Daily Check-in
                     </Link>
                   </div>
-                </div>
+                </Card>
               </section>
             ) : null}
 
             {/* Recent Reflections Section */}
             <section className="mt-6 space-y-6">
-              <div className="flex items-end justify-between border-b border-white/8 pb-4">
+              <div className="flex items-end justify-between border-b border-[var(--color-border)] pb-4">
                 <div>
-                  <h3 className="font-display text-xl font-bold text-white">Recent Reflections</h3>
-                  <p className="text-xs text-slate-400">Your most recent introspection sessions</p>
+                  <h3 className="font-display text-xl font-bold text-[var(--color-text-1)]">
+                    Recent Reflections
+                  </h3>
+                  <p className="text-xs text-[var(--color-text-3)]">
+                    Your most recent introspection sessions
+                  </p>
                 </div>
                 <Link
                   to="/history"
-                  className="font-display text-xs font-semibold uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition"
+                  className="font-display text-xs font-semibold uppercase tracking-wider text-[var(--color-accent)] transition hover:opacity-75"
                 >
                   View all history →
                 </Link>
@@ -319,32 +338,22 @@ export function Dashboard() {
                     >
                       <div>
                         <div className="flex items-center justify-between mb-3">
-                          <span className="flex items-center gap-1.5 text-xs text-slate-400">
+                          <span className="flex items-center gap-1.5 text-xs text-[var(--color-text-3)]">
                             <Clock size={12} /> {dateString}
                           </span>
-                          <Badge
-                            tone={
-                              isReady ? 'success' : rec.status === 'pending' ? 'warning' : 'danger'
-                            }
-                          >
-                            {isReady
-                              ? 'Ready'
-                              : rec.status === 'pending'
-                                ? 'In Progress'
-                                : 'Failed'}
-                          </Badge>
+                          <StatusBadge status={rec.status} />
                         </div>
 
-                        <h4 className="font-display text-base font-bold text-white group-hover:text-cyan-300 transition">
+                        <h4 className="font-display text-base font-bold text-[var(--color-text-1)] transition group-hover:text-[var(--color-accent)]">
                           {rec.result?.identity.archetype ?? 'Reflection Synthesis'}
                         </h4>
 
-                        <p className="mt-2 line-clamp-2 text-xs font-light text-slate-400">
+                        <p className="mt-2 line-clamp-2 text-xs font-light text-[var(--color-text-3)]">
                           {rec.result?.identity.description ?? 'Draft in progress…'}
                         </p>
                       </div>
 
-                      <div className="mt-6 flex items-center gap-1 text-[11px] font-display font-semibold uppercase tracking-wider text-cyan-400 group-hover:translate-x-1 transition-transform">
+                      <div className="mt-6 flex items-center gap-1 text-[11px] font-display font-semibold uppercase tracking-wider text-[var(--color-accent)] group-hover:translate-x-1 transition-transform">
                         <span>{isReady ? 'Open Analysis' : 'Resume'}</span>
                         <ArrowRight size={13} />
                       </div>

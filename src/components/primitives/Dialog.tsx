@@ -154,7 +154,7 @@ export function Dialog({
       {showCloseButton ? (
         <button
           type="button"
-          className="absolute right-5 top-5 rounded-full p-2 text-[var(--color-text-3)] transition hover:bg-white/10 hover:text-[var(--color-text-1)] focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
+          className="absolute right-5 top-5 rounded-full p-2 text-[var(--color-text-3)] transition hover:bg-[var(--color-surface-3)] hover:text-[var(--color-text-1)] focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]"
           onClick={onClose}
           aria-label="Close dialog"
         >

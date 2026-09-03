@@ -12,7 +12,7 @@ export function NotFound() {
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/10 blur-[140px]" />
 
       <main className="relative z-10 mx-auto flex max-w-xl flex-col items-center">
-        <h1 className="glow-cyan font-serif text-8xl font-normal italic tracking-tight text-white sm:text-9xl">
+        <h1 className="glow-cyan font-serif text-8xl font-normal italic tracking-tight text-[var(--color-text-1)] sm:text-9xl">
           404
         </h1>
 
@@ -20,7 +20,7 @@ export function NotFound() {
           This path does not exist.
         </h2>
 
-        <p className="mt-3 max-w-md text-sm font-light leading-relaxed text-slate-400">
+        <p className="mt-3 max-w-md text-sm font-light leading-relaxed text-[var(--color-text-3)]">
           The reflection, analysis, or page you are looking for has been moved, removed, or never
           existed.
         </p>

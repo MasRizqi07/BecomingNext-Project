@@ -21,7 +21,7 @@ export function SegmentedControl<T extends string>({
   return (
     <div
       role="group"
-      className={`inline-flex rounded-xl border border-white/10 bg-white/5 p-1 backdrop-blur-md ${className}`.trim()}
+      className={`inline-flex rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1 backdrop-blur-md ${className}`.trim()}
     >
       {options.map((opt) => {
         const isSelected = opt.value === value;
@@ -36,8 +36,8 @@ export function SegmentedControl<T extends string>({
             onClick={() => onChange(opt.value)}
             className={`font-display rounded-lg font-medium transition-all duration-150 ${paddingClass} ${
               isSelected
-                ? 'bg-cyan-400 text-black shadow-md font-bold'
-                : 'text-white/60 hover:text-white hover:bg-white/5'
+                ? 'bg-[var(--color-accent)] text-[var(--color-canvas)] shadow-md font-bold'
+                : 'text-[var(--color-text-3)] hover:text-[var(--color-text-1)] hover:bg-[var(--color-surface-3)]'
             }`}
           >
             {opt.label}
