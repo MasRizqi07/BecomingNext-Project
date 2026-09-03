@@ -455,6 +455,12 @@ export function Results({demo = false}: {demo?: boolean}) {
                     <span className="font-display text-xs font-bold uppercase tracking-[0.25em] text-[var(--color-accent)]">
                       {stage.period}
                     </span>
+                    <h3 className="font-display text-lg font-bold text-[var(--color-text-1)]">
+                      {stage.title}
+                    </h3>
+                    <p className="text-xs text-[var(--color-text-3)] leading-relaxed">
+                      {stage.description}
+                    </p>
 
                     <div className="mt-4 grid gap-3 sm:grid-cols-2 pt-2">
                       <div className="rounded-xl border border-[var(--color-danger)]/15 bg-[var(--color-danger)]/5 p-4 text-xs">
@@ -482,10 +488,7 @@ export function Results({demo = false}: {demo?: boolean}) {
 
             {/* Section 5: Future Letter */}
             <section id="letter" className="space-y-6 scroll-mt-28">
-              <Card
-                variant="glass-card"
-                className="mx-auto p-8 sm:p-14 border border-[var(--color-border-strong)]"
-              >
+              <Card variant="glass-card" className="mx-auto p-8 sm:p-14 border border-[var(--color-border-strong)]">
                 <div className="mb-8 text-center space-y-3">
                   <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-accent)]">
                     A Letter from Your Potential Self
