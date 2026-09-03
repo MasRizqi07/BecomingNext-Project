@@ -18,19 +18,14 @@ export interface FieldBaseProps {
 }
 
 export interface InputFieldProps
-  extends
-    FieldBaseProps,
+  extends FieldBaseProps,
     Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'className' | 'required'> {
   type?: string;
 }
 
 export interface TextareaFieldProps
-  extends
-    FieldBaseProps,
-    Omit<
-      TextareaHTMLAttributes<HTMLTextAreaElement>,
-      'id' | 'className' | 'required' | 'maxLength'
-    > {
+  extends FieldBaseProps,
+    Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id' | 'className' | 'required' | 'maxLength'> {
   showCounter?: boolean;
   maxLength?: number;
   ref?: React.Ref<HTMLTextAreaElement>;

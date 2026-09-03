@@ -482,10 +482,7 @@ export function Results({demo = false}: {demo?: boolean}) {
 
             {/* Section 5: Future Letter */}
             <section id="letter" className="space-y-6 scroll-mt-28">
-              <Card
-                variant="glass-card"
-                className="mx-auto p-8 sm:p-14 border border-[var(--color-border-strong)]"
-              >
+              <Card variant="glass-card" className="mx-auto p-8 sm:p-14 border border-[var(--color-border-strong)]">
                 <div className="mb-8 text-center space-y-3">
                   <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-accent)]">
                     A Letter from Your Potential Self
