@@ -12,6 +12,7 @@ import {Link, useNavigate} from 'react-router-dom';
 
 import {AppHeader} from '@/components/AppHeader';
 import {DeleteAccountModal} from '@/components/modals/DeleteAccountModal';
+import {Card} from '@/components/primitives/Card';
 import {ThemeToggle} from '@/components/primitives/ThemeToggle';
 import {Toast, type ToastItem} from '@/components/primitives/Toast';
 import {formatServiceError} from '@/lib/errors';
@@ -62,7 +63,7 @@ export function Settings() {
         </div>
 
         {/* Section 1: Account Identity */}
-        <section className="glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
+        <Card variant="glass-card" className="p-6 sm:p-8 space-y-6">
           <div className="flex items-center gap-3">
             <UserIcon className="text-[var(--color-accent)]" size={20} />
             <h2 className="font-display text-lg font-bold text-[var(--color-text-1)]">
@@ -105,10 +106,10 @@ export function Settings() {
               <LogOut size={14} /> Sign Out
             </button>
           </div>
-        </section>
+        </Card>
 
         {/* Section 2: Appearance & Theme Mode */}
-        <section className="glass-panel space-y-6 rounded-3xl p-6 sm:p-8">
+        <Card variant="glass-card" className="space-y-6 p-6 sm:p-8">
           <div className="space-y-1">
             <h2 className="font-display text-lg font-bold text-[var(--color-text-1)]">
               Appearance & Theme
@@ -122,10 +123,10 @@ export function Settings() {
           <div className="border-t border-[var(--color-border)] pt-5">
             <ThemeToggle variant="segmented" />
           </div>
-        </section>
+        </Card>
 
         {/* Section 3: Privacy Shortcuts & Boundaries */}
-        <section className="glass-panel rounded-3xl p-6 sm:p-8 space-y-4">
+        <Card variant="glass-card" className="p-6 sm:p-8 space-y-4">
           <div className="flex items-center gap-3">
             <Shield className="text-[var(--color-violet)]" size={20} />
             <h2 className="font-display text-lg font-bold text-[var(--color-text-1)]">
@@ -144,10 +145,10 @@ export function Settings() {
               <Eye size={14} /> View Full Privacy & AI Boundaries
             </Link>
           </div>
-        </section>
+        </Card>
 
         {/* Section 4: Danger Zone */}
-        <section className="rounded-3xl border border-[var(--color-danger)]/25 bg-[var(--color-danger)]/5 p-6 sm:p-8 space-y-5">
+        <Card variant="danger-card" className="p-6 sm:p-8 space-y-5">
           <div className="flex items-center gap-3">
             <AlertTriangle className="text-[var(--color-danger)]" size={20} />
             <h2 className="font-display text-lg font-bold text-[var(--color-danger)]">
@@ -167,7 +168,7 @@ export function Settings() {
           >
             <Trash2 size={14} /> Delete Account Permanently
           </button>
-        </section>
+        </Card>
 
         {/* Legal / Non-Medical Disclaimer */}
         <p className="text-xs leading-relaxed text-[var(--color-text-3)]">

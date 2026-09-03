@@ -14,6 +14,8 @@ import {useNavigate} from 'react-router-dom';
 
 import {AppHeader} from '@/components/AppHeader';
 import {UnsavedChangesDialog} from '@/components/modals/UnsavedChangesDialog';
+import {Card} from '@/components/primitives/Card';
+import {ScoreField, TextareaField} from '@/components/primitives/Field';
 import {REFLECTION_QUESTIONS} from '@/data/questions';
 import {useBecomingStore} from '@/store/useBecomingStore';
 
@@ -132,7 +134,7 @@ export function Intake() {
 
             {/* Bento Grid */}
             <div className="grid gap-4 sm:grid-cols-3 text-left">
-              <div className="glass-panel rounded-2xl p-5">
+              <Card variant="glass-card" className="rounded-2xl p-5">
                 <Clock className="mb-3 text-[var(--color-accent)]" size={20} />
                 <h3 className="font-display text-sm font-bold text-[var(--color-text-1)]">
                   8 to 12 Minutes
@@ -140,9 +142,9 @@ export function Intake() {
                 <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-3)]">
                   Quiet, unhurried focus.
                 </p>
-              </div>
+              </Card>
 
-              <div className="glass-panel rounded-2xl p-5">
+              <Card variant="glass-card" className="rounded-2xl p-5">
                 <CheckCircle2 className="mb-3 text-[var(--color-success)]" size={20} />
                 <h3 className="font-display text-sm font-bold text-[var(--color-text-1)]">
                   Auto-Saving
@@ -150,9 +152,9 @@ export function Intake() {
                 <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-3)]">
                   Your session persists on refresh.
                 </p>
-              </div>
+              </Card>
 
-              <div className="glass-panel rounded-2xl p-5">
+              <Card variant="glass-card" className="rounded-2xl p-5">
                 <Shield className="mb-3 text-[var(--color-violet)]" size={20} />
                 <h3 className="font-display text-sm font-bold text-[var(--color-text-1)]">
                   Private Sanctuary
@@ -160,7 +162,7 @@ export function Intake() {
                 <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-3)]">
                   Owner-only cloud storage with direct client writes disabled.
                 </p>
-              </div>
+              </Card>
             </div>
 
             <div className="pt-2">
@@ -224,58 +226,41 @@ export function Intake() {
               Current Prompt
             </span>
 
-            <label
-              className="mt-4 block font-display text-xl font-light leading-relaxed text-[var(--color-text-1)] sm:text-2xl"
-              htmlFor="reflection-answer"
-            >
-              {question.prompt}
-            </label>
-
-            <p
-              className="mt-2 text-xs leading-relaxed text-[var(--color-text-3)]"
-              id="reflection-hint"
-            >
-              {question.hint}
-            </p>
-
-            {/* If Question 7 (disciplineScore): Render 1-10 selector buttons */}
+            {/* If Question 7 (disciplineScore): Render ScoreField with accessible buttons */}
             {isScoreQuestion ? (
-              <div className="mt-6 space-y-3">
-                <span className="block font-display text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-3)]">
-                  Rate your current discipline (1 = Low, 10 = High)
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
-                    const isSelected = currentScoreVal === num;
-                    return (
-                      <button
-                        key={num}
-                        type="button"
-                        onClick={() => handleScoreSelect(num)}
-                        className={`h-10 w-10 sm:h-11 sm:w-11 rounded-xl font-display text-xs font-bold transition-all ${
-                          isSelected
-                            ? 'scale-105 bg-[var(--color-accent)] text-[var(--color-canvas)] shadow-[0_0_12px_rgba(103,232,249,0.4)]'
-                            : 'border border-[var(--color-border)] bg-[var(--color-surface-2)] text-[var(--color-text-1)] hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-surface-3)]'
-                        }`}
-                      >
-                        {num}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              <ScoreField
+                id="discipline-score"
+                label="Rate your current discipline (1 = Low, 10 = High)"
+                labelClassName="block font-display text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-3)]"
+                min={1}
+                max={10}
+                value={currentScoreVal}
+                onChange={(val) => handleScoreSelect(Number(val))}
+                className="mt-6"
+              />
             ) : null}
 
-            {/* Answer Textarea */}
+            {/* Answer Textarea via TextareaField primitive */}
             <div className="mt-6">
-              <textarea
+              <TextareaField
                 ref={textareaRef}
                 id="reflection-answer"
+                label={question.prompt}
+                labelClassName="block font-display text-xl font-light leading-relaxed text-[var(--color-text-1)] sm:text-2xl"
+                hint={
+                  <span className="flex flex-col gap-1.5">
+                    <span>{question.hint}</span>
+                    <span className="inline-flex items-center gap-1.5 text-xs text-[var(--color-text-3)]">
+                      <LockKeyhole size={12} className="text-[var(--color-accent)]" /> Private to
+                      your account
+                    </span>
+                  </span>
+                }
                 value={input}
                 rows={isScoreQuestion ? 4 : 5}
                 maxLength={1200}
-                aria-describedby="reflection-hint reflection-count"
-                className="w-full resize-y rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-4 text-sm leading-relaxed text-[var(--color-text-1)] placeholder:text-[var(--color-text-3)] outline-none transition focus:border-[var(--color-accent)] focus:ring-4 focus:ring-[var(--color-accent)]/10"
+                showCounter={true}
+                error={error}
                 placeholder={
                   isScoreQuestion
                     ? 'Add brief context on why you chose this score…'
@@ -283,24 +268,7 @@ export function Intake() {
                 }
                 onChange={(e) => setInput(e.target.value)}
               />
-
-              <div className="mt-2.5 flex items-center justify-between text-xs text-[var(--color-text-3)]">
-                <span className="flex items-center gap-1.5">
-                  <LockKeyhole size={12} className="text-[var(--color-accent)]" /> Private to your
-                  account
-                </span>
-                <span id="reflection-count">{input.length}/1200</span>
-              </div>
             </div>
-
-            {error ? (
-              <p
-                className="mt-4 rounded-xl border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-3 text-xs text-[var(--color-danger)]"
-                role="alert"
-              >
-                {error}
-              </p>
-            ) : null}
 
             {/* Navigation Buttons */}
             <div className="mt-8 flex items-center justify-between gap-4 border-t border-[var(--color-border)] pt-6">

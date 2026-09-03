@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {reflectionResponsesSchema} from '@shared/contracts';
 import {AppHeader} from '@/components/AppHeader';
+import {Card} from '@/components/primitives/Card';
 import {REFLECTION_QUESTIONS} from '@/data/questions';
 import {useBecomingStore} from '@/store/useBecomingStore';
 
@@ -67,9 +68,10 @@ export function ReviewReflection() {
             const isAnswered = answer.length > 0;
 
             return (
-              <div
+              <Card
                 key={q.id}
-                className="glass-panel group relative rounded-2xl p-6 transition hover:border-[var(--color-border-strong)]"
+                variant="glass-card"
+                className="group relative rounded-2xl p-6 transition hover:border-[var(--color-border-strong)]"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -102,7 +104,7 @@ export function ReviewReflection() {
                     </p>
                   )}
                 </div>
-              </div>
+              </Card>
             );
           })}
         </section>

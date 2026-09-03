@@ -25,6 +25,7 @@ import {DeleteAnalysisDialog} from '@/components/modals/DeleteAnalysisDialog';
 import {ShareSummaryModal} from '@/components/modals/ShareSummaryModal';
 import {SignInModal} from '@/components/modals/SignInModal';
 import {Badge} from '@/components/primitives/Badge';
+import {Card} from '@/components/primitives/Card';
 import {Toast, type ToastItem} from '@/components/primitives/Toast';
 import {DEMO_ANALYSIS} from '@/data/demoAnalysis';
 import {formatServiceError} from '@/lib/errors';
@@ -314,7 +315,10 @@ export function Results({demo = false}: {demo?: boolean}) {
 
               <div className="grid gap-6 md:grid-cols-2">
                 {/* Drift Path */}
-                <article className="glass-panel rounded-3xl border border-[var(--color-danger)]/20 p-8 flex flex-col justify-between">
+                <Card
+                  variant="glass-card"
+                  className="border border-[var(--color-danger)]/20 p-8 flex flex-col justify-between"
+                >
                   <div>
                     <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-danger)]">
                       The Drift Path
@@ -335,10 +339,13 @@ export function Results({demo = false}: {demo?: boolean}) {
                       “{analysis.futureA.keyRegret}”
                     </p>
                   </div>
-                </article>
+                </Card>
 
                 {/* Becoming Path */}
-                <article className="glass-panel rounded-3xl border border-[var(--color-violet)]/25 p-8 flex flex-col justify-between">
+                <Card
+                  variant="glass-card"
+                  className="border border-[var(--color-violet)]/25 p-8 flex flex-col justify-between"
+                >
                   <div>
                     <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-violet)]">
                       The Becoming Path
@@ -359,13 +366,13 @@ export function Results({demo = false}: {demo?: boolean}) {
                       “{analysis.futureB.keyGrowth}”
                     </p>
                   </div>
-                </article>
+                </Card>
               </div>
             </section>
 
             {/* Section 3: Capability Radar Visualization */}
             <section id="radar" className="space-y-6 scroll-mt-28">
-              <div className="glass-panel rounded-3xl p-6 sm:p-10">
+              <Card variant="glass-card" className="p-6 sm:p-10">
                 <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <span className="font-display text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-accent)]">
@@ -424,7 +431,7 @@ export function Results({demo = false}: {demo?: boolean}) {
                     </tbody>
                   </table>
                 </details>
-              </div>
+              </Card>
             </section>
 
             {/* Section 4: Evolution Roadmap */}
@@ -438,7 +445,7 @@ export function Results({demo = false}: {demo?: boolean}) {
                 </h2>
               </div>
 
-              <div className="glass-panel rounded-3xl p-6 sm:p-10 space-y-8">
+              <Card variant="glass-card" className="p-6 sm:p-10 space-y-8">
                 {analysis.timeline.map((stage) => (
                   <article
                     key={stage.period}
@@ -449,7 +456,7 @@ export function Results({demo = false}: {demo?: boolean}) {
                       {stage.period}
                     </span>
 
-                    <div className="grid gap-3 sm:grid-cols-2 pt-2">
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2 pt-2">
                       <div className="rounded-xl border border-[var(--color-danger)]/15 bg-[var(--color-danger)]/5 p-4 text-xs">
                         <strong className="mb-1 block uppercase tracking-wider text-[var(--color-danger)]">
                           Drift State
@@ -470,12 +477,15 @@ export function Results({demo = false}: {demo?: boolean}) {
                     </div>
                   </article>
                 ))}
-              </div>
+              </Card>
             </section>
 
             {/* Section 5: Future Letter */}
             <section id="letter" className="space-y-6 scroll-mt-28">
-              <div className="glass-panel-strong mx-auto rounded-3xl p-8 sm:p-14">
+              <Card
+                variant="glass-card"
+                className="mx-auto p-8 sm:p-14 border border-[var(--color-border-strong)]"
+              >
                 <div className="mb-8 text-center space-y-3">
                   <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-accent)]">
                     A Letter from Your Potential Self
@@ -505,7 +515,7 @@ export function Results({demo = false}: {demo?: boolean}) {
                     <Share2 size={14} /> Share Summary
                   </button>
                 </div>
-              </div>
+              </Card>
             </section>
 
             {/* Section 6: Active Protocols */}
@@ -521,7 +531,7 @@ export function Results({demo = false}: {demo?: boolean}) {
 
               <div className="grid gap-6 md:grid-cols-3">
                 {/* Daily Habits */}
-                <div className="glass-panel rounded-3xl p-7 flex flex-col justify-between">
+                <Card variant="glass-card" className="p-7 flex flex-col justify-between">
                   <div>
                     <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
                       <RefreshCcw size={18} />
@@ -541,10 +551,10 @@ export function Results({demo = false}: {demo?: boolean}) {
                       ))}
                     </ul>
                   </div>
-                </div>
+                </Card>
 
                 {/* Learning Roadmap */}
-                <div className="glass-panel rounded-3xl p-7 flex flex-col justify-between">
+                <Card variant="glass-card" className="p-7 flex flex-col justify-between">
                   <div>
                     <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-violet)]/30 bg-[var(--color-violet)]/10 text-[var(--color-violet)]">
                       <Target size={18} />
@@ -564,10 +574,10 @@ export function Results({demo = false}: {demo?: boolean}) {
                       ))}
                     </ul>
                   </div>
-                </div>
+                </Card>
 
                 {/* Anti-Procrastination */}
-                <div className="glass-panel rounded-3xl p-7 flex flex-col justify-between">
+                <Card variant="glass-card" className="p-7 flex flex-col justify-between">
                   <div>
                     <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 text-[var(--color-success)]">
                       <Zap size={18} />
@@ -579,7 +589,7 @@ export function Results({demo = false}: {demo?: boolean}) {
                       “{analysis.plan.antiProcrastination}”
                     </p>
                   </div>
-                </div>
+                </Card>
               </div>
             </section>
 

@@ -5,6 +5,8 @@ import {Link, useNavigate, useParams} from 'react-router-dom';
 
 import type {AnalysisResult, HabitStatus} from '@shared/contracts';
 import {AppHeader} from '@/components/AppHeader';
+import {Card} from '@/components/primitives/Card';
+import {TextareaField} from '@/components/primitives/Field';
 import {formatServiceError} from '@/lib/errors';
 import {getAnalysisRecord, saveCheckIn} from '@/services/analysisService';
 import {useBecomingStore} from '@/store/useBecomingStore';
@@ -128,37 +130,39 @@ export function HabitCheckIn() {
           <motion.div
             initial={{opacity: 0, scale: 0.95}}
             animate={{opacity: 1, scale: 1}}
-            className="glass-panel-strong max-w-lg rounded-3xl p-8 sm:p-12 text-center"
+            className="w-full max-w-lg"
           >
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 text-[var(--color-success)] shadow-[0_0_20px_rgba(134,239,172,0.2)]">
-              <CheckCircle2 size={32} />
-            </div>
+            <Card variant="glass-card" className="p-8 sm:p-12 text-center border border-[var(--color-border-strong)]">
+              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 text-[var(--color-success)] shadow-[0_0_20px_rgba(134,239,172,0.2)]">
+                <CheckCircle2 size={32} />
+              </div>
 
-            <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-success)]">
-              Check-in Complete
-            </span>
-            <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-text-1)] sm:text-4xl">
-              Progress Recorded
-            </h1>
-            <p className="mt-3 text-sm font-light text-[var(--color-text-2)]">
-              You marked{' '}
-              <strong className="text-[var(--color-success)]">
-                {completedCount} of {habits.length}
-              </strong>{' '}
-              micro-habits as completed today.
-            </p>
-            <p className="mt-2 text-xs text-[var(--color-text-3)]">
-              Saved securely{savedAt ? ` at ${savedAt.toLocaleTimeString()}` : ''}.
-            </p>
+              <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-success)]">
+                Check-in Complete
+              </span>
+              <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-text-1)] sm:text-4xl">
+                Progress Recorded
+              </h1>
+              <p className="mt-3 text-sm font-light text-[var(--color-text-2)]">
+                You marked{' '}
+                <strong className="text-[var(--color-success)]">
+                  {completedCount} of {habits.length}
+                </strong>{' '}
+                micro-habits as completed today.
+              </p>
+              <p className="mt-2 text-xs text-[var(--color-text-3)]">
+                Saved securely{savedAt ? ` at ${savedAt.toLocaleTimeString()}` : ''}.
+              </p>
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/dashboard" className="primary-button text-xs">
-                <LayoutDashboard size={14} /> Go to Dashboard
-              </Link>
-              <Link to={`/results/${analysisId}`} className="secondary-button text-xs">
-                View Full Trajectory <ArrowRight size={14} />
-              </Link>
-            </div>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+                <Link to="/dashboard" className="primary-button text-xs">
+                  <LayoutDashboard size={14} /> Go to Dashboard
+                </Link>
+                <Link to={`/results/${analysisId}`} className="secondary-button text-xs">
+                  View Full Trajectory <ArrowRight size={14} />
+                </Link>
+              </div>
+            </Card>
           </motion.div>
         </main>
       </div>
@@ -209,9 +213,10 @@ export function HabitCheckIn() {
                 const currentStatus = habitStates[index] ?? 'not_started';
 
                 return (
-                  <div
+                  <Card
                     key={habit}
-                    className="glass-panel flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl p-5"
+                    variant="glass-card"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl p-5"
                   >
                     <div className="space-y-1">
                       <span className="font-display text-[10px] uppercase tracking-wider text-[var(--color-accent)]">
@@ -265,7 +270,7 @@ export function HabitCheckIn() {
                         );
                       })}
                     </div>
-                  </div>
+                  </Card>
                 );
               })}
             </div>
@@ -314,28 +319,23 @@ export function HabitCheckIn() {
           </section>
 
           {/* Section 3: Notes & Friction Points */}
-          <section className="space-y-3">
-            <label
-              htmlFor="checkin-note"
-              className="block font-display text-sm font-bold uppercase tracking-wider text-[var(--color-text-2)]"
-            >
-              Reflection Notes & Obstacles (Optional)
-            </label>
-            <textarea
+          <section>
+            <TextareaField
               id="checkin-note"
+              label="Reflection Notes & Obstacles (Optional)"
+              labelClassName="block font-display text-sm font-bold uppercase tracking-wider text-[var(--color-text-2)]"
+              hint={
+                <span className="inline-flex items-center gap-1.5 text-xs text-[var(--color-text-3)]">
+                  <Lock size={12} className="text-[var(--color-accent)]" /> Private check-in log
+                </span>
+              }
               value={note}
               onChange={(e) => setNote(e.target.value)}
               rows={3}
               maxLength={1000}
+              showCounter={true}
               placeholder="What friction did you notice? What helped you stay intentional?"
-              className="w-full resize-y rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-4 text-sm text-[var(--color-text-1)] placeholder:text-[var(--color-text-3)] outline-none focus:border-[var(--color-accent)] focus:ring-4 focus:ring-[var(--color-accent)]/10"
             />
-            <div className="flex justify-between text-xs text-[var(--color-text-3)]">
-              <span className="flex items-center gap-1.5">
-                <Lock size={12} className="text-[var(--color-accent)]" /> Private check-in log
-              </span>
-              <span>{note.length}/1000</span>
-            </div>
           </section>
 
           {submitError ? (

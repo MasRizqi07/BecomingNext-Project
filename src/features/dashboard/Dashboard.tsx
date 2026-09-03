@@ -12,8 +12,9 @@ import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
 import {AppHeader} from '@/components/AppHeader';
-import {Badge} from '@/components/primitives/Badge';
+import {Card} from '@/components/primitives/Card';
 import {OrbVisualizer} from '@/components/primitives/OrbVisualizer';
+import {StatusBadge} from '@/components/primitives/StatusBadge';
 import {formatServiceError} from '@/lib/errors';
 import {getAnalysisHistory, type AnalysisRecord} from '@/services/analysisService';
 import {useBecomingStore} from '@/store/useBecomingStore';
@@ -116,18 +117,19 @@ export function Dashboard() {
 
         {/* Loading State */}
         {loading ? (
-          <div
-            className="glass-panel flex min-h-64 flex-col items-center justify-center rounded-3xl p-12 text-center"
+          <Card
+            variant="glass-card"
+            className="flex min-h-64 flex-col items-center justify-center p-12 text-center"
             role="status"
           >
             <div className="mx-auto h-8 w-8 animate-spin rounded-full border border-cyan-400/20 border-t-cyan-400" />
             <p className="mt-4 font-display text-xs uppercase tracking-[0.25em] text-[var(--color-text-3)]">
               Accessing your private sanctuary…
             </p>
-          </div>
+          </Card>
         ) : records.length === 0 ? (
           /* Empty State */
-          <section className="glass-panel-strong mx-auto max-w-3xl rounded-3xl p-10 text-center sm:p-16">
+          <Card variant="glass-card" className="mx-auto max-w-3xl p-10 text-center sm:p-16">
             <OrbVisualizer size="md" className="mb-8" />
             <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)]">
               Empty Sanctuary
@@ -148,13 +150,16 @@ export function Dashboard() {
                 <Sparkles size={15} /> Begin First Reflection
               </button>
             </div>
-          </section>
+          </Card>
         ) : (
           /* Populated Dashboard */
           <>
             {/* Status Banner for Pending/Failed Job */}
             {latestPendingOrFailed && latestPendingOrFailed.status === 'pending' ? (
-              <div className="glass-panel flex flex-col items-start justify-between gap-4 rounded-2xl border border-[var(--color-warning)]/30 bg-[var(--color-warning)]/5 p-5 sm:flex-row sm:items-center">
+              <Card
+                variant="status-card"
+                className="flex flex-col items-start justify-between gap-4 border border-[var(--color-warning)]/30 bg-[var(--color-warning)]/5 p-5 sm:flex-row sm:items-center"
+              >
                 <div className="flex items-center gap-3">
                   <span className="h-3 w-3 rounded-full bg-amber-400 animate-ping" />
                   <div>
@@ -172,9 +177,12 @@ export function Dashboard() {
                 >
                   Resume Analysis <ArrowRight size={14} />
                 </Link>
-              </div>
+              </Card>
             ) : latestPendingOrFailed && latestPendingOrFailed.status === 'failed' ? (
-              <div className="glass-panel flex flex-col items-start justify-between gap-4 rounded-2xl border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/5 p-5 sm:flex-row sm:items-center">
+              <Card
+                variant="status-card"
+                className="flex flex-col items-start justify-between gap-4 border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/5 p-5 sm:flex-row sm:items-center"
+              >
                 <div className="flex items-center gap-3">
                   <AlertCircle size={20} className="text-[var(--color-danger)]" />
                   <div>
@@ -192,14 +200,17 @@ export function Dashboard() {
                 >
                   <RefreshCcw size={14} /> Retry Safely
                 </Link>
-              </div>
+              </Card>
             ) : null}
 
             {/* 2-Column Grid for Latest Completed Analysis */}
             {latestCompleted && latestCompleted.result ? (
               <section className="grid gap-6 lg:grid-cols-12">
                 {/* Left Card: Latest Archetype */}
-                <div className="identity-gradient-border p-7 sm:p-9 lg:col-span-7 flex flex-col justify-between">
+                <Card
+                  variant="insight-card"
+                  className="p-7 sm:p-9 lg:col-span-7 flex flex-col justify-between"
+                >
                   <div>
                     <div className="flex items-start justify-between">
                       <div>
@@ -252,10 +263,13 @@ export function Dashboard() {
                       <CheckCircle2 size={14} /> Habit Check-in
                     </Link>
                   </div>
-                </div>
+                </Card>
 
                 {/* Right Card: Active Plan / Today's Habit */}
-                <div className="glass-panel flex flex-col justify-between rounded-3xl p-7 sm:p-9 lg:col-span-5">
+                <Card
+                  variant="glass-card"
+                  className="flex flex-col justify-between p-7 sm:p-9 lg:col-span-5"
+                >
                   <div>
                     <div className="flex items-center gap-2 font-display text-[10px] uppercase tracking-[0.25em] text-[var(--color-warning)]">
                       <Zap size={14} />
@@ -288,7 +302,7 @@ export function Dashboard() {
                       <CheckCircle2 size={14} /> Weekly / Daily Check-in
                     </Link>
                   </div>
-                </div>
+                </Card>
               </section>
             ) : null}
 
@@ -327,17 +341,7 @@ export function Dashboard() {
                           <span className="flex items-center gap-1.5 text-xs text-[var(--color-text-3)]">
                             <Clock size={12} /> {dateString}
                           </span>
-                          <Badge
-                            tone={
-                              isReady ? 'success' : rec.status === 'pending' ? 'warning' : 'danger'
-                            }
-                          >
-                            {isReady
-                              ? 'Ready'
-                              : rec.status === 'pending'
-                                ? 'In Progress'
-                                : 'Failed'}
-                          </Badge>
+                          <StatusBadge status={rec.status} />
                         </div>
 
                         <h4 className="font-display text-base font-bold text-[var(--color-text-1)] transition group-hover:text-[var(--color-accent)]">
