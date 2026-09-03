@@ -381,7 +381,7 @@ export function Results({demo = false}: {demo?: boolean}) {
 
                 <Suspense
                   fallback={
-                    <div className="flex h-72 items-center justify-center text-sm text-slate-400">
+                    <div className="flex h-72 items-center justify-center text-sm text-slate-400 light:text-slate-600">
                       Loading radar chart…
                     </div>
                   }

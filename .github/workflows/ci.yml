@@ -90,6 +90,22 @@ jobs:
         with:
           node-version: 22
       - run: npm run test:e2e:auth
+      - name: Verify aggregate browser evidence retention
+        run: npm run test:evidence
+      - name: Upload aggregate browser evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-evidence-${{ github.sha }}
+          path: |
+            test-results/public
+            test-results/phase1
+            test-results/auth
+            playwright-report/public
+            playwright-report/phase1
+            playwright-report/auth
+          if-no-files-found: error
+          retention-days: 14
 
   visual:
     runs-on: windows-latest

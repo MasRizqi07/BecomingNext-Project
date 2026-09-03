@@ -20,7 +20,7 @@ export function MobileBottomNav({
   return (
     <nav
       aria-label="Mobile section navigation"
-      className="fixed bottom-0 left-0 z-40 flex w-full items-center justify-around border-t border-white/10 bg-[var(--color-surface-1)]/90 px-3 py-2.5 backdrop-blur-xl lg:hidden"
+      className="fixed bottom-0 left-0 z-40 flex w-full items-center justify-around border-t border-white/10 bg-[var(--color-surface-1)]/90 px-3 py-2.5 backdrop-blur-xl light:border-black/10 lg:hidden"
     >
       {sections.map((sec) => {
         const Icon = sec.icon;
@@ -32,7 +32,9 @@ export function MobileBottomNav({
             type="button"
             onClick={() => onSelectSection?.(sec.id)}
             className={`flex flex-col items-center justify-center p-1.5 transition-all ${
-              isActive ? 'text-cyan-300 font-bold scale-105' : 'text-white/50 hover:text-white    '
+              isActive
+                ? 'scale-105 font-bold text-cyan-300 light:text-cyan-800'
+                : 'text-white/50 hover:text-white light:text-slate-500 light:hover:text-slate-950'
             }`}
           >
             <Icon size={18} className="mb-1" />

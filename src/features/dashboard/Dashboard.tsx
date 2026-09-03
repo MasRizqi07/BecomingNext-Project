@@ -319,7 +319,7 @@ export function Dashboard() {
                     >
                       <div>
                         <div className="flex items-center justify-between mb-3">
-                          <span className="flex items-center gap-1.5 text-xs text-slate-400">
+                          <span className="flex items-center gap-1.5 text-xs text-slate-400 light:text-slate-600">
                             <Clock size={12} /> {dateString}
                           </span>
                           <Badge
@@ -335,11 +335,11 @@ export function Dashboard() {
                           </Badge>
                         </div>
 
-                        <h4 className="font-display text-base font-bold text-white group-hover:text-cyan-300 transition">
+                        <h4 className="font-display text-base font-bold text-white transition group-hover:text-cyan-300 light:text-slate-950 light:group-hover:text-cyan-800">
                           {rec.result?.identity.archetype ?? 'Reflection Synthesis'}
                         </h4>
 
-                        <p className="mt-2 line-clamp-2 text-xs font-light text-slate-400">
+                        <p className="mt-2 line-clamp-2 text-xs font-light text-slate-400 light:text-slate-600">
                           {rec.result?.identity.description ?? 'Draft in progress…'}
                         </p>
                       </div>

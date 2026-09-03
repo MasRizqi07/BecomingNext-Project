@@ -208,7 +208,7 @@ export function History() {
                             ? 'In Progress'
                             : 'Needs Attention'}
                       </Badge>
-                      <span className="flex items-center gap-1 text-xs text-slate-400">
+                      <span className="flex items-center gap-1 text-xs text-slate-400 light:text-slate-600">
                         <Clock size={12} /> {dateString}
                       </span>
                     </div>

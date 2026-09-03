@@ -7,7 +7,9 @@ export default defineConfig({
   timeout: 120_000,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 1 : 0,
-  reporter: [['list'], ['html', {open: 'never'}]],
+  reporter: [['list'], ['html', {open: 'never', outputFolder: 'playwright-report/auth'}]],
+  outputDir: 'test-results/auth',
+  preserveOutput: 'always',
   use: {
     baseURL: 'http://127.0.0.1:4174',
     actionTimeout: 15_000,

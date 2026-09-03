@@ -31,15 +31,25 @@ test('landing page communicates the product and exposes a safe demo', async ({pa
   expect(accessibility.violations).toEqual([]);
 });
 
-test('single dark theme has no toggle or persisted theme state', async ({page}) => {
+test('theme preference switches, persists, and remains accessible in light mode', async ({
+  page,
+}) => {
   await page.goto('/');
 
-  await expect(page.getByRole('button', {name: /switch to (light|dark) mode/i})).toHaveCount(0);
-  await expect(page.locator('html')).not.toHaveAttribute('data-theme');
-  expect(await page.evaluate(() => localStorage.getItem('becoming-theme-v1'))).toBeNull();
-  await expect
-    .poll(() => page.locator('html').evaluate((element) => getComputedStyle(element).colorScheme))
-    .toContain('dark');
+  const themeToggle = page.getByRole('button', {name: 'Switch to light mode'}).first();
+  await expect(themeToggle).toBeVisible();
+  await themeToggle.click();
+  await expect(page.locator('html')).toHaveClass(/light/);
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await waitForBrowserPaint(page);
+
+  const lightAccessibility = await new AxeBuilder({page}).withTags(['wcag2a', 'wcag2aa']).analyze();
+  expect(lightAccessibility.violations).toEqual([]);
+
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await page.getByRole('button', {name: 'Switch to dark mode'}).first().click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });
 
 test('demo result is complete and all public actions are reachable', async ({page}) => {
