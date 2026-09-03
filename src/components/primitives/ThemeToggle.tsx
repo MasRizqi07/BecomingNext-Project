@@ -27,7 +27,7 @@ export function ThemeToggle({variant = 'icon', className = ''}: ThemeToggleProps
   if (variant === 'segmented') {
     return (
       <div
-        className={`flex flex-wrap items-center rounded-xl border border-white/10 bg-white/5 p-1 light:border-black/10 light:bg-black/5 ${className}`}
+        className={`flex flex-wrap items-center rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1 ${className}`}
         role="radiogroup"
         aria-label="Theme preference"
       >
@@ -43,14 +43,14 @@ export function ThemeToggle({variant = 'icon', className = ''}: ThemeToggleProps
               onClick={() => setTheme(mode)}
               className={`relative flex min-h-10 items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
                 selected
-                  ? 'text-cyan-300 light:text-cyan-900'
-                  : 'text-slate-400 hover:text-white light:text-slate-600 light:hover:text-slate-950'
+                  ? 'text-[var(--color-accent)]'
+                  : 'text-[var(--color-text-3)] hover:text-[var(--color-text-1)]'
               }`}
             >
               {selected ? (
                 <motion.span
                   layoutId="active-theme-pill"
-                  className="absolute inset-0 rounded-lg border border-cyan-400/30 bg-cyan-400/15 light:border-cyan-800/25 light:bg-cyan-800/10"
+                  className="absolute inset-0 rounded-lg border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10"
                   transition={{type: 'spring', stiffness: 400, damping: 30}}
                 />
               ) : null}

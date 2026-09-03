@@ -10,27 +10,33 @@ interface BadgeProps {
 }
 
 export function Badge({tone = 'neutral', children, className = '', icon}: BadgeProps) {
-  let toneStyles = 'border-white/10 bg-white/5 text-white/70';
+  let toneStyles =
+    'border-[var(--color-border)] bg-[var(--color-surface-2)] text-[var(--color-text-2)]';
 
   switch (tone) {
     case 'success':
-      toneStyles = 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300';
+      toneStyles =
+        'border-[var(--color-success)]/30 bg-[var(--color-success)]/10 text-[var(--color-success)]';
       break;
     case 'warning':
-      toneStyles = 'border-amber-400/30 bg-amber-400/10 text-amber-300';
+      toneStyles =
+        'border-[var(--color-warning)]/30 bg-[var(--color-warning)]/10 text-[var(--color-warning)]';
       break;
     case 'danger':
-      toneStyles = 'border-red-400/30 bg-red-400/10 text-red-300';
+      toneStyles =
+        'border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 text-[var(--color-danger)]';
       break;
     case 'info':
-      toneStyles = 'border-cyan-400/30 bg-cyan-400/10 text-cyan-300';
+      toneStyles =
+        'border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 text-[var(--color-accent)]';
       break;
     case 'demo':
       toneStyles =
-        'border-cyan-400/40 bg-cyan-400/10 text-cyan-200 shadow-[0_0_12px_rgba(103,232,249,0.15)]';
+        'border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 text-[var(--color-accent)] shadow-[0_0_12px_rgba(103,232,249,0.15)]';
       break;
     case 'neutral':
-      toneStyles = 'border-white/10 bg-white/5 text-white/65';
+      toneStyles =
+        'border-[var(--color-border)] bg-[var(--color-surface-2)] text-[var(--color-text-2)]';
       break;
   }
 

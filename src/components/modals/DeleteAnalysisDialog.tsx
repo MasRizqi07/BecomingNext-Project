@@ -43,19 +43,19 @@ export function DeleteAnalysisDialog({isOpen, onClose, onConfirm}: DeleteAnalysi
       initialFocusSelector="[data-dialog-initial]"
     >
       <div className="flex flex-col items-center text-center">
-        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-red-400/30 bg-red-400/10 text-red-300">
+        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 text-[var(--color-danger)]">
           <AlertTriangle size={26} />
         </div>
 
         <h2
           id="delete-analysis-dialog-title"
-          className="font-display text-xl font-bold tracking-tight text-white sm:text-2xl"
+          className="font-display text-xl font-bold tracking-tight text-[var(--color-text-1)] sm:text-2xl"
         >
           Delete This Analysis?
         </h2>
         <p
           id="delete-analysis-dialog-description"
-          className="mt-3 text-sm leading-relaxed text-slate-300"
+          className="mt-3 text-sm leading-relaxed text-[var(--color-text-2)]"
         >
           This permanently removes this reflection, generated analysis, and its related check-ins.
           Your account and other reflections remain untouched.
@@ -63,7 +63,7 @@ export function DeleteAnalysisDialog({isOpen, onClose, onConfirm}: DeleteAnalysi
 
         {error ? (
           <p
-            className="mt-4 w-full rounded-lg border border-red-400/20 bg-red-950/20 p-2 text-xs text-red-300"
+            className="mt-4 w-full rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-2 text-xs text-[var(--color-danger)]"
             role="alert"
           >
             {error}

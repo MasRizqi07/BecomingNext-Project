@@ -25,8 +25,8 @@ export function PrivacyBoundaries() {
           <div className="grid gap-12 lg:grid-cols-12">
             {/* Sticky Table of Contents (Desktop) */}
             <aside className="hidden lg:col-span-4 lg:block">
-              <div className="sticky top-28 space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-                <p className="font-display text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-400">
+              <div className="sticky top-28 space-y-4 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-2)] p-6 backdrop-blur-xl">
+                <p className="font-display text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-accent)]">
                   Contents
                 </p>
                 <nav className="space-y-2">
@@ -34,7 +34,7 @@ export function PrivacyBoundaries() {
                     <a
                       key={sec.id}
                       href={`#${sec.id}`}
-                      className="block text-sm text-slate-400 transition hover:text-cyan-300"
+                      className="block text-sm text-[var(--color-text-3)] transition hover:text-[var(--color-accent)]"
                     >
                       {sec.label}
                     </a>
@@ -46,13 +46,13 @@ export function PrivacyBoundaries() {
             {/* Editorial Content */}
             <article className="space-y-16 lg:col-span-8">
               <header className="space-y-4">
-                <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-cyan-400">
+                <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-accent)]">
                   Commitment to Discretion
                 </span>
                 <h1 className="text-4xl font-extralight tracking-tight sm:text-5xl md:text-6xl">
                   Privacy & AI Boundaries
                 </h1>
-                <p className="text-base leading-relaxed text-slate-300 sm:text-lg">
+                <p className="text-base leading-relaxed text-[var(--color-text-2)] sm:text-lg">
                   Becoming is designed as a digital sanctuary. We prioritize privacy, explicit data
                   ownership, and transparent AI boundaries at every layer.
                 </p>
@@ -61,17 +61,17 @@ export function PrivacyBoundaries() {
               {/* Section: Privacy at the Core */}
               <section id="core" className="glass-panel space-y-4 rounded-3xl p-8">
                 <div className="flex items-center gap-3">
-                  <Lock className="text-cyan-400" size={22} />
-                  <h2 className="font-display text-2xl font-bold text-white">
+                  <Lock className="text-[var(--color-accent)]" size={22} />
+                  <h2 className="font-display text-2xl font-bold text-[var(--color-text-1)]">
                     01. Privacy at the Core
                   </h2>
                 </div>
-                <p className="text-sm leading-relaxed text-slate-300">
+                <p className="text-sm leading-relaxed text-[var(--color-text-2)]">
                   Reflecting honestly requires feeling safe. Your eight reflection inputs are saved
                   in your authenticated account and are accessible solely by your verified user
                   credentials.
                 </p>
-                <ul className="space-y-2 text-sm text-slate-400">
+                <ul className="space-y-2 text-sm text-[var(--color-text-3)]">
                   <li>• No public social feed or shared profile metrics.</li>
                   <li>• No third-party ad trackers or behavioral pixel tracking.</li>
                   <li>
@@ -83,15 +83,15 @@ export function PrivacyBoundaries() {
               {/* Section: Technical Architecture */}
               <section id="architecture" className="glass-panel space-y-4 rounded-3xl p-8">
                 <div className="flex items-center gap-3">
-                  <Server className="text-violet-400" size={22} />
-                  <h2 className="font-display text-2xl font-bold text-white">
+                  <Server className="text-[var(--color-violet)]" size={22} />
+                  <h2 className="font-display text-2xl font-bold text-[var(--color-text-1)]">
                     02. Technical Architecture
                   </h2>
                 </div>
-                <p className="text-sm leading-relaxed text-slate-300">
+                <p className="text-sm leading-relaxed text-[var(--color-text-2)]">
                   Our architecture strictly segregates client code from backend trust boundaries:
                 </p>
-                <div className="space-y-3 rounded-2xl border border-white/5 bg-black/30 p-5 text-xs font-mono text-slate-300">
+                <div className="space-y-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-5 text-xs font-mono text-[var(--color-text-2)]">
                   <p>
                     <strong>Authentication:</strong> Firebase Auth (Google OAuth 2.0 with secure
                     session tokens).
@@ -114,17 +114,17 @@ export function PrivacyBoundaries() {
               {/* Section: AI Integrity & Processing */}
               <section id="ai" className="glass-panel space-y-4 rounded-3xl p-8">
                 <div className="flex items-center gap-3">
-                  <ShieldCheck className="text-cyan-400" size={22} />
-                  <h2 className="font-display text-2xl font-bold text-white">
+                  <ShieldCheck className="text-[var(--color-accent)]" size={22} />
+                  <h2 className="font-display text-2xl font-bold text-[var(--color-text-1)]">
                     03. AI Integrity & Processing
                   </h2>
                 </div>
-                <p className="text-sm leading-relaxed text-slate-300">
+                <p className="text-sm leading-relaxed text-[var(--color-text-2)]">
                   AI is used purely to synthesize contrast patterns across your prompts into two
                   illustrative trajectories. We never treat AI output as deterministic truth,
                   medical advice, or psychiatric assessment.
                 </p>
-                <p className="text-sm leading-relaxed text-slate-300">
+                <p className="text-sm leading-relaxed text-[var(--color-text-2)]">
                   Reflection answers are sent to Google Gemini over HTTPS through a server-side
                   request configured with <code>store: false</code>. Becoming does not train an
                   application model on your answers. Provider processing terms and retention for the
@@ -135,15 +135,15 @@ export function PrivacyBoundaries() {
               {/* Section: Retention & Deletion */}
               <section id="retention" className="glass-panel space-y-4 rounded-3xl p-8">
                 <div className="flex items-center gap-3">
-                  <Trash2 className="text-amber-400" size={22} />
-                  <h2 className="font-display text-2xl font-bold text-white">
+                  <Trash2 className="text-[var(--color-warning)]" size={22} />
+                  <h2 className="font-display text-2xl font-bold text-[var(--color-text-1)]">
                     04. Retention & Deletion
                   </h2>
                 </div>
-                <p className="text-sm leading-relaxed text-slate-300">
+                <p className="text-sm leading-relaxed text-[var(--color-text-2)]">
                   You retain full ownership of your data at all times:
                 </p>
-                <ul className="space-y-2 text-sm text-slate-400">
+                <ul className="space-y-2 text-sm text-[var(--color-text-3)]">
                   <li>
                     • <strong>Delete Analysis:</strong> Deletes an individual reflection, generated
                     letter, roadmap, and radar records permanently.
@@ -164,20 +164,20 @@ export function PrivacyBoundaries() {
               {/* Section: Crisis & Emergency Protocol */}
               <section
                 id="protocol"
-                className="rounded-3xl border border-red-400/20 bg-red-950/15 p-8 space-y-4"
+                className="rounded-3xl border border-[var(--color-danger)]/20 bg-[var(--color-danger)]/5 p-8 space-y-4"
               >
                 <div className="flex items-center gap-3">
-                  <AlertCircle className="text-red-300" size={22} />
-                  <h2 className="font-display text-xl font-bold text-white">
+                  <AlertCircle className="text-[var(--color-danger)]" size={22} />
+                  <h2 className="font-display text-xl font-bold text-[var(--color-text-1)]">
                     05. Crisis & Emergency Protocol
                   </h2>
                 </div>
-                <p className="text-sm leading-relaxed text-slate-300">
+                <p className="text-sm leading-relaxed text-[var(--color-text-2)]">
                   Becoming is not equipped to handle acute mental health crises, suicidal thoughts,
                   or emergency interventions. If you or someone you know is in immediate distress or
                   danger:
                 </p>
-                <div className="rounded-2xl border border-red-400/20 bg-black/40 p-4 text-xs leading-relaxed text-red-200">
+                <div className="rounded-2xl border border-[var(--color-danger)]/20 bg-[var(--color-surface-1)] p-4 text-xs leading-relaxed text-[var(--color-danger)]">
                   <p>
                     • <strong>US / Canada:</strong> Call or text <strong>988</strong> (Suicide &
                     Crisis Lifeline)

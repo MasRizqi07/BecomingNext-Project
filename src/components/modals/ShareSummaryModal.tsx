@@ -53,11 +53,14 @@ export function ShareSummaryModal({isOpen, onClose, analysis, onCopied}: ShareSu
       <div>
         <h2
           id="share-summary-dialog-title"
-          className="font-display text-xl font-bold text-white sm:text-2xl"
+          className="font-display text-xl font-bold text-[var(--color-text-1)] sm:text-2xl"
         >
           Share Reflection Summary
         </h2>
-        <p id="share-summary-dialog-description" className="mt-1.5 text-xs text-slate-400">
+        <p
+          id="share-summary-dialog-description"
+          className="mt-1.5 text-xs text-[var(--color-text-3)]"
+        >
           Share your high-level archetype guidance without exposing private answers.
         </p>
 
@@ -97,7 +100,11 @@ export function ShareSummaryModal({isOpen, onClose, analysis, onCopied}: ShareSu
             onClick={() => void handleCopy()}
             className="secondary-button flex-1"
           >
-            {copied ? <Check size={15} className="text-emerald-400" /> : <Copy size={15} />}
+            {copied ? (
+              <Check size={15} className="text-[var(--color-success)]" />
+            ) : (
+              <Copy size={15} />
+            )}
             <span>{copied ? 'Summary Copied' : 'Copy Summary'}</span>
           </button>
 
@@ -114,8 +121,8 @@ export function ShareSummaryModal({isOpen, onClose, analysis, onCopied}: ShareSu
         </div>
 
         {/* Privacy Note */}
-        <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-[11px] text-slate-400 light:text-slate-600">
-          <ShieldCheck size={13} className="text-cyan-400/80" />
+        <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-[11px] text-[var(--color-text-3)]">
+          <ShieldCheck size={13} className="text-[var(--color-accent)]" />
           <span>Only the public summary is shared. Your 8 reflections remain private.</span>
         </p>
       </div>

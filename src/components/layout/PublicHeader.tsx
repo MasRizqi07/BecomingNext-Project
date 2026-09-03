@@ -76,11 +76,11 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-white/8 bg-[var(--color-canvas)]/85 backdrop-blur-xl transition-all light:border-black/10">
+      <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-canvas)]/85 backdrop-blur-xl transition-all">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 md:px-12">
           <Link className="flex items-center gap-2.5" to="/" aria-label="Becoming Home">
             <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_var(--color-accent-strong)]" />
-            <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white light:text-slate-950">
+            <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-[var(--color-text-1)]">
               Becoming.
             </span>
           </Link>
@@ -94,7 +94,7 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
                   key={item.href}
                   to={item.href}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`nav-link ${isActive ? 'active text-cyan-300' : ''}`}
+                  className={`nav-link ${isActive ? 'active text-[var(--color-accent)]' : ''}`}
                 >
                   {item.label}
                 </Link>
@@ -154,14 +154,14 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
               <h2 id="mobile-navigation-title" className="sr-only">
                 Navigation menu
               </h2>
-              <div className="flex items-center justify-between border-b border-white/10 pb-5 light:border-black/10">
+              <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-5">
                 <Link
                   to="/"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-2.5"
                 >
                   <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_var(--color-accent-strong)]" />
-                  <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white light:text-slate-950">
+                  <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-[var(--color-text-1)]">
                     Becoming.
                   </span>
                 </Link>
@@ -184,7 +184,9 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
                     onClick={() => setMobileMenuOpen(false)}
                     aria-current={location.pathname === item.href ? 'page' : undefined}
                     className={`font-display text-2xl font-light tracking-tight transition ${
-                      location.pathname === item.href ? 'text-cyan-300' : 'text-slate-200'
+                      location.pathname === item.href
+                        ? 'text-[var(--color-accent)]'
+                        : 'text-[var(--color-text-2)]'
                     }`}
                   >
                     {item.label}
@@ -192,7 +194,7 @@ export function PublicHeader({onOpenSignIn}: PublicHeaderProps) {
                 ))}
               </nav>
 
-              <div className="border-t border-white/10 pt-6 light:border-black/10">
+              <div className="border-t border-[var(--color-border)] pt-6">
                 {user ? (
                   <Link
                     to="/dashboard"

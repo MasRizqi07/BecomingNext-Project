@@ -27,14 +27,17 @@ export function DeferredParticlesBG() {
     const schedule = () => {
       const requestIdleCallback = (
         window as unknown as {
-          requestIdleCallback?: (callback: IdleRequestCallback, options?: IdleRequestOptions) => number;
+          requestIdleCallback?: (
+            callback: IdleRequestCallback,
+            options?: IdleRequestOptions,
+          ) => number;
         }
       ).requestIdleCallback;
 
       if (requestIdleCallback) {
         idleHandle = requestIdleCallback(reveal, {timeout: 2500});
       } else {
-        timeoutHandle = globalThis.setTimeout(reveal, 1500);
+        timeoutHandle = window.setTimeout(reveal, 1500);
       }
     };
 

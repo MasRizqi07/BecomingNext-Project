@@ -83,9 +83,9 @@ export function HabitCheckIn() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-[#020205] text-[#F8FAFC]">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--color-canvas)] text-[var(--color-text-1)]">
         <div className="h-8 w-8 animate-spin rounded-full border border-cyan-400/20 border-t-cyan-400" />
-        <p className="mt-4 font-display text-xs uppercase tracking-[0.25em] text-slate-400">
+        <p className="mt-4 font-display text-xs uppercase tracking-[0.25em] text-[var(--color-text-3)]">
           Loading check-in space…
         </p>
       </div>
@@ -94,12 +94,14 @@ export function HabitCheckIn() {
 
   if (!analysis) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#020205] text-[#F8FAFC]">
+      <div className="min-h-screen flex flex-col bg-[var(--color-canvas)] text-[var(--color-text-1)]">
         <AppHeader backTo="/dashboard" />
         <div className="flex flex-1 items-center justify-center px-5 text-center">
           <div className="glass-panel-strong max-w-md rounded-3xl p-8">
-            <h2 className="font-display text-xl font-bold text-white">No Active Analysis</h2>
-            <p className="mt-2 text-xs leading-relaxed text-slate-400">
+            <h2 className="font-display text-xl font-bold text-[var(--color-text-1)]">
+              No Active Analysis
+            </h2>
+            <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-3)]">
               {loadError ?? 'Please complete a reflection to begin your habit check-ins.'}
             </p>
             <div className="mt-6">
@@ -128,24 +130,24 @@ export function HabitCheckIn() {
             animate={{opacity: 1, scale: 1}}
             className="glass-panel-strong max-w-lg rounded-3xl p-8 sm:p-12 text-center"
           >
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-emerald-400/30 bg-emerald-400/10 text-emerald-300 shadow-[0_0_20px_rgba(134,239,172,0.2)]">
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 text-[var(--color-success)] shadow-[0_0_20px_rgba(134,239,172,0.2)]">
               <CheckCircle2 size={32} />
             </div>
 
-            <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-400">
+            <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-success)]">
               Check-in Complete
             </span>
-            <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-text-1)] sm:text-4xl">
               Progress Recorded
             </h1>
-            <p className="mt-3 text-sm font-light text-slate-300">
+            <p className="mt-3 text-sm font-light text-[var(--color-text-2)]">
               You marked{' '}
-              <strong className="text-emerald-300">
+              <strong className="text-[var(--color-success)]">
                 {completedCount} of {habits.length}
               </strong>{' '}
               micro-habits as completed today.
             </p>
-            <p className="mt-2 text-xs text-slate-400 light:text-slate-600">
+            <p className="mt-2 text-xs text-[var(--color-text-3)]">
               Saved securely{savedAt ? ` at ${savedAt.toLocaleTimeString()}` : ''}.
             </p>
 
@@ -169,25 +171,27 @@ export function HabitCheckIn() {
       <AppHeader backTo="/dashboard" />
 
       {/* Context Banner */}
-      <div className="border-b border-white/8 bg-[#090A0F]/70 py-3.5 px-5 sm:px-8 backdrop-blur-md">
-        <div className="mx-auto max-w-3xl flex items-center gap-2 text-xs text-slate-400">
-          <Sparkles size={14} className="text-cyan-400" />
+      <div className="border-b border-[var(--color-border)] bg-[var(--color-surface-1)]/70 py-3.5 px-5 sm:px-8 backdrop-blur-md">
+        <div className="mx-auto max-w-3xl flex items-center gap-2 text-xs text-[var(--color-text-3)]">
+          <Sparkles size={14} className="text-[var(--color-accent)]" />
           <span>
             Check-in for:{' '}
-            <strong className="text-white font-medium">{analysis.identity.archetype}</strong>
+            <strong className="font-medium text-[var(--color-text-1)]">
+              {analysis.identity.archetype}
+            </strong>
           </span>
         </div>
       </div>
 
       <main className="flex-1 w-full max-w-3xl mx-auto px-5 py-10 sm:px-8 md:py-16 flex flex-col gap-10">
         <div className="space-y-3">
-          <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-400">
+          <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)]">
             Grounding Moment
           </span>
-          <h1 className="font-display text-3xl font-light tracking-tight sm:text-5xl text-white">
+          <h1 className="font-display text-3xl font-light tracking-tight sm:text-5xl text-[var(--color-text-1)]">
             Daily Habit Check-in
           </h1>
-          <p className="text-sm font-light leading-relaxed text-slate-400">
+          <p className="text-sm font-light leading-relaxed text-[var(--color-text-3)]">
             Observe where you showed up today. Progress is measured in quiet consistency, not
             perfection.
           </p>
@@ -196,7 +200,7 @@ export function HabitCheckIn() {
         <form onSubmit={handleSubmitCheckIn} className="space-y-10">
           {/* Section 1: Habits List */}
           <section className="space-y-4">
-            <h2 className="font-display text-sm font-bold uppercase tracking-wider text-slate-300">
+            <h2 className="font-display text-sm font-bold uppercase tracking-wider text-[var(--color-text-2)]">
               Micro-Habits Status
             </h2>
 
@@ -210,15 +214,15 @@ export function HabitCheckIn() {
                     className="glass-panel flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl p-5"
                   >
                     <div className="space-y-1">
-                      <span className="font-display text-[10px] uppercase tracking-wider text-cyan-400">
+                      <span className="font-display text-[10px] uppercase tracking-wider text-[var(--color-accent)]">
                         Habit 0{index + 1}
                       </span>
-                      <p className="text-sm font-medium text-white">{habit}</p>
+                      <p className="text-sm font-medium text-[var(--color-text-1)]">{habit}</p>
                     </div>
 
                     {/* 3-State Segmented Control */}
                     <div
-                      className="inline-flex rounded-xl border border-white/10 bg-black/40 p-1"
+                      className="inline-flex rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-1"
                       role="group"
                       aria-label={`Status for habit ${index + 1}`}
                     >
@@ -230,16 +234,17 @@ export function HabitCheckIn() {
                         ] as const
                       ).map((opt) => {
                         const isSelected = currentStatus === opt.id;
-                        let activeStyles = 'bg-white/10 text-white';
+                        let activeStyles = 'bg-[var(--color-surface-3)] text-[var(--color-text-1)]';
                         if (isSelected) {
                           if (opt.id === 'done') {
                             activeStyles =
-                              'bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 shadow-xs font-bold';
+                              'border border-[var(--color-success)]/30 bg-[var(--color-success)]/15 font-bold text-[var(--color-success)] shadow-xs';
                           } else if (opt.id === 'in_progress') {
                             activeStyles =
-                              'bg-amber-400/20 text-amber-300 border border-amber-400/30 shadow-xs font-bold';
+                              'border border-[var(--color-warning)]/30 bg-[var(--color-warning)]/15 font-bold text-[var(--color-warning)] shadow-xs';
                           } else {
-                            activeStyles = 'bg-white/20 text-white font-bold';
+                            activeStyles =
+                              'bg-[var(--color-surface-3)] font-bold text-[var(--color-text-1)]';
                           }
                         }
 
@@ -252,7 +257,7 @@ export function HabitCheckIn() {
                             className={`rounded-lg px-3 py-1.5 font-display text-xs transition-all ${
                               isSelected
                                 ? activeStyles
-                                : 'text-slate-400 hover:text-slate-300 light:text-slate-600 light:hover:text-slate-800'
+                                : 'text-[var(--color-text-3)] hover:text-[var(--color-text-1)]'
                             }`}
                           >
                             {opt.label}
@@ -268,7 +273,7 @@ export function HabitCheckIn() {
 
           {/* Section 2: Mood / Groundedness Rating */}
           <section className="space-y-4">
-            <h2 className="font-display text-sm font-bold uppercase tracking-wider text-slate-300">
+            <h2 className="font-display text-sm font-bold uppercase tracking-wider text-[var(--color-text-2)]">
               State of Mind (1 = Distracted, 5 = Grounded)
             </h2>
 
@@ -294,8 +299,8 @@ export function HabitCheckIn() {
                     aria-pressed={isSelected}
                     className={`flex flex-col items-center justify-center rounded-2xl border p-3.5 sm:p-4 transition-all ${
                       isSelected
-                        ? 'border-cyan-400/50 bg-cyan-400/10 text-cyan-300 shadow-[0_0_15px_rgba(103,232,249,0.15)] scale-105'
-                        : 'border-white/10 bg-white/5 text-slate-400 hover:border-white/20 hover:text-white'
+                        ? 'scale-105 border-[var(--color-accent)]/50 bg-[var(--color-accent)]/10 text-[var(--color-accent)] shadow-[0_0_15px_rgba(103,232,249,0.15)]'
+                        : 'border-[var(--color-border)] bg-[var(--color-surface-2)] text-[var(--color-text-3)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-1)]'
                     }`}
                   >
                     <span className="font-display text-lg font-bold">{m.val}</span>
@@ -312,7 +317,7 @@ export function HabitCheckIn() {
           <section className="space-y-3">
             <label
               htmlFor="checkin-note"
-              className="block font-display text-sm font-bold uppercase tracking-wider text-slate-300"
+              className="block font-display text-sm font-bold uppercase tracking-wider text-[var(--color-text-2)]"
             >
               Reflection Notes & Obstacles (Optional)
             </label>
@@ -323,11 +328,11 @@ export function HabitCheckIn() {
               rows={3}
               maxLength={1000}
               placeholder="What friction did you notice? What helped you stay intentional?"
-              className="w-full resize-y rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-white placeholder-white/25 outline-none focus:border-cyan-400/80 focus:ring-4 focus:ring-cyan-400/10"
+              className="w-full resize-y rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-4 text-sm text-[var(--color-text-1)] placeholder:text-[var(--color-text-3)] outline-none focus:border-[var(--color-accent)] focus:ring-4 focus:ring-[var(--color-accent)]/10"
             />
-            <div className="flex justify-between text-xs text-slate-400 light:text-slate-600">
+            <div className="flex justify-between text-xs text-[var(--color-text-3)]">
               <span className="flex items-center gap-1.5">
-                <Lock size={12} className="text-cyan-400/70" /> Private check-in log
+                <Lock size={12} className="text-[var(--color-accent)]" /> Private check-in log
               </span>
               <span>{note.length}/1000</span>
             </div>
@@ -335,7 +340,7 @@ export function HabitCheckIn() {
 
           {submitError ? (
             <p
-              className="rounded-xl border border-red-400/20 bg-red-950/20 p-3 text-sm text-red-200"
+              className="rounded-xl border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-3 text-sm text-[var(--color-danger)]"
               role="alert"
             >
               {submitError}
@@ -343,7 +348,7 @@ export function HabitCheckIn() {
           ) : null}
 
           {/* Action Footer */}
-          <div className="flex items-center justify-between gap-4 border-t border-white/10 pt-8">
+          <div className="flex items-center justify-between gap-4 border-t border-[var(--color-border)] pt-8">
             <button
               type="button"
               onClick={() => navigate('/dashboard')}

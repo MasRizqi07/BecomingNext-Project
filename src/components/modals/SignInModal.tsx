@@ -43,24 +43,27 @@ export function SignInModal({isOpen, onClose, onSuccessRedirect = '/dashboard'}:
     >
       <div className="flex flex-col items-center text-center">
         {/* Glow Icon */}
-        <div className="glow-effect mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 text-cyan-300">
+        <div className="glow-effect mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
           <Sparkles size={28} />
         </div>
 
         <h2
           id="sign-in-dialog-title"
-          className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl"
+          className="font-display text-2xl font-bold tracking-tight text-[var(--color-text-1)] sm:text-3xl"
         >
           Your reflection is private
         </h2>
-        <p id="sign-in-dialog-description" className="mt-3 text-sm leading-relaxed text-slate-300">
+        <p
+          id="sign-in-dialog-description"
+          className="mt-3 text-sm leading-relaxed text-[var(--color-text-2)]"
+        >
           Sign in to store personal reflections in records that only your authenticated account can
           read through the application.
         </p>
 
         {error ? (
           <p
-            className="mt-4 rounded-xl border border-red-400/20 bg-red-950/20 p-3 text-xs text-red-300"
+            className="mt-4 rounded-xl border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-3 text-xs text-[var(--color-danger)]"
             role="alert"
           >
             {error}
@@ -102,8 +105,8 @@ export function SignInModal({isOpen, onClose, onSuccessRedirect = '/dashboard'}:
         </div>
 
         {/* Trust Footnote */}
-        <div className="mt-6 flex items-center gap-1.5 text-xs text-slate-400">
-          <Lock size={13} className="text-cyan-400/70" />
+        <div className="mt-6 flex items-center gap-1.5 text-xs text-[var(--color-text-3)]">
+          <Lock size={13} className="text-[var(--color-accent)]" />
           <span>Protected by Auth and App Check • No marketing email</span>
         </div>
       </div>

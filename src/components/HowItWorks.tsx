@@ -55,14 +55,16 @@ export function HowItWorks() {
             animate={{opacity: 1, y: 0}}
             transition={{duration: prefersReducedMotion ? 0 : 0.6}}
           >
-            <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-cyan-400">
+            <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-accent)]">
               Methodology & Architecture
             </span>
             <h1 className="mt-5 text-4xl font-extralight tracking-tight sm:text-6xl md:text-7xl">
               Eight prompts. Two paths. <br />
-              <span className="font-serif italic text-white/85">One practical next step.</span>
+              <span className="font-serif italic text-[var(--color-text-2)]">
+                One practical next step.
+              </span>
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed text-slate-400 sm:text-lg">
+            <p className="mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed text-[var(--color-text-3)] sm:text-lg">
               Understand how Becoming transforms your honest introspection into structured,
               actionable future guidance.
             </p>
@@ -81,56 +83,62 @@ export function HowItWorks() {
         {/* 3-Step Process */}
         <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 md:px-12">
           <div className="mb-14 text-center">
-            <span className="font-display text-xs font-bold uppercase tracking-[0.25em] text-cyan-400">
+            <span className="font-display text-xs font-bold uppercase tracking-[0.25em] text-[var(--color-accent)]">
               The 3-Step Journey
             </span>
-            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-[var(--color-text-1)] sm:text-4xl">
               From Inquiry to Action
             </h2>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
             {/* Step 1 */}
-            <div className="glass-panel relative rounded-3xl p-8 transition hover:border-cyan-400/30">
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-400/10 font-display text-base font-bold text-cyan-300">
+            <div className="glass-panel relative rounded-3xl p-8 transition hover:border-[var(--color-accent)]/30">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/10 font-display text-base font-bold text-[var(--color-accent)]">
                 01
               </div>
-              <h3 className="font-display text-xl font-bold text-white">Reflect Honestly</h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-400">
+              <h3 className="font-display text-xl font-bold text-[var(--color-text-1)]">
+                Reflect Honestly
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-3)]">
                 Answer 8 structured, introspective prompts exploring feared futures, chosen
                 directions, discipline scores, and avoidance patterns.
               </p>
-              <div className="mt-6 flex items-center gap-2 text-xs text-cyan-300/80">
+              <div className="mt-6 flex items-center gap-2 text-xs text-[var(--color-accent)] opacity-80">
                 <Lock size={12} /> Auto-saved in private session
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="glass-panel relative rounded-3xl p-8 transition hover:border-cyan-400/30">
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/20 bg-violet-400/10 font-display text-base font-bold text-violet-300">
+            <div className="glass-panel relative rounded-3xl p-8 transition hover:border-[var(--color-accent)]/30">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--color-violet)]/20 bg-[var(--color-violet)]/10 font-display text-base font-bold text-[var(--color-violet)]">
                 02
               </div>
-              <h3 className="font-display text-xl font-bold text-white">Dual-Path Synthesis</h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-400">
+              <h3 className="font-display text-xl font-bold text-[var(--color-text-1)]">
+                Dual-Path Synthesis
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-3)]">
                 AI analyzes recurring friction points and maps two contrasting trajectories: the{' '}
                 <em>Drifting Path</em> and the <em>Intentional Path</em>.
               </p>
-              <div className="mt-6 flex items-center gap-2 text-xs text-violet-300/80">
+              <div className="mt-6 flex items-center gap-2 text-xs text-[var(--color-violet)] opacity-80">
                 <Route size={12} /> 6mo, 1yr & 5yr milestones
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="glass-panel relative rounded-3xl p-8 transition hover:border-cyan-400/30">
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-400/20 bg-emerald-400/10 font-display text-base font-bold text-emerald-300">
+            <div className="glass-panel relative rounded-3xl p-8 transition hover:border-[var(--color-accent)]/30">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--color-success)]/20 bg-[var(--color-success)]/10 font-display text-base font-bold text-[var(--color-success)]">
                 03
               </div>
-              <h3 className="font-display text-xl font-bold text-white">Daily Action Protocols</h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-400">
+              <h3 className="font-display text-xl font-bold text-[var(--color-text-1)]">
+                Daily Action Protocols
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-3)]">
                 Receive 2–5 grounded daily habits, a learning roadmap, an anti-procrastination
                 strategy, and weekly check-in tracking.
               </p>
-              <div className="mt-6 flex items-center gap-2 text-xs text-emerald-300/80">
+              <div className="mt-6 flex items-center gap-2 text-xs text-[var(--color-success)] opacity-80">
                 <Zap size={12} /> Sized for sustainable progress
               </div>
             </div>
@@ -138,51 +146,57 @@ export function HowItWorks() {
         </section>
 
         {/* What You Receive Artifacts */}
-        <section className="border-t border-white/5 bg-[#090A0F]/40 py-20">
+        <section className="border-t border-[var(--color-border)] bg-[var(--color-surface-1)]/40 py-20">
           <div className="mx-auto max-w-7xl px-5 sm:px-8 md:px-12">
             <div className="mb-14 text-center">
-              <span className="font-display text-xs font-bold uppercase tracking-[0.25em] text-cyan-400">
+              <span className="font-display text-xs font-bold uppercase tracking-[0.25em] text-[var(--color-accent)]">
                 Synthesis Output
               </span>
-              <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-[var(--color-text-1)] sm:text-4xl">
                 What You Receive
               </h2>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <div className="glass-panel rounded-2xl p-6">
-                <BrainCircuit className="mb-4 text-cyan-400" size={24} />
-                <h4 className="font-display text-base font-bold text-white">Archetype Synthesis</h4>
-                <p className="mt-2 text-xs leading-relaxed text-slate-400">
+                <BrainCircuit className="mb-4 text-[var(--color-accent)]" size={24} />
+                <h4 className="font-display text-base font-bold text-[var(--color-text-1)]">
+                  Archetype Synthesis
+                </h4>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-3)]">
                   A high-level thematic title and synthesis of your current mindset and core
                   leverage points.
                 </p>
               </div>
 
               <div className="glass-panel rounded-2xl p-6">
-                <Route className="mb-4 text-violet-400" size={24} />
-                <h4 className="font-display text-base font-bold text-white">
+                <Route className="mb-4 text-[var(--color-violet)]" size={24} />
+                <h4 className="font-display text-base font-bold text-[var(--color-text-1)]">
                   Trajectory Comparison
                 </h4>
-                <p className="mt-2 text-xs leading-relaxed text-slate-400">
+                <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-3)]">
                   Side-by-side comparative views of where momentum leads versus where deliberate
                   action leads.
                 </p>
               </div>
 
               <div className="glass-panel rounded-2xl p-6">
-                <FileText className="mb-4 text-amber-400" size={24} />
-                <h4 className="font-display text-base font-bold text-white">Future Letter</h4>
-                <p className="mt-2 text-xs leading-relaxed text-slate-400">
+                <FileText className="mb-4 text-[var(--color-warning)]" size={24} />
+                <h4 className="font-display text-base font-bold text-[var(--color-text-1)]">
+                  Future Letter
+                </h4>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-3)]">
                   An editorial, literary narrative addressing you from the vantage point of your
                   intentional future self.
                 </p>
               </div>
 
               <div className="glass-panel rounded-2xl p-6">
-                <Calendar className="mb-4 text-emerald-400" size={24} />
-                <h4 className="font-display text-base font-bold text-white">Action Protocols</h4>
-                <p className="mt-2 text-xs leading-relaxed text-slate-400">
+                <Calendar className="mb-4 text-[var(--color-success)]" size={24} />
+                <h4 className="font-display text-base font-bold text-[var(--color-text-1)]">
+                  Action Protocols
+                </h4>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-3)]">
                   Concrete daily routines, focus skills to develop, and a structured
                   anti-procrastination trigger.
                 </p>
@@ -193,50 +207,59 @@ export function HowItWorks() {
 
         {/* AI Boundaries Callout */}
         <section className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
-          <div className="glass-panel-strong rounded-3xl border border-cyan-400/20 p-8 sm:p-12">
+          <div className="glass-panel-strong rounded-3xl border border-[var(--color-accent)]/20 p-8 sm:p-12">
             <div className="flex items-center gap-3">
-              <Sparkles className="text-cyan-400" size={24} />
-              <h3 className="font-display text-2xl font-bold text-white">
+              <Sparkles className="text-[var(--color-accent)]" size={24} />
+              <h3 className="font-display text-2xl font-bold text-[var(--color-text-1)]">
                 What AI Does & Does Not Do
               </h3>
             </div>
 
             <div className="mt-8 grid gap-8 md:grid-cols-2">
               <div className="space-y-3">
-                <h4 className="font-display text-sm font-bold uppercase tracking-wider text-cyan-300">
+                <h4 className="font-display text-sm font-bold uppercase tracking-wider text-[var(--color-accent)]">
                   What AI Does
                 </h4>
-                <ul className="space-y-2.5 text-sm text-slate-300">
+                <ul className="space-y-2.5 text-sm text-[var(--color-text-2)]">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-cyan-400" />
+                    <CheckCircle2
+                      size={16}
+                      className="mt-0.5 shrink-0 text-[var(--color-accent)]"
+                    />
                     <span>Synthesizes recurring behavioral patterns across your 8 answers</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-cyan-400" />
+                    <CheckCircle2
+                      size={16}
+                      className="mt-0.5 shrink-0 text-[var(--color-accent)]"
+                    />
                     <span>Constructs structured, illustrative future scenarios</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-cyan-400" />
+                    <CheckCircle2
+                      size={16}
+                      className="mt-0.5 shrink-0 text-[var(--color-accent)]"
+                    />
                     <span>Suggests small, testable habit experiments</span>
                   </li>
                 </ul>
               </div>
 
               <div className="space-y-3">
-                <h4 className="font-display text-sm font-bold uppercase tracking-wider text-red-300">
+                <h4 className="font-display text-sm font-bold uppercase tracking-wider text-[var(--color-danger)]">
                   What AI Does Not Do
                 </h4>
-                <ul className="space-y-2.5 text-sm text-slate-300">
+                <ul className="space-y-2.5 text-sm text-[var(--color-text-2)]">
                   <li className="flex items-start gap-2">
-                    <span className="mt-0.5 font-bold text-red-400">✕</span>
+                    <span className="mt-0.5 font-bold text-[var(--color-danger)]">✕</span>
                     <span>Does not provide clinical psychological diagnosis or therapy</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="mt-0.5 font-bold text-red-400">✕</span>
+                    <span className="mt-0.5 font-bold text-[var(--color-danger)]">✕</span>
                     <span>Does not claim absolute prophecy or deterministic futures</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="mt-0.5 font-bold text-red-400">✕</span>
+                    <span className="mt-0.5 font-bold text-[var(--color-danger)]">✕</span>
                     <span>
                       Uses stateless Gemini requests and does not train an application model
                     </span>
@@ -250,7 +273,7 @@ export function HowItWorks() {
         {/* FAQ Accordion */}
         <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
           <div className="mb-10 text-center">
-            <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">
+            <h2 className="font-display text-2xl font-bold text-[var(--color-text-1)] sm:text-3xl">
               Frequently Asked Questions
             </h2>
           </div>
@@ -261,24 +284,26 @@ export function HowItWorks() {
               return (
                 <div
                   key={faq.q}
-                  className="glass-panel overflow-hidden rounded-2xl border border-white/10 transition"
+                  className="glass-panel overflow-hidden rounded-2xl border border-[var(--color-border)] transition"
                 >
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="flex w-full items-center justify-between p-5 text-left font-display text-base font-semibold text-white transition hover:text-cyan-300"
+                    className="flex w-full items-center justify-between p-5 text-left font-display text-base font-semibold text-[var(--color-text-1)] transition hover:text-[var(--color-accent)]"
                     aria-expanded={isOpen}
                   >
                     <span>{faq.q}</span>
                     <ChevronDown
                       size={18}
                       className={`shrink-0 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 text-cyan-400' : 'text-slate-500'
+                        isOpen
+                          ? 'rotate-180 text-[var(--color-accent)]'
+                          : 'text-[var(--color-text-3)]'
                       }`}
                     />
                   </button>
                   {isOpen ? (
-                    <div className="border-t border-white/5 px-5 pb-5 pt-2 text-sm leading-relaxed text-slate-400">
+                    <div className="border-t border-[var(--color-border)] px-5 pb-5 pt-2 text-sm leading-relaxed text-[var(--color-text-3)]">
                       {faq.a}
                     </div>
                   ) : null}

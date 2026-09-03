@@ -1,4 +1,4 @@
-import {ArrowRight, Eye, Lock, ShieldCheck, Sparkles, Zap} from 'lucide-react';
+import {ArrowRight, BrainCircuit, Eye, Lock, ShieldCheck, Sparkles, Zap} from 'lucide-react';
 import {motion, useReducedMotion} from 'motion/react';
 import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
@@ -69,9 +69,15 @@ export function Landing() {
               </Link>
             </div>
 
-            <p className="mt-8 flex items-center justify-center gap-2 text-xs text-slate-400 light:text-slate-600">
-              <Lock size={13} className="text-cyan-400/80 light:text-cyan-700" /> Personalized
-              analysis is private to your account & protected by App Check.
+            <p className="mx-auto mt-8 flex max-w-md items-start justify-center gap-1.5 text-center text-xs text-slate-400 light:text-slate-600 sm:items-center">
+              <Lock
+                aria-hidden="true"
+                size={13}
+                className="mt-0.5 shrink-0 text-cyan-400/80 light:text-cyan-700 sm:mt-0"
+              />
+              <span>
+                Personalized analysis is private to your account & protected by App Check.
+              </span>
             </p>
           </motion.div>
         </section>
@@ -149,8 +155,12 @@ export function Landing() {
         </section>
 
         {/* 3-Step Philosophy */}
-        <section id="philosophy" className="mx-auto max-w-6xl px-5 py-20 sm:px-8 md:px-10">
-          <div className="grid gap-6 md:grid-cols-3">
+        <section id="philosophy" className="relative mx-auto max-w-6xl px-5 py-20 sm:px-8 md:px-10">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-0 -z-10 h-72 w-[min(82vw,56rem)] -translate-x-1/2 rounded-full bg-cyan-500/5 blur-[120px] light:bg-cyan-500/10"
+          />
+          <div className="relative grid gap-6 md:grid-cols-3">
             {[
               {
                 num: '01',
@@ -199,6 +209,71 @@ export function Landing() {
                 Read our full privacy boundaries
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* AI Boundary Callout */}
+        <section
+          aria-labelledby="ai-boundary-title"
+          className="mx-auto max-w-4xl px-5 py-10 sm:px-8"
+        >
+          <div className="flex flex-col items-start gap-5 rounded-3xl border border-violet-400/20 bg-violet-400/5 p-7 sm:flex-row sm:p-9">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-violet-400/25 bg-violet-400/10 text-violet-300 light:text-violet-800">
+              <BrainCircuit aria-hidden="true" size={21} />
+            </div>
+            <div>
+              <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-violet-300 light:text-violet-800">
+                AI Boundaries
+              </span>
+              <h2
+                id="ai-boundary-title"
+                className="mt-2 font-display text-xl font-bold text-white light:text-slate-950 sm:text-2xl"
+              >
+                Reflection guidance, never a verdict.
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-300 light:text-slate-700">
+                Becoming maps patterns in the words you choose to share. It does not diagnose,
+                predict your future, or replace qualified health, legal, or financial support.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Final Conversion CTA */}
+        <section
+          aria-labelledby="final-cta-title"
+          className="relative overflow-hidden px-5 py-20 text-center sm:px-8 sm:py-24"
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-72 w-[min(90vw,64rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-500/10 blur-[120px] light:bg-violet-400/10"
+          />
+          <div className="mx-auto max-w-3xl">
+            <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-cyan-400 light:text-cyan-800">
+              Begin Intentionally
+            </span>
+            <h2
+              id="final-cta-title"
+              className="mt-4 text-3xl font-extralight tracking-tight text-white light:text-slate-950 sm:text-5xl"
+            >
+              Your future self is built in{' '}
+              <span className="font-serif italic text-white/80 light:text-slate-700">
+                small, daily choices.
+              </span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-slate-300 light:text-slate-700">
+              Take a quiet moment, answer honestly, and leave with one direction you can act on
+              today.
+            </p>
+            <button
+              type="button"
+              className="primary-button mt-9 min-w-64"
+              disabled={!authReady}
+              onClick={handlePrimaryCTA}
+            >
+              <span>{user ? 'Continue Your Journey' : 'Start Your First Reflection'}</span>
+              <ArrowRight aria-hidden="true" size={15} />
+            </button>
           </div>
         </section>
       </main>

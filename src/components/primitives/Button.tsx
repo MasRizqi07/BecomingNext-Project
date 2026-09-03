@@ -50,11 +50,11 @@ export function Button({
       break;
     case 'link':
       baseClass =
-        'inline-flex items-center gap-1.5 p-0 font-sans text-sm font-medium text-[var(--color-accent)] underline-offset-4 hover:underline hover:text-cyan-200 focus-visible:outline-2 focus-visible:outline-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-40 disabled:no-underline';
+        'inline-flex items-center gap-1.5 p-0 font-sans text-sm font-medium text-[var(--color-accent)] underline-offset-4 hover:underline hover:text-[var(--color-accent-strong)] focus-visible:outline-2 focus-visible:outline-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-40 disabled:no-underline';
       break;
     case 'pill':
       baseClass =
-        'inline-flex min-h-9 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 font-display text-[10px] font-semibold uppercase tracking-[0.18em] text-white/80 transition hover:border-cyan-400/40 hover:bg-white/10 hover:text-white disabled:opacity-40';
+        'inline-flex min-h-9 items-center justify-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] px-4 py-1.5 font-display text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-2)] transition hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-surface-3)] hover:text-[var(--color-text-1)] disabled:opacity-40';
       break;
   }
 

@@ -24,7 +24,7 @@ export function AppHeader({backTo}: {backTo?: string}) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/8 bg-[var(--color-canvas)]/85 backdrop-blur-xl transition-all light:border-black/10">
+    <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-canvas)]/85 backdrop-blur-xl transition-all">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-8 md:px-12">
         {/* Left: Back / Brand */}
         <div className="flex items-center gap-4 sm:gap-6">
@@ -39,7 +39,7 @@ export function AppHeader({backTo}: {backTo?: string}) {
             aria-label="Becoming Dashboard"
           >
             <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_var(--color-accent-strong)]" />
-            <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-white light:text-slate-950">
+            <span className="font-display text-xs font-bold uppercase tracking-[0.35em] text-[var(--color-text-1)]">
               Becoming.
             </span>
           </Link>
@@ -56,17 +56,13 @@ export function AppHeader({backTo}: {backTo?: string}) {
                 aria-current={isActive ? 'page' : undefined}
                 className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 font-display text-xs font-semibold tracking-wider transition ${
                   isActive
-                    ? 'bg-white/10 text-cyan-300 shadow-xs light:bg-black/5 light:text-cyan-800'
-                    : 'text-white/60 hover:bg-white/5 hover:text-white light:text-slate-600 light:hover:bg-black/5 light:hover:text-slate-950'
+                    ? 'bg-[var(--color-surface-3)] text-[var(--color-accent)] shadow-xs'
+                    : 'text-[var(--color-text-3)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text-1)]'
                 }`}
               >
                 <item.icon
                   size={14}
-                  className={
-                    isActive
-                      ? 'text-cyan-300 light:text-cyan-800'
-                      : 'text-white/50 light:text-slate-500'
-                  }
+                  className={isActive ? 'text-[var(--color-accent)]' : 'text-[var(--color-text-3)]'}
                 />
                 <span>{item.label}</span>
               </Link>
@@ -87,7 +83,7 @@ export function AppHeader({backTo}: {backTo?: string}) {
           </Link>
 
           <button
-            className="icon-button h-9 w-9 text-white/60 hover:text-red-300 light:text-slate-600 light:hover:text-red-700 sm:h-10 sm:w-10"
+            className="icon-button h-9 w-9 text-[var(--color-text-3)] hover:text-[var(--color-danger)] sm:h-10 sm:w-10"
             type="button"
             aria-label="Sign out"
             onClick={() => void handleSignOut()}
@@ -99,11 +95,11 @@ export function AppHeader({backTo}: {backTo?: string}) {
             <img
               src={user.photoURL}
               alt="User avatar"
-              className="h-8 w-8 rounded-full border border-white/15 object-cover light:border-black/15"
+              className="h-8 w-8 rounded-full border border-[var(--color-border)] object-cover"
             />
           ) : (
             <div
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 font-display text-xs font-bold text-cyan-300 light:border-cyan-800/30 light:bg-cyan-800/10 light:text-cyan-900"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 font-display text-xs font-bold text-[var(--color-accent)]"
               role="img"
               aria-label="User avatar"
             >

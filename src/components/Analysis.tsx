@@ -124,16 +124,18 @@ export function Analysis() {
           <motion.div
             initial={prefersReducedMotion ? false : {opacity: 0, scale: 0.95}}
             animate={{opacity: 1, scale: 1}}
-            className="glass-panel-strong max-w-lg rounded-3xl p-8 sm:p-10 text-center border border-red-400/20"
+            className="glass-panel-strong max-w-lg rounded-3xl p-8 sm:p-10 text-center border border-[var(--color-danger)]/20"
             role="alert"
           >
-            <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-red-400/30 bg-red-400/10 text-red-300">
+            <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 text-[var(--color-danger)]">
               <AlertCircle size={28} />
             </div>
 
-            <h1 className="font-display text-2xl font-bold text-white">Synthesis Paused</h1>
-            <p className="mt-3 text-sm leading-relaxed text-slate-300">{error}</p>
-            <p className="mt-2 text-xs text-slate-400 light:text-slate-600">
+            <h1 className="font-display text-2xl font-bold text-[var(--color-text-1)]">
+              Synthesis Paused
+            </h1>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-2)]">{error}</p>
+            <p className="mt-2 text-xs text-[var(--color-text-3)]">
               Your reflection answers remain safely stored in your session.
             </p>
 
@@ -156,7 +158,7 @@ export function Analysis() {
             <OrbVisualizer size="lg" />
 
             <div className="space-y-3">
-              <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-cyan-400">
+              <span className="font-display text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-accent)]">
                 Synthesizing Trajectories
               </span>
 
@@ -167,7 +169,7 @@ export function Analysis() {
                   animate={{opacity: 1, y: 0}}
                   exit={{opacity: 0, y: -6}}
                   transition={{duration: 0.3}}
-                  className="font-display text-2xl font-light italic tracking-tight sm:text-3xl text-white"
+                  className="font-display text-2xl font-light italic tracking-tight sm:text-3xl text-[var(--color-text-1)]"
                 >
                   {STEPS[currentStep]}
                 </motion.h1>
@@ -181,16 +183,16 @@ export function Analysis() {
                   key={step}
                   className={`h-1 rounded-full transition-all duration-300 ${
                     index === currentStep
-                      ? 'w-10 bg-cyan-400'
+                      ? 'w-10 bg-[var(--color-accent)]'
                       : index < currentStep
-                        ? 'w-4 bg-cyan-400/40'
-                        : 'w-2 bg-white/10'
+                        ? 'w-4 bg-[var(--color-accent)]/40'
+                        : 'w-2 bg-[var(--color-surface-3)]'
                   }`}
                 />
               ))}
             </div>
 
-            <p className="mx-auto max-w-sm text-xs leading-relaxed text-slate-400 light:text-slate-600">
+            <p className="mx-auto max-w-sm text-xs leading-relaxed text-[var(--color-text-3)]">
               Your request is idempotent. You can safely keep this tab open or navigate away; your
               analysis will be waiting in your history.
             </p>

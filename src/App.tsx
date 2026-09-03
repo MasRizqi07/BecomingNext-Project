@@ -33,7 +33,7 @@ function PageLoading() {
     <div className="flex min-h-screen items-center justify-center px-6" role="status">
       <div className="space-y-4 text-center">
         <div className="mx-auto h-8 w-8 animate-spin rounded-full border border-cyan-400/20 border-t-cyan-400" />
-        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-white/50">
+        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-3)]">
           Preparing your space
         </p>
       </div>

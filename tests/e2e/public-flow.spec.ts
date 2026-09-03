@@ -25,6 +25,10 @@ test('landing page communicates the product and exposes a safe demo', async ({pa
   await expect(page.getByRole('heading', {name: /future version/i})).toBeVisible();
   await expect(page.getByRole('link', {name: /view a safe demo/i})).toBeVisible();
   await expect(page.getByRole('button', {name: /start reflection/i})).toBeEnabled();
+  await expect(
+    page.getByRole('heading', {name: /reflection guidance, never a verdict/i}),
+  ).toBeVisible();
+  await expect(page.getByRole('button', {name: /start your first reflection/i})).toBeEnabled();
   await waitForBrowserPaint(page);
 
   const accessibility = await new AxeBuilder({page}).withTags(['wcag2a', 'wcag2aa']).analyze();
@@ -46,10 +50,56 @@ test('theme preference switches, persists, and remains accessible in light mode'
   const lightAccessibility = await new AxeBuilder({page}).withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(lightAccessibility.violations).toEqual([]);
 
+  await page.goto('/demo');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await expect(page.getByText('The Quiet Builder', {exact: true})).toBeVisible();
+  const lightDemoAccessibility = await new AxeBuilder({page})
+    .withTags(['wcag2a', 'wcag2aa'])
+    .analyze();
+  expect(lightDemoAccessibility.violations).toEqual([]);
+
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await page.getByRole('button', {name: 'Switch to dark mode'}).first().click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+});
+
+test('mobile result labels stay in bounds and Plan reaches Active Protocols', async ({page}) => {
+  await page.setViewportSize({width: 390, height: 844});
+  await page.goto('/demo');
+  await expect(page.getByText('The Quiet Builder', {exact: true})).toBeVisible();
+
+  const viewport = page.viewportSize();
+  expect(viewport).not.toBeNull();
+  const chartBounds = await page.locator('svg.recharts-surface').first().boundingBox();
+  expect(chartBounds, 'radar chart must have layout bounds').not.toBeNull();
+  for (const label of ['Execution', 'Consistency']) {
+    const tick = page.locator('svg.recharts-surface text').filter({hasText: label}).first();
+    await expect(tick).toBeVisible();
+    const bounds = await tick.boundingBox();
+    expect(bounds, `${label} radar label must have layout bounds`).not.toBeNull();
+    expect(bounds!.x, `${label} must not clip the left viewport edge`).toBeGreaterThanOrEqual(0);
+    expect(
+      bounds!.x + bounds!.width,
+      `${label} must not clip the right viewport edge`,
+    ).toBeLessThanOrEqual(viewport!.width);
+    expect(bounds!.x, `${label} must not clip the chart's left edge`).toBeGreaterThanOrEqual(
+      chartBounds!.x,
+    );
+    expect(
+      bounds!.x + bounds!.width,
+      `${label} must not clip the chart's right edge`,
+    ).toBeLessThanOrEqual(chartBounds!.x + chartBounds!.width);
+  }
+
+  const mobileNav = page.getByRole('navigation', {name: /mobile section navigation/i});
+  const initialScroll = await page.evaluate(() => window.scrollY);
+  await mobileNav.getByRole('button', {name: 'Plan'}).click();
+  await expect(page.locator('#protocols')).toBeInViewport({ratio: 0.1});
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(initialScroll);
+  expect(
+    parseFloat(await mobileNav.evaluate((node) => getComputedStyle(node).paddingBottom)),
+  ).toBeGreaterThanOrEqual(10);
 });
 
 test('demo result is complete and all public actions are reachable', async ({page}) => {
